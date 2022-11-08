@@ -1,5 +1,9 @@
 #  Transforms
 
+Transforming objects during render
+
+## Overview
+
 Transforms are specific to this implementation of Mustache. They are similar to Lambdas but instead of generating rendered text they allow you to transform an object into another. Transforms are formatted as a function call inside a tag eg
 ```
 {{uppercase(string)}}

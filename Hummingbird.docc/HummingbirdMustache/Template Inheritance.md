@@ -1,5 +1,9 @@
 #  Template Inheritance
 
+Template inheritance is not part of the Mustache spec yet but it is a commonly implemented feature.
+
+## Overview
+
 Template inheritance is not part of the Mustache spec yet but it is a commonly implemented feature. Template inheritance allows you to override elements of an included partial. It allows you to create a base page template and override elements of it with your page content. A partial that includes overriding elements is indicated with a `{{<partial}}`. Note this is different from the normal partial reference which uses `>`. This is a section tag so needs a ending tag as well. Inside the section the tagged sections to override are added using the syntax `{{$tag}}contents{{/tag}}`. If your template and partial were as follows
 ```
 {{! mypage.mustache }}

@@ -46,12 +46,39 @@ You can now access your mustache templates via `HBRequest` eg `HBRequest.mustach
 
 Hummingbird Mustache supports all standard Mustache tags and is fully compliant with the Mustache [spec](https://github.com/mustache/spec) with the exception of the Lambda support.  
 
-## Additional features
+## Topics
 
-- [Lambda Implementation](https://hummingbird-project.github.io/hummingbird/current/hummingbird-mustache/lambdas.html)
+### Additional Features
+
 - <doc:Lambdas>
-- [Template Inheritance](https://hummingbird-project.github.io/hummingbird/current/hummingbird-mustache/template-inheritance.html)
-- [Pragmas](https://hummingbird-project.github.io/hummingbird/current/hummingbird-mustache/pragmas.html)
+- <doc:Pragmas>
+- <doc:Template%20Inheritance>
+- <doc:Transforms>
+
+### Articles
+
+- <doc:Mustache%20Syntax>
+
+### Template Library
+
+- ``HBMustacheLibrary``
+- ``HBMustacheTemplate``
+
+### Rendering
+
+- ``HBMustacheCustomRenderable``
+- ``HBMustacheParent``
+- ``HBMustacheTransformable``
+- ``HBMustacheLambda``
+
+### Content Types
+
+- ``HBMustacheContentType``
+- ``HBMustacheContentTypes``
+
+### Miscellaneous
+
+- ``HBParser``
 
 ## See Also
 

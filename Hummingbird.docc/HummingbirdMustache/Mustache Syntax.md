@@ -1,5 +1,9 @@
 # Mustache Syntax
 
+Overview of Mustache Syntax
+
+## Overview
+
 Mustache is a "logic-less" templating engine. The core language has no flow control statements. Instead it has tags that can be replaced with a value, nothing or a series of values. Below we document all the standard tags
 
 ## Context

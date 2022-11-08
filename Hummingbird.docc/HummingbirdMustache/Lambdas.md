@@ -1,5 +1,9 @@
 # Lambdas
 
+Hummingbird Mustache Lambda implementation
+
+## Overview
+
 The library doesn't provide a lambda implementation but it does provide something akin to the lambda feature. 
 
 Add a `HBMustacheLambda` to the object you want to be rendered and it can be used in a similar way to lambdas are used in Mustache. When you create a section referencing the lambda the contents of the section are passed as a template along with the current object to the lamdba function. This is slightly different from the standard implementation where the unprocessed text is passed to the lambda. 
