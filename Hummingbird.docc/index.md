@@ -49,9 +49,10 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 
 ## See Also
 
+- ``HummingbirdCore``
 - ``HummingbirdAuth``
 - ``HummingbirdCompression``
-- ``HummingbirdCore``
+- ``HummingbirdFoundation``
+- ``HummingbirdJobs``
 - ``HummingbirdLambda``
-- ``HummingbirdMustache``
 - ``HummingbirdWebSocket``
