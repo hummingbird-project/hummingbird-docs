@@ -21,17 +21,6 @@ app.wait()
 
 ## Topics
 
-### Frameworks
-
-- ``HummingbirdAuth``
-- ``HummingbirdCompression``
-- ``HummingbirdCore``
-- ``HummingbirdFoundation``
-- ``HummingbirdJobs``
-- ``HummingbirdLambda``
-- ``HummingbirdMustache``
-- ``HummingbirdWebSocket``
-
 ### Articles
 
 - <doc:Encoding%20and%20Decoding>
@@ -110,3 +99,13 @@ app.wait()
 - ``HBEnvironment``
 - ``HBDateCache``
 - ``HBParser``
+
+## See Also
+
+- ``HummingbirdCore``
+- ``HummingbirdAuth``
+- ``HummingbirdCompression``
+- ``HummingbirdFoundation``
+- ``HummingbirdJobs``
+- ``HummingbirdLambda``
+- ``HummingbirdWebSocket``
