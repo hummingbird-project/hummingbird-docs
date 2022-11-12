@@ -11,6 +11,8 @@ cleanup()
 }
 trap cleanup exit $?
 
+#DOCC=$(xcrun --find docc)
+DOCC=docc
 VERSION=
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
@@ -39,12 +41,13 @@ if test "$BUILD_SYMBOLS" == 1; then
     # Copy Hummingbird symbol graph into separate folder
     mkdir -p $HB_SG_FOLDER
     cp $SG_FOLDER/Hummingbird* $HB_SG_FOLDER
+    #rm $HB_SG_FOLDER/*@*
 fi
 
 # Build documentation
 mkdir -p $OUTPUT_PATH
 rm -rf $OUTPUT_PATH/*
-docc convert Hummingbird.docc \
+$DOCC convert Hummingbird.docc \
     --transform-for-static-hosting \
     --hosting-base-path /$VERSION \
     --fallback-display-name Hummingbird \

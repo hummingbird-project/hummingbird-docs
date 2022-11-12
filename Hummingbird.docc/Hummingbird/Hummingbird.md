@@ -33,6 +33,11 @@ app.wait()
 
 - ``HBApplication``
 
+### Application configuration
+
+- ``HBBindAddress``
+- ``TSTLSOptions``
+
 ### Router
 
 - ``HBRouter``
@@ -55,6 +60,19 @@ app.wait()
 - ``HBRequestContext``
 - ``HTTPHeadersPatch``
 - ``HBResponse``
+- ``HBRequestBody``
+- ``HBResponseBody``
+- ``HBStreamerProtocol``
+- ``HBStreamerOutput``
+- ``HBResponseBodyStreamer``
+
+### Request/Response Streaming
+
+
+### Errors
+
+- ``HBHTTPError``
+- ``HBHTTPResponseError``
 
 ### Encoding/Decoding
 
@@ -99,6 +117,22 @@ app.wait()
 - ``HBEnvironment``
 - ``HBDateCache``
 - ``HBParser``
+
+### NIOCore Symbols
+
+- ``ByteBuffer``
+- ``ByteBufferAllocator``
+- ``EventLoop``
+- ``EventLoopGroup``
+- ``EventLoopFuture``
+- ``SocketAddress``
+- ``TimeAmount``
+
+### NIOHTTP1 Symbols
+
+- ``HTTPHeaders``
+- ``HTTPMethod``
+- ``HTTPResponseStatus``
 
 ## See Also
 
