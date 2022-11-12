@@ -1,3 +1,3 @@
 # hummingbird-docs
 
-A description of this package.
+Project setup to create documentation for Hummingbird using swift-docc
