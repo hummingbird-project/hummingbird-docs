@@ -32,6 +32,7 @@ app.wait()
 ### Application
 
 - ``HBApplication``
+- ``ServiceLifecycleProvider``
 
 ### Router
 
@@ -96,6 +97,7 @@ app.wait()
 
 ### Miscellaneous
 
+- ``FlatDictionary``
 - ``HBEnvironment``
 - ``HBDateCache``
 - ``HBParser``
