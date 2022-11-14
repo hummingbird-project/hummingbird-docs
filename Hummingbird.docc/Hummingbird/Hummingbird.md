@@ -127,3 +127,4 @@ app.wait()
 - ``HummingbirdJobs``
 - ``HummingbirdLambda``
 - ``HummingbirdWebSocket``
+- ``HummingbirdXCT``
