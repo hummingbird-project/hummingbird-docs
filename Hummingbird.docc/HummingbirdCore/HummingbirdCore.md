@@ -86,3 +86,5 @@ lifecycle.wait()
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdHTTP2``
+- ``HummingbirdTLS``
