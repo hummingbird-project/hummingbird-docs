@@ -69,7 +69,6 @@ lifecycle.wait()
 - ``HBByteBufferStreamer``
 - ``HBStreamerProtocol``
 - ``HBRequestBodyStreamerSequence``
-- ``HBStreamCallback``
 - ``HBStreamerOutput``
 
 ### Response
@@ -77,6 +76,7 @@ lifecycle.wait()
 - ``HBHTTPResponse``
 - ``HBResponseBody``
 - ``HBResponseBodyStreamer``
+- ``HBStreamCallback``
 
 ### Errors
 

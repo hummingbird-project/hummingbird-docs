@@ -4,7 +4,7 @@ Add TLS support to Hummingbird server
 
 ## Overview
 
-HummingbirdTLS adds a single function ``addTLS(tlsConfiguration:)`` to ``HummingbirdCore/HBHTTPServer``. Setting up a server with TLS is simple as passing a NIOSSL `TLSConfiguration` struct to the server.
+HummingbirdTLS adds a single function `addTLS(tlsConfiguration:)` to ``HummingbirdCore/HBHTTPServer``. Setting up a server with TLS is simple as passing a NIOSSL `TLSConfiguration` struct to the server.
 
 ```swift
 // Load certificates and private key to construct server TLS configuration
