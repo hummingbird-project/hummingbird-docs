@@ -23,3 +23,13 @@ let authenticationURL = totp.createAuthenticatorURL(label: "MyURL")
 ```
 
 Generally this is provided to the user via a QR Code. Most phones will automatically open up an Authenticator app to store the URL when they scan the QR Code.
+
+## Authenticating
+
+Compute the time based one time password as follows 
+
+```swift
+let password = TOTP(secret: sharedSecret).compute()
+```
+
+Compare it with the password provided by the user to verify the user credentials.
