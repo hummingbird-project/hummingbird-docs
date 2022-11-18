@@ -9,6 +9,7 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 ### Articles
 
 - <doc:Authenticators>
+- <doc:Sessions>
 - <doc:One%20Time%20Passwords>
 
 ### Authenticators
@@ -26,6 +27,12 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 ### Encryption
 
 - ``Bcrypt``
+
+### Sessions
+
+- ``SessionManager``
+- ``HBSessionAuthenticator``
+- ``HBAsyncSessionAuthenticator``
 
 ### OTP
 

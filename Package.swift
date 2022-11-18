@@ -16,12 +16,12 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", .upToNextMajor(from: "0.1.0")),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", .upToNextMajor(from: "0.1.0")),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", .upToNextMajor(from: "0.1.0")),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", .upToNextMajor(from: "0.1.0")),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", .upToNextMajor(from: "0.1.0")),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", from: "1.0.0-alpha.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "1.0.0-alpha.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0-alpha.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "1.0.0-alpha.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "1.0.0-alpha.1"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [

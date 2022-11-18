@@ -60,7 +60,7 @@ Or you can use `request.requireAuth` to access the authentication data. In both 
 
 ## See Also
 
-- ``HBAuthenticator``
-- ``HBAsyncAuthenticator``
-- ``HBAUthenticable``
-- ``IsAuthenticatedMiddleware``
+- ``HummingbirdAuth/HBAuthenticator``
+- ``HummingbirdAuth/HBAsyncAuthenticator``
+- ``HummingbirdAuth/HBAuthenticatable``
+- ``HummingbirdAuth/IsAuthenticatedMiddleware``
