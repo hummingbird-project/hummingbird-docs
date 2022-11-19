@@ -1,6 +1,6 @@
 # One Time Passwords
 
-A one time passwords (OTP) valid for only one login session. 
+A one time password (OTP) valid for only one login session. 
 
 ## Overview
 
