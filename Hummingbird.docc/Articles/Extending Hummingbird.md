@@ -2,7 +2,7 @@
 
 How to extend core types of Hummingbird
 
-The `HBApplication`, `HBRequest` and `HBResponse` classes all contain an `HBExtensions` object that allows you to extend these classes with your own objects. The extension objects are stored in a dictionary with a KeyPath as their key. 
+The `HBApplication` and `HBRequest` types both contain an `HBExtensions` object that allows you to extend them with your own objects. The extension objects are stored in a dictionary with a KeyPath as their key. 
 
 ```swift
 extension HBApplication {
@@ -12,9 +12,18 @@ extension HBApplication {
     }
 }
 ```
-The code above adds the member variable `myExt` to the `HBApplication` class. I use the `KeyPath` to the variable as the key. While it would be possible to use another `KeyPath` as the key it doesn't really make sense. 
+The code above adds the member variable `myExt` to the `HBApplication` class. I use the `KeyPath` to the variable as the key. While it would be possible to use another `KeyPath` as the key in most situations it doesn't really make sense. 
 
-In the example above the member variable is an optional, to ensure you will always get a valid value when referencing `HBApplication.myExt`. You can set the variable to be non-optional but you will have to ensure you set the variable before ever accessing it, otherwise your application will crash.
+In the example above the member variable is an optional, to ensure you will always get a valid value when referencing `HBApplication.myExt`. You can set the variable to be non-optional but you will have to ensure you set the variable before ever accessing it, otherwise your application will crash. You can add an error message to be displayed if a variable is accessed before being set.
+
+```swift
+extension HBApplication {
+    public var myExt: String? {
+        get { self.extensions.get(\.myExt, error: "Cannot access myExt before setting it.") }
+        set { self.extensions.set(\.myExt, value: newValue) }
+    }
+}
+```
 
 For extensions to `HBApplication` you also get the added bonus of being able to add a shutdown call for when the application is shutdown. In the example below we have extended `HBApplication` to include a `AWSClient` from the package [`Soto`](https://github.com/soto-project/soto). It is required you shutdown the client before it is deleted. The extension shutdown can be used to do this for you.
 
@@ -37,27 +46,7 @@ extension HBApplication {
 }
 ```
 
-Note, I have placed everything inside a containing struct `AWS`, so the KeyPath `\.aws.client` needs to include the name of containing member variable in it as well. 
-
-## Extending EventLoop
-
-In certain situations it can be useful to hold data on a per `EventLoop` basis. You can do this by extending the class `HBApplication.EventLoopStorage`. The class can be extended in the same way as above. You then access the storage either via `HBApplication.eventLoopStorage(for:)` or `HBRequest.eventLoopStorage`. 
-```swift
-extension HBApplication.EventLoopStorage {
-    public var index: Int? {
-        get { self.extensions.get(\.index) }
-        set { self.extensions.set(\.index, value: newValue) }
-    }
-}
-func getIndex(_ request: HBRequest) {
-    let index = request.eventLoopStorage.index
-    ...
-}
-```
-
-This is used by the `DateCache` in `HummingbirdFoundation` and also by the `Redis` interface that can be found [here](https://github.com/hummingbird-project/hummingbird-redis).
-
-## Topics
+Note, In this example I have placed everything inside a containing struct `AWS`, so the KeyPath `\.aws.client` needs to include the name of containing member variable `aws` in it as well. 
 
 ### Reference
 

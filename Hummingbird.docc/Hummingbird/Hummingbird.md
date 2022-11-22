@@ -2,9 +2,9 @@
 
 Lightweight, flexible server framework written in Swift.
 
-``Hummingbird`` is a lightweight, flexible server framework designed to require the minimum number of dependencies: `swift-backtrace`, `swift-log`, `swift-nio`, `swift-nio-extras`, `swift-service-lifecycle` and `swift-metrics` and makes no use of Foundation.
+``Hummingbird`` is a lightweight, flexible server framework designed to require the minimum number of dependencies.
 
-It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server, extending the core ``HBApplication``, ``HBRequest`` and ``HBResponse`` classes and providing custom encoding/decoding of `Codable` objects.
+It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server, extending the core ``HBApplication`` and ``HBRequest`` types and providing custom encoding/decoding of `Codable` objects.
 
 The interface is fairly standard. Anyone who has had experience of Vapor, Express.js etc will recognise most of the APIs. Simple setup is as follows
 
