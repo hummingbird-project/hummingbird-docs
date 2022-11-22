@@ -16,7 +16,7 @@ DOCC=docc
 VERSION=
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
-OUTPUT_PATH=docs/$VERSION
+OUTPUT_PATH=docs/hummingbird-docs/$VERSION
 
 BUILD_SYMBOLS=1
 
@@ -54,4 +54,5 @@ $DOCC convert Hummingbird.docc \
     --fallback-bundle-identifier com.opticalaberration.hummingbird \
     --fallback-bundle-version 1 \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
-    --output-path $OUTPUT_PATH
+    --output-path $OUTPUT_PATH \
+    --hosting-base-path /hummingbird-docs/$VERSION
