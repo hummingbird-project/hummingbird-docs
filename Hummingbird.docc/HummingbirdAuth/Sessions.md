@@ -40,14 +40,18 @@ func login(_ request: HBRequest) async throws -> HTTPResponseStatus {
     return .ok
 }
 ```
-In this example the `userId` is saved with the session id.
+In this example the `userId` is saved with the session id. When you call `session.save` it either adds a session id cookie or header to the response, depending on what you set up in `addSessions`. Because the response is being edited you need to add the option `.editResponse` when adding this method to the router eg
+
+```swift
+app.router.post(options: .editResponse, use: login)
+```
 
 ## Sessions Authentication
 
 To authenticate a user using a session id you need to add a session authenticator to the application. This extracts the session id from the request, gets the associated value for the session id from the key/value store and then converts this associated value into the authenticated user. Most of this work is done for you, but the conversion from session object to user most be provided by the application. To do this create an authenticator middleware that conforms to either ``HummingbirdAuth/HBSessionAuthenticator`` or ``HummingbirdAuth/HBAsyncSessionAuthenticator`` and override the `getValue` function. 
 
 ```swift
-struct MySessionAuthenticator: HBSessionAuthenticator {
+struct MySessionAuthenticator: HBAsyncSessionAuthenticator {
     /// session object
     typealias Session = UUID
     /// authenticated user
@@ -69,5 +73,6 @@ application.router.group()
         _ = try request.authRequire(User.self)
         return .ok
     }
+```
 
 Your route will be able to access the authenticated user via `request.authRequire` or `request.authGet`.
