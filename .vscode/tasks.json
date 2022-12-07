@@ -5,8 +5,17 @@
     "tasks": [
         {
             "label": "Build Documentation",
+            "detail": "Build docc documentation for Hummingbird",
             "type": "shell",
             "command": "./scripts/build-docc.sh",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "Commit Documentation",
+            "detail": "Commit docc documentation to GitHub",
+            "type": "shell",
+            "command": "./scripts/commit-docc.sh",
             "problemMatcher": []
         }
     ]
