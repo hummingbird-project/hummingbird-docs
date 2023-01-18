@@ -36,7 +36,7 @@ app.wait()
 
 ### Router
 
-- ``HBRouter``
+- ``HBRouterBuilder``
 - ``HBRouterGroup``
 - ``HBRouterMethods``
 - ``HBRouterMethodOptions``

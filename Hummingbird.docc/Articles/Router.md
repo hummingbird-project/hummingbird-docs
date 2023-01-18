@@ -140,6 +140,6 @@ application.router.post("test", options: .editResponse) { request -> String in
 
 ### Reference
 
-- ``HBRouter``
+- ``HBRouterBuilder``
 - ``HBRouterGroup``
 - ``HBRouterMethods``
