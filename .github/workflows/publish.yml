@@ -8,6 +8,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container:
+      image: swift:5.7
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -19,7 +21,7 @@ jobs:
         cd Mint
         swift run mint install yonaskolb/mint
         echo "$HOME/.mint/bin" >> $GITHUB_PATH
-    - name: Install Dependencies
+    - name: Build docc
       run: |
         mint install apple/swift-docc@main
     - name: Build
