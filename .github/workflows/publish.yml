@@ -1,7 +1,6 @@
+# Publish Documentation
+
 on:
-  pull_request:
-  release:
-    types: [published]
   workflow_dispatch:
   
 jobs:
