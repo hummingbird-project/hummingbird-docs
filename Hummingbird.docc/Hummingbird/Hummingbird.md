@@ -123,8 +123,10 @@ app.wait()
 - ``HummingbirdCore``
 - ``HummingbirdAuth``
 - ``HummingbirdCompression``
+- ``HummingbirdFluent``
 - ``HummingbirdFoundation``
 - ``HummingbirdJobs``
 - ``HummingbirdLambda``
+- ``HummingbirdRedis``
 - ``HummingbirdWebSocket``
 - ``HummingbirdXCT``

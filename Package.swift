@@ -19,8 +19,10 @@ let package = Package(
         .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "1.0.0-rc.1"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
@@ -37,8 +39,10 @@ let package = Package(
                 .product(name: "HummingbirdXCT", package: "hummingbird"),
                 .product(name: "HummingbirdAuth", package: "hummingbird-auth"),
                 .product(name: "HummingbirdCompression", package: "hummingbird-compression"),
+                .product(name: "HummingbirdFluent", package: "hummingbird-fluent"),
                 .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
                 .product(name: "HummingbirdMustache", package: "hummingbird-mustache"),
+                .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
             ]),
     ]
