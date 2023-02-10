@@ -1,5 +1,5 @@
 on:
-  push:
+  pull_request:
   release:
     types: [published]
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Mint
-      run |
+      run: |
         git clone https://github.com/yonaskolb/Mint.git
         cd Mint
         swift run mint install yonaskolb/mint
