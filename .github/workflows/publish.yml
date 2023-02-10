@@ -20,7 +20,7 @@ jobs:
         git clone https://github.com/yonaskolb/Mint.git
         cd Mint
         swift run mint install yonaskolb/mint
-        echo "$HOME/.mint/bin" >> $GITHUB_PATH
+        echo "/root/.mint/bin" >> $GITHUB_PATH
     - name: Build docc
       run: |
         mint install apple/swift-docc@main
