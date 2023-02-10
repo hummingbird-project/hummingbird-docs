@@ -15,6 +15,10 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+    - name: List folder contents
+      run: |
+        pwd
+        ls -al
     - name: Install Mint
       run: |
         git clone https://github.com/yonaskolb/Mint.git
@@ -36,6 +40,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REMOTE_BRANCH: "gh-pages"
       run: |
+        pwd
+        ls -al
         REMOTE_REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
