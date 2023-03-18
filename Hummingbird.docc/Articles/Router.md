@@ -45,18 +45,84 @@ In addition to `String` `ByteBuffer`, `HTTPResponseStatus` and `Optional` have a
 
 It is also possible to extend `Codable` objects to generate `HBResponses` by conforming these objects to `HBResponseEncodable`. The object will use `HBApplication.encoder` to encode these objects. If an object conforms to `HBResponseEncodable` then also so do arrays of these objects and dictionaries.
 
-### Parameters
+### Wildcards
+
+You can use wildcards to match sections of a path component.
+
+A single `*` will skip one path component
+
+```swift
+app.router.get("/files/*") { request in
+    return request.uri.description
+}
+```
+Will match 
+```
+GET /files/test
+GET /files/test2
+```
+
+A `*` at the start of a route component will match all path components with the same suffix.
+
+```swift
+app.router.get("/files/*.jpg") { request in
+    return request.uri.description
+}
+```
+Will work for 
+```
+GET /files/test.jpg
+GET /files/test2.jpg
+```
+
+A `*` at the end of a route component will match all path components with the same prefix.
+
+```swift
+app.router.get("/files/image.*") { request in
+    return request.uri.description
+}
+```
+Will work for 
+```
+GET /files/image.jpg
+GET /files/image.png
+```
+
+A `**` will match and capture all remaining path components.
+
+```swift
+app.router.get("/files/**") { request in
+    // return catchAll captured string
+    return request.parameters.getCatchAll()
+}
+```
+The above will match routes and respond as follows 
+```
+GET /files/image.jpg returns "image.jpg" in the response body
+GET /files/folder/image.png returns "folder/image.png" in the response body
+```
+
+### Parameter Capture
 
 You can extract parameters out of the URI by prefixing the path with a colon. This indicates that this path section is a parameter. The parameter name is the string following the colon. You can get access to the parameters extracted from the URI with `HBRequest.parameters`. If there are no URI parameters in the path, accessing `HBRequest.parameters` will cause a crash, so don't use it if you haven't specified a parameter in the route path. This example extracts an id from the URI and uses it to return a specific user. so "/user/56" will return user with id 56. 
 
 ```swift
-let app = HBApplication()
 app.router.get("/user/:id") { request in
     let id = request.parameters.get("id", as: Int.self) else { throw HBHTTPError(.badRequest) }
     return getUser(id: id)
 }
 ```
 In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an `HBHTTPError` it will get converted to a valid HTTP response.
+
+You can also extract parameter values from the URI that are prefixes or suffixes of a path component. To indicate you are capturing a prefix or suffix you need to wrap the parameter name in `:` on both sides.
+
+```swift
+app.router.get("/files/:image:.jpg") { request in
+    let imageName = request.parameters.get("image") else { throw HBHTTPError(.badRequest) }
+    return getImage(image: imageName)
+}
+```
+In the example above we match all pathes that are a file with a jpg extension inside the files folder and then call a function with that image name.
 
 ### Groups
 
