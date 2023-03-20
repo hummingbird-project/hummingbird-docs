@@ -11,6 +11,7 @@ REVISION_HASH=$(git rev-parse HEAD)
 rm -rf _docs
 mv docs _docs
 git checkout gh-pages
+git pull
 # copy contents of docs to docs/current replacing the ones that are already there
 rm -rf docs
 mv _docs/hummingbird-docs docs
