@@ -93,7 +93,7 @@ A `**` will match and capture all remaining path components.
 ```swift
 app.router.get("/files/**") { request in
     // return catchAll captured string
-    return request.parameters.getCatchAll()
+    return request.parameters.getCatchAll().joined(separator: "/")
 }
 ```
 The above will match routes and respond as follows 
@@ -114,10 +114,10 @@ app.router.get("/user/:id") { request in
 ```
 In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an `HBHTTPError` it will get converted to a valid HTTP response.
 
-You can also extract parameter values from the URI that are prefixes or suffixes of a path component. To indicate you are capturing a prefix or suffix you need to wrap the parameter name in `:` on both sides.
+The parameter name in your route can also be of the form `${id}`. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
 
 ```swift
-app.router.get("/files/:image:.jpg") { request in
+app.router.get("/files/${image}.jpg") { request in
     let imageName = request.parameters.get("image") else { throw HBHTTPError(.badRequest) }
     return getImage(image: imageName)
 }
