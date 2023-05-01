@@ -22,7 +22,7 @@ git status
 git commit -m "Documentation for https://github.com/hummingbird-project/hummingbird-docs/tree/$REVISION_HASH"
 git push
 # return to branch
-git checkout $CURRENT_BRANCH
+git checkout "$CURRENT_BRANCH"
 
 if [ "$STASH_RESULT" != "No local changes to save" ]; then
     git stash pop

@@ -6,13 +6,13 @@ TEMP_DIR="$(pwd)/temp"
 cleanup()
 {
     if [ -n "$TEMP_DIR" ]; then
-        rm -rf $TEMP_DIR
+        rm -rf "${TEMP_DIR:?}"
     fi
 }
 trap cleanup exit $?
 
-#DOCC=$(xcrun --find docc)
-DOCC=docc
+DOCC=$(xcrun --find docc)
+#DOCC=docc
 VERSION=
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
@@ -24,11 +24,12 @@ while getopts 's' option
 do
     case $option in
         s) BUILD_SYMBOLS=0;;
+        *) echo "Usage build-docc.sh [-s]"; exit 1;
     esac
 done
 
 if [ -z "${DOCC_HTML_DIR:-}" ]; then
-    git clone https://github.com/apple/swift-docc-render-artifact $TEMP_DIR/swift-docc-render-artifact
+    git clone https://github.com/apple/swift-docc-render-artifact "$TEMP_DIR"/swift-docc-render-artifact
      export DOCC_HTML_DIR="$TEMP_DIR/swift-docc-render-artifact/dist"
 fi
 
@@ -46,13 +47,13 @@ fi
 
 # Build documentation
 mkdir -p $OUTPUT_PATH
-rm -rf $OUTPUT_PATH/*
+rm -rf ${OUTPUT_PATH:?}/*
 $DOCC convert Hummingbird.docc \
     --transform-for-static-hosting \
-    --hosting-base-path /$VERSION \
+    --hosting-base-path /"$VERSION" \
     --fallback-display-name Hummingbird \
     --fallback-bundle-identifier com.opticalaberration.hummingbird \
     --fallback-bundle-version 1 \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
     --output-path $OUTPUT_PATH \
-    --hosting-base-path /hummingbird-docs/$VERSION
+    --hosting-base-path /hummingbird-docs/"$VERSION"
