@@ -26,6 +26,7 @@ app.wait()
 - <doc:Encoding%20and%20Decoding>
 - <doc:Error%20Handling>
 - <doc:Extending%20Hummingbird>
+- <doc:Logging,%20Metrics%20and%20Tracing>
 - <doc:Persistent%20Data>
 - <doc:Router>
 
