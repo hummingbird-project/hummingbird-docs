@@ -61,6 +61,43 @@ if Self.migrate {
 }
 ```
 
+## Running persist outside HBApplication
+
+If you prefer, the persist system can also be accessed separately from `HBApplication`. You need to create your own instance of your persist driver: ``HBMemoryPersistDriver``, ``HBRedisPersistDriver`` or ``HBFluentPersistDriver``. Then call the `create`, `set`, `get` and `remove` functions directly from the driver. Below is an example using the Redis driver.
+
+```swift
+// setup Redis connection and persist drive. This should be the
+// redis connection pool group you use for all your other Redis
+// connections unless you are using a different database
+let redisConnectionPoolGroup = try RedisConnectionPoolGroup(
+    configuration: .init(hostname: Self.redisHostname, port: 6379),
+    eventLoopGroup: app.eventLoopGroup,
+    logger: app.logger
+)
+let persist = HBRedisPersistDriver(redisConnectionPoolGroup: redisConnectionPoolGroup)
+
+// add routes to application
+app.put("key") { request -> HTTPResponseStatus in
+    let value = try request.uri.queryParameters.require("value")
+    try await persist.set(
+        key: "mykey", 
+        value: value, 
+        expires: .minutes(30), 
+        request: request
+    )
+    return .ok
+}
+
+app.get("key") { request -> String? in
+    try await persist.get(
+        key: "mykey", 
+        request: request
+    )
+    return .ok
+}
+```
+If you do setup a persist driver as above. You will need to manage its lifecycle and call ``HBPersistDriver.shutdown`` when you shutdown your application.
+
 ## Topics
 
 ### Reference

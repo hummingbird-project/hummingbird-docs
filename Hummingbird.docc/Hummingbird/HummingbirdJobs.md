@@ -55,7 +55,7 @@ request.jobs.enqueue(job: job)
 ```
 `enqueue` returns an `EventLoopFuture` that will be fulfilled once the job has been added to the queue.
 
-### Multiple Queues
+### Multiple Job Queues
 
 HummingbirdJobs allows for the creation of multiple job queues. To create a new queue you need a new queue id.
 ```swift
@@ -71,6 +71,41 @@ Then when adding jobs you add the queue id to the `enqueue` function
 ```swift
 request.jobs.enqueue(job: job, queue: .newQueue)
 ```
+
+### Managing Job Queues outside HBApplication
+
+If you prefer you can create your job queue separate from ``HBApplication``. Both the ``HBMemoryJobsDriver`` and ``HBRedisJobsDriver`` are available. You could set this up as follows.
+
+```swift
+// setup Redis connection and job queue. This should be the
+// redis connection pool group you use for all your other Redis
+// connections unless you are using a different database
+let redisConnectionPoolGroup = try RedisConnectionPoolGroup(
+    configuration: .init(hostname: Self.redisHostname, port: 6379),
+    eventLoopGroup: app.eventLoopGroup,
+    logger: app.logger
+)
+let jobQueue = HBRedisJobQueue(redisConnectionPoolGroup: redisConnectionPoolGroup)
+let jobQueueHandler = HBJobQueueHandler(
+    queue: jobQueue, 
+    numWorkers: 4, 
+    eventLoopGroup: app.eventLoopGroup, 
+    logger: app.logger
+)
+jobQueueHandler.start()
+
+// add routes to application
+app.put("email") { request -> HTTPResponseStatus in
+    let job = SendEmailJob(
+        to: "joe@email.com",
+        subject: "Testing Jobs",
+        message: "..."
+    )
+    try await jobQueue.enqueue(job: job)
+    return .ok
+}
+```
+If you do setup a job queue as above. You will need to manage the job queue lifecycle and call `jobQueueHandler.shutdown`, to shutdown the job queue and its workers, when you shutdown your application.
 
 ## Topics
 
