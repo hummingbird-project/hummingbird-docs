@@ -8,21 +8,10 @@ A Job consists of some metadata and an execute method to run the job. You can se
 
 ### Setting up Jobs
 
-Before you can start adding or processing jobs you need to add a jobs driver to the ``/Hummingbird/HBApplication``. The code below adds a redis driver for jobs. To use a Redis driver you will need to setup Redis first.
+Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
 ```swift
-        let app = HBApplication()
-        try app.addRedis(
-            configuration: .init(
-                hostname: Self.redisHostname,
-                port: 6379
-            )
-        )
-        app.addJobs(
-            using: .redis(configuration: .init(queueKey: "_myJobsQueue")),
-            numWorkers: 0
-        )
+let jobQueue = HBMemoryJobQueue()
 ```
-In this example I called `addJob` with `numWorkers` set to `0`. This means I can add jobs but they will not be processed. To get another server to process these jobs, I should run a separate version of the app which connects to the same Redis queue but with the `numWorkers` set to the number of threads you want to process the jobs on the queue.
 
 ### Creating a Job
 
@@ -35,8 +24,8 @@ struct SendEmailJob: HBJob {
     let message: String
     
     /// do the work
-    func execute(on eventLoop: EventLoop, logger: Logger) -> EventLoopFuture<Void> {
-        return sendEmail(to: self.to, subject: self.subject, message: self.message)
+    func execute(logger: Logger) async throws {
+        return try await sendEmail(to: self.to, subject: self.subject, message: self.message)
     }
 }
 ```
@@ -44,85 +33,50 @@ Before you can use this job you have to register it.
 ```swift
 SendEmailJob.register()
 ```
-Now you job is ready to create. Jobs can be queued up using the function `enqueue` on `HBJobQueue`. You can access the job queue via `HBApplication.jobs.queue`. There is a helper object attached to `HBRequest` that reduces this to `HBRequest.jobs.enqueue`. 
+Now you job is ready to create. Jobs can be queued up using the function `push` on `HBJobQueue`.
 ```swift
 let job = SendEmailJob(
     to: "joe@email.com",
     subject: "Testing Jobs",
     message: "..."
 )
-request.jobs.enqueue(job: job)
-```
-`enqueue` returns an `EventLoopFuture` that will be fulfilled once the job has been added to the queue.
-
-### Multiple Job Queues
-
-HummingbirdJobs allows for the creation of multiple job queues. To create a new queue you need a new queue id.
-```swift
-extension HBJobQueueId {
-    static var newQueue: HBJobQueueId { "newQueue" }
-}
-```
-Once you have the new queue id you can register your new queue with this id
-```swift
-app.jobs.registerQueue(.newQueue, queue: .redis(configuration: .init(queueKey: "_myNewJobsQueue")))
-```
-Then when adding jobs you add the queue id to the `enqueue` function
-```swift
-request.jobs.enqueue(job: job, queue: .newQueue)
+jobQueue.push(job: job)
 ```
 
-### Managing Job Queues outside HBApplication
+### Processing Jobs
 
-If you prefer you can create your job queue separate from ``/Hummingbird/HBApplication``. Both the ``HBMemoryJobQueue`` and ``/HummingbirdJobsRedis/HBRedisJobQueue`` are available. You could set this up as follows.
+To process jobs you need to create a ``HBJobQueueHandler``. This defines the job queue it should service and how many jobs will be processed concurrently. 
 
+The ``HBJobQueueHandler`` conforms to `Service` from Swift Service Lifecycle so can be added to a `ServiceGroup`
 ```swift
-// setup Redis connection and job queue. This should be the
-// redis connection pool group you use for all your other Redis
-// connections unless you are using a different database
-let redisConnectionPoolGroup = try RedisConnectionPoolGroup(
-    configuration: .init(hostname: Self.redisHostname, port: 6379),
-    eventLoopGroup: app.eventLoopGroup,
-    logger: app.logger
+let serviceGroup = ServiceGroup(
+    services: [server, jobQueueHandler],
+    configuration: .init(gracefulShutdownSignals: [.sigterm, .sigint]),
+    logger: logger
 )
-let jobQueue = HBRedisJobQueue(redisConnectionPoolGroup: redisConnectionPoolGroup)
-let jobQueueHandler = HBJobQueueHandler(
-    queue: jobQueue, 
-    numWorkers: 4, 
-    eventLoopGroup: app.eventLoopGroup, 
-    logger: app.logger
-)
-jobQueueHandler.start()
-
-// add routes to application
-app.put("email") { request -> HTTPResponseStatus in
-    let job = SendEmailJob(
-        to: "joe@email.com",
-        subject: "Testing Jobs",
-        message: "..."
-    )
-    try await jobQueue.enqueue(job: job)
-    return .ok
-}
+try await serviceGroup.run()
 ```
-If you do setup a job queue as above. You will need to manage the job queue lifecycle and call `jobQueueHandler.shutdown`, to shutdown the job queue and its workers, when you shutdown your application.
+Or it can be added to the array of jobs that `HBApplication` manages
+```swift
+let app = HBApplication(...)
+app.addService(jobQueueHandler)
+```
+If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HBRedisJobQueue``.
 
 ## Topics
 
 ### Jobs
 
 - ``HBJob``
-- ``HBAsyncJob``
-- ``HBJobContainer``
+- ``JobIdentifier``
+- ``HBJobInstance``
 
 ### Queues
 
 - ``HBJobQueue``
-- ``HBJobQueueFactory``
-- ``HBJobQueueId``
-- ``JobIdentifier``
 - ``HBQueuedJob``
 - ``HBMemoryJobQueue``
+- ``HBJobQueueHandler``
 
 ### Error
 

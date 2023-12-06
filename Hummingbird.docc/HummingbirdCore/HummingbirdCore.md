@@ -4,84 +4,67 @@ Swift NIO based HTTP server.
 
 ## Overview
 
-HummingbirdCore contains a Swift NIO based HTTP server. When starting the server you provide it with a struct that conforms to `HBHTTPResponder` to define how the server should respond to requests. For example the following is a responder that always returns a response containing the word "Hello" in the body. 
+HummingbirdCore contains a Swift NIO based server. The server is setup with a type conforming `HBChannelSetup` which defines how the server responds. It has two functions `initialize` defines how to setup a server channel ie should it be HTTP1, should it include TLS etc and `handle` defines how we should respond to individual messages. For example the following is an HTTP1 server that always returns a response containing the word "Hello" in the body. 
 
 ```swift
-struct HelloResponder: HBHTTPResponder {
-    func respond(to request: HBHTTPRequest, context: ChannelHandlerContext, onComplete: @escaping (Result<HBHTTPResponse, Error>) -> Void) {
-        let responseHead = HTTPResponseHead(version: .init(major: 1, minor: 1), status: .ok)
-        let responseBody = context.channel.allocator.buffer(string: "Hello")
-        let response = HBHTTPResponse(head: responseHead, body: .byteBuffer(responseBody))
-        onComplete(.success(response))
-    }
-}
+let server = HBServer(
+    childChannelSetup: HTTP1Channel { _, context in
+        let responseBody = channel.allocator.buffer(string: "Hello")
+        return HBResponse(status: .ok, body: .init(byteBuffer: responseBody))
+    },
+    configuration: .init(address: .hostname(port: 8080)),
+    eventLoopGroup: eventLoopGroup,
+    logger: Logger(label: "HelloServer")
+)
 ```
 
-You then initialise a `HBHTTPServer`, call `start` on it and then `wait`.
+Hummingbird makes use of [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage startup and shutdown. `HBServer` conforms to the `Service` protocol required by Swift Service Lifecycle. The following will start the above server and ensure it shuts down gracefully on a shutdown signal.
 
 ```swift
-let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
-let server = HBHTTPServer(
-    group: eventLoopGroup, 
-    configuration: .init(address: .hostname("127.0.0.1", port: 8080))
+let serviceGroup = ServiceGroup(
+    services: [server],
+    configuration: .init(gracefulShutdownSignals: [.sigterm, .sigint]),
+    logger: logger
 )
-try server.start(responder: HelloResponder()).wait()
-// Wait until server closes which never happens as server channel is never closed
-try server.wait()
-```
-
-## Swift service lifecycle
-
-If you are using HummingbirdCore outside of Hummingbird ideally you would use it along with the swift-server library [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). This gives you a framework for clean initialization and shutdown of your server. The following sets up a Lifecycle that initializes the HTTP server and stops it when the application shuts down.
-```swift
-import Lifecycle
-import LifecycleNIOCompat
-
-let lifecycle = ServiceLifecycle()
-lifecycle.register(
-    label: "HTTP Server",
-    start: .eventLoopFuture { self.server.start(responder: MyResponder()) },
-    shutdown: .eventLoopFuture(self.server.stop)
-)
-lifecycle.start { error in
-    if let error = error {
-        print("ERROR: \(error)")
-    }
-}
-lifecycle.wait()
+try await serviceGroup.run()
 ```
 
 ## Topics
 
 ### Server
 
-- ``HBHTTPServer``
-- ``HBHTTPResponder``
-- ``HBChannelInitializer``
-- ``HTTP1ChannelInitializer``
+- ``HBServer``
+- ``HBServerConfiguration``
+- ``HBChannelSetup``
+- ``HTTPChannelHandler``
+- ``HTTP1Channel``
 - ``HBBindAddress``
 - ``TSTLSOptions``
+- ``HBHTTPUserEventHandler``
 
 ### Request
 
-- ``HBHTTPRequest``
+- ``HBRequest``
+- ``HBStreamedRequestBody``
+- ``HBURL``
 - ``HBRequestBody``
-- ``HBByteBufferStreamer``
-- ``HBStreamerProtocol``
-- ``HBRequestBodyStreamerSequence``
-- ``HBStreamerOutput``
 
 ### Response
 
-- ``HBHTTPResponse``
+- ``HBResponse``
 - ``HBResponseBody``
 - ``HBResponseBodyStreamer``
-- ``HBStreamCallback``
 
 ### Errors
 
 - ``HBHTTPError``
 - ``HBHTTPResponseError``
+
+### Miscellaneous
+
+- ``FlatDictionary``
+- ``HBParser``
+
 
 ## See Also
 
