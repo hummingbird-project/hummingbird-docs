@@ -75,15 +75,17 @@ app.router.get("user") { request -> User in
 
 ## Decoding/Encoding based on Request headers
 
-Because the full request is supplied to the `HBRequestDecoder`. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or `URLEncodedFormDecoder` based on the "content-type" header.
+Because the full request is supplied to the ``HBRequestDecoder``. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or ``URLEncodedFormDecoder`` based on the "content-type" header.
 
 ```swift
 struct MyRequestDecoder: HBRequestDecoder {
     func decode<T>(_ type: T.Type, from request: HBRequest) throws -> T where T : Decodable {
-        switch request.headers["content-type"].first {
-        case "application/json", "application/json; charset=utf-8":
+        guard let header = request.headers["content-type"].first else { throw HBHTTPError(.badRequest) }
+        guard let mediaType = HBMediaType(from: header) else { throw HBHTTPError(.badRequest) }
+        switch mediaType {
+        case .applicationJson:
             return try JSONDecoder().decode(type, from: request)
-        case "application/x-www-form-urlencoded":
+        case .applicationUrlEncoded:
             return try URLEncodedFormDecoder().decode(type, from: request)
         default:
             throw HBHTTPError(.badRequest)

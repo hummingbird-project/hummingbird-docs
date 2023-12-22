@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "hummingbird-docs",
-    platforms: [.macOS(.v10_15)],
+    platforms: [.macOS(.v12)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -13,17 +13,15 @@ let package = Package(
             targets: ["hummingbird-docs"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, branch: "main"),
         .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "main"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "1.0.0-rc.1"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin", branch: "main")
     ],
     targets: [
