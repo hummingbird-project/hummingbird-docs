@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
