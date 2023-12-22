@@ -16,20 +16,7 @@ jobs:
     - name: Install rsync 📚
       run: |
         apt-get update && apt-get install -y rsync
-    - name: Install Mint
-      run: |
-        git clone https://github.com/yonaskolb/Mint.git
-        cd Mint
-        swift run mint install yonaskolb/mint
-        cd ..
-        rm -rf Mint
-        echo "/root/.mint/bin" >> $GITHUB_PATH
-    - name: Build docc
-      run: |
-        mint install apple/swift-docc@main
     - name: Build
-      env:
-        DOCC: docc
       run: |
         ./scripts/build-docc.sh
     - name: Deploy 🚀
