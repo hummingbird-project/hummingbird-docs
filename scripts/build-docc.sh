@@ -11,8 +11,16 @@ cleanup()
 }
 trap cleanup exit $?
 
-DOCC=$(xcrun --find docc)
-#DOCC=docc
+DOCC=${DOCC:""}
+if [[ -z "$DOCC" ]]; then
+    if [[ "$(uname)" == "Darwin" ]]; then
+        DOCC=$(xcrun --find docc)
+    else
+        DOCC=$(which docc)
+    fi
+fi
+echo "Found docc here ${DOCC}"
+
 VERSION=
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
