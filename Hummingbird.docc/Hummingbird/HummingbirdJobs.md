@@ -4,11 +4,11 @@ Offload work your server would be doing to another server.
 
 ## Overview
 
-A Job consists of some metadata and an execute method to run the job. You can setup HummingbirdJobs to use different drivers for storing job metadata. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there is also an implementation ``HummingbirdJobsRedis`` that comes with the hummingbird-redis package that stores jobs in a Redis database. 
+A Job consists of some metadata and an execute method to run the job. You can setup HummingbirdJobs to use different drivers for storing job metadata. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there is also an implementation ``/HummingbirdJobsRedis`` that comes with the hummingbird-redis package that stores jobs in a Redis database. 
 
 ### Setting up Jobs
 
-Before you can start adding or processing jobs you need to add a jobs driver to the `HBApplication`. The code below adds a redis driver for jobs. To use a Redis driver you will need to setup Redis first.
+Before you can start adding or processing jobs you need to add a jobs driver to the ``/Hummingbird/HBApplication``. The code below adds a redis driver for jobs. To use a Redis driver you will need to setup Redis first.
 ```swift
         let app = HBApplication()
         try app.addRedis(
@@ -74,7 +74,7 @@ request.jobs.enqueue(job: job, queue: .newQueue)
 
 ### Managing Job Queues outside HBApplication
 
-If you prefer you can create your job queue separate from ``HBApplication``. Both the ``HBMemoryJobsDriver`` and ``HBRedisJobsDriver`` are available. You could set this up as follows.
+If you prefer you can create your job queue separate from ``/Hummingbird/HBApplication``. Both the ``HBMemoryJobQueue`` and ``/HummingbirdJobsRedis/HBRedisJobQueue`` are available. You could set this up as follows.
 
 ```swift
 // setup Redis connection and job queue. This should be the

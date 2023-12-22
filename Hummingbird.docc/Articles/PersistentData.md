@@ -63,7 +63,7 @@ if Self.migrate {
 
 ## Running persist outside HBApplication
 
-If you prefer, the persist system can also be accessed separately from `HBApplication`. You need to create your own instance of your persist driver: ``HBMemoryPersistDriver``, ``HBRedisPersistDriver`` or ``HBFluentPersistDriver``. Then call the `create`, `set`, `get` and `remove` functions directly from the driver. Below is an example using the Redis driver.
+If you prefer, the persist system can also be accessed separately from `HBApplication`. You need to create your own instance of your persist driver: ``HBMemoryPersistDriver``, ``/HummingbirdRedis/HBRedisPersistDriver`` or ``/HummingbirdFluent/HBFluentPersistDriver``. Then call the `create`, `set`, `get` and `remove` functions directly from the driver. Below is an example using the Redis driver.
 
 ```swift
 // setup Redis connection and persist drive. This should be the
@@ -96,7 +96,7 @@ app.get("key") { request -> String? in
     return .ok
 }
 ```
-If you do setup a persist driver as above. You will need to manage its lifecycle and call ``HBPersistDriver.shutdown`` when you shutdown your application.
+If you do setup a persist driver as above. You will need to manage its lifecycle and call ``/Hummingbird/HBPersistDriver/shutdown()-2jadt`` when you shutdown your application.
 
 ## Topics
 

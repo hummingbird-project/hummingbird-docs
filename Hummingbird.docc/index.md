@@ -10,13 +10,13 @@ Hummingbird consists of three main components, the core HTTP server, a minimal w
 
 ### HummingbirdCore
 
-``HummingbirdCore`` contains a Swift NIO based HTTP server. The HTTP server is initialized with a object conforming to protocol `HBHTTPResponder` which defines how your server responds to an HTTP request. The HTTP server can be extended to support TLS and HTTP2 via the ``HummingbirdTLS`` and ``HummingbirdHTTP2`` libraries also available in the hummingbird-core repository.
+``/HummingbirdCore`` contains a Swift NIO based HTTP server. The HTTP server is initialized with a object conforming to protocol `HBHTTPResponder` which defines how your server responds to an HTTP request. The HTTP server can be extended to support TLS and HTTP2 via the ``HummingbirdTLS`` and ``HummingbirdHTTP2`` libraries also available in the hummingbird-core repository.
 
 HummingbirdCore can be used separately from Hummingbird if you want to write your own web application framework.
 
 ### Hummingbird
 
-``Hummingbird`` is a lightweight and flexible web application framework that runs on top of HummingbirdCore. It is designed to require the minimum number of dependencies: `swift-backtrace`, `swift-log`, `swift-nio`, `swift-nio-extras`, `swift-service-lifecycle` and `swift-metrics` and makes no use of Foundation.
+``/Hummingbird`` is a lightweight and flexible web application framework that runs on top of HummingbirdCore. It is designed to require the minimum number of dependencies: `swift-backtrace`, `swift-log`, `swift-nio`, `swift-nio-extras`, `swift-service-lifecycle` and `swift-metrics` and makes no use of Foundation.
 
 It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server, extending the core data types and providing custom encoding/decoding of `Codable` objects.
 
@@ -41,18 +41,19 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 
 ### User Guides
 
-- <doc:Encoding%20and%20Decoding>
-- <doc:Error%20Handling>
-- <doc:Extending%20Hummingbird>
-- <doc:Persistent%20Data>
+- <doc:EncodingAndDecoding>
+- <doc:ErrorHandling>
+- <doc:ExtendingHummingbird>
+- <doc:LoggingMetricsAndTracing>
+- <doc:PersistentData>
 - <doc:Router>
 
 ## See Also
 
-- ``HummingbirdCore``
-- ``HummingbirdAuth``
-- ``HummingbirdCompression``
-- ``HummingbirdFoundation``
-- ``HummingbirdJobs``
-- ``HummingbirdLambda``
-- ``HummingbirdWebSocket``
+- ``/HummingbirdCore``
+- ``/HummingbirdAuth``
+- ``/HummingbirdCompression``
+- ``/HummingbirdFoundation``
+- ``/HummingbirdJobs``
+- ``/HummingbirdLambda``
+- ``/HummingbirdWebSocket``

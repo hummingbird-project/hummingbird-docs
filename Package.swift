@@ -42,6 +42,7 @@ let package = Package(
                 .product(name: "HummingbirdFluent", package: "hummingbird-fluent"),
                 .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
                 .product(name: "HummingbirdMustache", package: "hummingbird-mustache"),
+                .product(name: "HummingbirdJobsRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
             ]),

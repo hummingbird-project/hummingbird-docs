@@ -12,7 +12,7 @@ Before you can use sessions you need to add them to the application. When adding
 app.addSessions(using: .memory)
 ```
 
-If you don't provide a `using` parameter and you have already called ``Hummingbird.addPersist`` to setup the persist framework, sessions will use the same storage method as persist.
+If you don't provide a `using` parameter and you have already called ``/Hummingbird/HBApplication/addPersist(using:)`` to setup the persist framework, sessions will use the same storage method as persist.
 
 By default sessions store the session id in a `SESSION_ID` cookie. At initialisation it is possible to set it up to use a different cookie.
 

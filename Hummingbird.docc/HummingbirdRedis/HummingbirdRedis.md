@@ -16,7 +16,7 @@ let redis = redisConnectionPoolGroup.pool(for: eventLoop)
 try await redis.set("Test", to: "hello").get()
 ```
 
-Alternatively you can access a Redis connection pool via `HBRequest` if you add the connection pool group to your ``HBApplication``.
+Alternatively you can access a Redis connection pool via ``/Hummingbird/HBRequest`` if you add the connection pool group to your ``/Hummingbird/HBApplication``.
 
 ```swift
 try app.addRedis(
