@@ -11,7 +11,7 @@ cleanup()
 }
 trap cleanup exit $?
 
-DOCC=${DOCC:""}
+DOCC=${DOCC:-}
 if [[ -z "$DOCC" ]]; then
     if [[ "$(uname)" == "Darwin" ]]; then
         DOCC=$(xcrun --find docc)
