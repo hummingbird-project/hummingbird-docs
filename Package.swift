@@ -13,8 +13,6 @@ let package = Package(
             targets: ["hummingbird-docs"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "2.x.x"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", branch: "2.x.x"),
 //        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
@@ -36,12 +34,12 @@ let package = Package(
                 .product(name: "HummingbirdFoundation", package: "hummingbird"),
                 .product(name: "HummingbirdJobs", package: "hummingbird"),
                 .product(name: "HummingbirdXCT", package: "hummingbird"),
-//                .product(name: "HummingbirdAuth", package: "hummingbird-auth"),
+                .product(name: "HummingbirdAuth", package: "hummingbird-auth"),
 //                .product(name: "HummingbirdCompression", package: "hummingbird-compression"),
 //                .product(name: "HummingbirdFluent", package: "hummingbird-fluent"),
 //                .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
                 .product(name: "HummingbirdMustache", package: "hummingbird-mustache"),
-//                .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
+                .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
 //                .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
             ]),
     ]
