@@ -75,7 +75,7 @@ app.router.get("user") { request -> User in
 
 ## Decoding/Encoding based on Request headers
 
-Because the full request is supplied to the ``HBRequestDecoder``. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or ``URLEncodedFormDecoder`` based on the "content-type" header.
+Because the full request is supplied to the ``HBRequestDecoder``. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or ``/HummingbirdFoundation/URLEncodedFormDecoder`` based on the "content-type" header.
 
 ```swift
 struct MyRequestDecoder: HBRequestDecoder {
