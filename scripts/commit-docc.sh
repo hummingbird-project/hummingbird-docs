@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -eux
+echo "Use GitHub action publish.yml instead of running this script"
+exit
 
 # stash everything that isn't in docs, store result in STASH_RESULT
 STASH_RESULT=$(git stash -- ":(exclude)docs")
