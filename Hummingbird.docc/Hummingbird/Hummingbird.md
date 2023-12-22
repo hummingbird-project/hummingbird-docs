@@ -103,22 +103,6 @@ app.wait()
 - ``HBDateCache``
 - ``HBParser``
 
-### NIOCore Symbols
-
-- ``ByteBuffer``
-- ``ByteBufferAllocator``
-- ``EventLoop``
-- ``EventLoopGroup``
-- ``EventLoopFuture``
-- ``SocketAddress``
-- ``TimeAmount``
-
-### NIOHTTP1 Symbols
-
-- ``HTTPHeaders``
-- ``HTTPMethod``
-- ``HTTPResponseStatus``
-
 ## See Also
 
 - ``HummingbirdCore``

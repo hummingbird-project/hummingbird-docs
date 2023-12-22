@@ -131,3 +131,4 @@ If you do setup a job queue as above. You will need to manage the job queue life
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdJobsRedis``

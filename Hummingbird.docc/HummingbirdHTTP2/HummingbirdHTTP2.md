@@ -22,12 +22,6 @@ HTTP2 secure upgrade requires a TLS connection so this will add a TLS handler as
 
 ## Topics
 
-### NIOSSL Symbols
-
-- ``NIOSSLCertificate``
-- ``NIOSSLPrivateKey``
-- ``TLSConfiguration``
-  
 ## See Also
 
 - ``Hummingbird``

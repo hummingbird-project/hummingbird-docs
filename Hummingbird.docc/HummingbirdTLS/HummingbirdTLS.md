@@ -20,12 +20,6 @@ app.server.addTLSConfiguration(tlsConfiguration: tlsConfiguration)
 
 ## Topics
 
-### NIOSSL Symbols
-
-- ``NIOSSLCertificate``
-- ``NIOSSLPrivateKey``
-- ``TLSConfiguration``
-
 ## See Also
 
 - ``Hummingbird``
