@@ -2,7 +2,7 @@
 
 Lightweight, modern, flexible server framework written in Swift.
 
-``Hummingbird`` is a lightweight, modern, flexible server framework designed to require the minimum number of dependencies.
+Hummingbird is a lightweight, modern, flexible server framework designed to require the minimum number of dependencies.
 
 It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server and providing custom encoding/decoding of Codable objects.
 
@@ -102,5 +102,8 @@ try await app.runService()
 - ``HummingbirdCore``
 - ``HummingbirdFoundation``
 - ``HummingbirdJobs``
-- ``HummingbirdLambda``
 - ``HummingbirdXCT``
+- ``HummingbirdAuth``
+- ``HummingbirdMustache``
+- ``HummingbirdLambda``
+- ``HummingbirdRedis``
