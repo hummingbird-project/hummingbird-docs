@@ -31,7 +31,7 @@ for FILE in $FILES; do
 done
 
 for FILE in $FILES; do
-    URL=${FILE%index.html}
+    URL=$(echo ${FILE%index.html} | sed 's/:/%3A/g')
     # work out priority, by counting slashes in filename, subtract the minimum
     # number of slashes, calculate 2 to the power of the resulting number and
     # invert it
@@ -43,11 +43,11 @@ for FILE in $FILES; do
 
     DATE=$(date -r $FILE "+%Y-%m-%d")
     cat >> sitemap.xml << EOF
-    <url>
-      <loc>$URL_PREFIX/$URL</loc>
-      <lastmod>$DATE</lastmod>
-      <priority>$priority</priority>
-    </url>
+  <url>
+    <loc>$URL_PREFIX/$URL</loc>
+    <lastmod>$DATE</lastmod>
+    <priority>$priority</priority>
+  </url>
 EOF
 done   
 cat >> sitemap.xml << EOF

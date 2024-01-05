@@ -21,7 +21,7 @@ if [[ -z "$DOCC" ]]; then
 fi
 echo "Found docc here ${DOCC}"
 
-HUMMINGBIRD_VERSION=${HUMMINGBIRD_VERSION:""}
+HUMMINGBIRD_VERSION=${HUMMINGBIRD_VERSION:-""}
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
 BASE_OUTPUT_PATH=docs/hummingbird-docs

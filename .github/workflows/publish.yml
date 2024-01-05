@@ -1,4 +1,5 @@
-# Publish Documentation
+# Publish Documentation GitHub action
+name: Publish Documentation
 
 on:
   workflow_dispatch:
