@@ -1,4 +1,4 @@
-# ``Hummingbird/HBMiddleware``
+# ``Hummingbird/HBMiddlewareProtocol``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)

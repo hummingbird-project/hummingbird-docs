@@ -43,7 +43,6 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 
 - <doc:EncodingAndDecoding>
 - <doc:ErrorHandling>
-- <doc:ExtendingHummingbird>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
 - <doc:Router>

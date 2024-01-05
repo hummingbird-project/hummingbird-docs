@@ -9,8 +9,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "hummingbird-docs",
-            targets: ["hummingbird-docs"]),
+            name: "HummingbirdDocs",
+            targets: ["HummingbirdDocs"]),
     ],
     dependencies: [
         .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "2.x.x"),
@@ -27,7 +27,7 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "hummingbird-docs",
+            name: "HummingbirdDocs",
             dependencies: [
                 .product(name: "HummingbirdTLS", package: "hummingbird"),
                 .product(name: "HummingbirdHTTP2", package: "hummingbird"),

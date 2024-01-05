@@ -2,31 +2,25 @@
 
 Add Redis support to Hummingbird server with RediStack.
 
-First you need to create a ``RedisConnectionPoolGroup`` for your `EventLoopGroup`. This creates a connection pool for each `EventLoop` in your `EventLoopGroup`. When you want to send a command you ask the ``RedisConnectionPoolGroup`` for the connection pool for the `EventLoop` you are running on and then call your command.
+First you need to create a ``HBRedisConnectionPoolService``. This is a wrapper for a redis connection pool which also conforms to `Service` from [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle).
 
 ```swift
-// Initialize a Redis Connection Pool for each EventLoop
-let redisConnectionPoolGroup = try RedisConnectionPoolGroup(
-    configuration: .init(hostname: Self.redisHostname, port: 6379),
-    eventLoopGroup: app.eventLoopGroup,
-    logger: app.logger
+// Create a Redis Connection Pool
+let redis = try HBRedisConnectionPoolService(
+    .init(
+        hostname: Self.redisHostname, 
+        port: 6379,
+        pool: .init(maximumConnectionCount: 32)
+    ),
+    logger: Logger(label: "Redis")
 )
-// Get Redis connection
-let redis = redisConnectionPoolGroup.pool(for: eventLoop)
+// Call Redis function. Currently there are no async/await versions 
+// of the functions so have to call `get` to await for EventLoopFuture result
 try await redis.set("Test", to: "hello").get()
 ```
 
-Alternatively you can access a Redis connection pool via ``/Hummingbird/HBRequest`` if you add the connection pool group to your ``/Hummingbird/HBApplication``.
 
-```swift
-try app.addRedis(
-    configuration: .init(hostname: Self.redisHostname, port: 6379)
-)
-// Add route that returns contents of Redis INFO command
-app.router.get("redis") { req in
-    req.redis.send(command: "INFO").map(\.description)
-}
-```
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdJobsRedis``
