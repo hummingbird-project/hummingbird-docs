@@ -16,7 +16,7 @@ BASE_PATH=docs/hummingbird-docs/
 
 pushd "$BASE_PATH"
 
-FILES=$(find $DOCUMENTATION_PATH -name '*.html' -print)
+FILES=$(find $DOCUMENTATION_PATH -name 'index.html' -print)
 
 cat > sitemap.xml << EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,25 +25,26 @@ EOF
 
 # Calculate the minimum number of slashes in a file
 minSlashes=100
-for f in $FILES; do
-    slashCount=$(echo $f | text.count "/")
+for FILE in $FILES; do
+    slashCount=$(echo $FILE | text.count "/")
     minSlashes=$(($minSlashes>$slashCount ? $slashCount : $minSlashes))
 done
 
-for f in $FILES; do
+for FILE in $FILES; do
+    URL=${FILE%index.html}
     # work out priority, by counting slashes in filename, subtract the minimum
     # number of slashes, calculate 2 to the power of the resulting number and
     # invert it
-    slashCount=$(echo $f | text.count "/")
+    slashCount=$(echo $FILE | text.count "/")
     slashCount=$(($slashCount - $minSlashes))
     slashCount=$(($slashCount>0 ? $slashCount : 0))
     inv_priority=$((2 ** $slashCount))
     priority=$(bc <<< "scale=2; 1/$inv_priority" )
 
-    DATE=$(date -r $f "+%Y-%m-%d")
+    DATE=$(date -r $FILE "+%Y-%m-%d")
     cat >> sitemap.xml << EOF
     <url>
-      <loc>$URL_PREFIX/$f</loc>
+      <loc>$URL_PREFIX/$URL</loc>
       <lastmod>$DATE</lastmod>
       <priority>$priority</priority>
     </url>
