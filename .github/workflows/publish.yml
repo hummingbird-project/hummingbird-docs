@@ -16,7 +16,7 @@ jobs:
       image: swift:5.9
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Install rsync 📚
@@ -24,10 +24,10 @@ jobs:
         apt-get update && apt-get install -y rsync bc
     - name: Build
       run: |
-        ./scripts/build-docc.sh
+        ./scripts/build-docc.sh -s
         ./scripts/build-sitemap.sh
     - name: Deploy Root Folder 🚀
-      if: env.DEPLOY_ROOT_FOLDER == true
+      if: ${{ env.HUMMINGBIRD_VERSION }} == true
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: docs/hummingbird-docs/
