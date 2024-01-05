@@ -22,8 +22,16 @@ jobs:
     - name: Build
       run: |
         ./scripts/build-docc.sh
+        ./scripts/build-sitemap.sh
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
         target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
+    - name: Deploy Sitemap 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: docs/hummingbird-docs/sitemap.xml
+        target-folder: docs/sitemap.xml
+        clean: false
+      
