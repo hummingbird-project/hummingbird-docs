@@ -4,11 +4,11 @@ The router directs requests to their handlers based on the contents of their pat
 
 ## Overview
 
-The router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function `on`. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
+The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function `on`. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
 
 ```swift
-let app = HBApplication()
-app.router.on("/hello", method: .GET) { request in
+let router = HBRouter()
+router.on("/hello", method: .GET) { request, context in
     return "Hello"
 }
 ```
@@ -16,11 +16,11 @@ If you don't provide a path then the default is for it to be "/".
 
 ### Methods
 
-There are shortcut functions for common HTTP methods. The above can be written as
+There are shortcut functions for the most common HTTP methods. The above can be written as
 
 ```swift
-let app = HBApplication()
-app.router.get("/hello") { request in
+let router = HBRouter()
+app.router.get("/hello") { request, context in
     return "Hello"
 }
 ```
@@ -29,13 +29,13 @@ There are shortcuts for `put`, `post`, `head`, `patch` and `delete` as well.
 
 ### Response generators
 
-Route handlers are required to return either a type conforming to the `HBResponseGenerator` protocol or an `EventLoopFuture` of a type conforming to `HBResponseGenerator`. An `EventLoopFuture` is an object that will fulfilled with their value at a later date in an asynchronous manner. The `HBResponseGenerator` protocol requires an object to be able to generate an `HBResponse`. For example `String` has been extended to conform to `HBResponseGenerator` by returning an `HBResponse` with status `.ok`,  a content-type header of `text-plain` and a body holding the contents of the `String`. 
+Route handlers are required to return a type conforming to the `HBResponseGenerator` protocol. The `HBResponseGenerator` protocol requires a type to be able to generate an `HBResponse`. For example `String` has been extended to conform to `HBResponseGenerator` by returning an `HBResponse` with status `.ok`,  a content-type header of `text-plain` and a body holding the contents of the `String`. 
 ```swift
 /// Extend String to conform to ResponseGenerator
 extension String: HBResponseGenerator {
     /// Generate response holding string
-    public func response(from request: HBRequest) -> HBResponse {
-        let buffer = request.allocator.buffer(string: self)
+    public func response(from request: HBRequest, context: some HBBaseRequestContext) -> HBResponse {
+        let buffer = context.allocator.buffer(string: self)
         return HBResponse(status: .ok, headers: ["content-type": "text/plain; charset=utf-8"], body: .byteBuffer(buffer))
     }
 }
@@ -43,7 +43,7 @@ extension String: HBResponseGenerator {
 
 In addition to `String` `ByteBuffer`, `HTTPResponseStatus` and `Optional` have also been extended to conform to `HBResponseGenerator`.
 
-It is also possible to extend `Codable` objects to generate `HBResponses` by conforming these objects to `HBResponseEncodable`. The object will use `HBApplication.encoder` to encode these objects. If an object conforms to `HBResponseEncodable` then also so do arrays of these objects and dictionaries.
+It is also possible to extend `Codable` objects to generate `HBResponse` by conforming these objects to `HBResponseEncodable`. The object will use the response encoder attached to your context to encode these objects. If an object conforms to `HBResponseEncodable` then also so do arrays and dictionaries of these objects.
 
 ### Wildcards
 
@@ -52,7 +52,7 @@ You can use wildcards to match sections of a path component.
 A single `*` will skip one path component
 
 ```swift
-app.router.get("/files/*") { request in
+app.router.get("/files/*") { request, context in
     return request.uri.description
 }
 ```
@@ -65,7 +65,7 @@ GET /files/test2
 A `*` at the start of a route component will match all path components with the same suffix.
 
 ```swift
-app.router.get("/files/*.jpg") { request in
+app.router.get("/files/*.jpg") { request, context in
     return request.uri.description
 }
 ```
@@ -78,7 +78,7 @@ GET /files/test2.jpg
 A `*` at the end of a route component will match all path components with the same prefix.
 
 ```swift
-app.router.get("/files/image.*") { request in
+app.router.get("/files/image.*") { request, context in
     return request.uri.description
 }
 ```
@@ -91,9 +91,9 @@ GET /files/image.png
 A `**` will match and capture all remaining path components.
 
 ```swift
-app.router.get("/files/**") { request in
+app.router.get("/files/**") { request, context in
     // return catchAll captured string
-    return request.parameters.getCatchAll().joined(separator: "/")
+    return context.parameters.getCatchAll().joined(separator: "/")
 }
 ```
 The above will match routes and respond as follows 
@@ -114,15 +114,15 @@ app.router.get("/user/:id") { request in
 ```
 In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an `HBHTTPError` it will get converted to a valid HTTP response.
 
-The parameter name in your route can also be of the form `${id}`. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
+The parameter name in your route can also be of the form `{id}`, similar to OpenAPI specifications. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
 
 ```swift
-app.router.get("/files/${image}.jpg") { request in
+app.router.get("/files/{image}.jpg") { request in
     let imageName = request.parameters.get("image") else { throw HBHTTPError(.badRequest) }
     return getImage(image: imageName)
 }
 ```
-In the example above we match all pathes that are a file with a jpg extension inside the files folder and then call a function with that image name.
+In the example above we match all paths that are a file with a jpg extension inside the files folder and then call a function with that image name.
 
 ### Groups
 
@@ -133,9 +133,9 @@ let app = HBApplication()
 app.router.group("/todos")
     .put(use: createTodo)
     .get(use: listTodos)
-    .get(":id", getTodo)
-    .patch(":id", editTodo)
-    .delete(":id", deleteTodo)
+    .get("{id}", getTodo)
+    .patch("{id}", editTodo)
+    .delete("{id}", deleteTodo)
 ```
 
 ### Route handlers
@@ -154,51 +154,55 @@ struct AddOrder: HBRouteHandler {
     let input: Input
     let user: User
     
-    init(from request: HBRequest) throws {
-        self.input = try request.decode(as: Input.self)
-        self.user = try request.auth.require(User.self)
+    init(from request: HBRequest, context: some HBAuthRequestContextProtocol) async throws {
+        self.input = try await request.decode(as: Input.self, context: context)
+        self.user = try context.auth.require(User.self)
     }
-    func handle(request: HBRequest) -> EventLoopFuture<Output> {
+    func handle(context: some HBAuthRequestContextProtocol) async throws -> Output {
         let order = Order(user: self.user.id, details: self.input)
-        return order.save(on: request.db)
-            .map { .init(id: order.id) }
+        let order = try await order.save(on: db)
+        return Output(id: order.id)
     }
 }
 ```
-Here you can see the `AddOrder` route handler encapsulates everything you need to know about the add order route. The `Input` and `Output` structs are defined and any additional input parameters that need extracted from the `HBRequest`. The input parameters are extracted in the `init` and then the request is processed in the `handle` function. In this example we need to decode the `Input` from the `HBRequest` and using the authentication framework from `HummingbirdAuth` we get the authenticated user. 
+Here you can see the `AddOrder` route handler encapsulates everything you need to know about the add order route. The `Input` and `Output` structs are defined and any additional input parameters that need extracted from the `HBRequest`. The input parameters are extracted in the `init` and then the those parameters are processed in the `handle` function. In this example we need to decode the `Input` from the `HBRequest` and using the authentication framework from `HummingbirdAuth` we get the authenticated user. 
 
 The following will add the handler to the application
 ```swift
 application.router.put("order", use: AddOrder.self)
 ```
 
-### Streaming request body
+### Request body
 
-By default Hummingbird will collate the contents of your request body into one ByteBuffer. You can access this via `HBRequest.body.buffer`. If you'd prefer to stream the content of the request body, you can add a `.streamBody` option to the route handler to receive a streaming body instead of a single `ByteBuffer`. Inside the route handler you access this stream via `HBRequest.body.stream`. The request body parts are then accessed either via `consume` function which will return everything that has been streamed so far or a `consumeAll` function which takes a closure processing each part. Here is an example which reads the request buffer and returns it size
+By default the request body is an AsyncSequence of ByteBuffers. You can treat it as a series of buffers or collect it into one larger buffer.
+
 ```swift
-application.router.post("size", options: .streamBody) { request -> EventLoopFuture<String> in
-    guard let stream = request.body.stream else { 
-        return request.failure(.badRequest)
-    }
-    var size = 0
-    return stream.consumeAll(on: request.eventLoop) { buffer in
-        size += buffer.readableBytes
-        return request.eventLoop.makeSucceededFuture(())
-    }
-    .map { size.description }
+// process each buffer in the sequence separately
+for try await buffer in request.body {
+    process(buffer)
 }
 ```
+```swift
+// collect all the buffers in the sequence into a single buffer
+let buffer = try await request.body.collate(maxSize: maximumBufferSizeAllowed)
+}
+```
+
+Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `HBRequest.collateBody(context:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer. 
 
 ### Editing response in handler
 
 The standard way to provide a custom response from a route handler is to return a `HBResponse` from that handler. This method loses a lot of the automation of encoding responses, generating the correct status code etc. 
 
-There is another method though that allows you to edit a response even when returning something other than a `HBResponse`. First you need to flag your route to say it is editing the response using the option `.editResponse`. Once you have set this option you can edit your response via `HBRequest.response`. This allows you to add new headers, replace generated headers or set the status code. Below is a route replacing the generated `content-type` header and setting the status code.
+Instead you can return what is called a `HBEditedResponse`. This includes a type that can generate a response on its own via the `HBResponseGenerator` protocol and includes additional edits to the response.
+
 ```swift
-application.router.post("test", options: .editResponse) { request -> String in
-    request.response.headers.replaceOrAdd(name: "content-type", value: "application/json")
-    request.response.status = .accepted
-    return #"{"test": "value"}"#
+application.router.post("test") { request -> HBEditedResponse in
+    return .init(
+        status: .accepted,
+        headers: [.contentType: "application/json"],
+        response: #"{"test": "value"}"#
+    )
 }
 ```
 
@@ -206,6 +210,6 @@ application.router.post("test", options: .editResponse) { request -> String in
 
 ### Reference
 
-- ``HBRouterBuilder``
+- ``HBRouter``
 - ``HBRouterGroup``
 - ``HBRouterMethods``
