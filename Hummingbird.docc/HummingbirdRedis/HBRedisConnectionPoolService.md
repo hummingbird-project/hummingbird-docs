@@ -2,7 +2,7 @@
 
 ## Overview
 
-``HBRedisConnectionPoolService`` is a wrapper for a redis connection pool which also conforms to `Service` from [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle).
+`HBRedisConnectionPoolService` is a wrapper for a redis connection pool which also conforms to `Service` from [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle).
 
 ```swift
 // Create a Redis Connection Pool
@@ -21,7 +21,7 @@ try await redis.set("Test", to: "hello").get()
 
 ## Service Lifecycle
 
-Given ``HBRedisConnectionPoolService`` conforms to `Service` you can have its lifecycle managed by either adding it to the Hummingbird `ServiceGroup` using ``/Hummingbird/HBApplication/addservices(_:)`` or adding it to an independently managed `ServiceGroup`.
+Given `HBRedisConnectionPoolService` conforms to `Service` you can have its lifecycle managed by either adding it to the Hummingbird `ServiceGroup` using ``/Hummingbird/HBApplication/addServices(_:)`` from ``/Hummingbird/HBApplication`` or adding it to an independently managed `ServiceGroup`.
 
 ## See Also
 
