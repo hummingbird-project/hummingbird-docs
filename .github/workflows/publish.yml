@@ -3,9 +3,14 @@ name: Publish Documentation
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+    - main
+    - 2.x.x
 
 env:
   HUMMINGBIRD_VERSION: "1.0"
+  DEPLOY_ROOT_FOLDER: true
 
 jobs:
   build:
@@ -14,7 +19,7 @@ jobs:
       image: swift:5.9
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Install rsync 📚
@@ -24,9 +29,15 @@ jobs:
       run: |
         ./scripts/build-docc.sh
         ./scripts/build-sitemap.sh
+    - name: Deploy Root Folder 🚀
+      if: ${{ env.HUMMINGBIRD_VERSION }} == true
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: docs/hummingbird-docs/
+        target-folder: docs/
+        clean-exclude: "*.0"
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/hummingbird-docs
-        target-folder: docs
-        clean-exclude: "2.0"
+        folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
+        target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
