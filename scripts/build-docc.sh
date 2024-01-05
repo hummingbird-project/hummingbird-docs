@@ -24,7 +24,8 @@ echo "Found docc here ${DOCC}"
 HUMMINGBIRD_VERSION=${HUMMINGBIRD_VERSION:""}
 SG_FOLDER=.build/symbol-graphs
 HB_SG_FOLDER=.build/hummingbird-symbol-graphs
-OUTPUT_PATH=docs/hummingbird-docs/$HUMMINGBIRD_VERSION
+BASE_OUTPUT_PATH=docs/hummingbird-docs
+OUTPUT_PATH=$BASE_OUTPUT_PATH/$HUMMINGBIRD_VERSION
 
 BUILD_SYMBOLS=1
 
@@ -65,3 +66,5 @@ $DOCC convert Hummingbird.docc \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
     --output-path $OUTPUT_PATH \
     --hosting-base-path /hummingbird-docs/"$HUMMINGBIRD_VERSION"
+# copy root files template to docs file
+rsync -trv scripts/docsTemplate/* $BASE_OUTPUT_PATH

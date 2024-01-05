@@ -18,7 +18,7 @@ jobs:
         fetch-depth: 0
     - name: Install rsync 📚
       run: |
-        apt-get update && apt-get install -y rsync
+        apt-get update && apt-get install -y rsync bc
     - name: Build
       run: |
         ./scripts/build-docc.sh
@@ -26,12 +26,6 @@ jobs:
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
-        target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
-    - name: Deploy Sitemap 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: docs/hummingbird-docs/sitemap.xml
-        target-folder: docs/sitemap.xml
-        clean: false
-      
+        folder: docs/hummingbird-docs
+        target-folder: docs
+        clean-exclude: "2.0"
