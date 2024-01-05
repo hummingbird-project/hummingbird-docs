@@ -6,7 +6,7 @@ If a middleware or route handler throws an error the server needs to know how to
 
 ## HBHTTPError
 
-Hummingbird uses the Error object `HBHTTPError` throughout its codebase. The server recognises this and can generate a more informative response for the client from it. The error includes the status code that should be returned and a response message if needed. For example 
+Hummingbird uses the Error object ``HummingbirdCore/HBHTTPError`` throughout its codebase. The server recognises this and can generate a more informative response for the client from it. The error includes the status code that should be returned and a response message if needed. For example 
 
 ```swift
 app.get("user") { request -> User in
@@ -51,7 +51,7 @@ struct MyError: HBHTTPResponseError {
 }
 ```
 
-## Topics
+## Topics
 
 ### Reference
 
