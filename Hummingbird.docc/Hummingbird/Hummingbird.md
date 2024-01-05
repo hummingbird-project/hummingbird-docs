@@ -38,7 +38,6 @@ try await app.runService()
 - ``HBApplication``
 - ``HBApplicationProtocol``
 - ``HBApplicationConfiguration``
-- ``HBApplicationContext``
 - ``EventLoopGroupProvider``
 
 ### Router
@@ -77,7 +76,7 @@ try await app.runService()
 
 ### Middleware
 
-- ``HBMiddleware``
+- ``HBMiddlewareProtocol``
 - ``HBMiddlewareGroup``
 - ``HBCORSMiddleware``
 - ``HBLogRequestsMiddleware``
