@@ -24,7 +24,7 @@ try await app.runService()
 
 ## Topics
 
-### Articles
+### Guides
 
 - <doc:Router>
 - <doc:RequestContext>
@@ -51,6 +51,7 @@ try await app.runService()
 - ``HBResponder``
 - ``HBCallbackResponder``
 - ``EndpointPath``
+- ``RouterPath``
 
 ### Request/Response
 
@@ -61,8 +62,12 @@ try await app.runService()
 - ``HBResponse``
 - ``HBResponseBodyWriter``
 - ``HBEditedResponse``
+
+### Request context
+
 - ``HBBaseRequestContext``
 - ``HBRequestContext``
+- ``HBCoreRequestContext``
 - ``HBBasicRequestContext``
 - ``HBRemoteAddressRequestContext``
 
@@ -73,9 +78,13 @@ try await app.runService()
 - ``HBResponseEncodable``
 - ``HBResponseGenerator``
 - ``HBResponseCodable``
+- ``NullDecoder``
+- ``NullEncoder``
 
 ### Middleware
 
+- ``Middleware``
+- ``MiddlewareProtocol``
 - ``HBMiddlewareProtocol``
 - ``HBMiddlewareGroup``
 - ``HBCORSMiddleware``
@@ -90,11 +99,14 @@ try await app.runService()
 - ``HBMemoryPersistDriver``
 - ``HBPersistError``
 
+### File management
+
+- ``HBFileIO``
+
 ### Miscellaneous
 
 - ``HBEnvironment``
 - ``HBDateCache``
-- ``HBFileIO``
 - ``GracefulShutdownWaiter``
 
 ## See Also
