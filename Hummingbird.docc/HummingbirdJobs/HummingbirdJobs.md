@@ -59,7 +59,7 @@ try await serviceGroup.run()
 Or it can be added to the array of jobs that `HBApplication` manages
 ```swift
 let app = HBApplication(...)
-app.addService(jobQueueHandler)
+app.addServices(jobQueueHandler)
 ```
 If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/HBRedisJobQueue``.
 
