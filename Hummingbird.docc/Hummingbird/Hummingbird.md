@@ -26,12 +26,12 @@ try await app.runService()
 
 ### Articles
 
+- <doc:Router>
+- <doc:RequestContext>
 - <doc:EncodingAndDecoding>
 - <doc:ErrorHandling>
-- <doc:ExtendingHummingbird>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
-- <doc:Router>
 
 ### Application
 
