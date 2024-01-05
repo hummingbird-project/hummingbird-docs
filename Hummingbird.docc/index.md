@@ -26,7 +26,7 @@ router.get("hello") { request -> String in
     return "Hello"
 }
 let app = HBApplication(
-    responder: router.buildResponder(),
+    router: router,
     configuration: .init(address: .hostname("127.0.0.1", port: 8080))
 )
 try await app.runService()
