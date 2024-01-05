@@ -24,7 +24,7 @@ jobs:
         apt-get update && apt-get install -y rsync bc
     - name: Build
       run: |
-        ./scripts/build-docc.sh -s
+        ./scripts/build-docc.sh
         ./scripts/build-sitemap.sh
     - name: Deploy Root Folder 🚀
       if: ${{ env.HUMMINGBIRD_VERSION }} == true
@@ -33,10 +33,8 @@ jobs:
         folder: docs/hummingbird-docs/
         target-folder: docs/
         clean-exclude: "*.0"
-        dry-run: true
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
         target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
-        dry-run: true
