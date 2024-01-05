@@ -6,6 +6,7 @@ on:
 
 env:
   HUMMINGBIRD_VERSION: "1.0"
+  DEPLOY_ROOT_FOLDER: true
 
 jobs:
   build:
@@ -24,9 +25,17 @@ jobs:
       run: |
         ./scripts/build-docc.sh
         ./scripts/build-sitemap.sh
+    - name: Deploy Root Folder 🚀
+      if: env.DEPLOY_ROOT_FOLDER == true
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: docs/hummingbird-docs/
+        target-folder: docs/
+        clean-exclude: "*.0"
+        dry-run: true
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/hummingbird-docs
-        target-folder: docs
-        clean-exclude: "2.0"
+        folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
+        target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
+        dry-run: true
