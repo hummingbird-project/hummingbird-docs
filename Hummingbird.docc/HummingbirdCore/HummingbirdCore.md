@@ -35,7 +35,7 @@ try await serviceGroup.run()
 
 - ``HBServer``
 - ``HBServerConfiguration``
-- ``HBChannelSetup``
+- ``HBChildChannel``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
 - ``HBBindAddress``
@@ -53,7 +53,7 @@ try await serviceGroup.run()
 
 - ``HBResponse``
 - ``HBResponseBody``
-- ``HBResponseBodyStreamer``
+- ``HBResponseBodyWriter``
 
 ### Errors
 

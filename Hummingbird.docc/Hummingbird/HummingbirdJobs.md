@@ -61,7 +61,7 @@ Or it can be added to the array of jobs that `HBApplication` manages
 let app = HBApplication(...)
 app.addService(jobQueueHandler)
 ```
-If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HBRedisJobQueue``.
+If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/HBRedisJobQueue``.
 
 ## Topics
 
