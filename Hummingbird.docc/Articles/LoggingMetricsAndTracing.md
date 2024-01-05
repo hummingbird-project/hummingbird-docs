@@ -2,7 +2,9 @@
 
 Considered the three pillars of observability, logging, metrics and tracing provide different ways of viewing how your application is working. 
 
-Apple has developed packages for each of observability systems ([swift-log](https://github.com/apple/swift-log), [swift-metrics](https://github.com/apple/swift-metrics), [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)). They provide a consistent API while not defining how the backend is implemented. With these it is possible to add observability to your own libraries without commiting to a certain implementation of each system.
+## Overview
+
+Apple has developed packages for each of the observability systems ([swift-log](https://github.com/apple/swift-log), [swift-metrics](https://github.com/apple/swift-metrics), [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)). They provide a consistent API while not defining how the backend is implemented. With these it is possible to add observability to your own libraries without commiting to a certain implementation of each system.
 
 Hummingbird has middleware for each of these systems. As these are provided as middleware you can add these to your application as and when you need them.
 

@@ -29,7 +29,7 @@ The first route that calls `createUser` does not have the `BasicAuthenticatorMid
 
 ### Writing Middleware
 
-All middleware has to conform to the protocol `HBMiddleware`. This requires one function `handle(_:context:next)` to be implemented. At some point in this function unless you want to shortcut the router and return your own response you are required to call `next(request, context)` and return the result, or a result processed by your middleware. The following is a simple logging middleware that outputs every URI being sent to the server
+All middleware has to conform to the protocol `HBMiddlewareProtocol`. This requires one function `handle(_:context:next)` to be implemented. At some point in this function unless you want to shortcut the router and return your own response you should call `next(request, context)` to continue down the middleware stack and return the result, or a result processed by your middleware. The following is a simple logging middleware that outputs every URI being sent to the server
 
 ```swift
 public struct LogRequestsMiddleware<Context: HBBaseRequestContext>: HBMiddlewareProtocol {
