@@ -4,8 +4,7 @@ import Hummingbird
 import HummingbirdXCT
 import XCTest
 
-final class HummingbirdTodosTests: XCTestCase {
-    ...
+extension HummingbirdTodosTests {
     func testPatch() async throws {
         let app = try await buildApplication(TestArguments())
         try await app.test(.router) { client in
