@@ -60,6 +60,8 @@
             }
             @Step {
                 Writing the whole XCTExecute line out each time and converting the responses to something readable can become tiresome. So lets break out the create API call to a separate function. You'll notice in this function we return the decoded Todo from the XCTExecute closure.
+
+                Now the create test has been simplified to two lines of code. Call create function, test return value.
                 @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-09.swift)
             }
             @Step {
@@ -67,12 +69,16 @@
                 @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-10.swift)
             }
             @Step {
-                The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdXCT.
+                We can now create more complex test functions. This one edits a todo twice and verifies the edits have been stored.
                 @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-11.swift)
             }
             @Step {
-                I've left these tests unwritten. Maybe you could complete them for me.
+                The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdXCT.
                 @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-12.swift)
+            }
+            @Step {
+                I've left these tests unwritten. Maybe you could complete them for me.
+                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-13.swift)
             }
         }
     }
