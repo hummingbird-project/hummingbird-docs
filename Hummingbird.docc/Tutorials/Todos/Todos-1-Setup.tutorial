@@ -1,0 +1,94 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Setup a Hummingbird application.") {
+        Create a simple web application.
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Setup your project") {
+        @ContentAndMedia() {
+            Create your Package.swift, and add the dependencies your will need.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
+            @Step {
+                Create a new folder and enter it.
+                @Code(name: "Create folder", file: todos-setup-01.sh)
+            }
+            @Step {
+                Create your swift package.
+                @Code(name: "Create Swift Package", file: todos-setup-02.sh)
+            }
+            @Step {
+                Open your swift package.
+                @Code(name: "Package.swift", file: todos-setup-03.swift)
+            }
+            @Step {
+                Add the Hummingbird package as a dependency and add the the libraries you are going to use to the target. You need HummingbirdFoundation because you need the JSON encoder and decoder.
+                @Code(name: "Package.swift", file: todos-setup-04.swift)
+            }
+            @Step {
+                Open `Sources/HummingbirdTodos.swift`.
+                @Code(name: "HummingbirdTodos.swift", file: todos-setup-05.swift)
+            }
+            @Step {
+                Make `HummingbirdTodos` conform to `AsyncParsableCommand` as Hummingbird requires an async entry point.
+                @Code(name: "HummingbirdTodos.swift", file: todos-setup-06.swift)
+            }
+            @Step {
+                Create an Hummingbird application and add a single route that returns "Hello". 
+                @Code(name: "HummingbirdTodos.swift", file: todos-setup-07.swift)
+            }
+            @Step {
+                Run you application and use curl to test it works. 
+                @Code(name: "Test Application", file: todos-setup-08.sh)
+            }
+            @Step {
+                Congratulations you wrote your first Hummingbird app. 
+                @Code(name: "Test Applicatoin", file: todos-setup-09.sh)
+            }
+        }
+    }
+
+    @Section(title: "Extend your Application") {
+        @ContentAndMedia() {
+            Add logging middleware, set up JSON request decoding and reponse encoding and add some commandline parameters to control your application.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+
+        @Steps {
+            @Step {
+                Add logging middleware.
+                @Code(name: "HummingbirdTodos.swift", file: todos-extend-01.swift)
+            }
+            @Step {
+                Run the app again and use the same curl command to test it again. The application will output details of every request sent to it.
+                @Code(name: "Test Application", file: todos-extend-02.sh)
+            }
+            @Step {
+                Setting up JSON encoding/decoding requires a custom request context. The request context is the object that is passed along with the request in your route handler. You can set the router to use your own context type as long as it conforms to `HBRequestContext`.
+                @Code(name: "TodosRequestContext.swift", file: todos-extend-03.swift)
+            }
+            @Step {
+                Go back to HummingbirdTodos.swift
+                @Code(name: "HummingbirdTodos.swift", file: todos-extend-01.swift)
+            }
+            @Step {
+                Set your router to use the new request context.
+                @Code(name: "HummingbirdTodos.swift", file: todos-extend-04.swift)
+            }
+            @Step {
+                Finally we are going to add some commandline parameters. Let's add server bind address details: hostname and port.
+                @Code(name: "HummingbirdTodos.swift", file: todos-extend-05.swift)
+            }
+            @Step {
+                Then use those arguments to configure our application.
+                @Code(name: "HummingbirdTodos.swift", file: todos-extend-06.swift)
+            }
+            @Step {
+                Now you can set the bind address of your server from the command line. Now anyone can talk to your application.
+                @Code(name: "Test Application", file: todos-extend-07.sh)
+            }
+        }
+    }        
+}
