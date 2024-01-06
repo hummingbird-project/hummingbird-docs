@@ -1,0 +1,16 @@
+@Tutorial(time: 20) {
+    @Intro(title: "Use PostgresNIO to store your Todos in a Postgres database") {
+        Now we have a working API and a way to test it, lets look into storing our todos in a Postgres database with PostgresNIO.
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Setup your Postgres database") {
+        @ContentAndMedia() {
+            Setup a Postgres database to use with the Todos application.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
+        }
+    }
+}
+        

@@ -1,0 +1,31 @@
+@Tutorials(name: "Todo backend") {
+    @Intro(title: "Build a Todos application.") {
+        This is a tutorial showing you how to build a simple Todos application that stores Todos in a databse. It follows the API spec of the [Todo-Backend](https://www.todobackend.com) project. 
+
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Chapter(name: "Application setup") {
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        
+        @TutorialReference(tutorial: "doc:Todos-1-Setup")
+    }
+    
+    @Chapter(name: "API Setup") {
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        
+        @TutorialReference(tutorial: "doc:Todos-2-API")
+    }
+    
+    @Chapter(name: "Testing your application") {
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        
+        @TutorialReference(tutorial: "doc:Todos-3-Testing")
+    }
+    
+    @Chapter(name: "Store Todos in a database") {
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        
+        @TutorialReference(tutorial: "doc:Todos-4-Postgres")
+    }
+}
