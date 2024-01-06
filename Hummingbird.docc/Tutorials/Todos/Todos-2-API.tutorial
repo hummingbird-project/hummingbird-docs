@@ -1,4 +1,4 @@
-@Tutorial(time: 20) {
+@Tutorial(time: 15) {
     @Intro(title: "Add your application API") {
         Add some functionality to your app
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
@@ -24,7 +24,7 @@
                 @Code(name: "HummingbirdTodos.swift", file: todos-api-02.swift)
             }
             @Step {
-                Before we start adding routes, we going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from out API. With this we should be able to create an API and test it without worrying about Database setup.
+                Before we start adding routes, we going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
             }
             @Step {
                 Create a product `Todo` that includes everything to define a todo.
@@ -47,7 +47,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                And add a generic repository member to be used by the routes.
+                And add a generic repository member variable conforming to `TodoRepository` to be used by the `TodoController` routes.
                 @Code(name: "TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
@@ -63,17 +63,17 @@
                 @Code(name: "TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
-                Our first entrypoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the JSONEncoder attached to the context earlier.
+                Our first entrypoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the JSONEncoder attached to the context.
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
-                This entrypoint has a few other features. If it fails to convert the id to a UUID then it throws an `HBHTTPError`. This is an error that be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
+                This entrypoint has a few other features. If it fails to convert the id to a UUID then it throws an `HBHTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
 
                 If the entrypoint returns nil because it could not find a route this will automatically return a 204 (No Content) HTTP response to the client.
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
-                Our second entrypoint is to create a Todo. We have added a struct to decode from the request. As with the get entrypoint response, this uses the JSONDecoder attached to the context earlier. We then call the repository create method and return the result.
+                Our second entrypoint is to create a Todo. We have added a struct to decode from the request. In a similar way to the get entrypoint response using JSONEncoder, this uses the JSONDecoder attached to the context. We then call the repository `create` method and return the result.
                 @Code(name: "TodoController.swift", file: todos-api-10.swift)
             }
             @Step {
@@ -86,6 +86,8 @@
             }
             @Step {
                 Then use curl to access the URL that was in the returned json from the previous curl call.
+
+                Cool it works!
                 @Code(name: "Test get", file: todos-api-13.sh)
             }
             @Step {
@@ -97,15 +99,15 @@
                 @Code(name: "TodoController.swift", file: todos-api-14.swift)
             }
             @Step {
-                This is the entrypoint that updates a todo. It extracts the todo id from the URI, decodes the UpdateRequest from the request and then calls the repository update function.
+                This is the entrypoint that updates a todo. It extracts the todo id from the URI, decodes the UpdateRequest from the request and then calls the repository `update` function.
                 @Code(name: "TodoController.swift", file: todos-api-15.swift)
             }
             @Step {
-                This is the entrypoint that deletes a todo. It extracts the todo id from the URI and calls the repository delete function.
+                This is the entrypoint that deletes a todo. It extracts the todo id from the URI and calls the repository `delete` function.
                 @Code(name: "TodoController.swift", file: todos-api-16.swift)
             }
             @Step {
-                The final entrypoint is the one that deletes all todos. It simply calls the repository deleteAll function, as it doesn't need to extract any information from the request.
+                The final entrypoint is the one that deletes all todos. It simply calls the repository `deleteAll` function, as it doesn't need to extract any information from the request.
                 @Code(name: "TodoController.swift", file: todos-api-17.swift)
             }
         }
@@ -139,7 +141,7 @@
                 @Code(name: "Test delete", file: todos-api-22.sh)
             }
             @Step {
-                when we try to get it again a 201 response is returned, as it no longer exists.
+                when we try to get it again a 204 (No Content) response is returned, as it no longer exists.
                 @Code(name: "Test delete", file: todos-api-23.sh)
             }
             @Step {

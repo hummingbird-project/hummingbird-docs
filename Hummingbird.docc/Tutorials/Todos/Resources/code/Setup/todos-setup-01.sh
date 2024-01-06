@@ -1,2 +1,2 @@
-> mkdir hummingbird-todos
-> cd hummingbird-todos
+> mkdir HummingbirdTodos
+> cd HummingbirdTodos
