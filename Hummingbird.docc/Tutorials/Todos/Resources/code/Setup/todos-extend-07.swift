@@ -20,8 +20,6 @@ struct Todos: AsyncParsableCommand {
         router.get("/") { request, context in
             "Hello\n"
         }
-        // add Todos API
-        TodoController(repository: TodoMemoryRespository()).addRoutes(to: router.group("todos"))
         // create application
         let app = HBApplication(
             router: router,

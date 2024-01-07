@@ -1,14 +1,14 @@
-@testable import HummingbirdTodos
+@testable import Todos
 import Foundation
 import Hummingbird
 import HummingbirdXCT
 import XCTest
 
-final class HummingbirdTodosTests: XCTestCase {
+final class TodosTests: XCTestCase {
     struct TestArguments: AppArguments {
         let hostname = "127.0.0.1"
         let port = 8080
-        let testing = true
+        let inMemoryTesting = true
     }
 
     struct CreateRequest: Encodable {
@@ -28,7 +28,7 @@ final class HummingbirdTodosTests: XCTestCase {
     func get(id: UUID, client: some HBXCTClientProtocol) async throws -> Todo? {
         try await client.XCTExecute(uri: "/todos/\(id)", method: .get) { response in
             // either the get request returned an 200 status or it didn't return a Todo
-            XCTAssert(response.status == .ok || response.body == nil )
+            XCTAssert(response.status == .ok || response.body == nil || response.body?.readableBytes == 0)
             if let body = response.body, body.readableBytes > 0 {
                 return try JSONDecoder().decode(Todo.self, from: body)
             } else {

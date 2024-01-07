@@ -1,20 +1,17 @@
-import ArgumentParser
 import Hummingbird
+import HummingbirdFoundation
+import Logging
 
-@main
-struct HummingbirdTodos: AsyncParsableCommand {
-    func run() async throws {
-        // create router
-        let router = HBRouter(context: TodoRequestContext.self)
-        // add logging middleware
-        router.middlewares.add(HBLogRequestsMiddleware(.info))
-        // add hello route
-        router.get("/") { request, context in
-            "Hello\n"
-        }
-        // create application
-        let app = HBApplication(router: router)
-        // run application
-        try await app.runService()
+/// Custom request context setting up JSON decoding and encoding
+struct TodoRequestContext: HBRequestContext {
+    var coreContext: HBCoreRequestContext
+
+    init(allocator: ByteBufferAllocator, logger: Logger) {
+        self.coreContext = .init(
+            requestDecoder: JSONDecoder(),
+            responseEncoder: JSONEncoder(),
+            allocator: allocator,
+            logger: logger
+        )
     }
 }

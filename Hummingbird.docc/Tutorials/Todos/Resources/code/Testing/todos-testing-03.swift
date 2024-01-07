@@ -1,5 +1,5 @@
-@testable import HummingbirdTodos
+@testable import Todos
 import XCTest
 
-final class HummingbirdTodosTests: XCTestCase {
+final class TodosTests: XCTestCase {
 }

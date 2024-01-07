@@ -1,10 +1,10 @@
-@testable import HummingbirdTodos
+@testable import Todos
 import Foundation
 import Hummingbird
 import HummingbirdXCT
 import XCTest
 
-extension HummingbirdTodosTests {
+extension TodosTests {
     func testAPI() async throws {
         let app = try await buildApplication(TestArguments())
         try await app.test(.router) { client in

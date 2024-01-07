@@ -1,7 +1,9 @@
 @testable import Todos
+import Foundation
 import Hummingbird
 import HummingbirdXCT
 import XCTest
+
 
 final class TodosTests: XCTestCase {
     struct TestArguments: AppArguments {
@@ -10,7 +12,3 @@ final class TodosTests: XCTestCase {
         let inMemoryTesting = true
     }
 
-    func testCreate() async throws {
-        let app = try await buildApplication(TestArguments())
-    }
-}

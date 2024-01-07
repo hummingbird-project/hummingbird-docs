@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "HummingbirdTodos",
+    name: "Todos",
     platforms: [.macOS(.v14)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
@@ -10,7 +10,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "HummingbirdTodos",
+            name: "Todos",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "Hummingbird", package: "hummingbird"),
@@ -18,9 +18,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "HummingbirdTodosTests",
+            name: "TodosTests",
             dependencies: [
-                "HummingbirdTodos",
+                "Todos",
                 .product(name: "Hummingbird", package: "hummingbird"),
                 .product(name: "HummingbirdXCT", package: "hummingbird"),
             ]
