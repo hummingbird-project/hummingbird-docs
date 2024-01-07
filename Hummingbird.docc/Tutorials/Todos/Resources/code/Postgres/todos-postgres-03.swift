@@ -17,5 +17,13 @@ let package = Package(
                 .product(name: "HummingbirdFoundation", package: "hummingbird"),
             ]
         ),
+        .testTarget(
+            name: "TodosTests",
+            dependencies: [
+                "Todos",
+                .product(name: "Hummingbird", package: "hummingbird"),
+                .product(name: "HummingbirdXCT", package: "hummingbird"),
+            ]
+        ),
     ]
 )

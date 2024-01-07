@@ -1,7 +1,7 @@
 import ArgumentParser
 
 @main
-struct HummingbirdTodos: AsyncParsableCommand {
+struct Todos: AsyncParsableCommand {
     func run() async throws {
         print("Hello, world!")
     }

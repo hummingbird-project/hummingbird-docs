@@ -14,4 +14,4 @@ struct Todo {
     var completed: Bool?
 }
 
-extension Todo: HBResponseEncodable, Codable, Equatable {}
+extension Todo: HBResponseEncodable, Decodable, Equatable {}

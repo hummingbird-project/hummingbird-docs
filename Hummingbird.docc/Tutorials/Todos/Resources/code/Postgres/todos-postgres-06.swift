@@ -1,24 +1,8 @@
 import ArgumentParser
 import Hummingbird
 
-@main
-struct Todos: AsyncParsableCommand {
-    @Option(name: .shortAndLong)
-    var hostname: String = "127.0.0.1"
-
-    @Option(name: .shortAndLong)
-    var port: Int = 8080
-
-    func run() async throws {
-        // create application
-        let app = try await buildApplication(self)
-        // run application
-        try await app.runService()
-    }
-}
-
 /// Build a HBApplication
-func buildApplication(_ args: Todos) async throws -> some HBApplicationProtocol {
+func buildApplication(_ args: some AppArguments) async throws -> some HBApplicationProtocol {
     var logger = Logger(label: "Todos")
     logger.logLevel = .debug
     // create router
@@ -39,4 +23,3 @@ func buildApplication(_ args: Todos) async throws -> some HBApplicationProtocol 
     )
     return app
 }
-

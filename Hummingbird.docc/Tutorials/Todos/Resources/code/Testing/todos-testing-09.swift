@@ -1,13 +1,13 @@
-@testable import HummingbirdTodos
+@testable import Todos
 import Hummingbird
 import HummingbirdXCT
 import XCTest
 
-final class HummingbirdTodosTests: XCTestCase {
+final class TodosTests: XCTestCase {
     struct TestArguments: AppArguments {
         let hostname = "127.0.0.1"
         let port = 8080
-        let testing = true
+        let inMemoryTesting = true
     }
 
     struct CreateRequest: Encodable {

@@ -12,16 +12,16 @@
         
         @Steps {
             @Step {
-                Add the new file TodoController.swift 
+                Add the new file `Sources/TodoController.swift` 
                 @Code(name: "TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                Go back to HummingbirdTodos.swift
-                @Code(name: "HummingbirdTodos.swift", file: todos-extend-05.swift)
+                Go back to Todos.swift
+                @Code(name: "Todos.swift", file: todos-extend-06.swift)
             }
             @Step {
                 And add the TodoController APIs to your router. The Todos API has a URI prefix of "todos".
-                @Code(name: "HummingbirdTodos.swift", file: todos-api-02.swift)
+                @Code(name: "Todos.swift", file: todos-api-02.swift)
             }
             @Step {
                 Before we start adding routes, we going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
@@ -51,12 +51,12 @@
                 @Code(name: "TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
-                Go to HummingbirdTodos.swift
-                @Code(name: "HummingbirdTodos.swift", file: todos-api-02.swift)
+                Go to Todos.swift
+                @Code(name: "Todos.swift", file: todos-api-02.swift)
             }
             @Step {
                 And add the repository parameter to the TodoController initializer.
-                @Code(name: "HummingbirdTodos.swift", file: todos-api-08.swift)
+                @Code(name: "Todos.swift", file: todos-api-08.swift)
             }
             @Step {
                 Return to TodoController.swift. We can now start adding our API.
@@ -81,7 +81,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                We now have an API we can test. Lets use curl to create a Todo. Notice I have used the command line parameter `-i` to get the full HTTP response and that the status code if 201 (Created).
+                We now have an API we can test. Lets use curl to create a Todo. Notice I have used the command line parameter `-i` to get the full HTTP response and that the status code is 201 (Created).
                 @Code(name: "Test create", file: todos-api-12.sh)
             }
             @Step {
@@ -95,7 +95,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                This is the entrypoint that lists all of the todos that have been created. Because Todo conforms to HBResponseEncodable, Array<Todo> automatically conforms to HBResponseEncodable as well.
+                This is the entrypoint that lists all of the todos that have been created. Because Todo conforms to HBResponseEncodable, Array\<Todo\> automatically conforms to HBResponseEncodable as well.
                 @Code(name: "TodoController.swift", file: todos-api-14.swift)
             }
             @Step {

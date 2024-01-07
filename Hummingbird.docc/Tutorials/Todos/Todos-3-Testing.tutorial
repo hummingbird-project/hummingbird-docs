@@ -15,30 +15,30 @@
                 @Code(name: "Package.swift", file: todos-testing-01.swift)
             }
             @Step { 
-                Add a test target for "HummingbirdTodosTests"
+                Add a test target for "TodosTests"
                 @Code(name: "Package.swift", file: todos-testing-02.swift)
             }
             @Step { 
-                Create a Tests folder and add the file HummingbirdTodosTests.swift inside it. 
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-03.swift)
+                Create a Tests folder and add the file TodosTests.swift inside it. 
+                @Code(name: "TodosTests.swift", file: todos-testing-03.swift)
             }
             @Step { 
-                Before we can start testing the application we need a function to create the application. Currently it is created inside `HummingbirdTodos.run` and is inaccessible. 
-                @Code(name: "HummingbirdTodos.swift", file: todos-testing-04.swift)
+                Before we can start testing the application we need a function to create the application. Currently it is created inside `Todos.run` and is inaccessible. 
+                @Code(name: "Todos.swift", file: todos-testing-04.swift)
             }
             @Step { 
-                We move the application creation to a global function outside of `HummingbirdTodos`.
+                We move the application creation to a global function outside of `Todos`.
 
-                The `buildApplication` function returns `some HBApplicationProtocol`. This is avoid having to list all the generic parameters of `HBApplication`. FYI in this case it is `HBApplication<HBRouterResponder<TodoRequestContext>, HTTP1Channel>`.
+                The `buildApplication` function returns `some HBApplicationProtocol`. This is to avoid having to list all the generic parameters of `HBApplication`. FYI in this case it is `HBApplication<HBRouterResponder<TodoRequestContext>, HTTP1Channel>`.
 
-                @Code(name: "HummingbirdTodos.swift", file: todos-testing-05.swift)
+                @Code(name: "Todos.swift", file: todos-testing-05.swift)
             }
             @Step { 
-                We cannot instantiate `HummingbirdTodos` in our tests so need another way to pass arguments to the buildApplication function. We solve this by creating a protocol AppArguments which HummingbirdTodos conforms to. In our tests we can create a separate concrete type that conforms to this.
+                We cannot instantiate `Todos` in our tests so need another way to pass arguments to the buildApplication function. We solve this by creating a protocol AppArguments which Todos conforms to. In our tests we can create a separate concrete type that conforms to this.
 
-                We've added a testing variable to this protocol which we will use in the future.
+                We've added a `inMemoryTesting` variable to this protocol which we will use in the future.
 
-                @Code(name: "HummingbirdTodos.swift", file: todos-testing-06.swift)
+                @Code(name: "Todos.swift", file: todos-testing-06.swift)
             }
         }
     }
@@ -50,35 +50,37 @@
         @Steps {
             @Step {
                 We are now in a position where we can test our application. We create a concrete type conforming to `AppArguments` which we can pass to `buildApplication`. The start of function to test the create API is here, with its first line creating the todos application.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-07.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-07.swift)
             }
             @Step {
                 This is the filled out function. Application testing is done with the function ``Hummingbird/HBApplicationProtocol/test(_:_:)``. The first parameter indicates what test framework you want to use. Here we are using `.router` which indicates we send our request directly to the router without a live server process.
 
                 In the closure passed to `test` you are provided with a client to interact with the current test framework. With this you can send requests and verify the contents of their responses.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-08.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-08.swift)
             }
             @Step {
                 Writing the whole XCTExecute line out each time and converting the responses to something readable can become tiresome. So lets break out the create API call to a separate function. You'll notice in this function we return the decoded Todo from the XCTExecute closure.
 
                 Now the create test has been simplified to two lines of code. Call create function, test return value.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-09.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-09.swift)
             }
             @Step {
                 In actual fact lets create helper functions for all the API calls. With these it shoud be a lot easier to write tests
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-10.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-10.swift)
             }
             @Step {
                 We can now create more complex test functions. This one edits a todo twice and verifies the edits have been stored.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-11.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-11.swift)
             }
             @Step {
                 The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdXCT.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-12.swift)
+                @Code(name: "TodosTests.swift", file: todos-testing-12.swift)
             }
             @Step {
                 I've left these tests unwritten. Maybe you could complete them for me.
-                @Code(name: "HummingbirdTodosTests.swift", file: todos-testing-13.swift)
+
+                Hint: A couple of these require you to use XCTExecute directly instead of calling the helper functions we wrote at the top.
+                @Code(name: "TodosTests.swift", file: todos-testing-13.swift)
             }
         }
     }
