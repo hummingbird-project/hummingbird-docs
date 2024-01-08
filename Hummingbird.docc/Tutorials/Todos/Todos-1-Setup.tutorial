@@ -62,7 +62,7 @@
                 @Code(name: "Todos.swift", file: todos-extend-01.swift)
             }
             @Step {
-                And add logging middleware.
+                And add logging middleware and a `Logger` to be used by the application. By changing the logger `logLevel` we can control the fidelity of the logging. 
                 @Code(name: "Todos.swift", file: todos-extend-02.swift)
             }
             @Step {
