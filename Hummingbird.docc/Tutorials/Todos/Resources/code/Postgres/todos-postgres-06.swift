@@ -14,7 +14,7 @@ func buildApplication(_ args: some AppArguments) async throws -> some HBApplicat
         "Hello\n"
     }
     // add Todos API
-    TodoController(repository: TodoMemoryRespository()).addRoutes(to: router.group("todos"))
+    TodoController(repository: TodoMemoryRepository()).addRoutes(to: router.group("todos"))
     // create application
     let app = HBApplication(
         router: router,
