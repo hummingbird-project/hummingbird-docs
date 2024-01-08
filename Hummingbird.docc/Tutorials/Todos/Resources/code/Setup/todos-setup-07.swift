@@ -4,8 +4,6 @@ import Hummingbird
 @main
 struct Todos: AsyncParsableCommand {
     func run() async throws {
-        var logger = Logger(label: "Todos")
-        logger.logLevel = .debug
         // create router
         let router = HBRouter()
         // add hello route
@@ -13,7 +11,7 @@ struct Todos: AsyncParsableCommand {
             "Hello\n"
         }
         // create application
-        let app = HBApplication(router: router, logger: logger)
+        let app = HBApplication(router: router)
         // run application
         try await app.runService()
     }
