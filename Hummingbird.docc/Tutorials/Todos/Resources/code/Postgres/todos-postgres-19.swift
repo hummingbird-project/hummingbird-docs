@@ -1,26 +1,23 @@
-import Foundation
-@_spi(ConnectionPool) import PostgresNIO
+// UPDATE query
+let query: PostgresQuery = """
+    UPDATE todos SET \(optionalUpdateFields: (("title", title), ("order", order), ("completed", completed))) WHERE id = \(id)
+    """
 
-extension TodoPostgresRepository {
-    /// Delete todo. Returns true if successful
-    func delete(id: UUID) async throws -> Bool {
-        return try await self.client.withConnection{ connection in
-            let selectStream = try await connection.query("""
-                SELECT "id" FROM todos WHERE "id" = \(id)
-                """, logger: logger
-            )
-            // if we didn't find the item with this id then return false
-            if try await selectStream.decode((UUID).self, context: .default).first(where: { _ in true} ) == nil {
-                return false
-            }
-            _ = try await connection.query("DELETE FROM todos WHERE id = \(id);", logger: logger)
-            return true
+/// Append interpolation of a series of fields with optional values for a SQL UPDATE call. 
+/// If the value is nil it doesn't add the field to the query.
+/// 
+/// This call only works if you have more than one field.
+mutating func appendInterpolation<each Value: PostgresDynamicTypeEncodable>(optionalUpdateFields fields: (repeat (String, Optional<each Value>))) {
+    func appendSelect(id: String, value: Optional<some PostgresDynamicTypeEncodable>, first: Bool) -> Bool {
+        if let value {
+            self.appendInterpolation(unescaped: "\(first ? "": ", ")\(id) = ")
+            self.appendInterpolation(value)
+            return false
         }
+        return first
     }
-    /// Delete all todos
-    func deleteAll() async throws {
-        return try await self.client.withConnection{ connection in
-            try await connection.query("DELETE FROM todos;", logger: logger)
-        }
-    }
+    var first: Bool = true // indicates whether we should prefix with a comma
+    repeat (
+        first = appendSelect(id: (each fields).0, value: (each fields).1, first: first)
+    )
 }

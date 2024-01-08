@@ -77,7 +77,7 @@
                 @Code(name: "TodosTests.swift", file: todos-testing-12.swift)
             }
             @Step {
-                I've left these tests unwritten. Maybe you could complete them for me.
+                Here are some tests that haven't been written yet. Maybe you could complete them for me.
 
                 Hint: A couple of these require you to use XCTExecute directly instead of calling the helper functions we wrote at the top.
                 @Code(name: "TodosTests.swift", file: todos-testing-13.swift)

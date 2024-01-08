@@ -81,7 +81,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                We now have an API we can test. Lets use curl to create a Todo. Notice I have used the command line parameter `-i` to get the full HTTP response and that the status code is 201 (Created).
+                We now have an API we can test. Lets use curl to create a Todo. If we include the command line parameter `-i` we get the full HTTP response and that the status code is 201 (Created).
                 @Code(name: "Test create", file: todos-api-12.sh)
             }
             @Step {
