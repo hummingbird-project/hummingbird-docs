@@ -66,7 +66,7 @@
                 @Code(name: "TodoPostgresRepository.swift", file: todos-postgres-11.swift)
             }
             @Step {
-                The first thing we need to do is create a table to store our todos in. 
+                If we are going to be saving our todos to a database we are going to need a table to store them in. 
 
                 I won't go into any great detail about the SQL calls. We will cover how you construct, send calls and parse their results with `PostgresClient` as we proceed through the tutorial.
 
