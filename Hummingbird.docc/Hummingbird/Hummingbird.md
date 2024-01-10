@@ -32,6 +32,7 @@ try await app.runService()
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
+- <doc:Testing>
 
 ### Application
 
@@ -47,7 +48,6 @@ try await app.runService()
 - ``HBRouterMethods``
 - ``HBRouterMethodOptions``
 - ``HBRouteHandler``
-- ``HBRequestDecodable``
 - ``HBResponder``
 - ``HBCallbackResponder``
 - ``EndpointPath``

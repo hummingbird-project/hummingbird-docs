@@ -8,31 +8,34 @@ Provides methods for easy setup of unit tests using XCTest framework.
 
 ### Usage
 
-Setup your server and add features you want to test.
+Setup your server and run requests to the routes you want to test.
 
 ```swift
-let app = HBApplication(testing: .embedded)
-app.router.get("test") { _ in
+let router = HBRouter()
+router.get("test") { _ in
     return "testing"
 }
-try app.XCTStart()
-defer { app.XCTStop() }
-```
-
-And then test those features work as expected.
-
-```swift
-app.XCTExecute(uri: "test", method: .GET) { response in
-    XCTAssertEqual(response.status, .ok)
-    XCTAssertEqual(String(buffer: body), "testing")
+let app = HBApplication(router: router)
+try await app.test(.router) { client in
+    try await client.XCTExecute(uri: "test", method: .GET) { response in
+        XCTAssertEqual(response.status, .ok)
+        let body = try XCTUnwrap(response.body)
+        XCTAssertEqual(String(buffer: body), "testing")
+    }
 }
 ```
 
 ## Topics
 
+### Guides
+
+- <doc:Testing>
+
 ### Test Setup
 
 - ``XCTTestingSetup``
+- ``XCTScheme``
+- ``/Hummingbird/HBApplicationProtocol/test(_:_:)``
 
 ## See Also
 
