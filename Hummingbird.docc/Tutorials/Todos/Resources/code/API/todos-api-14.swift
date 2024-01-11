@@ -31,7 +31,7 @@ struct TodoController<Context: HBRequestContext, Repository: TodoRepository> {
     }
     /// Create todo entrypoint
     @Sendable func create(request: HBRequest, context: Context) async throws -> HBEditedResponse<Todo> {
-        let request = try await request.decode(as: CreateRequest.self, using: context)
+        let request = try await request.decode(as: CreateRequest.self, context: context)
         let todo = try await self.repository.create(title: request.title, order: request.order, urlPrefix: "http://localhost:8080/todos/")
         return HBEditedResponse(status: .created, response: todo)
     }

@@ -19,8 +19,7 @@ final class TodosTests: XCTestCase {
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
         return try await client.XCTExecute(uri: "/todos", method: .post, body: buffer) { response in
             XCTAssertEqual(response.status, .created)
-            let body = try XCTUnwrap(response.body)
-            return try JSONDecoder().decode(Todo.self, from: body)
+            return try JSONDecoder().decode(Todo.self, from: response.body)
         }
     }
 

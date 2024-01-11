@@ -28,9 +28,9 @@ final class TodosTests: XCTestCase {
     func get(id: UUID, client: some HBXCTClientProtocol) async throws -> Todo? {
         try await client.XCTExecute(uri: "/todos/\(id)", method: .get) { response in
             // either the get request returned an 200 status or it didn't return a Todo
-            XCTAssert(response.status == .ok || response.body == nil || response.body?.readableBytes == 0)
-            if let body = response.body, body.readableBytes > 0 {
-                return try JSONDecoder().decode(Todo.self, from: body)
+            XCTAssert(response.status == .ok || response.body.readableBytes == 0)
+            if response.body.readableBytes > 0 {
+                return try JSONDecoder().decode(Todo.self, from: response.body)
             } else {
                 return nil
             }
@@ -40,8 +40,7 @@ final class TodosTests: XCTestCase {
     func list(client: some HBXCTClientProtocol) async throws -> [Todo] {
         try await client.XCTExecute(uri: "/todos", method: .get) { response in
             XCTAssertEqual(response.status, .ok)
-            let body = try XCTUnwrap(response.body)
-            return try JSONDecoder().decode([Todo].self, from: body)
+            return try JSONDecoder().decode([Todo].self, from: response.body)
         }
     }
 
@@ -55,8 +54,8 @@ final class TodosTests: XCTestCase {
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
         return try await client.XCTExecute(uri: "/todos/\(id)", method: .patch, body: buffer) { response in
             XCTAssertEqual(response.status, .ok)
-            if let body = response.body, body.readableBytes > 0 {
-                return try JSONDecoder().decode(Todo.self, from: body)
+            if response.body.readableBytes > 0 {
+                return try JSONDecoder().decode(Todo.self, from: response.body)
             } else {
                 return nil
             }
