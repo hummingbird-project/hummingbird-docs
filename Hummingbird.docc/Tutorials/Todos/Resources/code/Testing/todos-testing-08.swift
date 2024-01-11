@@ -15,8 +15,7 @@ final class TodosTests: XCTestCase {
         try await app.test(.router) { client in
             try await client.XCTExecute(uri: "/todos", method: .post, body: ByteBuffer(string: #"{"title":"My first todo"}"#)) { response in
                 XCTAssertEqual(response.status, .created)
-                let body = try XCTUnwrap(response.body)
-                let todo = try JSONDecoder().decode(Todo.self, from: body)
+                let todo = try JSONDecoder().decode(Todo.self, from: response.body)
                 XCTAssertEqual(todo.title, "My first todo")
             }
         }
