@@ -65,7 +65,9 @@ router.group()
 
 Your route will be able to access the authenticated user via `context.auth.require` or `context.auth.get`.
 
-## See Also
+## Topics
+
+### Reference
 
 - ``HummingbirdAuth/HBSessionStorage``
 - ``HummingbirdAuth/HBSessionAuthenticator``

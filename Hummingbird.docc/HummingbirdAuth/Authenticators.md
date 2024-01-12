@@ -61,7 +61,9 @@ router.middlewares.add(IsAuthenticatedMiddleware<User>())
 
 Or you can use ``HummingbirdAuth/HBLoginCache/require(_:)`` to access the authentication data. In both of these cases if data is not available a unauthorised error is thrown and a 404 response is returned by the server.
 
-## See Also
+## Topics
+
+### Reference
 
 - ``HummingbirdAuth/HBAuthenticator``
 - ``HummingbirdAuth/HBAuthenticatable``

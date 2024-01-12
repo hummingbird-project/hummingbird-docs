@@ -1,6 +1,6 @@
 @Tutorials(name: "Todo backend") {
     @Intro(title: "Build a Todos application.") {
-        This is a tutorial showing you how to build a simple Todos application that allows you to store, access, edit and delete Todos in a database, using Hummingbird and PostgresNIO.
+        A tutorial showing you how to build a simple Todos application that allows you to store, access, edit and delete Todos in a database, using Hummingbird and PostgresNIO.
 
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
     }
