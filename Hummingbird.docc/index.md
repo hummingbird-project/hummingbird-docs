@@ -40,12 +40,21 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 
 ### Guides
 
+- <doc:MigratingToV2>
 - <doc:Router>
-- <doc:RequestContext>
+- <doc:RequestContexts>
 - <doc:EncodingAndDecoding>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
+- <doc:Testing>
+- <doc:Authenticators>
+- <doc:Sessions>
+- <doc:OneTimePasswords>
+
+### Tutorials
+
+- <doc:Todos>
 
 ## See Also
 
@@ -53,7 +62,9 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdCore``
 - ``/HummingbirdAuth``
 - ``/HummingbirdCompression``
+- ``/HummingbirdFluent``
 - ``/HummingbirdFoundation``
 - ``/HummingbirdJobs``
+- ``/HummingbirdRedis``
 - ``/HummingbirdLambda``
-- ``/HummingbirdWebSocket``
+- ``/HummingbirdXCT``

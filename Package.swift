@@ -33,6 +33,7 @@ let package = Package(
                 .product(name: "HummingbirdHTTP2", package: "hummingbird"),
                 .product(name: "HummingbirdFoundation", package: "hummingbird"),
                 .product(name: "HummingbirdJobs", package: "hummingbird"),
+                .product(name: "HummingbirdRouter", package: "hummingbird"),
                 .product(name: "HummingbirdXCT", package: "hummingbird"),
                 .product(name: "HummingbirdAuth", package: "hummingbird-auth"),
 //                .product(name: "HummingbirdCompression", package: "hummingbird-compression"),
@@ -40,6 +41,7 @@ let package = Package(
 //                .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
                 .product(name: "HummingbirdMustache", package: "hummingbird-mustache"),
                 .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
+                .product(name: "HummingbirdJobsRedis", package: "hummingbird-redis"),
 //                .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
             ]),
     ]
