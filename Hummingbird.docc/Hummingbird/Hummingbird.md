@@ -124,3 +124,4 @@ try await app.runService()
 - ``HummingbirdMustache``
 - ``HummingbirdLambda``
 - ``HummingbirdRedis``
+- ``HummingbirdRouter``
