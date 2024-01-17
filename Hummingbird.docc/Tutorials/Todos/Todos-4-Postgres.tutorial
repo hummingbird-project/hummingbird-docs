@@ -99,12 +99,8 @@
                 @Code(name: "TodoPostgresRepository > list().swift", file: todos-postgres-17.swift)
             }
             @Step {
-                `patch` has a complication where we only want to include the non optional values in the `UPDATE` query otherwise we'll be setting database columns to null. The easiest way to do this is build up the `PostgresQuery.StringInterpolation` bit by bit but that is quite messy.
+                `patch` has a complication where we only want to include the non optional values in the `UPDATE` query otherwise we'll be setting database columns to null. You could do this dynamically and build a `PostgresQuery.StringInterpolation` bit by bit but it is safer just to provide the full query strings for each situation.
                 @Code(name: "TodoPostgresRepository > patch(id:).swift", file: todos-postgres-18.swift)
-            }
-            @Step {
-                We can get around this by adding a String interpolation function for converting a variadic list of key value pairs into KEY = VALUE, KEY2 = VALUE2. We add each pair to the query if the value is not nil. This function uses parameter packs, if you want to find out more about them read the [swift-evolution proposal](https://github.com/apple/swift-evolution/blob/main/proposals/0393-parameter-packs.md).
-                @Code(name: "TodoPostgresRepository > appendInterpolation.swift", file: todos-postgres-19.swift)
             }
             @Step {
                 And finally the `delete` and `deleteAll` functions. This completes the implementation of the Postgres todos repository.
