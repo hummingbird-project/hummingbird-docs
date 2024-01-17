@@ -7,7 +7,7 @@
             "label": "Build Documentation",
             "detail": "Build docc documentation for Hummingbird",
             "type": "shell",
-            "command": "HUMMINGBIRD_VERSION=2.0 DOCC_HTML_DIR='../swift-docc-render-artifact/dist' ./scripts/build-docc.sh",
+            "command": "HUMMINGBIRD_VERSION=2.0 ./scripts/build-docc.sh",
             "problemMatcher": [],
             "group": "build"
         }
