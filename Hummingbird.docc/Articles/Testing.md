@@ -32,8 +32,7 @@ func testApplicationReturnsCorrectText() async throw {
             body: nil      // default value
         ) { response in
             XCTAssertEqual(response.status, .ok)
-            let body = try XCTUnwrap(response.body)
-            XCTAssertEqual(String(buffer: body), "Hello john!")
+            XCTAssertEqual(String(buffer: response.body), "Hello john!")
         }
     }
 }
