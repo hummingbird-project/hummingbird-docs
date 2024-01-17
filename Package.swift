@@ -17,7 +17,7 @@ let package = Package(
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", branch: "2.x.x"),
 //        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", branch: "2.x.x"),
-//        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "1.0.0-rc.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "2.x.x"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", branch: "2.x.x"),
 //        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "1.0.0"),

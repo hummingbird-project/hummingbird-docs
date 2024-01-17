@@ -4,13 +4,9 @@ Add TLS support to Hummingbird server
 
 ## Overview
 
-HummingbirdTLS adds a single type ``TLSChannel``. If you want a server to support TLS then build a ``TLSChannel`` with your base channel setup type and a `TLSConfiguration` struct from [NIOSSL](https://github.com/apple/swift-nio-ssl) as parameters.
+HummingbirdTLS provides TLS support via ``TLSChannel``. You can add this to your application using ``HummingbirdCore/HBHTTPChannelBuilder/tls(_:tlsConfiguration:)``.
 
 ```swift
-let http1Channel = HTTP1Channel { _, context in
-    let responseBody = channel.allocator.buffer(string: "Hello")
-    return HBResponse(status: .ok, body: .init(byteBuffer: responseBody))
-}
 // Load certificates and private key to construct server TLS configuration
 let certificateChain = try NIOSSLCertificate.fromPEMFile(arguments.certificateChain)
 let privateKey = try NIOSSLPrivateKey(file: arguments.privateKey, format: .pem)
@@ -18,15 +14,15 @@ let tlsConfiguration = TLSConfiguration.makeServerConfiguration(
     certificateChain: certificateChain.map { .certificate($0) },
     privateKey: .privateKey(privateKey)
 )
-// Create TLS Channel
-let tlsChannel = TLSChannel(http1Channel, tlsConfiguration: tlsConfiguration)
-let server = HBServer(
-    childChannelSetup: tlsChannel,
-    configuration: .init(address: .hostname(port: 8080)),
-    eventLoopGroup: eventLoopGroup,
-    logger: Logger(label: "HelloServer")
+
+let router = HBRouter()
+let app = HBApplication(
+    router: router,
+    server: .tls(.http1(), tlsConfiguration: tlsConfiguration)
 )
 ```
+
+The function `tls` can be used to wrap any other child channel in the example above we use it to wrap an HTTP1 channel.
 
 ## Topics
 
