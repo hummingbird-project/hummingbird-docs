@@ -9,7 +9,8 @@ struct Todos: AsyncParsableCommand, AppArguments {
     @Option(name: .shortAndLong)
     var port: Int = 8080
 
-    var inMemoryTesting: Bool { false }
+    @Flag
+    var inMemoryTesting: Bool = false
 
     func run() async throws {
         // create application
