@@ -55,8 +55,8 @@ if test "$BUILD_SYMBOLS" == 1; then
 fi
 
 # Build documentation
-mkdir -p $OUTPUT_PATH
-rm -rf ${OUTPUT_PATH:?}/*
+mkdir -p "$OUTPUT_PATH"
+rm -rf "${OUTPUT_PATH:?}"/*
 $DOCC convert Hummingbird.docc \
     --transform-for-static-hosting \
     --hosting-base-path /"$HUMMINGBIRD_VERSION" \
@@ -64,7 +64,7 @@ $DOCC convert Hummingbird.docc \
     --fallback-bundle-identifier com.opticalaberration.hummingbird \
     --fallback-bundle-version 1 \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
-    --output-path $OUTPUT_PATH \
+    --output-path "$OUTPUT_PATH" \
     --hosting-base-path /hummingbird-docs/"$HUMMINGBIRD_VERSION"
 # copy root files template to docs file
 rsync -trv scripts/docsTemplate/* $BASE_OUTPUT_PATH
