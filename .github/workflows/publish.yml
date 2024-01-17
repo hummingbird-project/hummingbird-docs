@@ -30,7 +30,7 @@ jobs:
         ./scripts/build-docc.sh
         ./scripts/build-sitemap.sh
     - name: Deploy Root Folder 🚀
-      if: ${{ env.DEPLOY_ROOT_FOLDER }} == true
+      if: ${{ env.DEPLOY_ROOT_FOLDER == 'true' }}
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: docs/hummingbird-docs/
