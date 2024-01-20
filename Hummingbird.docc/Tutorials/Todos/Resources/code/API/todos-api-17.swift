@@ -24,9 +24,8 @@ struct TodoController<Context: HBRequestContext, Repository: TodoRepository> {
 
     /// Delete todo entrypoint
     @Sendable func delete(request: HBRequest, context: Context) async throws -> HTTPResponse.Status {
-        let id = try context.parameters.require("id")
-        guard let uuid = UUID(uuidString: id) else { throw HBHTTPError(.badRequest) }
-        if try await self.repository.delete(id: uuid) {
+        let id = try context.parameters.require("id", as: UUID.self)
+        if try await self.repository.delete(id: id) {
             return .ok
         } else {
             return .badRequest
@@ -40,11 +39,10 @@ struct TodoController<Context: HBRequestContext, Repository: TodoRepository> {
     }
     /// Update todo entrypoint
     @Sendable func update(request: HBRequest, context: Context) async throws -> Todo? {
-        let id = try context.parameters.require("id")
-        guard let uuid = UUID(uuidString: id) else { throw HBHTTPError(.badRequest) }
+        let id = try context.parameters.require("id", as: UUID.self)
         let request = try await request.decode(as: UpdateRequest.self, context: context)
         guard let todo = try await self.repository.update(
-            id: uuid, 
+            id: id, 
             title: request.title, 
             order: request.order, 
             completed: request.completed
@@ -56,9 +54,8 @@ struct TodoController<Context: HBRequestContext, Repository: TodoRepository> {
 
     /// Get todo entrypoint
     @Sendable func get(request: HBRequest, context: Context) async throws -> Todo? {
-        let id = try context.parameters.require("id")
-        guard let uuid = UUID(uuidString: id) else { throw HBHTTPError(.badRequest) }
-        return try await self.repository.get(id: uuid)
+        let id = try context.parameters.require("id", as: UUID.self)
+        return try await self.repository.get(id: id)
     }
 
     /// Get list of todos entrypoint
