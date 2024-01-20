@@ -62,7 +62,6 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdCore``
 - ``/HummingbirdAuth``
 - ``/HummingbirdFluent``
-- ``/HummingbirdFoundation``
 - ``/HummingbirdJobs``
 - ``/HummingbirdLambda``
 - ``/HummingbirdRedis``

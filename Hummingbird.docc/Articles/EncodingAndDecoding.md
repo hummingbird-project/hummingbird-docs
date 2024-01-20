@@ -24,24 +24,17 @@ Both of these look very similar to the `Encodable` and `Decodable` protocol that
 
 ## Setting up your encoder/decoder
 
-The default implementations of `requestDecoder` and `responseEncoder` are `Null` implementations that will assert if used. So you have to setup your `decoder` and `encoder` before you can use `Codable` in Hummingbird. ``HummingbirdFoundation`` includes two such implementations. ``HummingbirdFoundation/JSONEncoder`` and ``HummingbirdFoundation/JSONDecoder`` have been extended to conform to the relevant protocols. To use them you need to setup a custom request context. Read <doc:RequestContexts> to find out more about request contexts. Below we are setting up the context to provide JSON encoding and decoding.
+The default implementations of `requestDecoder` and `responseEncoder` are ``Hummingbird/JSONDecoder`` and ``Hummingbird/JSONEncoder`` respectively. They have been extended to conform to the relevant protocols so they can be used to decode requests and encode responses. 
+
+If you don't want to use JSON you need to setup you own `requestDecoder` and `responseEncoder` in a custom request context. For instance `Hummingbird` also includes a decoder and encoder for URL encoded form data. Below you can see a custom request context setup to use ``URLEncodedFormDecoder`` for request decoding and ``URLEncodedFormEncoder`` for response encoding. The router is then initialized with this context. Read <doc:RequestContexts> to find out more about request contexts. 
 
 ```swift
-struct JSONRequestContext: HBRequestContext {
-    var requestDecoder: JSONDecoder { .init() }
-    var responseEncoder: JSONEncoder { .init() }
-    ...
-}
-```
-
-`HummingbirdFoundation` also includes a decoder and encoder for url encoded form data. To use these you setup the relevant member variables in your request context as follows
-
-```swift
-struct JSONRequestContext: HBRequestContext {
+struct URLEncodedRequestContext: HBRequestContext {
     var requestDecoder: URLEncodedFormDecoder { .init() }
     var responseEncoder: URLEncodedFormEncoder { .init() }
     ...
 }
+let router = HBRouter(context: URLEncodedRequestContext.self)
 ```
 
 ## Decoding Requests

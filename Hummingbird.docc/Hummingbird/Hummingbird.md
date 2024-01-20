@@ -54,7 +54,9 @@ try await app.runService()
 - ``HBRouterMethodOptions``
 - ``HBRouteHandler``
 - ``HBResponder``
+- ``HBResponderBuilder``
 - ``HBCallbackResponder``
+- ``HBRouterResponder``
 - ``EndpointPath``
 - ``RouterPath``
 
@@ -67,6 +69,8 @@ try await app.runService()
 - ``HBResponse``
 - ``HBResponseBodyWriter``
 - ``HBEditedResponse``
+- ``HBCookie``
+- ``HBCookies``
 
 ### Request context
 
@@ -83,8 +87,10 @@ try await app.runService()
 - ``HBResponseEncodable``
 - ``HBResponseGenerator``
 - ``HBResponseCodable``
-- ``NullDecoder``
-- ``NullEncoder``
+- ``JSONDecoder``
+- ``JSONEncoder``
+- ``URLEncodedFormDecoder``
+- ``URLEncodedFormEncoder``
 
 ### Middleware
 
@@ -93,6 +99,7 @@ try await app.runService()
 - ``HBMiddlewareProtocol``
 - ``HBMiddlewareGroup``
 - ``HBCORSMiddleware``
+- ``HBFileMiddleware``
 - ``HBLogRequestsMiddleware``
 - ``HBMetricsMiddleware``
 - ``HBTracingMiddleware``
@@ -116,7 +123,6 @@ try await app.runService()
 ## See Also
 
 - ``HummingbirdCore``
-- ``HummingbirdFoundation``
 - ``HummingbirdJobs``
 - ``HummingbirdXCT``
 - ``HummingbirdAuth``
