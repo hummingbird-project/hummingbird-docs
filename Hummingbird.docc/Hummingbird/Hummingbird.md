@@ -96,7 +96,6 @@ try await app.runService()
 - ``HBLogRequestsMiddleware``
 - ``HBMetricsMiddleware``
 - ``HBTracingMiddleware``
-- ``HBSetCodableMiddleware``
 
 ### Storage
 

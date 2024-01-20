@@ -31,14 +31,15 @@ struct MyRequestContext: HBRequestContext {
 
 ## Encoding/Decoding
 
-The most likely reason you would setup your own context is because you want to set the request decoder and response encoder. By replacing the contents of the `init` above with the following you have setup JSON decoding and encoding of requests and responses.
+The most likely reason you would setup your own context is because you want to set the request decoder and response encoder. By implementing the `requestDecoder` and `responseEncoder` member variables as below you have now setup JSON decoding and encoding of requests and responses.
 
 ```swift
-self.coreContext = .init(
-    requestDecoder: JSONDecoder(),
-    responseEncoder: JSONEncoder(),
-    allocator: allocator,
-    logger: logger
+struct MyRequestContext: HBRequestContext {
+    /// Set request decoder to be JSONDecoder
+    var requestDecoder: JSONDecoder { .init() }
+    /// Set response encoder to be JSONEncdoer
+    var responseEncoder: JSONEncoder { .init() }
+}
 ```
 
 You can find out more about request decoding and response encoding in <doc:EncodingAndDecoding>.
@@ -100,10 +101,17 @@ public struct MyRequestContext: HBAuthRequestContextProtocol {
 
 ``HummingbirdAuth`` does provide ``HummingbirdAuth/HBAuthRequestContext``: a default implementation of ``HummingbirdAuth/HBAuthRequestContextProtocol``.
 
+## HBBaseRequestContext
+
+`HBRequestContext` conforms to the protocol ``Hummingbird/HBBaseRequestContext``. `HBBaseRequestContext` defines requirements for accessing data from your context, while `HBRequestContext` defines requirements for initialization from a Swift NIO `Channel`. You will find in the codebase where data access is required the request context is required to conform to `HBBaseRequestContext` but ``HBApplication`` still requires the context to conform to `HBRequestContext` as it needs to be able to create a context for each request. 
+
+This allows us to support running from AWS Lambda where we have no `Channel` to create the context from. Instead we have another protocol ``HummingbirdLambda/HBLambdaRequestContext`` that defines how we create a context from the lambda context and event that triggered the request.
+
 ## Topics
 
 ### Reference
 
+- ``Hummingbird/HBBaseRequestContext``
 - ``HBRequestContext``
 - ``HBBasicRequestContext``
 - ``HBRouter``
