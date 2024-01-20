@@ -38,7 +38,7 @@ let package = Package(
                 .product(name: "HummingbirdAuth", package: "hummingbird-auth"),
 //                .product(name: "HummingbirdCompression", package: "hummingbird-compression"),
                 .product(name: "HummingbirdFluent", package: "hummingbird-fluent"),
-//                .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
+                .product(name: "HummingbirdLambda", package: "hummingbird-lambda"),
                 .product(name: "HummingbirdMustache", package: "hummingbird-mustache"),
                 .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdJobsRedis", package: "hummingbird-redis"),
