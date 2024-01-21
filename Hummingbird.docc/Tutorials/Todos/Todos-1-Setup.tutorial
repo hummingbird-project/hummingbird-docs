@@ -52,7 +52,7 @@
 
     @Section(title: "Extend your Application") {
         @ContentAndMedia() {
-            Add logging middleware, set up JSON request decoding and reponse encoding and add some commandline parameters to control your application.
+            Add logging middleware and add some commandline parameters to control your application.
             @Image(source: "hummingbird.png", alt: "Hummingbird logo")
         }
 
@@ -70,19 +70,11 @@
                 @Code(name: "Test Application", file: todos-extend-03.sh)
             }
             @Step {
-                Setting up JSON encoding/decoding requires a custom request context. The request context is the object that is passed along with the request in your route and middleware handlers. You can set the router to use your own context type as long as it conforms to `HBRequestContext`.
-                @Code(name: "TodosRequestContext.swift", file: todos-extend-04.swift)
-            }
-            @Step {
                 Go back to Todos.swift
                 @Code(name: "Todos.swift", file: todos-extend-02.swift)
             }
             @Step {
-                Set your router to use the new request context.
-                @Code(name: "Todos.swift", file: todos-extend-05.swift)
-            }
-            @Step {
-                Finally we are going to add some commandline parameters. Let's add server bind address details: hostname and port.
+                Now we are going to add some commandline parameters. Let's add server bind address details: hostname and port.
                 @Code(name: "Todos.swift", file: todos-extend-06.swift)
             }
             @Step {
