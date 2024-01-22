@@ -33,6 +33,7 @@ try await app.runService()
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
+- <doc:ServiceLifecycle>
 - <doc:Testing>
 
 ### Tutorials
