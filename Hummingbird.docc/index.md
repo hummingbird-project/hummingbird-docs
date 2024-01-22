@@ -16,25 +16,33 @@ HummingbirdCore can be used separately from Hummingbird if you want to write you
 
 Hummingbird is a lightweight and flexible web application framework that runs on top of HummingbirdCore. It is designed to require the minimum number of dependencies and makes no use of Foundation.
 
-It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned and providing custom encoding/decoding of `Codable` objects.
+It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, custom encoding/decoding of requests/responses, TLS and HTTP2.
 
 ```swift
 import Hummingbird
 
+// create router and add a single GET /hello route
 let router = HBRouter()
-router.get("hello") { request -> String in
+router.get("hello") { request, _ -> String in
     return "Hello"
 }
+// create application using router
 let app = HBApplication(
-    router: router,
+    responder: router.buildResponder(),
     configuration: .init(address: .hostname("127.0.0.1", port: 8080))
 )
+// run hummingbird application
 try await app.runService()
 ```
 
 ### Hummingbird Extensions
 
-Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules ``HummingbirdJobs`` and ``HummingbirdXCT``. The ``HummingbirdJobs`` library provides a framework for pushing work onto a queue to be processed outside of a request (possibly by another server instance). ``HummingbirdXCT`` library adds helper functions to aid testing Hummingbird projects.
+Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules 
+
+- ``HummingbirdJobs``: framework for pushing work onto a queue to be processed outside of a request (possibly by another server instance)
+- ``HummingbirdTLS``: TLS support.
+- ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
+- ``HummingbirdXCT``: helper functions to aid testing Hummingbird projects.
 
 ## Topics
 

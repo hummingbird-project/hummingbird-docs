@@ -4,21 +4,22 @@ Lightweight, modern, flexible server framework written in Swift.
 
 Hummingbird is a lightweight, modern, flexible server framework designed to require the minimum number of dependencies.
 
-It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server and providing custom encoding/decoding of Codable objects.
-
-The interface is fairly standard. Anyone who has had experience of Vapor, Express.js etc will recognise most of the APIs. Simple setup is as follows
+It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, custom encoding/decoding of requests/responses, TLS and HTTP2.
 
 ```swift
 import Hummingbird
 
+// create router and add a single GET /hello route
 let router = HBRouter()
 router.get("hello") { request, _ -> String in
     return "Hello"
 }
+// create application using router
 let app = HBApplication(
     responder: router.buildResponder(),
     configuration: .init(address: .hostname("127.0.0.1", port: 8080))
 )
+// run hummingbird application
 try await app.runService()
 ```
 
