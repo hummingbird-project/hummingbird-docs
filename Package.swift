@@ -31,7 +31,6 @@ let package = Package(
             dependencies: [
                 .product(name: "HummingbirdTLS", package: "hummingbird"),
                 .product(name: "HummingbirdHTTP2", package: "hummingbird"),
-                .product(name: "HummingbirdFoundation", package: "hummingbird"),
                 .product(name: "HummingbirdJobs", package: "hummingbird"),
                 .product(name: "HummingbirdRouter", package: "hummingbird"),
                 .product(name: "HummingbirdXCT", package: "hummingbird"),

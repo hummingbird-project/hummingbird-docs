@@ -63,7 +63,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
-                Our first entrypoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the JSONEncoder attached to the context.
+                Our first entrypoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the response encoder (JSONEncoder by default) attached to the context.
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
@@ -73,7 +73,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
-                Our second entrypoint is to create a Todo. We have added a struct to decode from the request. In a similar way to the get entrypoint response using JSONEncoder, this uses the JSONDecoder attached to the context. We then call the repository `create` method and return the result.
+                Our second entrypoint is to create a Todo. We have added a struct to decode from the request. In a similar way the get entrypoint response uses JSONEncoder to generate its response, this uses the JSONDecoder attached to the context. We then call the repository `create` method and return the result.
                 @Code(name: "TodoController.swift", file: todos-api-10.swift)
             }
             @Step {
