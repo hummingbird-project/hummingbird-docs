@@ -154,3 +154,15 @@ In Hummingbird v1.3.0 partial path component matching and capture was introduced
 ### HummingbirdFoundation
 
 HummingbirdFoundation has been merged into Hummingbird. It was felt the gains from separating out the code relying on Foundation were not enough for the awkwardness it created. Eventually we hope to limit our exposure to only the elements of Foundation that will be in FoundationEssentials module from the newly developed [Swift Foundation](https://github.com/apple/swift-foundation).
+
+### Generic HBApplication
+
+``HBApplication`` is a generic type with two different type parameters. Passing around the concrete type is complex as you need to work out the type parameters. They might not be immediately obvious. Instead it is easier to pass around the opaque type `some HBApplicationProtocol`.
+
+```swift
+func buildApplication() -> some HBApplicationProtocol {
+    ...
+    let app = HBApplication(router: router)
+    return app
+}
+```

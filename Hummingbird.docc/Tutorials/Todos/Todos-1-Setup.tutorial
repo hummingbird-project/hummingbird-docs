@@ -82,7 +82,7 @@
                 @Code(name: "Todos.swift", file: todos-extend-07.swift)
             }
             @Step {
-                Now you can set the bind address of your server from the command line. Now anyone can talk to your application.
+                Now you can set the bind address of your server from the command line and anyone on your network can talk to your application.
                 @Code(name: "Test Application", file: todos-extend-08.sh)
             }
         }
