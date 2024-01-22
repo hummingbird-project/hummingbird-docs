@@ -26,7 +26,7 @@ struct BasicAuthenticator: HBAuthenticator {
         // verify password against password hash stored in database. If valid
         // return the user. HummingbirdAuth provides an implementation of Bcrypt
         // This should be run on the thread pool as it is a long process.
-        return try await context.threadPool.runIfActive {
+        return try await NIOThreadPool.singleton.runIfActive {
             if Bcrypt.verify(basic.password, hash: user.passwordHash) {
                 return user
             }
