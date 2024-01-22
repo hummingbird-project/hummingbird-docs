@@ -157,7 +157,7 @@ HummingbirdFoundation has been merged into Hummingbird. It was felt the gains fr
 
 ### Generic HBApplication
 
-``HBApplication`` is a generic type with two different type parameters. Passing around the concrete type is complex as you need to work out the type parameters. They might not be immediately obvious. Instead it is easier to pass around the opaque type `some HBApplicationProtocol`.
+``Hummingbird/HBApplication`` is a generic type with two different type parameters. Passing around the concrete type is complex as you need to work out the type parameters. They might not be immediately obvious. Instead it is easier to pass around the opaque type `some HBApplicationProtocol`.
 
 ```swift
 func buildApplication() -> some HBApplicationProtocol {
