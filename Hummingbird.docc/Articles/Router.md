@@ -4,7 +4,7 @@ The router directs requests to their handlers based on the contents of their pat
 
 ## Overview
 
-The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function `on`. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
+The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/HBRouter/on(_:method:options:use:)-1zuke``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
 
 ```swift
 let router = HBRouter()
