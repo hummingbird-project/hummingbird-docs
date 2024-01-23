@@ -29,7 +29,7 @@
             @Step { 
                 We move the application creation to a global function outside of `Todos`.
 
-                The `buildApplication` function returns `some HBApplicationProtocol`. This is to avoid having to list all the generic parameters of `HBApplication`. FYI in this case it is `HBApplication<HBRouterResponder<TodoRequestContext>, HTTP1Channel>`.
+                The `buildApplication` function returns `some HBApplicationProtocol`. This is to avoid having to list all the generic parameters of `HBApplication`. FYI in this case it is `HBApplication<HBRouterResponder<HBBasicRequestContext>, HTTP1Channel>`.
 
                 @Code(name: "Todos.swift", file: todos-testing-05.swift)
             }
