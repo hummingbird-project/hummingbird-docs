@@ -24,7 +24,7 @@
                 @Code(name: "Package.swift", file: todos-setup-03.swift)
             }
             @Step {
-                Add the Hummingbird package as a dependency and add the the libraries you are going to use to the target. You need HummingbirdFoundation because you need the JSON encoder and decoder.
+                Add the Hummingbird package as a dependency and add the Hummingbird library to the "Todos" target.
                 @Code(name: "Package.swift", file: todos-setup-04.swift)
             }
             @Step {
