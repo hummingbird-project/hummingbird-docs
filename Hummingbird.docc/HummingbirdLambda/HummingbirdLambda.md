@@ -13,6 +13,8 @@ struct MyHandler: HBLambda {
     typealias Output = APIGatewayResponse
     typealias Context = HBBasicLambdaRequestContext<Event>
 
+    init(context: LambdaInitializationContext) {}
+    
     /// build responder that will create a response from a request
     func buildResponder() -> some HBResponder<Context> {
         let router = HBRouter(context: Context.self)
