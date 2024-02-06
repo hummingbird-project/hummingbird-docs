@@ -6,7 +6,7 @@ Request authentication middleware
 
 Authenticators are middleware that are used to check if a request is authenticated and then pass authentication data to functions further down the callstack via the request context. Authenticators should conform to protocol ``HummingbirdAuth/HBAuthenticator``. This requires you implement the function ``/HummingbirdAuth/HBAuthenticator/authenticate(request:context:)`` that returns a value conforming to ``HummingbirdAuth/HBAuthenticatable``.
 
-To use an authenticator it is required that your request context conform to ``HummingbirdAuth/HBAuthRequestContextProtocol``. When you return valid authentication data from your `authenticate` function it is recorded in the ``HummingbirdAuth/HBAuthRequestContextProtocol/auth`` member of your request context.
+To use an authenticator it is required that your request context conform to ``HummingbirdAuth/HBAuthRequestContext``. When you return valid authentication data from your `authenticate` function it is recorded in the ``HummingbirdAuth/HBAuthRequestContext/auth`` member of your request context.
 
 ## Usage
 
@@ -14,7 +14,7 @@ A simple username, password authenticator could be implemented as follows. If th
 
 ```swift
 struct BasicAuthenticator: HBAuthenticator {
-    func authenticate<Context: HBAuthRequestContextProtocol>(request: HBRequest, context: Context) async throws -> User? {
+    func authenticate<Context: HBAuthRequestContext>(request: HBRequest, context: Context) async throws -> User? {
         // Basic authentication info in the "Authorization" header, is accessible
         // via request.headers.basic
         guard let basic = request.headers.basic else { return nil }
@@ -68,4 +68,4 @@ Or you can use ``HummingbirdAuth/HBLoginCache/require(_:)`` to access the authen
 - ``HummingbirdAuth/HBAuthenticator``
 - ``HummingbirdAuth/HBAuthenticatable``
 - ``HummingbirdAuth/IsAuthenticatedMiddleware``
-- ``HummingbirdAuth/HBAuthRequestContextProtocol``
+- ``HummingbirdAuth/HBAuthRequestContext``

@@ -14,8 +14,8 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Request Contexts
 
+- ``HBBasicAuthRequestContext``
 - ``HBAuthRequestContext``
-- ``HBAuthRequestContextProtocol``
 - ``HBLoginCache``
 
 ### Authenticators

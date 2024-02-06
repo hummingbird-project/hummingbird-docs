@@ -53,7 +53,6 @@ try await app.runService()
 - ``HBRouter``
 - ``HBRouterGroup``
 - ``HBRouterMethods``
-- ``HBRouterMethodOptions``
 - ``HBRouteHandler``
 - ``HBResponder``
 - ``HBResponderBuilder``

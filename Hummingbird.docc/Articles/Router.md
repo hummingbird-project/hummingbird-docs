@@ -4,7 +4,7 @@ The router directs requests to their handlers based on the contents of their pat
 
 ## Overview
 
-The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/HBRouter/on(_:method:options:use:)-1zuke``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
+The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/HBRouter/on(_:method:use:)-99gpn``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
 
 ```swift
 let router = HBRouter()
@@ -154,11 +154,11 @@ struct AddOrder: HBRouteHandler {
     let input: Input
     let user: User
     
-    init(from request: HBRequest, context: some HBAuthRequestContextProtocol) async throws {
+    init(from request: HBRequest, context: some HBAuthRequestContext) async throws {
         self.input = try await request.decode(as: Input.self, context: context)
         self.user = try context.auth.require(User.self)
     }
-    func handle(context: some HBAuthRequestContextProtocol) async throws -> Output {
+    func handle(context: some HBAuthRequestContext) async throws -> Output {
         let order = Order(user: self.user.id, details: self.input)
         let order = try await order.save(on: db)
         return Output(id: order.id)
