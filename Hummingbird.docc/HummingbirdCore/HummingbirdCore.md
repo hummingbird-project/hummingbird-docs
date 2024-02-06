@@ -38,14 +38,13 @@ try await serviceGroup.run()
 - ``HBChildChannel``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
-- ``HBBindAddress``
+- ``HBAddress``
 - ``TSTLSOptions``
 - ``HBHTTPUserEventHandler``
 
 ### Request
 
 - ``HBRequest``
-- ``HBStreamedRequestBody``
 - ``HBURL``
 - ``HBRequestBody``
 

@@ -43,7 +43,7 @@ In this example the `userId` is saved with the session id. When you call `sessio
 To authenticate a user using a session id you need to add a session authenticator to the application. This extracts the session id from the request, gets the associated value for the session id from the key/value store and then converts this associated value into the authenticated user. Most of this work is done for you, but the conversion from session object to user most be provided by the application. To do this create an authenticator middleware that conforms to  ``HummingbirdAuth/HBSessionAuthenticator`` and implement the `getValue` function and provide a reference to a ``HummingbirdAuth/HBSessionStorage`` object. 
 
 ```swift
-struct MySessionAuthenticator<Context: HBAuthRequestContextProtocol>: HBSessionAuthenticator {
+struct MySessionAuthenticator<Context: HBAuthRequestContext>: HBSessionAuthenticator {
     /// requirement, where to get session data from
     let sessionStorage: HBSessionStorage
     func getValue(from session: UUID, request: HBRequest, context: Context) async throws -> User? {
@@ -52,7 +52,7 @@ struct MySessionAuthenticator<Context: HBAuthRequestContextProtocol>: HBSessionA
 }
 ```
 
-Add the authenticator as middleware to the routes you want to enable session authentication for. As with all authenticators your request context will need to conform to ``HummingbirdAuth/HBAuthRequestContextProtocol``.
+Add the authenticator as middleware to the routes you want to enable session authentication for. As with all authenticators your request context will need to conform to ``HummingbirdAuth/HBAuthRequestContext``.
 
 ```swift
 router.group()

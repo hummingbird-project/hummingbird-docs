@@ -81,12 +81,12 @@ Now anything run after `MyMiddleware` can access the `additionalData` set in `My
 
 ## Authentication Middleware
 
-The most obvious example of this is passing user authentication information forward. The authentication framework from ``HummingbirdAuth`` makes use of this. If you want to use the authentication and sessions middleware your context will also need to conform to ``HummingbirdAuth/HBAuthRequestContextProtocol``. 
+The most obvious example of this is passing user authentication information forward. The authentication framework from ``HummingbirdAuth`` makes use of this. If you want to use the authentication and sessions middleware your context will also need to conform to ``HummingbirdAuth/HBAuthRequestContext``. 
 
 ```swift
-public struct MyRequestContext: HBAuthRequestContextProtocol {
+public struct MyRequestContext: HBAuthRequestContext {
     public var coreContext: HBCoreRequestContext
-    // required by HBAuthRequestContextProtocol
+    // required by HBAuthRequestContext
     public var auth: HBLoginCache
 
     public init(
@@ -99,7 +99,7 @@ public struct MyRequestContext: HBAuthRequestContextProtocol {
 }
 ```
 
-``HummingbirdAuth`` does provide ``HummingbirdAuth/HBAuthRequestContext``: a default implementation of ``HummingbirdAuth/HBAuthRequestContextProtocol``.
+``HummingbirdAuth`` does provide ``HummingbirdAuth/HBBasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/HBAuthRequestContext``.
 
 ## HBBaseRequestContext
 
