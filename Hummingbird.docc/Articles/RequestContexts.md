@@ -20,11 +20,8 @@ As mentioned above your context type must conform to ``HBRequestContext``. This 
 struct MyRequestContext: HBRequestContext {
     var coreContext: HBCoreRequestContext
 
-    init(allocator: ByteBufferAllocator, logger: Logger) {
-        self.coreContext = .init(
-            allocator: allocator,
-            logger: logger
-        )
+    init(channel: Channel, logger: Logger) {
+        self.coreContext = .init(allocator: channel.allocator, logger: logger)
     }
 }
 ```
@@ -54,11 +51,8 @@ struct MyRequestContext: HBRequestContext {
     var coreContext: HBCoreRequestContext
     var additionalData: String?
 
-    init(allocator: ByteBufferAllocator, logger: Logger) {
-        self.coreContext = .init(
-            allocator: allocator,
-            logger: logger
-        )
+    init(channel: Channel, logger: Logger) {
+        self.coreContext = .init(allocator: channel.allocator, logger: logger)
         self.additionalData = nil
     }
 }
@@ -89,11 +83,8 @@ public struct MyRequestContext: HBAuthRequestContext {
     // required by HBAuthRequestContext
     public var auth: HBLoginCache
 
-    public init(
-        allocator: ByteBufferAllocator,
-        logger: Logger
-    ) {
-        self.coreContext = .init(allocator: allocator, logger: logger)
+    public init(channel: Channel, logger: Logger) {
+        self.coreContext = .init(allocator: channel.allocator, logger: logger)
         self.auth = .init()
     }
 }

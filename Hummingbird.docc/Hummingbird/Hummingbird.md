@@ -119,7 +119,6 @@ try await app.runService()
 
 - ``HBEnvironment``
 - ``HBDateCache``
-- ``GracefulShutdownWaiter``
 
 ## See Also
 
