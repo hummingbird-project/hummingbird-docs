@@ -14,7 +14,7 @@ final class TodosTests: XCTestCase {
         let title: String
         let order: Int?
     }
-    func create(title: String, order: Int? = nil, client: some HBXCTClientProtocol) async throws -> Todo {
+    func create(title: String, order: Int? = nil, client: some XCTClientProtocol) async throws -> Todo {
         let request = CreateRequest(title: title, order: order)
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
         return try await client.XCTExecute(uri: "/todos", method: .post, body: buffer) { response in

@@ -10,12 +10,12 @@ It provides a router for directing different endpoints to their handlers, middle
 import Hummingbird
 
 // create router and add a single GET /hello route
-let router = HBRouter()
+let router = Router()
 router.get("hello") { request, _ -> String in
     return "Hello"
 }
 // create application using router
-let app = HBApplication(
+let app = Application(
     responder: router.buildResponder(),
     configuration: .init(address: .hostname("127.0.0.1", port: 8080))
 )
@@ -43,51 +43,51 @@ try await app.runService()
 
 ### Application
 
-- ``HBApplication``
-- ``HBApplicationProtocol``
-- ``HBApplicationConfiguration``
+- ``Application``
+- ``ApplicationProtocol``
+- ``ApplicationConfiguration``
 - ``EventLoopGroupProvider``
 
 ### Router
 
-- ``HBRouter``
-- ``HBRouterGroup``
-- ``HBRouterMethods``
-- ``HBRouteHandler``
-- ``HBResponder``
-- ``HBResponderBuilder``
-- ``HBCallbackResponder``
-- ``HBRouterResponder``
+- ``Router``
+- ``RouterGroup``
+- ``RouterMethods``
+- ``RouteHandler``
+- ``Responder``
+- ``ResponderBuilder``
+- ``CallbackResponder``
+- ``RouterResponder``
 - ``EndpointPath``
 - ``RouterPath``
 
 ### Request/Response
 
-- ``HBRequest``
-- ``HBParameters``
-- ``HBMediaType``
-- ``HBCacheControl``
-- ``HBResponse``
-- ``HBResponseBodyWriter``
-- ``HBEditedResponse``
-- ``HBCookie``
-- ``HBCookies``
+- ``Request``
+- ``Parameters``
+- ``MediaType``
+- ``CacheControl``
+- ``Response``
+- ``ResponseBodyWriter``
+- ``EditedResponse``
+- ``Cookie``
+- ``Cookies``
 
 ### Request context
 
-- ``HBBaseRequestContext``
-- ``HBRequestContext``
-- ``HBCoreRequestContext``
-- ``HBBasicRequestContext``
-- ``HBRemoteAddressRequestContext``
+- ``BaseRequestContext``
+- ``RequestContext``
+- ``CoreRequestContext``
+- ``BasicRequestContext``
+- ``RemoteAddressRequestContext``
 
 ### Encoding/Decoding
 
-- ``HBRequestDecoder``
-- ``HBResponseEncoder``
-- ``HBResponseEncodable``
-- ``HBResponseGenerator``
-- ``HBResponseCodable``
+- ``RequestDecoder``
+- ``ResponseEncoder``
+- ``ResponseEncodable``
+- ``ResponseGenerator``
+- ``ResponseCodable``
 - ``JSONDecoder``
 - ``JSONEncoder``
 - ``URLEncodedFormDecoder``
@@ -97,28 +97,28 @@ try await app.runService()
 
 - ``Middleware``
 - ``MiddlewareProtocol``
-- ``HBMiddlewareProtocol``
-- ``HBMiddlewareGroup``
-- ``HBCORSMiddleware``
-- ``HBFileMiddleware``
-- ``HBLogRequestsMiddleware``
-- ``HBMetricsMiddleware``
-- ``HBTracingMiddleware``
+- ``MiddlewareProtocol``
+- ``MiddlewareGroup``
+- ``CORSMiddleware``
+- ``FileMiddleware``
+- ``LogRequestsMiddleware``
+- ``MetricsMiddleware``
+- ``TracingMiddleware``
 
 ### Storage
 
-- ``HBPersistDriver``
-- ``HBMemoryPersistDriver``
-- ``HBPersistError``
+- ``PersistDriver``
+- ``MemoryPersistDriver``
+- ``PersistError``
 
 ### File management
 
-- ``HBFileIO``
+- ``FileIO``
 
 ### Miscellaneous
 
-- ``HBEnvironment``
-- ``HBDateCache``
+- ``Environment``
+- ``DateCache``
 
 ## See Also
 

@@ -14,14 +14,14 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Request Contexts
 
-- ``HBBasicAuthRequestContext``
-- ``HBAuthRequestContext``
-- ``HBLoginCache``
+- ``BasicAuthRequestContext``
+- ``AuthRequestContext``
+- ``LoginCache``
 
 ### Authenticators
 
-- ``HBAuthenticator``
-- ``HBAuthenticatable``
+- ``Authenticator``
+- ``Authenticatable``
 - ``IsAuthenticatedMiddleware``
 
 ### Header Authentication
@@ -35,8 +35,8 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Sessions
 
-- ``HBSessionAuthenticator``
-- ``HBSessionStorage``
+- ``SessionAuthenticator``
+- ``SessionStorage``
 
 ### OTP
 

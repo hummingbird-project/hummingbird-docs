@@ -37,27 +37,27 @@ try await serviceGroup.run()
 
 ## Hummingbird Integration
 
-``HBApplication`` conforms to `Service` and also provides a helper function that constructs the `ServiceGroup` including the application and then runs it.
+``Application`` conforms to `Service` and also provides a helper function that constructs the `ServiceGroup` including the application and then runs it.
 
 ```swift
-let app = HBApplication(router: router)
+let app = Application(router: router)
 try await app.runService()
 ```
 
-All of the types that Hummingbird introduces that require some form of lifecycle management conform to `Service`. ``HBApplication`` holds an internal `ServiceGroup` and any service you want managed can be added to the internal group using ``HBApplication/addServices(_:)``.
+All of the types that Hummingbird introduces that require some form of lifecycle management conform to `Service`. ``Application`` holds an internal `ServiceGroup` and any service you want managed can be added to the internal group using ``Application/addServices(_:)``.
 
 ```swift
-var app = HBApplication(router: router)
+var app = Application(router: router)
 app.addServices(postgresClient, sessionStorage)
 try await app.runService()
 ```
 
 ## Managing server startup
 
-In some situations you might want some services to start up before you startup your HTTP server, for instance when doing a database migration. With ``HBApplication`` you can add processes to run before starting up the server, but while other services are running using ``HBApplication/runBeforeServerStart(_:)``. You can call `runBeforeServerStart` multiple times to add multiple processes to be run before we startup the server.
+In some situations you might want some services to start up before you startup your HTTP server, for instance when doing a database migration. With ``Application`` you can add processes to run before starting up the server, but while other services are running using ``Application/runBeforeServerStart(_:)``. You can call `runBeforeServerStart` multiple times to add multiple processes to be run before we startup the server.
 
 ```swift
-var app = HBApplication(router: router)
+var app = Application(router: router)
 app.addServices(dbClient)
 app.runBeforeServerStart {
     try await dbClient.migrate()

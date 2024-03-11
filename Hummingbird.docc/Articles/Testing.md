@@ -11,11 +11,11 @@ Writing tests for application APIs is an important part of the development proce
 Lets create a simple application that says hello back to you. ie If your request is to `/hello/adam` it returns "Hello adam!".
 
 ```swift
-let router = HBRouter()
+let router = Router()
 router.get("hello/{name}") { _,context in
     return try "Hello \(context.parameters.require("name"))!"
 }
-let app = HBApplication(router: router)
+let app = Application(router: router)
 ```
 
 ## Testing
@@ -38,9 +38,9 @@ func testApplicationReturnsCorrectText() async throw {
 }
 ```
 
-### `HBApplication.test`
+### `Application.test`
 
-The ``/Hummingbird/HBApplicationProtocol/test(_:_:)`` function takes two parameters, first the test framework to use and then the closure to run with the framework client. The test framework defines how we are going to test our application. There are three possible frameworks
+The ``/Hummingbird/ApplicationProtocol/test(_:_:)`` function takes two parameters, first the test framework to use and then the closure to run with the framework client. The test framework defines how we are going to test our application. There are three possible frameworks
 
 #### Router (.router)
 
@@ -56,7 +56,7 @@ The AsyncHTTPClient framework is the same as the live framework except it uses [
 
 ### Executing requests and testing the response
 
-The function ``HummingbirdXCT/HBXCTClientProtocol/XCTExecute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `XCTExecute`. In the following example we are testing whether a session cookie works.
+The function ``HummingbirdXCT/XCTClientProtocol/XCTExecute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `XCTExecute`. In the following example we are testing whether a session cookie works.
 
 ```swift
 func testApplicationReturnsCorrectText() async throw {

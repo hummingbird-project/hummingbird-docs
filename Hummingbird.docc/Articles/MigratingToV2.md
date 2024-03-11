@@ -18,7 +18,7 @@ If you have libraries you are calling into that still only provide EventLoop bas
 let value = try await eventLoopBasedFunction().get()
 ```
 
-If you need to provide an `EventLoopGroup`, use either the one you provided to `HBApplication.init` or `MultiThreadedEventLoopGroup.singleton`. And when you need an `EventLoop` use `EventLoopGroup.any`.
+If you need to provide an `EventLoopGroup`, use either the one you provided to `Application.init` or `MultiThreadedEventLoopGroup.singleton`. And when you need an `EventLoop` use `EventLoopGroup.any`.
 
 ```swift
 let service = MyService(eventLoopGroup: MultiThreadedEventLoopGroup.singleton)
@@ -27,26 +27,26 @@ let result = try await service.doStuff(eventLoop: MultiThreadedEventLoopGroup.si
 
 Otherwise any `EventLoopFuture` based logic you had will have to be converted to Swift concurrency. The advantage of this is, it should be a lot easier to read after.
 
-## Extending HBApplication and HBRequest
+## Extending Application and Request
 
-In Hummingbird v1 you could extend the `HBApplication` and `HBRequest` types to include your own custom data. This is no longer possible in version 2.
+In Hummingbird v1 you could extend the `Application` and `Request` types to include your own custom data. This is no longer possible in version 2.
 
-### HBApplication
+### Application
 
-In the case of the application we decided we didn't want to make `HBApplication` this huge mega global that held everything. We have moved to a model of explicit dependency injection. For each route controller you supply the dependencies you need at initialization, instead of extracting them from the application when you use them. This makes it clearer what dependencies you are using in each controller. eg
+In the case of the application we decided we didn't want to make `Application` this huge mega global that held everything. We have moved to a model of explicit dependency injection. For each route controller you supply the dependencies you need at initialization, instead of extracting them from the application when you use them. This makes it clearer what dependencies you are using in each controller. eg
 
 ```swift
 struct UserController {
     // The user authentication routes use fluent and session storage
-    init(fluent: HBFluent, sessions: HBSessionStorage) {
+    init(fluent: Fluent, sessions: SessionStorage) {
         ...
     }
 }
 ```
 
-### HBRequest and HBRequestContext
+### Request and RequestContext
 
-We have replaced extending of `HBRequest` with a custom request context type that is passed along with the request. This means `HBRequest` is just the HTTP request data (as it should be). The additional request context parameter will hold any custom data required. In situations in the past where you would use data attached to `HBRequest` or `HBApplication` you should now use the context.
+We have replaced extending of `Request` with a custom request context type that is passed along with the request. This means `Request` is just the HTTP request data (as it should be). The additional request context parameter will hold any custom data required. In situations in the past where you would use data attached to `Request` or `Application` you should now use the context.
 
 ```swift
 router.get { request, context in
@@ -57,26 +57,26 @@ router.get { request, context in
 }
 ```
 
-The request context is a generic value. As long as it conforms to ``HBRequestContext`` it can hold anything you like. 
+The request context is a generic value. As long as it conforms to ``RequestContext`` it can hold anything you like. 
 
 ```swift
 /// Example request context with an additional data attached
-struct MyRequestContext: HBRequestContext {
-    // required by HBRequestContext
-    var coreContext: HBCoreRequestContext
+struct MyRequestContext: RequestContext {
+    // required by RequestContext
+    var coreContext: CoreRequestContext
     var additionalData: String?
 
-    // required by HBRequestContext
+    // required by RequestContext
     init(channel: Channel, logger: Logger) {
         self.coreContext = .init(allocator: channel.allocator, logger: logger)
         self.additionalData = nil
     }
 }
 ```
-When you create your router you pass in the request context type you'd like to use. If you don't pass one in it will default to using ``HBBasicRequestContext`` which provides enough data for the router to run but not much else.
+When you create your router you pass in the request context type you'd like to use. If you don't pass one in it will default to using ``BasicRequestContext`` which provides enough data for the router to run but not much else.
 
 ```swift
-let router = HBRouter(context: MyRequestContext.self)
+let router = Router(context: MyRequestContext.self)
 ```
 
 ## Router
@@ -84,7 +84,7 @@ let router = HBRouter(context: MyRequestContext.self)
 Instead of creating an application and adding routes to it, in v2 you create a router and add routes to it and then create an application using that router. 
 
 ```swift
-let app = HBApplication()
+let app = Application()
 app.router.get { request in
     "hello"
 }
@@ -93,22 +93,22 @@ app.router.get { request in
 is now implemented as
 
 ```swift
-let router = HBRouter()
+let router = Router()
 router.get { request, context in
     "hello"
 }
-let app = HBApplication(router: router)
+let app = Application(router: router)
 ```
-When we are passing in the router we are actually passing in a type that can build a ``HBResponder`` a protocol for a type with one function that takes a request and context and returns a response.
+When we are passing in the router we are actually passing in a type that can build a ``Responder`` a protocol for a type with one function that takes a request and context and returns a response.
 
 ### Router Builder
 
 An alternative router is also provided in the ``HummingbirdRouter`` module. It uses a result builder to generate the router. 
 
 ```swift
-let router = HBRouterBuilder(context: MyContext.self) {
+let router = RouterBuilder(context: MyContext.self) {
     // add logging middleware
-    HBLogRequestsMiddleware(.info)
+    LogRequestsMiddleware(.info)
     // add route to return ok
     Get("health") { _,_ -> HTTPResponse.Status in
         .ok
@@ -119,7 +119,7 @@ let router = HBRouterBuilder(context: MyContext.self) {
         UserController(fluent: fluent).routes()
     }
 }
-let app = HBApplication(router: router)
+let app = Application(router: router)
 ```
 
 ## Miscellaneous
@@ -155,14 +155,14 @@ In Hummingbird v1.3.0 partial path component matching and capture was introduced
 
 HummingbirdFoundation has been merged into Hummingbird. It was felt the gains from separating out the code relying on Foundation were not enough for the awkwardness it created. Eventually we hope to limit our exposure to only the elements of Foundation that will be in FoundationEssentials module from the newly developed [Swift Foundation](https://github.com/apple/swift-foundation).
 
-### Generic HBApplication
+### Generic Application
 
-``Hummingbird/HBApplication`` is a generic type with two different type parameters. Passing around the concrete type is complex as you need to work out the type parameters. They might not be immediately obvious. Instead it is easier to pass around the opaque type `some HBApplicationProtocol`.
+``Hummingbird/Application`` is a generic type with two different type parameters. Passing around the concrete type is complex as you need to work out the type parameters. They might not be immediately obvious. Instead it is easier to pass around the opaque type `some ApplicationProtocol`.
 
 ```swift
-func buildApplication() -> some HBApplicationProtocol {
+func buildApplication() -> some ApplicationProtocol {
     ...
-    let app = HBApplication(router: router)
+    let app = Application(router: router)
     return app
 }
 ```

@@ -4,7 +4,7 @@ Add TLS support to Hummingbird server
 
 ## Overview
 
-HummingbirdTLS provides TLS support via ``TLSChannel``. You can add this to your application using ``HummingbirdCore/HBHTTPChannelBuilder/tls(_:tlsConfiguration:)``.
+HummingbirdTLS provides TLS support via ``TLSChannel``. You can add this to your application using ``HummingbirdCore/HTTPChannelBuilder/tls(_:tlsConfiguration:)``.
 
 ```swift
 // Load certificates and private key to construct server TLS configuration
@@ -15,8 +15,8 @@ let tlsConfiguration = TLSConfiguration.makeServerConfiguration(
     privateKey: .privateKey(privateKey)
 )
 
-let router = HBRouter()
-let app = HBApplication(
+let router = Router()
+let app = Application(
     router: router,
     server: .tls(.http1(), tlsConfiguration: tlsConfiguration)
 )

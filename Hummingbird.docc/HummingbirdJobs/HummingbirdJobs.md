@@ -10,14 +10,14 @@ A Job consists of some metadata and an execute method to run the job. You can se
 
 Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
 ```swift
-let jobQueue = HBMemoryJobQueue()
+let jobQueue = MemoryJobQueue()
 ```
 
 ### Creating a Job
 
-First you must define your job. Create an object that inherits from `HBJob`. This protocol requires you to implement a static variable `name` and a function `func execute(on:logger)`. The `name` variable should be unique to this job definition. It is used in the serialisation of the job. The `execute` function does the work of the job and returns an `EventLoopFuture` that should be fulfilled when the job is complete. Below is an example of a job that calls a `sendEmail()` function.
+First you must define your job. Create an object that inherits from `Job`. This protocol requires you to implement a static variable `name` and a function `func execute(on:logger)`. The `name` variable should be unique to this job definition. It is used in the serialisation of the job. The `execute` function does the work of the job and returns an `EventLoopFuture` that should be fulfilled when the job is complete. Below is an example of a job that calls a `sendEmail()` function.
 ```swift
-struct SendEmailJob: HBJob {
+struct SendEmailJob: Job {
     static let name = "SendEmail"
     let to: String
     let subject: String
@@ -33,7 +33,7 @@ Before you can use this job you have to register it.
 ```swift
 SendEmailJob.register()
 ```
-Now you job is ready to create. Jobs can be queued up using the function `push` on `HBJobQueue`.
+Now you job is ready to create. Jobs can be queued up using the function `push` on `JobQueue`.
 ```swift
 let job = SendEmailJob(
     to: "joe@email.com",
@@ -45,9 +45,9 @@ jobQueue.push(job: job)
 
 ### Processing Jobs
 
-To process jobs you need to create a ``HBJobQueueHandler``. This defines the job queue it should service and how many jobs will be processed concurrently. 
+To process jobs you need to create a ``JobQueueHandler``. This defines the job queue it should service and how many jobs will be processed concurrently. 
 
-The ``HBJobQueueHandler`` conforms to `Service` from Swift Service Lifecycle so can be added to a `ServiceGroup`
+The ``JobQueueHandler`` conforms to `Service` from Swift Service Lifecycle so can be added to a `ServiceGroup`
 ```swift
 let serviceGroup = ServiceGroup(
     services: [server, jobQueueHandler],
@@ -56,27 +56,27 @@ let serviceGroup = ServiceGroup(
 )
 try await serviceGroup.run()
 ```
-Or it can be added to the array of jobs that `HBApplication` manages
+Or it can be added to the array of jobs that `Application` manages
 ```swift
-let app = HBApplication(...)
+let app = Application(...)
 app.addServices(jobQueueHandler)
 ```
-If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/HBRedisJobQueue``.
+If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/RedisJobQueue``.
 
 ## Topics
 
 ### Jobs
 
-- ``HBJob``
+- ``Job``
 - ``JobIdentifier``
-- ``HBJobInstance``
+- ``JobInstance``
 
 ### Queues
 
-- ``HBJobQueue``
-- ``HBQueuedJob``
-- ``HBMemoryJobQueue``
-- ``HBJobQueueHandler``
+- ``JobQueue``
+- ``QueuedJob``
+- ``MemoryQueue``
+- ``JobQueueHandler``
 
 ### Error
 

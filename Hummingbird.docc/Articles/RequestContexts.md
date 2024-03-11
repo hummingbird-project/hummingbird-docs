@@ -4,21 +4,21 @@ Controlling contextual data provided to middleware and route handlers
 
 ## Overview
 
-All request handlers and middleware handlers have two function parameters: the request and a context. The context provides contextual data for processing your request. The context parameter is a generic value which must conform to the protocol ``HBRequestContext``. This requires a minimal set of values needed by Hummingbird to process your request. This includes a `Logger`, `ByteBufferAllocator`, request decoder, response encoder and the resolved endpoint path.
+All request handlers and middleware handlers have two function parameters: the request and a context. The context provides contextual data for processing your request. The context parameter is a generic value which must conform to the protocol ``RequestContext``. This requires a minimal set of values needed by Hummingbird to process your request. This includes a `Logger`, `ByteBufferAllocator`, request decoder, response encoder and the resolved endpoint path.
 
-When you create your ``HBRouter`` you provide the request context type you want to use. If you don't provide a context it will default to using ``HBBasicRequestContext`` the default implementation of a request context provided by Hummingbird.
+When you create your ``Router`` you provide the request context type you want to use. If you don't provide a context it will default to using ``BasicRequestContext`` the default implementation of a request context provided by Hummingbird.
 
 ```swift
-let router = HBRouter(context: MyContext.self)
+let router = Router(context: MyContext.self)
 ```
 
 ## Creating a context type
 
-As mentioned above your context type must conform to ``HBRequestContext``. This requires an `init()` and a single member variable
+As mentioned above your context type must conform to ``RequestContext``. This requires an `init()` and a single member variable
 
 ```swift
-struct MyRequestContext: HBRequestContext {
-    var coreContext: HBCoreRequestContext
+struct MyRequestContext: RequestContext {
+    var coreContext: CoreRequestContext
 
     init(channel: Channel, logger: Logger) {
         self.coreContext = .init(allocator: channel.allocator, logger: logger)
@@ -31,7 +31,7 @@ struct MyRequestContext: HBRequestContext {
 The most likely reason you would setup your own context is because you want to set the request decoder and response encoder. By implementing the `requestDecoder` and `responseEncoder` member variables as below you have now setup JSON decoding and encoding of requests and responses.
 
 ```swift
-struct MyRequestContext: HBRequestContext {
+struct MyRequestContext: RequestContext {
     /// Set request decoder to be JSONDecoder
     var requestDecoder: JSONDecoder { .init() }
     /// Set response encoder to be JSONEncdoer
@@ -47,8 +47,8 @@ The other reason for using a custom context is to pass data you have extracted i
 
 ```swift
 /// Example request context with an additional field
-struct MyRequestContext: HBRequestContext {
-    var coreContext: HBCoreRequestContext
+struct MyRequestContext: RequestContext {
+    var coreContext: CoreRequestContext
     var additionalData: String?
 
     init(channel: Channel, logger: Logger) {
@@ -58,12 +58,12 @@ struct MyRequestContext: HBRequestContext {
 }
 
 /// Middleware that sets the additional field in 
-struct MyMiddleware: HBMiddlewareProtocol {
+struct MyMiddleware: MiddlewareProtocol {
     func handle(
-        _ request: HBRequest, 
+        _ request: Request, 
         context: MyRequestContext, 
-        next: (HBRequest, MyRequestContext) async throws -> HBResponse
-    ) async throws -> HBResponse {
+        next: (Request, MyRequestContext) async throws -> Response
+    ) async throws -> Response {
         var context = context
         context.additionalData = getData(request)
         return try await next(request, context)
@@ -75,13 +75,13 @@ Now anything run after `MyMiddleware` can access the `additionalData` set in `My
 
 ## Authentication Middleware
 
-The most obvious example of this is passing user authentication information forward. The authentication framework from ``HummingbirdAuth`` makes use of this. If you want to use the authentication and sessions middleware your context will also need to conform to ``HummingbirdAuth/HBAuthRequestContext``. 
+The most obvious example of this is passing user authentication information forward. The authentication framework from ``HummingbirdAuth`` makes use of this. If you want to use the authentication and sessions middleware your context will also need to conform to ``HummingbirdAuth/AuthRequestContext``. 
 
 ```swift
-public struct MyRequestContext: HBAuthRequestContext {
-    public var coreContext: HBCoreRequestContext
-    // required by HBAuthRequestContext
-    public var auth: HBLoginCache
+public struct MyRequestContext: AuthRequestContext {
+    public var coreContext: CoreRequestContext
+    // required by AuthRequestContext
+    public var auth: LoginCache
 
     public init(channel: Channel, logger: Logger) {
         self.coreContext = .init(allocator: channel.allocator, logger: logger)
@@ -90,19 +90,19 @@ public struct MyRequestContext: HBAuthRequestContext {
 }
 ```
 
-``HummingbirdAuth`` does provide ``HummingbirdAuth/HBBasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/HBAuthRequestContext``.
+``HummingbirdAuth`` does provide ``HummingbirdAuth/BasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/AuthRequestContext``.
 
-## HBBaseRequestContext
+## BaseRequestContext
 
-`HBRequestContext` conforms to the protocol ``Hummingbird/HBBaseRequestContext``. `HBBaseRequestContext` defines requirements for accessing data from your context, while `HBRequestContext` defines requirements for initialization from a Swift NIO `Channel`. You will find in the codebase where data access is required the request context is required to conform to `HBBaseRequestContext` but ``HBApplication`` still requires the context to conform to `HBRequestContext` as it needs to be able to create a context for each request. 
+`RequestContext` conforms to the protocol ``Hummingbird/BaseRequestContext``. `BaseRequestContext` defines requirements for accessing data from your context, while `RequestContext` defines requirements for initialization from a Swift NIO `Channel`. You will find in the codebase where data access is required the request context is required to conform to `BaseRequestContext` but ``Application`` still requires the context to conform to `RequestContext` as it needs to be able to create a context for each request. 
 
-This allows us to support running from AWS Lambda where we have no `Channel` to create the context from. Instead we have another protocol ``HummingbirdLambda/HBLambdaRequestContext`` that defines how we create a context from the lambda context and event that triggered the request.
+This allows us to support running from AWS Lambda where we have no `Channel` to create the context from. Instead we have another protocol ``HummingbirdLambda/LambdaRequestContext`` that defines how we create a context from the lambda context and event that triggered the request.
 
 ## Topics
 
 ### Reference
 
-- ``Hummingbird/HBBaseRequestContext``
-- ``HBRequestContext``
-- ``HBBasicRequestContext``
-- ``HBRouter``
+- ``Hummingbird/BaseRequestContext``
+- ``RequestContext``
+- ``BasicRequestContext``
+- ``Router``

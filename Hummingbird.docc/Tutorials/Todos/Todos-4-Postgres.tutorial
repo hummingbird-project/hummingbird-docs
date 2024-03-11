@@ -41,7 +41,7 @@
                 @Code(name: "Todos.swift", file: todos-postgres-07.swift)
             }
             @Step {
-                `PostgresClient` sets up background processes that require lifecycle management. You can add a service to `HBApplication` to have its lifecycle managed as long as it conforms to `Service`. This is done by adding it to an internally held `ServiceGroup`. More details on `Service` and `ServiceGroup` can be found in the documentation for [Swift Service Lifecycle](https://swiftpackageindex.com/swift-server/swift-service-lifecycle/main/documentation/servicelifecycle).
+                `PostgresClient` sets up background processes that require lifecycle management. You can add a service to `Application` to have its lifecycle managed as long as it conforms to `Service`. This is done by adding it to an internally held `ServiceGroup`. More details on `Service` and `ServiceGroup` can be found in the documentation for [Swift Service Lifecycle](https://swiftpackageindex.com/swift-server/swift-service-lifecycle/main/documentation/servicelifecycle).
 
                 Unfortunately `PostgresClient` does not conform to `Service` so we cannot add it as a Service.
                 @Code(name: "Todos.swift", file: todos-postgres-08.swift)
@@ -51,7 +51,7 @@
                 @Code(name: "PostgresClientService.swift", file: todos-postgres-09.swift)
             }
             @Step {
-                Now if we add `PostgresClientService(client: client)` to the `HBApplication` `ServiceGroup` the client's lifecycle is managed.
+                Now if we add `PostgresClientService(client: client)` to the `Application` `ServiceGroup` the client's lifecycle is managed.
                 @Code(name: "Todos.swift", file: todos-postgres-10.swift)
             }
         }

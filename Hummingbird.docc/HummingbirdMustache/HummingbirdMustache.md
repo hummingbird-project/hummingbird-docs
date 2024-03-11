@@ -12,7 +12,7 @@ While Hummingbird Mustache has been designed to be used with the Hummingbird ser
 
 Load your templates from the filesystem 
 ```swift
-let library = HBMustacheLibrary("folder/my/templates/are/in")
+let library = MustacheLibrary("folder/my/templates/are/in")
 ```
 This will look for all the files with the extension ".mustache" in the specified folder and subfolders and attempt to load them. Each file is registed with the name of the file (with subfolder, if inside a subfolder) minus the "mustache" extension.
 
@@ -41,24 +41,20 @@ Hummingbird Mustache supports all standard Mustache tags and is fully compliant 
 
 ### Template Library
 
-- ``HBMustacheLibrary``
-- ``HBMustacheTemplate``
+- ``MustacheLibrary``
+- ``MustacheTemplate``
 
 ### Rendering
 
-- ``HBMustacheCustomRenderable``
-- ``HBMustacheParent``
-- ``HBMustacheTransformable``
-- ``HBMustacheLambda``
+- ``MustacheCustomRenderable``
+- ``MustacheParent``
+- ``MustacheTransformable``
+- ``MustacheLambda``
 
 ### Content Types
 
-- ``HBMustacheContentType``
-- ``HBMustacheContentTypes``
-
-### Miscellaneous
-
-- ``HBParser``
+- ``MustacheContentType``
+- ``MustacheContentTypes``
 
 ## See Also
 
