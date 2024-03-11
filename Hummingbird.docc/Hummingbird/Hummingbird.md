@@ -124,7 +124,7 @@ try await app.runService()
 
 - ``HummingbirdCore``
 - ``HummingbirdJobs``
-- ``HummingbirdXCT``
+- ``HummingbirdTesting``
 - ``HummingbirdAuth``
 - ``HummingbirdFluent``
 - ``HummingbirdLambda``

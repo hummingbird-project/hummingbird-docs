@@ -1,7 +1,7 @@
 @testable import Todos
 import Foundation
 import Hummingbird
-import HummingbirdXCT
+import HummingbirdTesting
 import XCTest
 
 final class TodosTests: XCTestCase {

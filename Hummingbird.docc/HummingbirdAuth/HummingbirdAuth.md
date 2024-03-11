@@ -8,7 +8,7 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Articles
 
-- <doc:Authenticators>
+- <doc:Authenticator%20Middleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 

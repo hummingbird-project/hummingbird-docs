@@ -1,4 +1,4 @@
-# ``HummingbirdXCT``
+# ``HummingbirdTesting``
 
 Test framework for Hummingbird
 

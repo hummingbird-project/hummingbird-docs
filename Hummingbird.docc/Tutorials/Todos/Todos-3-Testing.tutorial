@@ -1,6 +1,6 @@
 @Tutorial(time: 15) {
     @Intro(title: "Testing your application") {
-        Test your application using the HummingbirdXCT framework
+        Test your application using the HummingbirdTesting framework
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
     }
     
@@ -73,7 +73,7 @@
                 @Code(name: "TodosTests.swift", file: todos-testing-11.swift)
             }
             @Step {
-                The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdXCT.
+                The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdTesting.
                 @Code(name: "TodosTests.swift", file: todos-testing-12.swift)
             }
             @Step {

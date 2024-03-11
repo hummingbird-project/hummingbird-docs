@@ -42,7 +42,7 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``HummingbirdJobs``: framework for pushing work onto a queue to be processed outside of a request (possibly by another server instance)
 - ``HummingbirdTLS``: TLS support.
 - ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
-- ``HummingbirdXCT``: helper functions to aid testing Hummingbird projects.
+- ``HummingbirdTesting``: helper functions to aid testing Hummingbird projects.
 
 ## Topics
 
@@ -57,7 +57,7 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - <doc:PersistentData>
 - <doc:ServiceLifecycle>
 - <doc:Testing>
-- <doc:Authenticators>
+- <doc:Authenticator%20Middleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 
@@ -75,4 +75,4 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdLambda``
 - ``/HummingbirdMustache``
 - ``/HummingbirdRedis``
-- ``/HummingbirdXCT``
+- ``/HummingbirdTesting``

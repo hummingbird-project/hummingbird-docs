@@ -1,6 +1,6 @@
 # Testing
 
-Using the HummingbirdXCT framework to test your application
+Using the HummingbirdTesting framework to test your application
 
 ## Overview
 
@@ -56,7 +56,7 @@ The AsyncHTTPClient framework is the same as the live framework except it uses [
 
 ### Executing requests and testing the response
 
-The function ``HummingbirdXCT/XCTClientProtocol/XCTExecute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `XCTExecute`. In the following example we are testing whether a session cookie works.
+The function ``HummingbirdTesting/XCTClientProtocol/XCTExecute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `XCTExecute`. In the following example we are testing whether a session cookie works.
 
 ```swift
 func testApplicationReturnsCorrectText() async throw {
