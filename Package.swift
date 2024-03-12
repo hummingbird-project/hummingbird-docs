@@ -13,16 +13,16 @@ let package = Package(
             targets: ["hummingbird-docs"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", branch: "main"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "1.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-core.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "1.0.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "1.0.0-rc"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-mustache.git", from: "1.0.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", branch: "main"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", from: "1.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-docc-plugin", branch: "main")
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

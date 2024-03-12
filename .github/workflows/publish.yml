@@ -6,7 +6,7 @@ on:
   push:
     branches:
     - main
-    - 2.x.x
+    - 1.x.x
 
 env:
   HUMMINGBIRD_VERSION: "1.0"
