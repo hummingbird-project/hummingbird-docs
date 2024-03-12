@@ -99,7 +99,7 @@ router.get { request, context in
 }
 let app = Application(router: router)
 ```
-When we are passing in the router we are actually passing in a type that can build a ``Responder`` a protocol for a type with one function that takes a request and context and returns a response.
+When we are passing in the router we are actually passing in a type that can build a ``HTTPResponder`` a protocol for a type with one function that takes a request and context and returns a response.
 
 ### Router Builder
 

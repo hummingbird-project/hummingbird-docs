@@ -13,7 +13,7 @@ To use an authenticator it is required that your request context conform to ``Hu
 A simple username, password authenticator could be implemented as follows. If the authenticator is successful it returns a `User` struct, otherwise it returns `nil`.
 
 ```swift
-struct BasicAuthenticator: Authenticator {
+struct BasicAuthenticator: AuthenticatorMiddleware {
     func authenticate<Context: AuthRequestContext>(request: Request, context: Context) async throws -> User? {
         // Basic authentication info in the "Authorization" header, is accessible
         // via request.headers.basic

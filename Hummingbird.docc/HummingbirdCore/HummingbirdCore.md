@@ -36,6 +36,7 @@ try await serviceGroup.run()
 - ``Server``
 - ``ServerConfiguration``
 - ``ServerChildChannel``
+- ``HTTPChannelBuilder``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
 - ``Address``
@@ -59,11 +60,14 @@ try await serviceGroup.run()
 - ``HTTPError``
 - ``HTTPResponseError``
 
+### Client
+
+- ``ClientConnection``
+- ``ClientConnectionChannel``
+
 ### Miscellaneous
 
 - ``FlatDictionary``
-- ``Parser``
-
 
 ## See Also
 

@@ -17,10 +17,9 @@ router.get("test") { _ in
 }
 let app = Application(router: router)
 try await app.test(.router) { client in
-    try await client.XCTExecute(uri: "test", method: .GET) { response in
+    try await client.execute(uri: "test", method: .GET) { response in
         XCTAssertEqual(response.status, .ok)
-        let body = try XCTUnwrap(response.body)
-        XCTAssertEqual(String(buffer: body), "testing")
+        XCTAssertEqual(String(buffer: response.body), "testing")
     }
 }
 ```
@@ -33,8 +32,8 @@ try await app.test(.router) { client in
 
 ### Test Setup
 
-- ``XCTTestingSetup``
-- ``XCTScheme``
+- ``TestingSetup``
+- ``TestHTTPScheme``
 - ``/Hummingbird/ApplicationProtocol/test(_:_:)``
 
 ## See Also

@@ -25,7 +25,7 @@ We can test the application returns the correct text as follows
 ```swift
 func testApplicationReturnsCorrectText() async throw {
     try await app.test(.router) { client in
-        try await client.XCTExecute(
+        try await client.execute(
             uri: "/hello/john",
             method: .get,
             headers: [:],  // default value
@@ -56,13 +56,13 @@ The AsyncHTTPClient framework is the same as the live framework except it uses [
 
 ### Executing requests and testing the response
 
-The function ``HummingbirdTesting/XCTClientProtocol/XCTExecute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `XCTExecute`. In the following example we are testing whether a session cookie works.
+The function ``HummingbirdTesting/TestClientProtocol/execute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `execute`. In the following example we are testing whether a session cookie works.
 
 ```swift
 func testApplicationReturnsCorrectText() async throw {
     try await app.test(.router) { client in
         // test login, returns a set-cookie header and extract
-        let cookie = try await client.XCTExecute(
+        let cookie = try await client.execute(
             uri: "/user/login", 
             method: .post, 
             headers: [.authorization: "Basic blahblah"]
@@ -71,7 +71,7 @@ func testApplicationReturnsCorrectText() async throw {
             return try XCTUnwrap(response.headers[.setCookie])
         }
         // check session cookie works
-        try await client.XCTExecute(
+        try await client.execute(
             uri: "/user/is-authenticated", 
             method: .get, 
             headers: [.cookie: cookie]

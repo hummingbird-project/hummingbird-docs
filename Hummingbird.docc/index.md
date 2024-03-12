@@ -57,7 +57,7 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - <doc:PersistentData>
 - <doc:ServiceLifecycle>
 - <doc:Testing>
-- <doc:Authenticator%20Middleware>
+- <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 

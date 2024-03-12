@@ -4,7 +4,7 @@ The router directs requests to their handlers based on the contents of their pat
 
 ## Overview
 
-The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/Router/on(_:method:use:)-99gpn``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
+The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/Router/on(_:method:use:)-3copy``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
 
 ```swift
 let router = Router()
@@ -104,21 +104,21 @@ GET /files/folder/image.png returns "folder/image.png" in the response body
 
 ### Parameter Capture
 
-You can extract parameters out of the URI by prefixing the path with a colon. This indicates that this path section is a parameter. The parameter name is the string following the colon. You can get access to the parameters extracted from the URI with `Request.parameters`. If there are no URI parameters in the path, accessing `Request.parameters` will cause a crash, so don't use it if you haven't specified a parameter in the route path. This example extracts an id from the URI and uses it to return a specific user. so "/user/56" will return user with id 56. 
+You can extract parameters out of the URI by prefixing the path with a colon. This indicates that this path section is a parameter. The parameter name is the string following the colon. You can get access to the URI extracted parameters from the context. This example extracts an id from the URI and uses it to return a specific user. so "/user/56" will return user with id 56. 
 
 ```swift
-app.router.get("/user/:id") { request in
-    let id = request.parameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
+app.router.get("/user/:id") { request, context in
+    let id = context.parameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
     return getUser(id: id)
 }
 ```
-In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an `HTTPError` it will get converted to a valid HTTP response.
+In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an ``/HummingbirdCore/HTTPError`` it will get converted to a valid HTTP response.
 
 The parameter name in your route can also be of the form `{id}`, similar to OpenAPI specifications. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
 
 ```swift
-app.router.get("/files/{image}.jpg") { request in
-    let imageName = request.parameters.get("image") else { throw HTTPError(.badRequest) }
+app.router.get("/files/{image}.jpg") { request, context in
+    let imageName = context.parameters.get("image") else { throw HTTPError(.badRequest) }
     return getImage(image: imageName)
 }
 ```

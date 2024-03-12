@@ -28,7 +28,7 @@ try await app.runService()
 ### Guides
 
 - <doc:MigratingToV2>
-- <doc:Router>
+- <doc:RouterGuide>
 - <doc:RequestContexts>
 - <doc:EncodingAndDecoding>
 - <doc:ErrorHandling>
@@ -53,9 +53,10 @@ try await app.runService()
 - ``Router``
 - ``RouterGroup``
 - ``RouterMethods``
+- ``RouterOptions``
 - ``RouteHandler``
-- ``Responder``
-- ``ResponderBuilder``
+- ``HTTPResponder``
+- ``HTTPResponderBuilder``
 - ``CallbackResponder``
 - ``RouterResponder``
 - ``EndpointPath``
@@ -95,9 +96,8 @@ try await app.runService()
 
 ### Middleware
 
-- ``Middleware``
 - ``MiddlewareProtocol``
-- ``MiddlewareProtocol``
+- ``RouterMiddleware``
 - ``MiddlewareGroup``
 - ``CORSMiddleware``
 - ``FileMiddleware``

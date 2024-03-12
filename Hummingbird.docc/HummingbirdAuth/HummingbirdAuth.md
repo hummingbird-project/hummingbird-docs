@@ -8,7 +8,7 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Articles
 
-- <doc:Authenticator%20Middleware>
+- <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 
@@ -20,7 +20,7 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Authenticators
 
-- ``Authenticator``
+- ``AuthenticatorMiddleware``
 - ``Authenticatable``
 - ``IsAuthenticatedMiddleware``
 
@@ -35,7 +35,7 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Sessions
 
-- ``SessionAuthenticator``
+- ``SessionMiddleware``
 - ``SessionStorage``
 
 ### OTP
