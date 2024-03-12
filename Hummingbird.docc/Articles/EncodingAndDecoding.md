@@ -2,45 +2,44 @@
 
 Hummingbird uses `Codable` to decode requests and encode responses. 
 
-`HBApplication` has two member variables `decoder` and `encoder` which define how requests/responses are decoded/encoded. The `decoder` must conform to `HBRequestDecoder` which requires a `decode(_:from)` function that decodes a `HBRequest`. 
+The request context ``BaseRequestContext`` that is provided alongside your ``Request`` has two member variables ``BaseRequestContext/requestDecoder`` and ``BaseRequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
+
+The `decoder` must conform to ``RequestDecoder`` which requires a ``RequestDecoder/decode(_:from:context:)`` function that decodes a `Request`.
 
 ```swift
-public protocol HBRequestDecoder {
-    func decode<T: Decodable>(_ type: T.Type, from request: HBRequest) throws -> T
+public protocol RequestDecoder {
+    func decode<T: Decodable>(_ type: T.Type, from request: Request, context: some BaseRequestContext) throws -> T
 }
 ```
 
-The `encoder` must conform to `HBResponseEncoder` which requires a `encode(_:from)` function that creates a `HBResponse` from a `Codable` value and the original request that generated it.
+The `encoder` must conform to ``ResponseEncoder`` which requires a ``ResponseEncoder/encode(_:from:context:)`` function that creates a `Response` from a `Codable` value and the original request that generated it.
 
 ```swift
-public protocol HBResponseEncoder {
-    func encode<T: Encodable>(_ value: T, from request: HBRequest) throws -> HBResponse
+public protocol ResponseEncoder {
+    func encode<T: Encodable>(_ value: T, from request: Request, context: some BaseRequestContext) throws -> Response
 }
 ```
 
-Both of these look very similar to the `Encodable` and `Decodable` protocol that come with the `Codable` system except you have additional information from the `HBRequest` class on how you might want to decode/encode your data.
+Both of these look very similar to the `Encodable` and `Decodable` protocol that come with the `Codable` system except you have additional information from the `Request` and `BaseRequestContext` types on how you might want to decode/encode your data.
 
-## Setting up HBApplication
+## Setting up your encoder/decoder
 
-The default implementations of `decoder` and `encoder` are `Null` implementations that will assert if used. So you have to setup your `decoder` and `encoder` before you can use `Codable` in Hummingbird. `HummingbirdFoundation` includes two such implementations. `JSONEncoder` and `JSONDecoder` have been extended to conform to the relevant protocols so you can have JSON decoding/encoding by adding the following when creating your application
+The default implementations of `requestDecoder` and `responseEncoder` are ``Hummingbird/JSONDecoder`` and ``Hummingbird/JSONEncoder`` respectively. They have been extended to conform to the relevant protocols so they can be used to decode requests and encode responses. 
 
-```swift
-let app = HBApplication()
-app.decoder = JSONDecoder()
-app.encoder = JSONEncoder()
-```
-
-`HummingbirdFoundation` also includes a decoder and encoder for url encoded form data. To use this you setup the application as follows
+If you don't want to use JSON you need to setup you own `requestDecoder` and `responseEncoder` in a custom request context. For instance `Hummingbird` also includes a decoder and encoder for URL encoded form data. Below you can see a custom request context setup to use ``URLEncodedFormDecoder`` for request decoding and ``URLEncodedFormEncoder`` for response encoding. The router is then initialized with this context. Read <doc:RequestContexts> to find out more about request contexts. 
 
 ```swift
-let app = HBApplication()
-app.decoder = URLEncodedFormDecoder()
-app.encoder = URLEncodedFormEncoder()
+struct URLEncodedRequestContext: RequestContext {
+    var requestDecoder: URLEncodedFormDecoder { .init() }
+    var responseEncoder: URLEncodedFormEncoder { .init() }
+    ...
+}
+let router = Router(context: URLEncodedRequestContext.self)
 ```
 
 ## Decoding Requests
 
-Once you have a decoder you can implement decoding in your routes using the `HBRequest.decode` method in the following manner
+Once you have a decoder you can implement decoding in your routes using the ``Request/decode(as:context:)`` method in the following manner
 
 ```swift
 struct User: Decodable {
@@ -48,24 +47,22 @@ struct User: Decodable {
     let firstName: String
     let surname: String
 }
-app.router.post("user") { request -> EventLoopFuture<HTTPResponseStatus> in
+app.router.post("user") { request, context -> HTTPResponse.Status in
     // decode user from request
-    guard let user = try? request.decode(as: User.self) else {
-        return request.failure(.badRequest)
-    }
+    let user = try await request.decode(as: User.self, context: context)
     // create user and if ok return `.ok` status
-    return createUser(user, on: request.eventLoop)
-        .map { _ in .ok }
+    try await createUser(user)
+    return .ok
 }
 ```
-Like the standard `Decoder.decode` functions `HBRequest.decode` can throw an error if decoding fails. In this situation when I received a decode error I return a failed `EventLoopFuture`. I use the function `HBRequest.failure` to generate the failed `EventLoopFuture`.
+Like the standard `Decoder.decode` functions `Request.decode` can throw an error if decoding fails. The decode function is also async as the request body is an asynchronous sequence of `ByteBuffers`. We need to collate the request body into one buffer before we can decode it.
 
 ## Encoding Responses
 
-To have an object encoded in the response we have to conform it to `HBResponseEncodable`. This then allows you to create a route handler that returns this object and it will automatically get encoded. If we extend the `User` object from the above example we can do this
+To have an object encoded in the response we have to conform it to `ResponseEncodable`. This then allows you to create a route handler that returns this object and it will automatically get encoded. If we extend the `User` object from the above example we can do this
 
 ```swift
-extension User: HBResponseEncodable {}
+extension User: ResponseEncodable {}
 
 app.router.get("user") { request -> User in
     let user = User(email: "js@email.com", name: "John Smith")
@@ -75,30 +72,30 @@ app.router.get("user") { request -> User in
 
 ## Decoding/Encoding based on Request headers
 
-Because the full request is supplied to the ``HBRequestDecoder``. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or ``/HummingbirdFoundation/URLEncodedFormDecoder`` based on the "content-type" header.
+Because the full request is supplied to the `RequestDecoder`. You can make decoding decisions based on headers in the request. In the example below we are decoding using either the `JSONDecoder` or `URLEncodedFormDecoder` based on the "content-type" header.
 
 ```swift
-struct MyRequestDecoder: HBRequestDecoder {
-    func decode<T>(_ type: T.Type, from request: HBRequest) throws -> T where T : Decodable {
-        guard let header = request.headers["content-type"].first else { throw HBHTTPError(.badRequest) }
-        guard let mediaType = HBMediaType(from: header) else { throw HBHTTPError(.badRequest) }
+struct MyRequestDecoder: RequestDecoder {
+    func decode<T>(_ type: T.Type, from request: Request, context: some BaseRequestContext) async throws -> T where T : Decodable {
+        guard let header = request.headers[.contentType].first else { throw HTTPError(.badRequest) }
+        guard let mediaType = MediaType(from: header) else { throw HTTPError(.badRequest) }
         switch mediaType {
         case .applicationJson:
-            return try JSONDecoder().decode(type, from: request)
+            return try await JSONDecoder().decode(type, from: request, context: context)
         case .applicationUrlEncoded:
-            return try URLEncodedFormDecoder().decode(type, from: request)
+            return try await URLEncodedFormDecoder().decode(type, from: request, context: context)
         default:
-            throw HBHTTPError(.badRequest)
+            throw HTTPError(.badRequest)
         }
     }
 }
 ```
 
-Using a similar manner you could also create a `HBResponseEncoder` based on the "accepts" header in the request.
+In a similar manner you could also create a `ResponseEncoder` based on the "accepts" header in the request.
 
 ## Topics
 
 ### Reference
 
-- ``HBRequestDecoder``
-- ``HBResponseEncoder``
+- ``RequestDecoder``
+- ``ResponseEncoder``

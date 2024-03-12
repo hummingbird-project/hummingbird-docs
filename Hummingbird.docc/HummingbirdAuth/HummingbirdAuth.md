@@ -8,15 +8,20 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Articles
 
-- <doc:Authenticators>
+- <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 
+### Request Contexts
+
+- ``BasicAuthRequestContext``
+- ``AuthRequestContext``
+- ``LoginCache``
+
 ### Authenticators
 
-- ``HBAuthenticator``
-- ``HBAsyncAuthenticator``
-- ``HBAuthenticatable``
+- ``AuthenticatorMiddleware``
+- ``Authenticatable``
 - ``IsAuthenticatedMiddleware``
 
 ### Header Authentication
@@ -30,9 +35,8 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 ### Sessions
 
-- ``SessionManager``
-- ``HBSessionAuthenticator``
-- ``HBAsyncSessionAuthenticator``
+- ``SessionMiddleware``
+- ``SessionStorage``
 
 ### OTP
 

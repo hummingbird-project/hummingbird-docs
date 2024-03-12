@@ -4,7 +4,7 @@ Add HTTP2 support to Hummingbird server
 
 ## Overview
 
-HummingbirdHTTP2 adds a single function `addHTTP2Upgrade(tlsConfiguration:)` to ``HummingbirdCore/HBHTTPServer``. Setting up a server with HTTP2 is simple as passing a NIOSSL `TLSConfiguration` struct to the server.
+HummingbirdHTTP2 provides HTTP2 upgrade support via ``HTTP2UpgradeChannel``. You can add this to your application using ``HummingbirdCore/HTTPChannelBuilder/http2Upgrade(tlsConfiguration:additionalChannelHandlers:)``.
 
 ```swift
 // Load certificates and private key to construct server TLS configuration
@@ -14,11 +14,13 @@ let tlsConfiguration = TLSConfiguration.makeServerConfiguration(
     certificateChain: certificateChain.map { .certificate($0) },
     privateKey: .privateKey(privateKey)
 )
-// Add TLS support to server
-app.server.addHTTP2Upgrade(tlsConfiguration: tlsConfiguration)
-```
 
-HTTP2 secure upgrade requires a TLS connection so this will add a TLS handler as well. Do not call addTLS() inconjunction with this as you will then be adding two TLS handlers.
+let router = Router()
+let app = Application(
+    router: router,
+    server: .http2Upgrade(tlsConfiguration: tlsConfiguration)
+)
+```
 
 ## Topics
 

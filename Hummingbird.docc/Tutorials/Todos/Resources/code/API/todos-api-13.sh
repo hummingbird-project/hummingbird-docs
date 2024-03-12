@@ -1,0 +1,2 @@
+> curl http://localhost:8080/todos/284DC153-4FE9-458D-8A93-6CB60990B2F3
+{"completed":false,"title":"Read chapter on testing applications","url":"http:\/\/localhost:8080\/todos\/284DC153-4FE9-458D-8A93-6CB60990B2F3","id":"284DC153-4FE9-458D-8A93-6CB60990B2F3"}

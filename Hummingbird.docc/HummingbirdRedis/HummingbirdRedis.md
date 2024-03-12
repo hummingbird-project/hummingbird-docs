@@ -2,31 +2,67 @@
 
 Add Redis support to Hummingbird server with RediStack.
 
-First you need to create a ``RedisConnectionPoolGroup`` for your `EventLoopGroup`. This creates a connection pool for each `EventLoop` in your `EventLoopGroup`. When you want to send a command you ask the ``RedisConnectionPoolGroup`` for the connection pool for the `EventLoop` you are running on and then call your command.
+## Overview
+
+Adds Redis support to Hummingbird via [RediStack](https://github.com/swift-server/RediStack) and manage the lifecycle of your Redis connection pool. Also provides a Redis based driver for the persist framework.
 
 ```swift
-// Initialize a Redis Connection Pool for each EventLoop
-let redisConnectionPoolGroup = try RedisConnectionPoolGroup(
-    configuration: .init(hostname: Self.redisHostname, port: 6379),
-    eventLoopGroup: app.eventLoopGroup,
-    logger: app.logger
+let redis = try RedisConnectionPoolService(
+    .init(hostname: Self.redisHostname, port: 6379),
+    logger: Logger(label: "Redis")
 )
-// Get Redis connection
-let redis = redisConnectionPoolGroup.pool(for: eventLoop)
-try await redis.set("Test", to: "hello").get()
-```
-
-Alternatively you can access a Redis connection pool via ``/Hummingbird/HBRequest`` if you add the connection pool group to your ``/Hummingbird/HBApplication``.
-
-```swift
-try app.addRedis(
-    configuration: .init(hostname: Self.redisHostname, port: 6379)
-)
-// Add route that returns contents of Redis INFO command
-app.router.get("redis") { req in
-    req.redis.send(command: "INFO").map(\.description)
+// add router with one route to return Redis info
+let router = Router()
+router.get("redis") { _, _ in
+    try await redis.send(command: "INFO").map(\.description).get()
 }
+var app = Application(router: router)
+// add Redis connection pool as a service to manage its lifecycle
+app.addServices(redis)
+try await app.runService()
 ```
+
+## Storage
+
+HummingbirdRedis provides a driver for the persist framework to store key, value pairs between requests.
+
+```swift
+let redis = try RedisConnectionPoolService(
+    .init(hostname: Self.redisHostname, port: 6379),
+    logger: Logger(label: "Redis")
+)
+let persist = RedisPersistDriver(redisConnectionPoolService: redis)
+let router = Router()
+// return value from redis database
+router.get("{id}") { request, context -> String? in
+    let id = try context.parameters.require("id")
+    try await persist.get(key: id, as: String.self)
+}
+// set value in redis database
+router.put("{id}") { request, context -> String? in
+    let id = try context.parameters.require("id")
+    let value = try request.uri.queryParameters.require("value")
+    try await persist.set(key: id, value: value)
+}
+var app = Application(router: router)
+// add Redis connection pool and persist driver as services to manage their lifecycle
+app.addServices(redis, persist)
+try await app.runService()
+```
+
+
+## Topics
+
+### Connection Pool
+
+- ``RedisConnectionPoolService``
+- ``RedisConfiguration``
+
+### Storage
+
+- ``RedisPersistDriver``
+
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdJobsRedis``

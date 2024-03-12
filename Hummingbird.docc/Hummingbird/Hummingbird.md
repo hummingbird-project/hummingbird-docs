@@ -1,117 +1,133 @@
 # ``Hummingbird``
 
-Lightweight, flexible server framework written in Swift.
+Lightweight, modern, flexible server framework written in Swift.
 
-``Hummingbird`` is a lightweight, flexible server framework designed to require the minimum number of dependencies.
+Hummingbird is a lightweight, modern, flexible server framework designed to require the minimum number of dependencies.
 
-It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, support for adding channel handlers to extend the HTTP server, extending the core ``HBApplication`` and ``HBRequest`` types and providing custom encoding/decoding of `Codable` objects.
-
-The interface is fairly standard. Anyone who has had experience of Vapor, Express.js etc will recognise most of the APIs. Simple setup is as follows
+It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, custom encoding/decoding of requests/responses, TLS and HTTP2.
 
 ```swift
 import Hummingbird
 
-let app = HBApplication(configuration: .init(address: .hostname("127.0.0.1", port: 8080)))
-app.router.get("hello") { request -> String in
+// create router and add a single GET /hello route
+let router = Router()
+router.get("hello") { request, _ -> String in
     return "Hello"
 }
-try app.start()
-app.wait()
+// create application using router
+let app = Application(
+    responder: router.buildResponder(),
+    configuration: .init(address: .hostname("127.0.0.1", port: 8080))
+)
+// run hummingbird application
+try await app.runService()
 ```
 
 ## Topics
 
-### Articles
+### Guides
 
+- <doc:MigratingToV2>
+- <doc:RouterGuide>
+- <doc:RequestContexts>
 - <doc:EncodingAndDecoding>
 - <doc:ErrorHandling>
-- <doc:ExtendingHummingbird>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>
-- <doc:Router>
+- <doc:ServiceLifecycle>
+- <doc:Testing>
+
+### Tutorials
+
+- <doc:Todos>
 
 ### Application
 
-- ``HBApplication``
-- ``ServiceLifecycleProvider``
+- ``Application``
+- ``ApplicationProtocol``
+- ``ApplicationConfiguration``
+- ``EventLoopGroupProvider``
 
 ### Router
 
-- ``HBRouterBuilder``
-- ``HBRouterGroup``
-- ``HBRouterMethods``
-- ``HBRouterMethodOptions``
-- ``HBRouteHandler``
-- ``HBRequestDecodable``
-- ``HBAsyncRouteHandler``
-- ``HBResponder``
-- ``HBCallbackResponder``
-- ``HBAsyncCallbackResponder``
+- ``Router``
+- ``RouterGroup``
+- ``RouterMethods``
+- ``RouterOptions``
+- ``RouteHandler``
+- ``HTTPResponder``
+- ``HTTPResponderBuilder``
+- ``CallbackResponder``
+- ``RouterResponder``
+- ``EndpointPath``
+- ``RouterPath``
 
 ### Request/Response
 
-- ``HBRequest``
-- ``HBURL``
-- ``HBParameters``
-- ``HBMediaType``
-- ``HBRequestContext``
-- ``HTTPHeadersPatch``
-- ``HBResponse``
+- ``Request``
+- ``Parameters``
+- ``MediaType``
+- ``CacheControl``
+- ``Response``
+- ``ResponseBodyWriter``
+- ``EditedResponse``
+- ``Cookie``
+- ``Cookies``
+
+### Request context
+
+- ``BaseRequestContext``
+- ``RequestContext``
+- ``CoreRequestContext``
+- ``BasicRequestContext``
+- ``RemoteAddressRequestContext``
 
 ### Encoding/Decoding
 
-- ``HBRequestDecoder``
-- ``HBResponseEncoder``
-- ``HBResponseEncodable``
-- ``HBResponseGenerator``
-- ``HBResponseCodable``
+- ``RequestDecoder``
+- ``ResponseEncoder``
+- ``ResponseEncodable``
+- ``ResponseGenerator``
+- ``ResponseCodable``
+- ``JSONDecoder``
+- ``JSONEncoder``
+- ``URLEncodedFormDecoder``
+- ``URLEncodedFormEncoder``
 
 ### Middleware
 
-- ``HBMiddleware``
-- ``HBAsyncMiddleware``
-- ``HBMiddlewareGroup``
-- ``HBCORSMiddleware``
-- ``HBLogRequestsMiddleware``
-- ``HBMetricsMiddleware``
-
-### Extending the Application
-
-- ``HBExtensible``
-- ``HBExtensions``
-
-### Connection Pool
-
-- ``HBConnectionPool``
-- ``HBConnection``
-- ``HBConnectionSource``
-- ``HBAsyncConnection``
-- ``HBAsyncConnectionSource``
-- ``HBConnectionPoolGroup``
-- ``HBConnectionPoolError``
+- ``MiddlewareProtocol``
+- ``RouterMiddleware``
+- ``MiddlewareGroup``
+- ``CORSMiddleware``
+- ``FileMiddleware``
+- ``LogRequestsMiddleware``
+- ``MetricsMiddleware``
+- ``TracingMiddleware``
 
 ### Storage
 
-- ``HBPersistDriver``
-- ``HBPersistDriverFactory``
-- ``HBPersistError``
+- ``PersistDriver``
+- ``MemoryPersistDriver``
+- ``PersistError``
+
+### File management
+
+- ``FileIO``
 
 ### Miscellaneous
 
-- ``FlatDictionary``
-- ``HBEnvironment``
-- ``HBDateCache``
-- ``HBParser``
+- ``Environment``
+- ``DateCache``
 
 ## See Also
 
 - ``HummingbirdCore``
-- ``HummingbirdAuth``
-- ``HummingbirdCompression``
-- ``HummingbirdFluent``
-- ``HummingbirdFoundation``
 - ``HummingbirdJobs``
+- ``HummingbirdTesting``
+- ``HummingbirdAuth``
+- ``HummingbirdFluent``
 - ``HummingbirdLambda``
+- ``HummingbirdMustache``
 - ``HummingbirdRedis``
-- ``HummingbirdWebSocket``
-- ``HummingbirdXCT``
+- ``HummingbirdRouter``

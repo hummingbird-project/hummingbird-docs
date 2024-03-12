@@ -1,0 +1,115 @@
+@Tutorial(time: 20) {
+    @Intro(title: "Use PostgresNIO to store your Todos in a Postgres database") {
+        Now we have a working API and a way to test it, lets look into storing our todos in a Postgres database with PostgresNIO.
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Setup your Postgres database") {
+        @ContentAndMedia() {
+            Setup a Postgres database to use with the Todos application.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
+            @Step {
+                You'll need to install postgres on your system if you don't already have it. Detailed instructions on installing Postgres can be found [here](https://www.postgresql.org/download/). 
+                
+                Once you have installed Postgres follow the instructions on screen to start your Postgres database service.
+                @Code(name: "Install Postgress", file: todos-postgres-01.sh)
+            }
+            @Step {
+                The Postgres install comes with `psql` the commandline interface to Postgres. We are going to use this to create a new database and a new role.
+
+                Note the SQL commands all end in a semi-colon. The `\c` command connects to a database and the `\q` command quits `pqsl`. You can find out more about `psql` [here](https://www.postgresql.org/docs/current/app-psql.html).
+                @Code(name: "Setup Postgress", file: todos-postgres-02.sh)
+            }
+            @Step {
+                We return to our project...
+                @Code(name: "Package.swift", file: todos-postgres-03.swift)
+            }
+            @Step {
+                And add PostgresNIO as a dependency
+                @Code(name: "Package.swift", file: todos-postgres-04.swift)
+            }
+            @Step {
+                Let's return to `buildApplication(_:)` in Todos.swift...
+                @Code(name: "Todos.swift", file: todos-postgres-06.swift)
+            }
+            @Step {
+                And setup a client to connect to Postgres. We are going to use `PostgresClient` from PostgresNIO. The `inMemoryTesting` flag is used to decide on whether we should setup the `PostgresClient`. Note the configuration details are the same as the Postgres role we set up earlier.
+                @Code(name: "Todos.swift", file: todos-postgres-07.swift)
+            }
+            @Step {
+                `PostgresClient` sets up background processes that require lifecycle management. You can add a service to `Application` to have its lifecycle managed as long as it conforms to `Service`. This is done by adding it to an internally held `ServiceGroup`. More details on `Service` and `ServiceGroup` can be found in the documentation for [Swift Service Lifecycle](https://swiftpackageindex.com/swift-server/swift-service-lifecycle/main/documentation/servicelifecycle).
+                @Code(name: "Todos.swift", file: todos-postgres-08.swift)
+            }
+        }
+    }
+
+    @Section(title: "Setup a Postgres repository") {
+        @ContentAndMedia() {
+            Implement a version of `TodoRepository` that uses `PostgresClient`.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
+            @Step {
+                We start our Postgres support by creating a type conforming to `TodoRepository` that uses `PostgresClient` from PostgresNIO. The functions are filled out with dummy code just now so the project will compile.
+                @Code(name: "TodoPostgresRepository.swift", file: todos-postgres-11.swift)
+            }
+            @Step {
+                If we are going to be saving our todos to a database we are going to need a table to store them in. 
+
+                I won't go into any great detail about the SQL calls. That is not the purpose of this tutorial. We will cover how you construct, send calls and parse their results with `PostgresClient` as we proceed through the tutorial.
+
+                @Code(name: "TodoPostgresRepository.swift", file: todos-postgres-12.swift)
+            }
+            @Step {
+                Return to Todos.swift...
+                @Code(name: "Todos.swift", file: todos-postgres-13.swift)
+            }
+            @Step {
+                Use the newly created `TodoPostgresRepository` and once the `PostgresClient` is running call `createTable`.  
+                @Code(name: "Todos.swift", file: todos-postgres-14.swift)
+            }
+            @Step {
+                Back to TodoPostgresRepository.swift to start implementing our repository methods.
+                @Code(name: "TodoPostgresRepository.swift", file: todos-postgres-12.swift)
+            }
+            @Step {
+                The `create` method gives you an idea of how the `PostgresClient` works. You lease a Postgres connection using `withConnection`, it runs your queries inside the closure and then releases the connection back to the connection pool once they are done. 
+
+                Wait a sec! If you look closer that query looks like it's got SQL injection. That's a classic security issue. Except this isn't the case here. The object being constructed is not a `String` but a `PostgresQuery` which uses `StringInterpolation` to create parameter bindings for all the interpolated variables.
+                @Code(name: "TodoPostgresRepository.swift", file: todos-postgres-15.swift)
+            }
+            @Step {
+                The `get` method demonstrates how you get data returned from a query. The query returns a sequence of rows. You extract the data from the row by decoding it as a tuple. In this case there should only be one row so we return immediately as soon as we have it.
+                @Code(name: "TodoPostgresRepository > get(id:).swift", file: todos-postgres-16.swift)
+            }
+            @Step {
+                `list` is very similar to `get`. Except there is no `WHERE` clause in the SQL and we return all of the rows returned from the query instead of just the first.
+                @Code(name: "TodoPostgresRepository > list().swift", file: todos-postgres-17.swift)
+            }
+            @Step {
+                `patch` has a complication where we only want to include the non optional values in the `UPDATE` query otherwise we'll be setting database columns to null. You could do this dynamically and build a `PostgresQuery.StringInterpolation` bit by bit but it is safer just to provide the full query strings for each situation.
+                @Code(name: "TodoPostgresRepository > patch(id:).swift", file: todos-postgres-18.swift)
+            }
+            @Step {
+                And finally the `delete` and `deleteAll` functions. This completes the implementation of the Postgres todos repository.
+                @Code(name: "TodoPostgresRepository > delete.swift", file: todos-postgres-20.swift)
+            }
+            @Step {
+                If you go to TodosTests.swift...
+                @Code(name: "TodosTests.swift", file: todos-postgres-21.swift)
+            }
+            @Step {
+                You can switch the `inMemoryTesting` boolean to false to test your Postgres solution. 
+                @Code(name: "TodosTests.swift", file: todos-postgres-22.swift)
+            }
+            @Step {
+                That's us done, we have a working and tested Todos application.
+
+                The code for this tutorial can be found in the [hummingbird-examples repository](https://github.com/hummingbird-project/hummingbird-examples/tree/2.x.x/todos-postgres-tutuorial).
+            }
+        }
+    }
+}
+        

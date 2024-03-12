@@ -1,0 +1,3 @@
+[submodule "scripts/swift-docc-render-artifact"]
+	path = scripts/swift-docc-render-artifact
+	url = https://github.com/apple/swift-docc-render-artifact

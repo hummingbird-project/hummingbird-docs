@@ -1,0 +1,88 @@
+@Tutorial(time: 15) {
+    @Intro(title: "Testing your application") {
+        Test your application using the HummingbirdTesting framework
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Setup your project for testing") {
+        @ContentAndMedia() {
+            Create a test target and restructure your project to make it easier to test.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
+            @Step {
+                Open Package.swift
+                @Code(name: "Package.swift", file: todos-testing-01.swift)
+            }
+            @Step { 
+                Add a test target for "TodosTests"
+                @Code(name: "Package.swift", file: todos-testing-02.swift)
+            }
+            @Step { 
+                Create a Tests folder and add the file TodosTests.swift inside it. 
+                @Code(name: "TodosTests.swift", file: todos-testing-03.swift)
+            }
+            @Step { 
+                Before we can start testing the application we need a function to create the application. Currently it is created inside `Todos.run` and is inaccessible. 
+                @Code(name: "Todos.swift", file: todos-testing-04.swift)
+            }
+            @Step { 
+                We move the application creation to a global function outside of `Todos`.
+
+                The `buildApplication` function returns `some ApplicationProtocol`. This is to avoid having to list all the generic parameters of `Application`. FYI in this case it is `Application<RouterResponder<BasicRequestContext>, HTTP1Channel>`.
+
+                @Code(name: "Todos.swift", file: todos-testing-05.swift)
+            }
+            @Step { 
+                We cannot instantiate `Todos` in our tests so need another way to pass arguments to the buildApplication function. We solve this by creating a protocol AppArguments which Todos conforms to. In our tests we can create a separate concrete type that conforms to this.
+
+                We've added a `inMemoryTesting` variable to this protocol which we will use in the future.
+
+                @Code(name: "Todos.swift", file: todos-testing-06.swift)
+            }
+        }
+    }
+    @Section(title: "Test you application") {
+        @ContentAndMedia() {
+            Writing Tests to ensure you application API works.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
+            @Step {
+                We are now in a position where we can test our application. We create a concrete type conforming to `AppArguments` which we can pass to `buildApplication`. The start of function to test the create API is here, with its first line creating the todos application.
+                @Code(name: "TodosTests.swift", file: todos-testing-07.swift)
+            }
+            @Step {
+                This is the filled out function. Application testing is done with the function ``Hummingbird/ApplicationProtocol/test(_:_:)``. The first parameter indicates what test framework you want to use. Here we are using `.router` which indicates we send our request directly to the router without a live server process.
+
+                In the closure passed to `test` you are provided with a client to interact with the current test framework. With this you can send requests and verify the contents of their responses.
+                @Code(name: "TodosTests.swift", file: todos-testing-08.swift)
+            }
+            @Step {
+                Writing the whole execute line out each time and converting the responses to something readable can become tiresome. So lets break out the create API call to a separate function. You'll notice in this function we return the decoded Todo from the execute closure.
+
+                Now the create test has been simplified to two lines of code. Call create function, test return value.
+                @Code(name: "TodosTests.swift", file: todos-testing-09.swift)
+            }
+            @Step {
+                In actual fact lets create helper functions for all the API calls. With these it shoud be a lot easier to write tests
+                @Code(name: "TodosTests.swift", file: todos-testing-10.swift)
+            }
+            @Step {
+                We can now create more complex test functions. This one edits a todo twice and verifies the edits have been stored.
+                @Code(name: "TodosTests.swift", file: todos-testing-11.swift)
+            }
+            @Step {
+                The following is the equivalent of the list of curl commands we wrote in the previous chapter to test everything was working ok. Its not the most sensible test but it demonstrates how much easier it is test your application using HummingbirdTesting.
+                @Code(name: "TodosTests.swift", file: todos-testing-12.swift)
+            }
+            @Step {
+                Here are some tests that haven't been written yet. Maybe you could complete them for me.
+
+                Hint: A couple of these require you to use execute directly instead of calling the helper functions we wrote at the top.
+                @Code(name: "TodosTests.swift", file: todos-testing-13.swift)
+            }
+        }
+    }
+}
+        

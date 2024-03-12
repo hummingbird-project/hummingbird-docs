@@ -1,0 +1,159 @@
+@Tutorial(time: 15) {
+    @Intro(title: "Add your application API") {
+        Add some functionality to your app
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Todo Controller and Repository") {
+        @ContentAndMedia() {
+            Create a controller type that will hold the Todos API
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
+            @Step {
+                Add the new file `Sources/TodoController.swift` 
+                @Code(name: "TodoController.swift", file: todos-api-01.swift)
+            }
+            @Step {
+                Go back to Todos.swift
+                @Code(name: "Todos.swift", file: todos-extend-06.swift)
+            }
+            @Step {
+                And add the TodoController APIs to your router. The Todos API has a URI prefix of "todos".
+                @Code(name: "Todos.swift", file: todos-api-02.swift)
+            }
+            @Step {
+                Before we start adding routes, we going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
+            }
+            @Step {
+                Create a product `Todo` that includes everything to define a todo.
+                @Code(name: "Todo.swift", file: todos-api-03.swift)
+            }
+            @Step {
+                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseCodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
+                @Code(name: "Todo.swift", file: todos-api-04.swift)
+            }
+            @Step {
+                Create a `TodoRepository` protocol that defines all the methods to manage todos: (get, list, create, update, delete and deleteAll).
+                @Code(name: "TodoRepository.swift", file: todos-api-05.swift)
+            }
+            @Step {
+                Create a concrete implementation of `TodoRepository` protocol that saves everything to memory. We use an actor because multiple tasks could be accessing the repository at the same time.
+                @Code(name: "TodoMemoryRepository.swift", file: todos-api-06.swift)
+            }
+            @Step {
+                Return to TodoController.swift
+                @Code(name: "TodoController.swift", file: todos-api-01.swift)
+            }
+            @Step {
+                And add a generic repository member variable conforming to `TodoRepository` to be used by the `TodoController` routes.
+                @Code(name: "TodoController.swift", file: todos-api-07.swift)
+            }
+            @Step {
+                Go to Todos.swift
+                @Code(name: "Todos.swift", file: todos-api-02.swift)
+            }
+            @Step {
+                And add the repository parameter to the TodoController initializer.
+                @Code(name: "Todos.swift", file: todos-api-08.swift)
+            }
+            @Step {
+                Return to TodoController.swift. We can now start adding our API.
+                @Code(name: "TodoController.swift", file: todos-api-07.swift)
+            }
+            @Step {
+                Our first entrypoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the response encoder (JSONEncoder by default) attached to the context.
+                @Code(name: "TodoController.swift", file: todos-api-09.swift)
+            }
+            @Step {
+                This entrypoint has a few other features. If it fails to convert the id to a UUID then it throws an `HTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
+
+                If the entrypoint returns nil because it could not find a route this will automatically return a 204 (No Content) HTTP response to the client.
+                @Code(name: "TodoController.swift", file: todos-api-09.swift)
+            }
+            @Step {
+                Our second entrypoint is to create a Todo. We have added a struct to decode from the request. In a similar way the get entrypoint response uses JSONEncoder to generate its response, this uses the JSONDecoder attached to the context. We then call the repository `create` method and return the result.
+                @Code(name: "TodoController.swift", file: todos-api-10.swift)
+            }
+            @Step {
+                Returning an object and not a raw Response, in general sets the response status to 200 (OK). In this situation we want to return a 201 (Created) status. We can do this by returning an `EditedResponse` which can be used to edit the status code and headers of a generated response.
+                @Code(name: "TodoController.swift", file: todos-api-11.swift)
+            }
+            @Step {
+                We now have an API we can test. Lets use curl to create a Todo. If we include the command line parameter `-i` we get the full HTTP response and that the status code is 201 (Created).
+                @Code(name: "Test create", file: todos-api-12.sh)
+            }
+            @Step {
+                Then use curl to access the URL that was in the returned json from the previous curl call.
+
+                Cool it works!
+                @Code(name: "Test get", file: todos-api-13.sh)
+            }
+            @Step {
+                Continuing with adding our API entrypoints
+                @Code(name: "TodoController.swift", file: todos-api-11.swift)
+            }
+            @Step {
+                This is the entrypoint that lists all of the todos that have been created. Because Todo conforms to ResponseEncodable, Array\<Todo\> automatically conforms to ResponseEncodable as well.
+                @Code(name: "TodoController.swift", file: todos-api-14.swift)
+            }
+            @Step {
+                This is the entrypoint that updates a todo. It extracts the todo id from the URI, decodes the UpdateRequest from the request and then calls the repository `update` function.
+                @Code(name: "TodoController.swift", file: todos-api-15.swift)
+            }
+            @Step {
+                This is the entrypoint that deletes a todo. It extracts the todo id from the URI and calls the repository `delete` function.
+                @Code(name: "TodoController.swift", file: todos-api-16.swift)
+            }
+            @Step {
+                The final entrypoint is the one that deletes all todos. It simply calls the repository `deleteAll` function, as it doesn't need to extract any information from the request.
+                @Code(name: "TodoController.swift", file: todos-api-17.swift)
+            }
+        }
+    }
+
+    @Section(title: "Testing your application with curl") {
+        @ContentAndMedia() {
+            Use curl to ensure your API is working as expected.
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
+            @Step {
+                Lets test the full API. First we are going to create two todos
+                @Code(name: "Test create and get", file: todos-api-18.sh)
+            }
+            @Step {
+                When we query the URL returned by the first curl request we should get the first Todo added.
+                @Code(name: "Test create and get", file: todos-api-19.sh)
+            }
+            @Step {
+                If we update the second Todo and set it to completed ...
+                @Code(name: "Test update", file: todos-api-20.sh)
+            }
+            @Step {
+                when we list all the tests you will see it is now flagged as completed
+                @Code(name: "Test update", file: todos-api-21.sh)
+            }
+            @Step {
+                If we delete a Todo ...
+                @Code(name: "Test delete", file: todos-api-22.sh)
+            }
+            @Step {
+                when we try to get it again a 204 (No Content) response is returned, as it no longer exists.
+                @Code(name: "Test delete", file: todos-api-23.sh)
+            }
+            @Step {
+                If we delete all of the Todos ...
+                @Code(name: "Test delete", file: todos-api-24.sh)
+            }
+            @Step {
+                when we list the Todos, the list is empty. 
+
+                This is not exactly a thorough way to test your application. It is error prone and cumbersome. Move onto the next chapter to discover how you can make this process more streamlined.
+                @Code(name: "Test delete", file: todos-api-25.sh)
+            }
+        }
+    }
+}
