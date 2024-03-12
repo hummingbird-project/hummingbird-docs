@@ -31,23 +31,23 @@ If there is an entry for the key already then a `PersistError.duplicate` error w
 
 If you are not concerned about overwriting a previous key/value pair you can use 
 ```swift
-try await request.persist.set(key: "mykey", value: MyValue)
+try await persist.set(key: "mykey", value: MyValue)
 ```
 
 Both `create` and `set` have an `expires` parameter. With this parameter you can make a key/value pair expire after a certain time period. eg
 ```swift
-try await request.persist.set(key: "sessionID", value: MyValue, expires: .hours(1))
+try await persist.set(key: "sessionID", value: MyValue, expires: .hours(1))
 ```
 
 To access values in the `persist` key/value store you use 
 ```swift
-let value = try await request.persist.get(key: "mykey", as: MyValueType.self)
+let value = try await persist.get(key: "mykey", as: MyValueType.self)
 ```
 This returns he value associated with the key or `nil` if that value doesn't exist or is not of the type requested.
 
 And finally if you want to delete a key you can use
 ```swift
-try await request.persist.remove(key: "mykey")
+try await persist.remove(key: "mykey")
 ```
 
 ## Drivers

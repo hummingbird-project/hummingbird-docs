@@ -1,5 +1,5 @@
 import Foundation
-@_spi(ConnectionPool) import PostgresNIO
+import PostgresNIO
 
 struct TodoPostgresRepository: TodoRepository {
     let client: PostgresClient

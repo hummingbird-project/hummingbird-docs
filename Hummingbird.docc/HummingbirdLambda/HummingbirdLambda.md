@@ -4,14 +4,14 @@ Run Hummingbird inside an AWS Lambda
 
 ## Usage
 
-Create struct conforming to `Lambda`. Setup your router in the `buildResponder` function: add routes, middleware etc and then return its responder.
+Create struct conforming to `LambdaFunction`. Setup your router in the `buildResponder` function: add routes, middleware etc and then return its responder.
 
 ```swift
 @main
-struct MyHandler: Lambda {
+struct MyHandler: LambdaFunction {
     typealias Event = APIGatewayRequest
     typealias Output = APIGatewayResponse
-    typealias Context = BasicLambdaRequestContext<Event>
+    typealias Context = BasicLambdaRequestContext<APIGatewayRequest>
 
     init(context: LambdaInitializationContext) {}
     
@@ -27,7 +27,7 @@ struct MyHandler: Lambda {
 }
 ```
 
-The `Event` and `Output` types define your input and output objects. If you are using an `APIGateway` REST interface to invoke your Lambda then set these to `APIGateway.Request` and `APIGateway.Response` respectively. If you are using an `APIGateway` HTML interface then set these to `APIGateway.V2.Request` and `APIGateway.V2.Response`. The protocols ``APIGatewayLambda`` and ``APIGatewayV2Lambda`` set these up for you.
+The `Event` and `Output` types define your input and output objects. If you are using an `APIGateway` REST interface to invoke your Lambda then set these to `APIGateway.Request` and `APIGateway.Response` respectively. If you are using an `APIGateway` HTML interface then set these to `APIGateway.V2.Request` and `APIGateway.V2.Response`. The protocols ``APIGatewayLambdaFunction`` and ``APIGatewayV2LambdaFunction`` set these up for you.
 
 If you are using any other `In`/`Out` types you will need to implement the `request(context:application:from:)` and `output(from:)` methods yourself.
 
@@ -35,9 +35,9 @@ If you are using any other `In`/`Out` types you will need to implement the `requ
 
 ### Lambda protocols
 
-- ``Lambda``
-- ``APIGatewayLambda``
-- ``APIGatewayV2Lambda``
+- ``LambdaFunction``
+- ``APIGatewayLambdaFunction``
+- ``APIGatewayV2LambdaFunction``
 
 ### Request context
 
