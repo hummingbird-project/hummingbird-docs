@@ -4,11 +4,11 @@ Alternative result builder based router for Hummingbird.
 
 ## Overview
 
-HummingbirdRouter provides an alternative to the standard trie based router that is in the Hummingbird module. ``HummingbirdRouter/HBRouterBuilder`` uses a result builder to construct your router.
+HummingbirdRouter provides an alternative to the standard trie based router that is in the Hummingbird module. ``HummingbirdRouter/RouterBuilder`` uses a result builder to construct your router.
 
 ```swift
-let router = HBRouterBuilder(context: HBBasicRouterRequestContext.self) {
-    HBCORSMiddleware()
+let router = RouterBuilder(context: BasicRouterRequestContext.self) {
+    CORSMiddleware()
     Route(.get, "health") { _,_ in
         HTTPResponse.Status.ok
     }
@@ -55,10 +55,10 @@ Post("login") {
 If you are not adding the handler inline you can add the function reference without the ``Handle``.  
 
 ```swift
-@Sendable func processLogin(request: HBRequest, context: MyContext) async throws -> HBResponse {
+@Sendable func processLogin(request: Request, context: MyContext) async throws -> Response {
     // process login
 }
-HBRouterBuilder(context: HBBasicRouterRequestContext.self) {
+RouterBuilder(context: BasicRouterRequestContext.self) {
     ...
     Post("login") {
         BasicAuthenticationMiddleware()
@@ -71,17 +71,17 @@ HBRouterBuilder(context: HBBasicRouterRequestContext.self) {
 
 ### RouterBuilder
 
-- ``HBRouterBuilder``
+- ``RouterBuilder``
 
 ### Request Context
 
-- ``HBRouterRequestContext``
-- ``HBBasicRouterRequestContext``
-- ``HBRouterBuilderContext``
+- ``RouterRequestContext``
+- ``BasicRouterRequestContext``
+- ``RouterBuilderContext``
 
 ### Result Builder
 
-- ``HBRouterBuilder``
+- ``RouterBuilder``
 - ``RouteGroup``
 - ``Route``
 - ``Get(_:builder:)``

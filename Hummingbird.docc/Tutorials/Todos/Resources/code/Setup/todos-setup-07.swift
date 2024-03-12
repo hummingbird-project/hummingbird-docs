@@ -5,13 +5,13 @@ import Hummingbird
 struct Todos: AsyncParsableCommand {
     func run() async throws {
         // create router
-        let router = HBRouter()
+        let router = Router()
         // add hello route
         router.get("/") { request, context in
             "Hello\n"
         }
         // create application
-        let app = HBApplication(router: router)
+        let app = Application(router: router)
         // run application
         try await app.runService()
     }

@@ -10,7 +10,7 @@ Hummingbird Jobs Queue driver using Redis queues. See ``HummingbirdJobs`` for de
 
 ### Job Queue
 
-- ``HBRedisJobQueue``
+- ``RedisQueue``
 
 ## See Also
 

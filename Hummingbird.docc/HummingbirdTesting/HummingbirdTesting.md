@@ -1,4 +1,4 @@
-# ``HummingbirdXCT``
+# ``HummingbirdTesting``
 
 Test framework for Hummingbird
 
@@ -11,16 +11,15 @@ Provides methods for easy setup of unit tests using XCTest framework.
 Setup your server and run requests to the routes you want to test.
 
 ```swift
-let router = HBRouter()
+let router = Router()
 router.get("test") { _ in
     return "testing"
 }
-let app = HBApplication(router: router)
+let app = Application(router: router)
 try await app.test(.router) { client in
-    try await client.XCTExecute(uri: "test", method: .GET) { response in
+    try await client.execute(uri: "test", method: .GET) { response in
         XCTAssertEqual(response.status, .ok)
-        let body = try XCTUnwrap(response.body)
-        XCTAssertEqual(String(buffer: body), "testing")
+        XCTAssertEqual(String(buffer: response.body), "testing")
     }
 }
 ```
@@ -33,9 +32,9 @@ try await app.test(.router) { client in
 
 ### Test Setup
 
-- ``XCTTestingSetup``
-- ``XCTScheme``
-- ``/Hummingbird/HBApplicationProtocol/test(_:_:)``
+- ``TestingSetup``
+- ``TestHTTPScheme``
+- ``/Hummingbird/ApplicationProtocol/test(_:_:)``
 
 ## See Also
 

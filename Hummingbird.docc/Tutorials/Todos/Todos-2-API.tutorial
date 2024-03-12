@@ -31,7 +31,7 @@
                 @Code(name: "Todo.swift", file: todos-api-03.swift)
             }
             @Step {
-                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `HBResponseCodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
+                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseCodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
                 @Code(name: "Todo.swift", file: todos-api-04.swift)
             }
             @Step {
@@ -67,7 +67,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
-                This entrypoint has a few other features. If it fails to convert the id to a UUID then it throws an `HBHTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
+                This entrypoint has a few other features. If it fails to convert the id to a UUID then it throws an `HTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
 
                 If the entrypoint returns nil because it could not find a route this will automatically return a 204 (No Content) HTTP response to the client.
                 @Code(name: "TodoController.swift", file: todos-api-09.swift)
@@ -77,7 +77,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-10.swift)
             }
             @Step {
-                Returning an object and not a raw HBResponse, in general sets the response status to 200 (OK). In this situation we want to return a 201 (Created) status. We can do this by returning an `HBEditedResponse` which can be used to edit the status code and headers of a generated response.
+                Returning an object and not a raw Response, in general sets the response status to 200 (OK). In this situation we want to return a 201 (Created) status. We can do this by returning an `EditedResponse` which can be used to edit the status code and headers of a generated response.
                 @Code(name: "TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
@@ -95,7 +95,7 @@
                 @Code(name: "TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                This is the entrypoint that lists all of the todos that have been created. Because Todo conforms to HBResponseEncodable, Array\<Todo\> automatically conforms to HBResponseEncodable as well.
+                This is the entrypoint that lists all of the todos that have been created. Because Todo conforms to ResponseEncodable, Array\<Todo\> automatically conforms to ResponseEncodable as well.
                 @Code(name: "TodoController.swift", file: todos-api-14.swift)
             }
             @Step {
