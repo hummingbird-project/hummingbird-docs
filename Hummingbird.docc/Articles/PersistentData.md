@@ -11,13 +11,13 @@ If you are looking to store data between requests then the Hummingbird `persist`
 At setup you need to choose your persist driver. Below we are using the in memory storage driver. 
 
 ```swift
-let persist = HBMemoryPersistDriver()
+let persist = MemoryPersistDriver()
 ```
 
-The persist drivers conform to `Service` from Swift Service Lifecycle and should either to added to the ``HBApplication`` serivce group using ``HBApplication/addServices(_:)`` or added to an external managed `ServiceGroup`.
+The persist drivers conform to `Service` from Swift Service Lifecycle and should either to added to the ``Application`` serivce group using ``Application/addServices(_:)`` or added to an external managed `ServiceGroup`.
 
 ```swift
-var app = HBApplication(router: myRouter)
+var app = Application(router: myRouter)
 app.addServices(persist)
 ```
 
@@ -27,7 +27,7 @@ To create a new entry you can call `create`
 ```swift
 try await persist.create(key: "mykey", value: MyValue)
 ```
-If there is an entry for the key already then a `HBPersistError.duplicate` error will be thrown.
+If there is an entry for the key already then a `PersistError.duplicate` error will be thrown.
 
 If you are not concerned about overwriting a previous key/value pair you can use 
 ```swift
@@ -54,7 +54,7 @@ try await request.persist.remove(key: "mykey")
 
 The `persist` framework defines an API for storing key/value pairs. You also need a driver for the framework. When configuring your application if you want to use `persist` you have to add it to the application and indicate what driver you are going to use. `Hummingbird` comes with a memory based driver which will store these values in the memory of your server. 
 ```swift
-let persist = HBMemoryPersistDriver()
+let persist = MemoryPersistDriver()
 ```
 If you use the memory based driver the key/value pairs you store will be lost if your server goes down, also you will not be able to share values between server processes. 
 
@@ -62,20 +62,20 @@ If you use the memory based driver the key/value pairs you store will be lost if
 
 You can use Redis to store the `persists` key/value pairs with the `HummingbirdRedis` library. You would setup `persist` to use Redis as follows. To use the Redis driver you need to have setup Redis with Hummingbird as well.
 ```swift
-let redis = HBRedisConnectionPoolService(
+let redis = RedisConnectionPoolService(
     .init(hostname: redisHostname, port: 6379), 
     logger: Logger(label: "Redis")
 )
-let persist = HBRedisPersistDriver(redisConnectionPoolService: redis)
+let persist = RedisPersistDriver(redisConnectionPoolService: redis)
 ```
 
 ### Fluent
 
-``HummingbirdFluent`` also contains a `persist` driver for the storing the key/value pairs in a database. To setup the Fluent driver you need to have setup Fluent first. The first time you run with the fluent driver you should ensure you call `fluent.migrate()` after creating the ``HummingbirdFluent/HBFluentPersistDriver`` call has been made.
+``HummingbirdFluent`` also contains a `persist` driver for the storing the key/value pairs in a database. To setup the Fluent driver you need to have setup Fluent first. The first time you run with the fluent driver you should ensure you call `fluent.migrate()` after creating the ``HummingbirdFluent/FluentPersistDriver`` call has been made.
 ```swift
-let fluent = HBFluent(logger: Logger(label: "Fluent"))
+let fluent = Fluent(logger: Logger(label: "Fluent"))
 fluent.databases.use(...)
-let persist = await HBFluentPersistDriver(fluent: fluent)
+let persist = await FluentPersistDriver(fluent: fluent)
 // run migrations
 if shouldMigrate {
     try await fluent.migrate()
@@ -86,9 +86,9 @@ if shouldMigrate {
 
 ### Reference
 
-- ``HBPersistDriver``
-- ``HBPersistError``
-- ``HBMemoryPersistDriver``
-- ``HummingbirdRedis/HBRedisPersistDriver``
-- ``HummingbirdFluent/HBFluentPersistDriver``
+- ``PersistDriver``
+- ``PersistError``
+- ``MemoryPersistDriver``
+- ``HummingbirdRedis/RedisPersistDriver``
+- ``HummingbirdFluent/FluentPersistDriver``
 

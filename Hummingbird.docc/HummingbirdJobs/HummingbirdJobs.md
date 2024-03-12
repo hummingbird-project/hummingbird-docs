@@ -10,73 +10,84 @@ A Job consists of some metadata and an execute method to run the job. You can se
 
 Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
 ```swift
-let jobQueue = HBMemoryJobQueue()
+let jobQueue = JobQueue(.memory, numWorkers: 1, logger: logger)
 ```
 
 ### Creating a Job
 
-First you must define your job. Create an object that inherits from `HBJob`. This protocol requires you to implement a static variable `name` and a function `func execute(on:logger)`. The `name` variable should be unique to this job definition. It is used in the serialisation of the job. The `execute` function does the work of the job and returns an `EventLoopFuture` that should be fulfilled when the job is complete. Below is an example of a job that calls a `sendEmail()` function.
+First you must define your job. A job consists of three things, an identifier, the parameters required to run the job and a function that executes the job. 
+
+First we define the parameters and the identifier. The parameters need to conform to `Sendable` and `Codable`. 
+
 ```swift
-struct SendEmailJob: HBJob {
-    static let name = "SendEmail"
+struct SendEmailJobParameters: Codable, Sendable {
     let to: String
     let subject: String
-    let message: String
-    
-    /// do the work
-    func execute(logger: Logger) async throws {
-        return try await sendEmail(to: self.to, subject: self.subject, message: self.message)
-    }
+    let body: String
+}
+
+extension JobIdentifier<SendEmailJobParameters> {
+    static let sendEmailJob: Self { "SendEmail" }
 }
 ```
-Before you can use this job you have to register it. 
+
+Then we register the job with a job queue and also provide a closure that executes the job.
+
 ```swift
-SendEmailJob.register()
+jobQueue.registerJob(id: .sendEmailJob) { parameters, context in
+    try await myEmailService.sendEmail(to: parameters.to, subject: parameters.subject, body: parameters.body)
+}
 ```
-Now you job is ready to create. Jobs can be queued up using the function `push` on `HBJobQueue`.
+
+Now your job is ready to create. Jobs can be queued up using the function `push` on `JobQueue`.
+
 ```swift
-let job = SendEmailJob(
+let job = SendEmailJobParameters(
     to: "joe@email.com",
     subject: "Testing Jobs",
     message: "..."
 )
-jobQueue.push(job: job)
+jobQueue.push(id: .sendEmailJob, .init(
+    to: "john@email.com",
+    subject: "Test email",
+    body: "Hello?"
+))
 ```
 
 ### Processing Jobs
 
-To process jobs you need to create a ``HBJobQueueHandler``. This defines the job queue it should service and how many jobs will be processed concurrently. 
+When you create a `JobQueue` the `numWorkers` parameter indicates how many workers you want servicing the job queue. If you want to activate these workers you need to add the job queue to your `ServiceGroup`.
 
-The ``HBJobQueueHandler`` conforms to `Service` from Swift Service Lifecycle so can be added to a `ServiceGroup`
 ```swift
 let serviceGroup = ServiceGroup(
-    services: [server, jobQueueHandler],
+    services: [server, jobQueue],
     configuration: .init(gracefulShutdownSignals: [.sigterm, .sigint]),
     logger: logger
 )
 try await serviceGroup.run()
 ```
-Or it can be added to the array of jobs that `HBApplication` manages
+Or it can be added to the array of jobs that `Application` manages
 ```swift
-let app = HBApplication(...)
-app.addServices(jobQueueHandler)
+let app = Application(...)
+app.addServices(jobQueue)
 ```
-If you are running your job queue handler on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/HBRedisJobQueue``.
+If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/RedisQueue``.
 
 ## Topics
 
 ### Jobs
 
-- ``HBJob``
+- ``JobContext``
+- ``JobDefinition``
 - ``JobIdentifier``
-- ``HBJobInstance``
+- ``JobParameters``
 
 ### Queues
 
-- ``HBJobQueue``
-- ``HBQueuedJob``
-- ``HBMemoryJobQueue``
-- ``HBJobQueueHandler``
+- ``JobQueue``
+- ``JobQueueDriver``
+- ``QueuedJob``
+- ``MemoryQueue``
 
 ### Error
 

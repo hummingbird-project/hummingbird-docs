@@ -3,14 +3,14 @@ import Hummingbird
 @_spi(ConnectionPool) import PostgresNIO
 import ServiceLifecycle
 
-/// Build a HBApplication
-func buildApplication(_ args: some AppArguments) async throws -> some HBApplicationProtocol {
+/// Build a Application
+func buildApplication(_ args: some AppArguments) async throws -> some ApplicationProtocol {
     var logger = Logger(label: "Todos")
     logger.logLevel = .debug
     // create router
-    let router = HBRouter()
+    let router = Router()
     // add logging middleware
-    router.middlewares.add(HBLogRequestsMiddleware(.info))
+    router.middlewares.add(LogRequestsMiddleware(.info))
     // add hello route
     router.get("/") { request, context in
         "Hello\n"
@@ -26,7 +26,7 @@ func buildApplication(_ args: some AppArguments) async throws -> some HBApplicat
     // add Todos API
     TodoController(repository: TodoMemoryRepository()).addRoutes(to: router.group("todos"))
     // create application
-    var app = HBApplication(
+    var app = Application(
         router: router,
         configuration: .init(address: .hostname(args.hostname, port: args.port)),
         logger: logger

@@ -13,15 +13,15 @@ struct Todos: AsyncParsableCommand {
         var logger = Logger(label: "Todos")
         logger.logLevel = .debug
         // create router
-        let router = HBRouter()
+        let router = Router()
         // add logging middleware
-        router.middlewares.add(HBLogRequestsMiddleware(.info))
+        router.middlewares.add(LogRequestsMiddleware(.info))
         // add hello route
         router.get("/") { request, context in
             "Hello\n"
         }
         // create application
-        let app = HBApplication(
+        let app = Application(
             router: router,
             configuration: .init(address: .hostname(self.hostname, port: self.port)),
             logger: logger
