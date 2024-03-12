@@ -59,7 +59,7 @@
                 @Code(name: "TodosTests.swift", file: todos-testing-08.swift)
             }
             @Step {
-                Writing the whole XCTExecute line out each time and converting the responses to something readable can become tiresome. So lets break out the create API call to a separate function. You'll notice in this function we return the decoded Todo from the XCTExecute closure.
+                Writing the whole execute line out each time and converting the responses to something readable can become tiresome. So lets break out the create API call to a separate function. You'll notice in this function we return the decoded Todo from the execute closure.
 
                 Now the create test has been simplified to two lines of code. Call create function, test return value.
                 @Code(name: "TodosTests.swift", file: todos-testing-09.swift)
@@ -79,7 +79,7 @@
             @Step {
                 Here are some tests that haven't been written yet. Maybe you could complete them for me.
 
-                Hint: A couple of these require you to use XCTExecute directly instead of calling the helper functions we wrote at the top.
+                Hint: A couple of these require you to use execute directly instead of calling the helper functions we wrote at the top.
                 @Code(name: "TodosTests.swift", file: todos-testing-13.swift)
             }
         }

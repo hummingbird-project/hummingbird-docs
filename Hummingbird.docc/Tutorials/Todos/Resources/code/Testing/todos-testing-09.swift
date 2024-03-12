@@ -17,7 +17,7 @@ final class TodosTests: XCTestCase {
     func create(title: String, order: Int? = nil, client: some XCTClientProtocol) async throws -> Todo {
         let request = CreateRequest(title: title, order: order)
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
-        return try await client.XCTExecute(uri: "/todos", method: .post, body: buffer) { response in
+        return try await client.execute(uri: "/todos", method: .post, body: buffer) { response in
             XCTAssertEqual(response.status, .created)
             return try JSONDecoder().decode(Todo.self, from: response.body)
         }
