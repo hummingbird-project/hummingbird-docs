@@ -18,17 +18,6 @@ app.get("user") { request -> User in
 ```
 The `HTTPError` generated here will be recognised by the server and it will generate a status code 400 (Bad Request) with the body "Invalid user id".
 
-In the situation where you have a route that returns an `EventLoopFuture` you are not allowed to throw an error so you have to return a failed `EventLoopFuture`. Hummingbird provides a shortcut here for you `request.failure`. It can be used as follows
-
-```swift
-app.get("user") { request -> EventLoopFuture<User> in
-    guard let userId = request.uri.queryParameters.get("id", as: Int.self) else {
-        return request.failure(.badRequest, message: "Invalid user id")
-    }
-    ...
-}
-```
-
 ## HTTPResponseError
 
 The server knows how to respond to a `HTTPError` because it conforms to protocol `HTTPResponseError`. You can create your own `Error` object and conform it to `HTTPResponseError` and the server will know how to generate a sensible error from it. The example below is a error class that outputs an error code in the response headers.

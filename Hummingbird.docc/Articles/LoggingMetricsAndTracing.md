@@ -63,10 +63,6 @@ InstrumentationSystem.bootstrap(otel.tracer())
 application.middleware.add(TracingMiddleware(recordingHeaders: ["content-type", "content-length"]))
 ```
 
-The Swift implementation of tracing relies on task local variables to propagate the tracing context down the callstack. The internals of Hummingbird are EventLoop based so task local variables may not be propagated correctly. Instead we use an ``Request`` extension to propagate the context. When you move between async and EventLoopFuture based functions it will move the context between task local variables and the ``Request`` extension.
-
-There are different APIs for setting up spans and setting the tracing context when in async or EventLoopFuture based functions. To set the tracing context in an async function use `ServiceContext.withValue` while in an EventLoop based middleware use `Request.withServiceContext`. To setup a new span in an async function use `InstrumentationSystem.tracer.withSpan` while in an EventLoop based middleware use `Request.withSpan`. If you want the tracing context to propagate to the services you are using from your route handlers then these need to be Swift concurrency based.
-
 If you would like to find out more about tracing, or implement your own tracing backend you can find out more [here](https://swiftpackageindex.com/apple/swift-distributed-tracing/main/documentation/tracing).
 
 ## Topics
