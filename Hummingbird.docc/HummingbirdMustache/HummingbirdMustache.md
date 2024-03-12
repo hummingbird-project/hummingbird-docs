@@ -37,7 +37,7 @@ Hummingbird Mustache supports all standard Mustache tags and is fully compliant 
 
 ### Articles
 
-- <doc:Mustache%20Syntax>
+- <doc:MustacheSyntax>
 
 ### Template Library
 
