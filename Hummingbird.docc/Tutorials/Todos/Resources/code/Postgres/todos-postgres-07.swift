@@ -1,6 +1,6 @@
 import ArgumentParser
 import Hummingbird
-@_spi(ConnectionPool) import PostgresNIO
+import PostgresNIO
 
 /// Build a Application
 func buildApplication(_ args: some AppArguments) async throws -> some ApplicationProtocol {

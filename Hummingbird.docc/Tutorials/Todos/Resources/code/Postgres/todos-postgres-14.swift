@@ -1,6 +1,6 @@
 import ArgumentParser
 import Hummingbird
-@_spi(ConnectionPool) import PostgresNIO
+import PostgresNIO
 import ServiceLifecycle
 
 /// Build a Application
@@ -37,7 +37,7 @@ func buildApplication(_ args: some AppArguments) async throws -> some Applicatio
     // if we setup a postgres service then add as a service and run createTable before
     // server starts
     if let postgresRepository {
-        app.addServices(PostgresClientService(client: postgresRepository.client))
+        app.addServices(postgresRepository.client)
         app.runBeforeServerStart {
             try await postgresRepository.createTable()
         }

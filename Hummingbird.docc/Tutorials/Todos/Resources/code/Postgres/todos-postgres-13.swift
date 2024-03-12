@@ -1,6 +1,6 @@
 import ArgumentParser
 import Hummingbird
-@_spi(ConnectionPool) import PostgresNIO
+import PostgresNIO
 import ServiceLifecycle
 
 /// Build a Application
@@ -32,7 +32,7 @@ func buildApplication(_ args: some AppArguments) async throws -> some Applicatio
         logger: logger
     )
     if let postgresClient {
-        app.addServices(PostgresClientService(client: postgresClient))
+        app.addServices(postgresClient)
     }
     return app
 }

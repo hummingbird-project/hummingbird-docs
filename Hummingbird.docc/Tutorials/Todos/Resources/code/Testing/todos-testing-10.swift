@@ -15,7 +15,7 @@ final class TodosTests: XCTestCase {
         let title: String
         let order: Int?
     }
-    func create(title: String, order: Int? = nil, client: some XCTClientProtocol) async throws -> Todo {
+    func create(title: String, order: Int? = nil, client: some TestClientProtocol) async throws -> Todo {
         let request = CreateRequest(title: title, order: order)
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
         return try await client.execute(uri: "/todos", method: .post, body: buffer) { response in
@@ -24,7 +24,7 @@ final class TodosTests: XCTestCase {
         }
     }
 
-    func get(id: UUID, client: some XCTClientProtocol) async throws -> Todo? {
+    func get(id: UUID, client: some TestClientProtocol) async throws -> Todo? {
         try await client.execute(uri: "/todos/\(id)", method: .get) { response in
             // either the get request returned an 200 status or it didn't return a Todo
             XCTAssert(response.status == .ok || response.body.readableBytes == 0)
@@ -36,7 +36,7 @@ final class TodosTests: XCTestCase {
         }
     }
 
-    func list(client: some XCTClientProtocol) async throws -> [Todo] {
+    func list(client: some TestClientProtocol) async throws -> [Todo] {
         try await client.execute(uri: "/todos", method: .get) { response in
             XCTAssertEqual(response.status, .ok)
             return try JSONDecoder().decode([Todo].self, from: response.body)
@@ -48,7 +48,7 @@ final class TodosTests: XCTestCase {
         let order: Int?
         let completed: Bool?
     }
-    func patch(id: UUID, title: String? = nil, order: Int? = nil, completed: Bool? = nil, client: some XCTClientProtocol) async throws -> Todo? {
+    func patch(id: UUID, title: String? = nil, order: Int? = nil, completed: Bool? = nil, client: some TestClientProtocol) async throws -> Todo? {
         let request = UpdateRequest(title: title, order: order, completed: completed)
         let buffer = try JSONEncoder().encodeAsByteBuffer(request, allocator: ByteBufferAllocator())
         return try await client.execute(uri: "/todos/\(id)", method: .patch, body: buffer) { response in
@@ -61,13 +61,13 @@ final class TodosTests: XCTestCase {
         }
     }
 
-    func delete(id: UUID, client: some XCTClientProtocol) async throws -> HTTPResponse.Status {
+    func delete(id: UUID, client: some TestClientProtocol) async throws -> HTTPResponse.Status {
         try await client.execute(uri: "/todos/\(id)", method: .delete) { response in
             response.status
         }
     }
 
-    func deleteAll(client: some XCTClientProtocol) async throws -> Void {
+    func deleteAll(client: some TestClientProtocol) async throws -> Void {
         try await client.execute(uri: "/todos", method: .delete) { _ in }
     }
 
