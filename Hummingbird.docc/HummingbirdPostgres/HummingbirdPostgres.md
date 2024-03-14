@@ -2,15 +2,16 @@
 
 Working with Postgres databases.
 
-## Overview
-
-`HummingbirdPostgres` provides a Postgres implementation of the persist framework and a database migration service. It uses [PostgresNIO](https://github.com/vapor/postgres-nio) as its database client.
+`HummingbirdPostgres` provides a Postgres implementation of the persist framework and a Postgres database migration service. It uses `PostgresClient` from [PostgresNIO](https://github.com/vapor/postgres-nio) as its database client.
 
 ## Topics
 
-### Persist
+### Articles
 
 - <doc:PersistentData>
+
+### Persist
+
 - ``PostgresPersistDriver``
 
 ### Migrations

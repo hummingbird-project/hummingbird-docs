@@ -130,5 +130,6 @@ try await app.runService()
 - ``HummingbirdFluent``
 - ``HummingbirdLambda``
 - ``Mustache``
+- ``HummingbirdPostgres``
 - ``HummingbirdRedis``
 - ``HummingbirdRouter``
