@@ -66,3 +66,4 @@ Read the [Vapor docs](https://docs.vapor.codes/fluent/overview/) for more inform
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdPostgres``
