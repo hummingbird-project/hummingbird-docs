@@ -44,7 +44,7 @@ await migrations.add(CreateMyTableMigration())
 
 ### Applying migrations
 
-As you need an active `PostgresClient` to apply migrations you need to run the migrate once you have called `PostgresClient.run`. It is also preferable to have run your migrations before your server is active and accepting connectinons. The best way to do this is use ``Hummingbird/Application/runBeforeServerStart(_:)``.
+As you need an active `PostgresClient` to apply migrations you need to run the migrate once you have called `PostgresClient.run`. It is also preferable to have run your migrations before your server is active and accepting connections. The best way to do this is use ``Hummingbird/Application/runBeforeServerStart(_:)``.
 
 ```swift
 var app = Application(router: router)
@@ -59,8 +59,8 @@ You will notice in the code above the parameter `dryRun` is set to true. This is
 ### Reverting migrations
 
 There are a number of situations where a migration maybe reverted. 
-- The user calls `migrations.revert`. This will revert all the migrations applied to the database.
-- A user removes a migration from the list. The migration still needs to be registered with the migration system as it needs to know how to revert that migration. This is done with a call to `PostgresMigrations.revert(_:)`. When a migration is removed it is reverted and all subsequent migrations will be reverted and then re-applied.
+- The user calls ``HummingbirdPostgres/PostgresMigrations/revert(client:groups:logger:dryRun:)``. This will revert all the migrations applied to the database.
+- A user removes a migration from the list. The migration still needs to be registered with the migration system as it needs to know how to revert that migration. This is done with a call to ``HummingbirdPostgres/PostgresMigrations/register(_:)``. When a migration is removed it is reverted and all subsequent migrations will be reverted and then re-applied.
 - A user changes the order of migrations. This is generally a user error, but if it is intentional then the first migration affected by the order change and all subsequent migrations will be reverted and then re-applied.
 
 ### Migration groups
