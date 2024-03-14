@@ -31,6 +31,7 @@ try await app.runService()
 - <doc:RouterGuide>
 - <doc:RequestContexts>
 - <doc:EncodingAndDecoding>
+- <doc:MiddlewareGuide>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
 - <doc:PersistentData>

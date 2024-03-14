@@ -6,6 +6,10 @@ Migration guide for converting Hummingbird v1 applications to Hummingbird v2
 
 In the short lifetime of the Hummingbird server framework there have been many major changes to the Swift language. Hummingbird v2 has been designed to take advantage of all the latest changes to Swift. In addition Hummingbird v1 was our first attempt at writing a server framework and we didn't necessarily get everything right, so v2 includes some changes where we feel we made the wrong design first time around. Below we cover most of the major changes in the library and how you should deal with them.
 
+## Symbol names
+
+The first thing you will notice when moving to v2 are the symbol names. In Version 2 of Hummingbird we have removed the "HB" prefix from all the symbols. To ease the move we have added typealiases that convert from the old "HB" symbol names to the new names. These typealiases have been deprecated so your IDE should suggest the new symbol. The typealiases will be removed when we do the full v2 release though. 
+
 ## SwiftNIO and Swift Concurrency
 
 In the time that the Hummingbird server framework has been around there has been a seismic shift in the Swift language. When it was first in development the initial pitches for Swift Concurrency were only just being posted. It wasn't for another 9 months before we actually saw a release of Swift with any concurrency features. As features have become available we have tried to support them but the internals of Hummingbird were still SwiftNIO EventLoop based and held us back from providing full support for Concurrency.
