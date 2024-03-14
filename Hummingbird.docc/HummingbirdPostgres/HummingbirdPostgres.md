@@ -8,6 +8,7 @@ Working with Postgres databases.
 
 ### Articles
 
+- <doc:MigrationsGuide>
 - <doc:PersistentData>
 
 ### Persist
