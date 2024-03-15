@@ -1,4 +1,4 @@
-# ``HummingbirdMustache``
+# ``Mustache``
 
 Mustache template engine. 
 
@@ -6,7 +6,7 @@ Mustache template engine.
 
 Mustache is a "logic-less" templating language commonly used in web and mobile platforms. You can find out more about Mustache [here](http://mustache.github.io/mustache.5.html).
 
-While Hummingbird Mustache has been designed to be used with the Hummingbird server framework it has no dependencies and can be used as a standalone library.
+While swift-mustache has been designed to be used with the Hummingbird server framework it has no dependencies and can be used as a standalone library.
 
 ## Usage
 

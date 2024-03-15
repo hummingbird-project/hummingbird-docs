@@ -66,6 +66,6 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdFluent``
 - ``/HummingbirdJobs``
 - ``/HummingbirdLambda``
-- ``/HummingbirdMustache``
+- ``/Mustache``
 - ``/HummingbirdRedis``
 - ``/HummingbirdTesting``

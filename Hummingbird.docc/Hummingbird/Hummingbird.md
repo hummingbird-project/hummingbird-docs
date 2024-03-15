@@ -129,6 +129,6 @@ try await app.runService()
 - ``HummingbirdAuth``
 - ``HummingbirdFluent``
 - ``HummingbirdLambda``
-- ``HummingbirdMustache``
+- ``Mustache``
 - ``HummingbirdRedis``
 - ``HummingbirdRouter``
