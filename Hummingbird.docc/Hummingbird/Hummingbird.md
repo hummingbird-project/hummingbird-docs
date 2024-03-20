@@ -34,9 +34,10 @@ try await app.runService()
 - <doc:MiddlewareGuide>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
-- <doc:PersistentData>
 - <doc:ServiceLifecycle>
 - <doc:Testing>
+- <doc:PersistentData>
+- <doc:JobsGuide>
 
 ### Tutorials
 

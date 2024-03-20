@@ -4,9 +4,13 @@ Postgres implementation for Hummingbird jobs framework
 
 ## Overview
 
-Hummingbird Jobs Queue driver using Postgres. See ``HummingbirdJobs`` for details of how to use.
+Hummingbird Jobs Queue driver using Postgres.
 
 ## Topics
+
+### Guides
+
+- <doc:JobsGuide>
 
 ### Job Queue
 
@@ -16,3 +20,5 @@ Hummingbird Jobs Queue driver using Postgres. See ``HummingbirdJobs`` for detail
 
 - ``Hummingbird``
 - ``HummingbirdJobs``
+- ``HummingbirdJobsRedis``
+- ``HummingbirdPostgres``

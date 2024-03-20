@@ -4,14 +4,16 @@ Managing database structure changes.
 
 ## Overview
 
-Database migrations are a controlled set of incremental changes applied to a database. You can use a migration list to transition a database from one state to a new desired state. A migration can involve creating/deleting tables, adding/removing columns, changing types and constraints. Each migration includs an `apply` method that applies the change and a `revert` method that reverts the change.
+Database migrations are a controlled set of incremental changes applied to a database. You can use a migration list to transition a database from one state to a new desired state. A migration can involve creating/deleting tables, adding/removing columns, changing types and constraints. 
+
+Each migration includs an `apply` method that applies the change and a `revert` method that reverts the change.
 
 ```swift
 struct CreateMyTableMigration: PostgresMigration {
     func apply(connection: PostgresConnection, logger: Logger) async throws {
         try await connection.query(
             """
-            CREATE TABLE IF NOT EXISTS my_table (
+            CREATE TABLE my_table (
                 "id" text PRIMARY KEY,
                 "name" text NOT NULL
             )
@@ -33,7 +35,7 @@ As an individual migration can be dependent on the results of a previous migrati
 
 ### Adding migrations
 
-You need to create a ``HummingbirdPostgres/PostgresMigrations`` object to store your migrations in. Only create one of these, otherwise you could confuse the database about what migrations you want applied. Adding a migration is as simple as calling `add`.
+You need to create a ``HummingbirdPostgres/PostgresMigrations`` object to store your migrations in. Only create one of these, otherwise you could confuse your database about what migrations need applied. Adding a migration is as simple as calling `add`.
 
 ```swift
 import HummingbirdPostgres
