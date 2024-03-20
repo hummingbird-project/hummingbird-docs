@@ -1,0 +1,27 @@
+# Verify Documentation GitHub action
+name: Verify Documentation
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+env:
+  HUMMINGBIRD_VERSION: "2.0"
+  DEPLOY_ROOT_FOLDER: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: swift:5.10
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Install rsync 📚
+      run: |
+        apt-get update && apt-get install -y rsync bc
+    - name: Verify
+      run: |
+        ./scripts/build-docc.sh
