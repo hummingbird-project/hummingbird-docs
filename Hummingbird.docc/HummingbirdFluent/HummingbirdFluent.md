@@ -55,6 +55,10 @@ Read the [Vapor docs](https://docs.vapor.codes/fluent/overview/) for more inform
 
 ## Topics
 
+### Guides
+
+- <doc:PersistentData>
+
 ### Fluent
 
 - ``Fluent``
@@ -66,3 +70,4 @@ Read the [Vapor docs](https://docs.vapor.codes/fluent/overview/) for more inform
 ## See Also
 
 - ``Hummingbird``
+- ``HummingbirdPostgres``

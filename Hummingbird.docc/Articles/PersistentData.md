@@ -89,6 +89,7 @@ if shouldMigrate {
 - ``PersistDriver``
 - ``PersistError``
 - ``MemoryPersistDriver``
-- ``HummingbirdRedis/RedisPersistDriver``
 - ``HummingbirdFluent/FluentPersistDriver``
+- ``HummingbirdPostgres/PostgresPersistDriver``
+- ``HummingbirdRedis/RedisPersistDriver``
 
