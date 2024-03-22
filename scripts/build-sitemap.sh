@@ -5,14 +5,14 @@ function text.count() {
     grep -o "$1" | wc -l
 }
 
-URL_PREFIX=https://hummingbird-project.github.io/hummingbird-docs
+URL_PREFIX=https://docs.hummingbird.codes
 HUMMINGBIRD_VERSION=${HUMMINGBIRD_VERSION:-""}
 if [[ -z $HUMMINGBIRD_VERSION ]]; then
     DOCUMENTATION_PATH="documentation"
 else
     DOCUMENTATION_PATH="$HUMMINGBIRD_VERSION/documentation"
 fi
-BASE_PATH=docs/hummingbird-docs/
+BASE_PATH=docs/
 
 pushd "$BASE_PATH"
 

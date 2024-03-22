@@ -33,11 +33,11 @@ jobs:
       if: ${{ env.DEPLOY_ROOT_FOLDER == 'true' }}
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/hummingbird-docs/
+        folder: docs/
         target-folder: docs/
         clean-exclude: "*.0"
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/hummingbird-docs/${{ env.HUMMINGBIRD_VERSION }}
+        folder: docs/${{ env.HUMMINGBIRD_VERSION }}
         target-folder: docs/${{ env.HUMMINGBIRD_VERSION }}
