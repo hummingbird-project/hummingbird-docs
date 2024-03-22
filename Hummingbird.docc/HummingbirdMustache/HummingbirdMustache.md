@@ -52,12 +52,12 @@ Hummingbird Mustache supports all standard Mustache tags and is fully compliant 
 
 - <doc:Lambdas>
 - <doc:Pragmas>
-- <doc:Template%20Inheritance>
+- <doc:TemplateInheritance>
 - <doc:Transforms>
 
 ### Articles
 
-- <doc:Mustache%20Syntax>
+- <doc:MustacheSyntax>
 
 ### Template Library
 
