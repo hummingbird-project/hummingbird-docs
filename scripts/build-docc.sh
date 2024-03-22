@@ -51,7 +51,7 @@ if test "$BUILD_SYMBOLS" == 1; then
     # Copy Hummingbird symbol graph into separate folder
     mkdir -p $HB_SG_FOLDER
     cp $SG_FOLDER/Hummingbird* $HB_SG_FOLDER
-    cp $SG_FOLDER/Mustache* $HB_SG_FOLDER
+    #cp $SG_FOLDER/Mustache* $HB_SG_FOLDER
     #rm $HB_SG_FOLDER/*@*
 fi
 
