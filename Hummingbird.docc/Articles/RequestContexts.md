@@ -28,14 +28,22 @@ struct MyRequestContext: RequestContext {
 
 ## Encoding/Decoding
 
-The most likely reason you would setup your own context is because you want to set the request decoder and response encoder. By implementing the `requestDecoder` and `responseEncoder` member variables as below you have now setup JSON decoding and encoding of requests and responses.
+By default request decoding and response encoding uses `JSONDecoder` and `JSONEncoder` respectively. You can override this by setting the `requestDecoder` and `responseEncoder` member variables in your `RequestContext`. Below we are setting the `requestDecoder` and `responseEncoder` to a decode/encode JSON with a `dateDecodingStratrgy` of seconds since 1970. The default in Hummingbird is ISO8601.
 
 ```swift
 struct MyRequestContext: RequestContext {
-    /// Set request decoder to be JSONDecoder
-    var requestDecoder: JSONDecoder { .init() }
-    /// Set response encoder to be JSONEncdoer
-    var responseEncoder: JSONEncoder { .init() }
+    /// Set request decoder to be JSONDecoder with alternate dataDecodingStrategy
+    var requestDecoder: MyDecoder {
+        var decoder = JSONDecoder()
+        decoder.dateEncodingStrategy = .secondsSince1970
+        return decoder
+    }
+    /// Set response encoder to be JSONEncode with alternate dataDecodingStrategy
+    var responseEncoder: MyEncoder {
+        var encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .secondsSince1970
+        return encoder
+    }
 }
 ```
 

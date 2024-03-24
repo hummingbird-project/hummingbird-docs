@@ -6,18 +6,19 @@ Offload work your server would be doing to another server.
 
 A Job consists of a payload and an execute method to run the job. HummingbirdJobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``/HummingbirdJobsRedis`` and ``HummingbirdJobsPostgres`` that implemeent the job queue using a Redis database or Postgres database. 
 
-### Setting up Jobs
+### Setting up a Job queue
 
-Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
+Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory that will process four jobs concurrently.
+
 ```swift
-let jobQueue = JobQueue(.memory, numWorkers: 1, logger: logger)
+let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
 ```
 
 ### Creating a Job
 
 First you must define your job. A job consists of three things, an identifier, the parameters required to run the job and a function that executes the job. 
 
-First we define the parameters and the identifier. The parameters need to conform to `Sendable` and `Codable`. Note when adding the identifier you are extending `JobIdentifier<JobParameterType>` and not just `JobIdentifier`.
+Below we define the parameters and the identifier. The parameters need to conform to `Sendable` and `Codable`. Note when adding the identifier you are extending `JobIdentifier<JobParameterType>` and not just `JobIdentifier`. The job identifier has the parameters required for the job associated with it, to ensure the correct parameters are passed in when pushing a job request onto the queue.
 
 ```swift
 struct SendEmailJobParameters: Codable, Sendable {
@@ -53,9 +54,10 @@ jobQueue.push(id: .sendEmailJob, .init(
     body: "Hello?"
 ))
 ```
+
 ### Job parameters
 
-As an alternative to creating a parameter type and separate identifier you can create a type the conforms to ``/HummingbirdJobs/JobParameters`` to define both the parameters and identifier in one place.
+As an alternative to creating a parameter type and separate identifier you can create a type that conforms to ``/HummingbirdJobs/JobParameters`` to define both the parameters and identifier in one place.
 
 ```swift
 struct SendEmailJobParameters: JobParameters {
@@ -64,6 +66,7 @@ struct SendEmailJobParameters: JobParameters {
     let subject: String
     let body: String
 }
+```
 
 Registering the job will then be done with
 
