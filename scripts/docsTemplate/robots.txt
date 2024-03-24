@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /2.0/
+
+Sitemap: https://docs.hummingbird.codes/sitemap.xml
