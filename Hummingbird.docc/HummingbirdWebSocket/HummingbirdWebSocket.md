@@ -6,7 +6,7 @@ Adds support for upgrading HTTP connections to WebSocket.
 
 ### Server
 
-- ``HTTP1AndWebSocketChannel``
+- ``HTTP1WebSocketUpgradeChannel``
 - ``WebSocketServerConfiguration``
 - ``ShouldUpgradeResult``
 
@@ -19,8 +19,8 @@ Adds support for upgrading HTTP connections to WebSocket.
 ### Handler
 
 - ``WebSocketDataHandler``
-- ``WebSocketHandlerInbound``
-- ``WebSocketHandlerOutboundWriter``
+- ``WebSocketInboundStream``
+- ``WebSocketOutboundWriter``
 - ``WebSocketDataFrame``
 - ``WebSocketContext``
 - ``WebSocketContextProtocol``
