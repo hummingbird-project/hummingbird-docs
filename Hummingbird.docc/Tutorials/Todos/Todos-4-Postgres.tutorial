@@ -107,7 +107,7 @@
             @Step {
                 That's us done, we have a working and tested Todos application.
 
-                The code for this tutorial can be found in the [hummingbird-examples repository](https://github.com/hummingbird-project/hummingbird-examples/tree/2.x.x/todos-postgres-tutuorial).
+                The code for this tutorial can be found in the [hummingbird-examples repository](https://github.com/hummingbird-project/hummingbird-examples/tree/main/todos-postgres-tutuorial).
             }
         }
     }

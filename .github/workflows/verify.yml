@@ -24,4 +24,4 @@ jobs:
         apt-get update && apt-get install -y rsync bc
     - name: Verify
       run: |
-        ./scripts/build-docc.sh
+        ./scripts/build-docc.sh -e

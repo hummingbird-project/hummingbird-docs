@@ -1,5 +1,6 @@
 import ArgumentParser
 import Hummingbird
+import Logging
 
 @main
 struct Todos: AsyncParsableCommand {

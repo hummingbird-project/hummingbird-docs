@@ -28,11 +28,12 @@ BASE_OUTPUT_PATH=docs
 OUTPUT_PATH=$BASE_OUTPUT_PATH/$HUMMINGBIRD_VERSION
 
 BUILD_SYMBOLS=1
-
-while getopts 's' option
+WARNINGS_AS_ERRORS=""
+while getopts 'se' option
 do
     case $option in
         s) BUILD_SYMBOLS=0;;
+        e) WARNINGS_AS_ERRORS="--warnings-as-errors";;
         *) echo "Usage build-docc.sh [-s]"; exit 1;
     esac
 done
@@ -66,6 +67,7 @@ $DOCC convert Hummingbird.docc \
     --fallback-bundle-version 1 \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
     --output-path "$OUTPUT_PATH" \
+    $WARNINGS_AS_ERRORS \
     --hosting-base-path /"$HUMMINGBIRD_VERSION"
 # copy root files template to docs file
 rsync -trv scripts/docsTemplate/* $BASE_OUTPUT_PATH
