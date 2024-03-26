@@ -1,5 +1,6 @@
 import ArgumentParser
 import Hummingbird
+import Logging
 import PostgresNIO
 
 /// Build a Application

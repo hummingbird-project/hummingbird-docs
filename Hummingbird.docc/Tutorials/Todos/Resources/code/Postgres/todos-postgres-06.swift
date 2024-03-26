@@ -1,5 +1,6 @@
 import ArgumentParser
 import Hummingbird
+import Logging
 
 /// Build a Application
 func buildApplication(_ args: some AppArguments) async throws -> some ApplicationProtocol {

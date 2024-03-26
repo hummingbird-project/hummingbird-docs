@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eux
+set -ux
 
 TEMP_DIR="$(pwd)/temp"
 
