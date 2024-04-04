@@ -32,6 +32,6 @@ A Job consists of a payload and an execute method to run the job. HummingbirdJob
 
 ## See Also
 
-- ``HummingbirdJobs``
+- ``Hummingbird``
 - ``HummingbirdJobsRedis``
 - ``HummingbirdJobsPostgres``

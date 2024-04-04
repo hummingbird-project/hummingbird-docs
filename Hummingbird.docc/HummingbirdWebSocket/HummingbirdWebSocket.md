@@ -4,16 +4,20 @@ Adds support for upgrading HTTP connections to WebSocket.
 
 ## Topics
 
+### Configuration
+
+- ``WebSocketServerConfiguration``
+- ``WebSocketClientConfiguration``
+- ``AutoPingSetup``
+
 ### Server
 
 - ``HTTP1WebSocketUpgradeChannel``
-- ``WebSocketServerConfiguration``
 - ``ShouldUpgradeResult``
 
 ### Client
 
 - ``WebSocketClient``
-- ``WebSocketClientConfiguration``
 - ``WebSocketClientError``
 
 ### Handler
@@ -23,15 +27,21 @@ Adds support for upgrading HTTP connections to WebSocket.
 - ``WebSocketOutboundWriter``
 - ``WebSocketDataFrame``
 - ``WebSocketContext``
-- ``WebSocketContextProtocol``
+- ``BasicWebSocketContext``
 
 ### Router
 
+- ``WebSocketContextFromRouter``
 - ``WebSocketRequestContext``
-- ``WebSocketRouterContext``
+- ``WebSocketHandlerReference``
 - ``BasicWebSocketRequestContext``
 - ``WebSocketUpgradeMiddleware``
 - ``RouterShouldUpgrade``
+
+### Extensions
+
+- ``WebSocketExtensionHTTPParameters``
+- ``WebSocketExtensionFactory``
 
 ## See Also
 

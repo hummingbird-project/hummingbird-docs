@@ -46,6 +46,7 @@ let package = Package(
                 .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdJobsRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
+                .product(name: "HummingbirdWSCompression", package: "hummingbird-websocket"),
             ]),
     ]
 )
