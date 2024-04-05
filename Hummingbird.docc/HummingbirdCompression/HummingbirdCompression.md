@@ -1,11 +1,11 @@
-# ``HummingbirdCompression``
+# HummingbirdCompression
 
 Adds request decompression and response compression to Hummingbird
 
 ## Overview
 
 Add support for compressing HTTP response data. Adding response compression means when a request comes in with header `accept-encoding` set to `gzip` or `deflate` the server will compression the response body.
-
+<!--
 ```swift
 let app = Application()
 // run response compression on application thread pool when buffer is 
@@ -24,3 +24,4 @@ app.addRequestDecompression(execute: .onEventLoop, limit: .none)
 ## See Also
 
 - ``Hummingbird``
+-->
