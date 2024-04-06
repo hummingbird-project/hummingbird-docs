@@ -8,7 +8,7 @@ HummingbirdWebSocket provides both HTTP1 server upgrade and client implementatio
 
 ## Server
 
-To add WebSocket upgrade support to your server you need to use `.http1WebSocketUpgrade` instead of `.http1` as the server parameter in the ``Hummingbird/Application`` initalizer. A WebSocket upgrade requires two functions, one that decides whether the upgrade should happen and one the manages the WebSocket once the upgrade has occurred. There are two methods to set this up. You can provide a closure which returns another closure to handle the WebSocket if the upgrade is successful.
+To add WebSocket upgrade support to your server you need to use `.http1WebSocketUpgrade` instead of `.http1` as the server parameter in the ``Hummingbird/Application`` initalizer. A WebSocket upgrade requires two functions, one that decides whether the upgrade should happen and one that manages the WebSocket once the upgrade has occurred. There are two methods to set this up. You can provide a closure which returns another closure to handle the WebSocket if the upgrade is successful.
 
 ```swift
 let app = Application(
@@ -88,7 +88,7 @@ You should not use unstructured Tasks to manage your WebSockets. If you use an u
 
 ## WebSocket Client
 
-Given the WebSocket client implementation is almost identical to the server implementation HummingbirdWebSocket also comes with a WebSocket client. On top of the standard connection it also supports TLS and connections using the macOS Network framework. You create a WebSocket client with the server URL and a closure to handle the connection. The closure works exactly like the WebSocket server handler detailed above. And then you call ``WebSocketClient/run()``.
+Given the WebSocket client implementation is almost identical to the server implementation HummingbirdWebSocket also comes with a WebSocket client. On top of the standard unencrypted connection it also supports TLS and connections using the macOS Network framework. You create a WebSocket client with the server URL and a closure to handle the connection. The closure works exactly like the WebSocket server handler detailed above. And then you call ``WebSocketClient/run()``.
 
 ```swift
 let ws = WebSocketClient(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
@@ -103,7 +103,7 @@ try await ws.run()
 As a shortcut you can call the following which will initialize and run the WebSocket client in one function call
 
 ```swift
-WebSocketClient.connect(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
+try await WebSocketClient.connect(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
     try await outbound.write(.text("Hello"))
     for try await frame in inbound {
         context.logger.info(frame)
@@ -113,9 +113,9 @@ WebSocketClient.connect(URI("ws://mywebsocket/ws")) { inbound, outbound, context
 
 ## WebSocket Context
 
-The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you construct your WebSocket connection. In the case where you provide a `shouldUpgrade` closure to the server (the first example at the top) and in the situation where you are running a client connection the context only holds a `Logger` for logging output and a `ByteBufferAllocator` if you need to allocate `ByteBuffers`. 
+The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In the case where you provide a `shouldUpgrade` closure to the server (the first example at the top) and in the situation where you are running a client connection the context only holds a `Logger` for logging output and a `ByteBufferAllocator` if you need to allocate `ByteBuffers`. 
 
-If the WebSocket was setup with a router, then the context also includes the ``Hummingbird/Request`` that initiated the WebSocket upgrade and the `RequestContext` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a WebSocket to a connection manager
+If the WebSocket was setup with a router, then the context also includes the ``Hummingbird/Request`` that initiated the WebSocket upgrade and the ``Hummingbird/RequestContext`` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a named WebSocket to a connection manager
 
 ```swift
 wsRouter.ws("chat") { request, _ in

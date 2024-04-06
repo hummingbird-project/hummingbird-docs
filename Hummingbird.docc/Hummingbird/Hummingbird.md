@@ -134,3 +134,4 @@ try await app.runService()
 - ``HummingbirdPostgres``
 - ``HummingbirdRedis``
 - ``HummingbirdRouter``
+- ``HummingbirdWebSocket``

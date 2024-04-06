@@ -70,3 +70,4 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/Mustache``
 - ``/HummingbirdRedis``
 - ``/HummingbirdTesting``
+- ``/HummingbirdWebSocket``
