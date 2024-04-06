@@ -40,7 +40,6 @@ try await serviceGroup.run()
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
 - ``Address``
-- ``TSTLSOptions``
 - ``HTTPUserEventHandler``
 
 ### Request
