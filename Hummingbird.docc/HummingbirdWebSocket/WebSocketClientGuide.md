@@ -33,7 +33,7 @@ try await WebSocketClient.connect(URI("ws://mywebsocket/ws")) { inbound, outboun
 
 ## Handler
 
-The handler closure works exactly like the WebSocket server handler. You are provided with a inbound sequence of frames and an outbound WebSocket frame writer. The connection will close as sooon as you exit the function. PING, PONG and CLOSE frames are all dealt with internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default clients do not send a regular PING. Data and text messages split across multiple packets are collated automatically. 
+The handler closure works exactly like the WebSocket server handler. You are provided with a inbound sequence of messages and an outbound WebSocket frame writer. The connection will close as sooon as you exit the function. PING, PONG and CLOSE frames are all dealt with internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default clients do not send a regular PING. Data and text messages split across multiple frames are collated automatically. 
 
 ## Reference
 
