@@ -54,7 +54,7 @@ let app = Application(
 
 ## WebSocket Handler
 
-The WebSocket handle function has three parameters: an inbound sequence of WebSocket data or text messages ( ``HummingbirdWebSocket/WebSocketInboundStream``), an outbound WebSocket packet writer (``HummingbirdWebSocket/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE messages are managed internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. Data and text messages split across multiple packets are collated automatically.
+The WebSocket handle function has three parameters: an inbound sequence of WebSocket data or text messages ( ``HummingbirdWebSocket/WebSocketInboundStream``), an outbound WebSocket frame writer (``HummingbirdWebSocket/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE messages are managed internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. Data and text messages split across multiple frames are collated automatically.
 
 Below is a simple input and response style connection a message is read from the inbound stream, processed and then a response is written back. If the connection is closed the inbound stream will end and we exit the function.
 
