@@ -31,7 +31,7 @@
                 @Code(name: "Todo.swift", file: todos-api-03.swift)
             }
             @Step {
-                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseCodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
+                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseEncodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
                 @Code(name: "Todo.swift", file: todos-api-04.swift)
             }
             @Step {
