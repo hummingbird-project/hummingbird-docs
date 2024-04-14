@@ -1,7 +1,7 @@
 import Hummingbird
 
-struct TodoController<Context: RequestContext> {
+struct TodoController {
     // add Todos API to router group
-    func addRoutes(to group: RouterGroup<Context>) {
+    func addRoutes(to group: RouterGroup<some RequestContext>) {
     }
 }
