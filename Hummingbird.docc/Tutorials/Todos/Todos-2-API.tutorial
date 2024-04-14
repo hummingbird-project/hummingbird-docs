@@ -12,7 +12,7 @@
         
         @Steps {
             @Step {
-                Add the new file `Sources/TodoController.swift` 
+                Add the new file `Sources/TodoController.swift`.
                 @Code(name: "TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
