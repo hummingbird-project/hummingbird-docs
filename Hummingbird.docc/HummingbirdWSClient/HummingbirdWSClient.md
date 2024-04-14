@@ -1,27 +1,25 @@
-# ``HummingbirdWebSocket``
+# ``HummingbirdWSClient``
 
-Adds support for upgrading HTTP connections to WebSocket. 
+Adds support for connecting to WebSocket. 
 
 ## Overview
 
 WebSockets is a protocol providing simultaneous two-way communication channels over a single TCP connection. Unlike HTTP where client requests are paired with a server response, WebSockets allow for communication in both directions asynchronously. It is designed to work over the HTTP ports 80 and 443 via an upgrade process where an initial HTTP request is sent before the connection is upgraded to a WebSocket connection.
 
-HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgrade.
+HummingbirdWSClient provides a way to connect to WebSocket servers.
 
 ## Topics
 
 ### Guides
 
-- <doc:WebSocketServerUpgrade>
+- <doc:WebSocketClientGuide>
 
-### Configuration
+### Client
 
-### Server
-
-- ``HTTP1WebSocketUpgradeChannel``
-- ``WebSocketServerConfiguration``
+- ``WebSocketClient``
+- ``WebSocketClientConfiguration``
 - ``AutoPingSetup``
-- ``ShouldUpgradeResult``
+- ``WebSocketClientError``
 
 ### Handler
 
@@ -37,15 +35,6 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 - ``WebSocketMessage``
 - ``WebSocketInboundMessageStream``
 
-### Router
-
-- ``WebSocketContextFromRouter``
-- ``WebSocketRequestContext``
-- ``WebSocketHandlerReference``
-- ``BasicWebSocketRequestContext``
-- ``WebSocketUpgradeMiddleware``
-- ``RouterShouldUpgrade``
-
 ### Extensions
 
 - ``WebSocketExtension``
@@ -56,4 +45,4 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdWSClient``
+- ``HummingbirdWebSocket``
