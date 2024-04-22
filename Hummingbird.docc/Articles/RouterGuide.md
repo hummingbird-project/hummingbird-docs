@@ -138,41 +138,31 @@ app.router.group("/todos")
     .delete("{id}", deleteTodo)
 ```
 
-### Route handlers
+### Route Collections
 
-A route handler `RouteHandler` allows you to encapsulate all the components required for a route, and provide separation of the extraction of input parameters from the request and the processing of those parameters. An example could be structrured as follows
+A ``RouteCollection`` is a collection of routes and middleware that can be added to a `Router` in one go. It has the same API as `RouterGroup`, so can have groups internal to the collection to allow for Middleware to applied to only sub-sections of the `RouteCollection`. 
 
 ```swift
-struct AddOrder: RouteHandler {
-    struct Input: Decodable {
-        let name: String
-        let amount: Double
-    }
-    struct Output: ResponseEncodable {
-        let id: String
-    }
-    let input: Input
-    let user: User
-    
-    init(from request: Request, context: some AuthRequestContext) async throws {
-        self.input = try await request.decode(as: Input.self, context: context)
-        self.user = try context.auth.require(User.self)
-    }
-    func handle(context: some AuthRequestContext) async throws -> Output {
-        let order = Order(user: self.user.id, details: self.input)
-        let order = try await order.save(on: db)
-        return Output(id: order.id)
+struct UserController<Context: BaseRequestContext> {
+    var routes: RouteCollection<Context> {
+        let routes = RouteCollection()
+        routes.post("signup", use: signUp)
+        routes.group("login")
+            .add(middleware: BasicAuthenticationMiddleware())
+            .post(use: login)
+        return routes
     }
 }
 ```
-Here you can see the `AddOrder` route handler encapsulates everything you need to know about the add order route. The `Input` and `Output` structs are defined and any additional input parameters that need extracted from the `Request`. The input parameters are extracted in the `init` and then the those parameters are processed in the `handle` function. In this example we need to decode the `Input` from the `Request` and using the authentication framework from `HummingbirdAuth` we get the authenticated user. 
 
-The following will add the handler to the application
+You add the route collection to your router using ``Router.add(_:routes:)``.
+
 ```swift
-application.router.put("order", use: AddOrder.self)
+let router = Router()
+router.add("users", routes: UserController().routes)
 ```
 
-### Request body
+### Request Body
 
 By default the request body is an AsyncSequence of ByteBuffers. You can treat it as a series of buffers or collect it into one larger buffer.
 
