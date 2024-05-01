@@ -59,11 +59,6 @@ try await serviceGroup.run()
 - ``HTTPError``
 - ``HTTPResponseError``
 
-### Client
-
-- ``ClientConnection``
-- ``ClientConnectionChannel``
-
 ### Miscellaneous
 
 - ``FlatDictionary``

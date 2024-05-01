@@ -54,9 +54,9 @@ try await app.runService()
 
 - ``Router``
 - ``RouterGroup``
+- ``RouteCollection``
 - ``RouterMethods``
 - ``RouterOptions``
-- ``RouteHandler``
 - ``HTTPResponder``
 - ``HTTPResponderBuilder``
 - ``CallbackResponder``

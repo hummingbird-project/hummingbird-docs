@@ -10,16 +10,22 @@ Hummingbird has middleware for each of these systems. As these are provided as m
 
 ## Logging
 
-Logs provides a record of discrete events over time. Each event has a timestamp, description and an array of metadata. Hummingbird automatically does some logging of events. You can control the fidelity of your logging by setting the application log level eg
+Logs provides a record of discrete events over time. Each event has a timestamp, description and an array of metadata. Hummingbird automatically does some logging of events. You can control the fidelity of your logging by providing your own `Logger` when creating your `Application` eg
 
 ```swift
-application.logger.logLevel = .debug
+var logger = Logger(label: "MyLogger")
+logger.logLevel = .debug
+let application = Application(
+    router: router,
+    logger: logger
+)
 ```
 
 If you want a record of every request to the server you can add the ``LogRequestsMiddleware`` middleware. You can control at what `logLevel` the request logging will occur and whether it includes information about each requests headers. eg
 
 ```swift
-application.middleware.add(LogRequestsMiddleware(.info, includeHeaders: false))
+let router = Router()
+router.middlewares.add(LogRequestsMiddleware(.debug, includeHeaders: false))
 ```
 
 If you would like to add your own logging, or implement your own logging backend you can find out more [here](https://swiftpackageindex.com/apple/swift-log/main/documentation/logging). A complete list of logging implementations can be found [here](https://github.com/apple/swift-log#selecting-a-logging-backend-implementation-applications-only).
@@ -38,8 +44,8 @@ import Prometheus
 let prometheus = PrometheusClient()
 MetricsSystem.bootstrap(PrometheusMetricsFactory(client: prometheus))
 
-// Add metrics middleware
-application.middleware.add(MetricsMiddleware())
+// Add metrics middleware to router
+router.middlewares.add(MetricsMiddleware())
 ```
 
 If you would like to record your own metrics, or implement your own metrics backed you can find out more [here](https://swiftpackageindex.com/apple/swift-metrics/main/documentation/coremetrics). A list of metrics backend implementations can be found [here](https://github.com/apple/swift-metrics#selecting-a-metrics-backend-implementation-applications-only).
@@ -55,12 +61,12 @@ import OpenTelemetry
 import Tracing
 
 // Bootstrap Open Telemetry
-let otel = OTel(serviceName: "example", eventLoopGroup: application.eventLoopGroup)
+let otel = OTel(serviceName: "example", eventLoopGroup: .singleton)
 try otel.start().wait()
 InstrumentationSystem.bootstrap(otel.tracer())
 
 // Add tracing middleware
-application.middleware.add(TracingMiddleware(recordingHeaders: ["content-type", "content-length"]))
+router.middlewares.add(TracingMiddleware(recordingHeaders: ["content-type", "content-length"]))
 ```
 
 If you would like to find out more about tracing, or implement your own tracing backend you can find out more [here](https://swiftpackageindex.com/apple/swift-distributed-tracing/main/documentation/tracing).
