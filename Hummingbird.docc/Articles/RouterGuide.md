@@ -4,7 +4,7 @@ The router directs requests to their handlers based on the contents of their pat
 
 ## Overview
 
-The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/Router/on(_:method:use:)-3copy``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
+The default router that comes with Hummingbird uses a Trie based lookup. Routes are added using the function ``Hummingbird/Router/on(_:method:use:)``. You provide the URI path, the method and the handler function. Below is a simple route which returns "Hello" in the body of the response.
 
 ```swift
 let router = Router()
@@ -155,7 +155,7 @@ struct UserController<Context: BaseRequestContext> {
 }
 ```
 
-You add the route collection to your router using ``Router.add(_:routes:)``.
+You add the route collection to your router using ``Router/addRoutes(_:atPath:)``.
 
 ```swift
 let router = Router()
