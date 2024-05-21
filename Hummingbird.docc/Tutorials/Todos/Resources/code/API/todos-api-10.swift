@@ -12,7 +12,7 @@ struct TodoController<Repository: TodoRepository> {
             .post(use: create)
     }
 
-    /// Get todo entrypoint
+    /// Get todo endpoint
     @Sendable func get(request: Request, context: some RequestContext) async throws -> Todo? {
         let id = try context.parameters.require("id", as: UUID.self)
         return try await self.repository.get(id: id)
@@ -22,7 +22,7 @@ struct TodoController<Repository: TodoRepository> {
         let title: String
         let order: Int?
     }
-    /// Create todo entrypoint
+    /// Create todo endpoint
     @Sendable func create(request: Request, context: some RequestContext) async throws -> Todo {
         let request = try await request.decode(as: CreateRequest.self, context: context)
         return try await self.repository.create(title: request.title, order: request.order, urlPrefix: "http://localhost:8080/todos/")

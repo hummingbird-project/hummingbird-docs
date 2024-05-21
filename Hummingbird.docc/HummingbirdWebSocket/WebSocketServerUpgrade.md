@@ -8,7 +8,7 @@ Before a HTTP connection can be upgraded to a WebSocket connection a server must
 
 ## Setup
 
-You can access this by setting the `server` parameter in `Application.init()` to ``/HummingbirdCore/HTTPChannelBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-txx5``. This is initialized with a closure that returns either ``/HummingbirdWebSocket/ShouldUpgradeResult/dontUpgrade`` to not perform the WebSocket upgrade or ``/HummingbirdWebSocket/ShouldUpgradeResult/upgrade(_:_:)`` along with the closure handling the WebSocket connection.
+You can access this by setting the `server` parameter in `Application.init()` to ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-42n4w``. This is initialized with a closure that returns either ``/HummingbirdWebSocket/ShouldUpgradeResult/dontUpgrade`` to not perform the WebSocket upgrade or ``/HummingbirdWebSocket/ShouldUpgradeResult/upgrade(_:_:)`` along with the closure handling the WebSocket connection.
 
 ```swift
 let app = Application(

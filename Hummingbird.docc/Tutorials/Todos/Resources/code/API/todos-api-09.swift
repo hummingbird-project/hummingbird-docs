@@ -11,7 +11,7 @@ struct TodoController<Repository: TodoRepository> {
             .get(":id", use: get)
     }
 
-    /// Get todo entrypoint
+    /// Get todo endpoint
     @Sendable func get(request: Request, context: some RequestContext) async throws -> Todo? {
         let id = try context.parameters.require("id", as: UUID.self)
         return try await self.repository.get(id: id)
