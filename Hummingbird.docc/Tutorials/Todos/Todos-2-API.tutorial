@@ -108,6 +108,7 @@
             }
             @Step {
                 The final endpoint is the one that deletes all todos. It simply calls the repository `deleteAll` function, as it doesn't need to extract any information from the request.
+                @Code(name: "TodoController.swift", file: todos-api-17.swift)
             }
         }
     }
