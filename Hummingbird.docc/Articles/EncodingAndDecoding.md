@@ -24,7 +24,7 @@ Both of these look very similar to the `Encodable` and `Decodable` protocol that
 
 ## Setting up your encoder/decoder
 
-The default implementations of `requestDecoder` and `responseEncoder` are ``Hummingbird/JSONDecoder`` and ``Hummingbird/JSONEncoder`` respectively. They have been extended to conform to the relevant protocols so they can be used to decode requests and encode responses. 
+The default implementations of `requestDecoder` and `responseEncoder` are `Hummingbird/JSONDecoder` and `Hummingbird/JSONEncoder` respectively. They have been extended to conform to the relevant protocols so they can be used to decode requests and encode responses. 
 
 If you don't want to use JSON you need to setup you own `requestDecoder` and `responseEncoder` in a custom request context. For instance `Hummingbird` also includes a decoder and encoder for URL encoded form data. Below you can see a custom request context setup to use ``URLEncodedFormDecoder`` for request decoding and ``URLEncodedFormEncoder`` for response encoding. The router is then initialized with this context. Read <doc:RequestContexts> to find out more about request contexts. 
 

@@ -91,8 +91,6 @@ try await app.runService()
 - ``ResponseEncodable``
 - ``ResponseGenerator``
 - ``ResponseCodable``
-- ``JSONDecoder``
-- ``JSONEncoder``
 - ``URLEncodedFormDecoder``
 - ``URLEncodedFormEncoder``
 

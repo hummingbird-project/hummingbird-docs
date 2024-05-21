@@ -36,10 +36,10 @@ try await serviceGroup.run()
 - ``Server``
 - ``ServerConfiguration``
 - ``ServerChildChannel``
-- ``HTTPChannelBuilder``
+- ``HTTPServerBuilder``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
-- ``Address``
+- ``BindAddress``
 - ``HTTPUserEventHandler``
 
 ### Request
