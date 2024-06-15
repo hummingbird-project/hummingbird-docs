@@ -100,17 +100,10 @@ public struct MyRequestContext: AuthRequestContext {
 
 ``HummingbirdAuth`` does provide ``HummingbirdAuth/BasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/AuthRequestContext``.
 
-## BaseRequestContext
-
-`RequestContext` conforms to the protocol ``Hummingbird/BaseRequestContext``. `BaseRequestContext` defines requirements for accessing data from your context, while `RequestContext` defines requirements for initialization from a Swift NIO `Channel`. You will find in the codebase where data access is required the request context is required to conform to `BaseRequestContext` but ``Application`` still requires the context to conform to `RequestContext` as it needs to be able to create a context for each request. 
-
-This allows us to support running from AWS Lambda where we have no `Channel` to create the context from. Instead we have another protocol ``HummingbirdLambda/LambdaRequestContext`` that defines how we create a context from the lambda context and event that triggered the request.
-
 ## Topics
 
 ### Reference
 
-- ``Hummingbird/BaseRequestContext``
 - ``RequestContext``
 - ``BasicRequestContext``
 - ``Router``

@@ -2,13 +2,13 @@
 
 Hummingbird uses `Codable` to decode requests and encode responses. 
 
-The request context ``BaseRequestContext`` that is provided alongside your ``Request`` has two member variables ``BaseRequestContext/requestDecoder`` and ``BaseRequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
+The request context ``RequestContext`` that is provided alongside your ``Request`` has two member variables ``RequestContext/requestDecoder`` and ``RequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
 
 The `decoder` must conform to ``RequestDecoder`` which requires a ``RequestDecoder/decode(_:from:context:)`` function that decodes a `Request`.
 
 ```swift
 public protocol RequestDecoder {
-    func decode<T: Decodable>(_ type: T.Type, from request: Request, context: some BaseRequestContext) throws -> T
+    func decode<T: Decodable>(_ type: T.Type, from request: Request, context: some RequestContext) throws -> T
 }
 ```
 
@@ -16,11 +16,11 @@ The `encoder` must conform to ``ResponseEncoder`` which requires a ``ResponseEnc
 
 ```swift
 public protocol ResponseEncoder {
-    func encode<T: Encodable>(_ value: T, from request: Request, context: some BaseRequestContext) throws -> Response
+    func encode<T: Encodable>(_ value: T, from request: Request, context: some RequestContext) throws -> Response
 }
 ```
 
-Both of these look very similar to the `Encodable` and `Decodable` protocol that come with the `Codable` system except you have additional information from the `Request` and `BaseRequestContext` types on how you might want to decode/encode your data.
+Both of these look very similar to the `Encodable` and `Decodable` protocol that come with the `Codable` system except you have additional information from the `Request` and `RequestContext` types on how you might want to decode/encode your data.
 
 ## Setting up your encoder/decoder
 
@@ -76,7 +76,7 @@ Because the full request is supplied to the `RequestDecoder`. You can make decod
 
 ```swift
 struct MyRequestDecoder: RequestDecoder {
-    func decode<T>(_ type: T.Type, from request: Request, context: some BaseRequestContext) async throws -> T where T : Decodable {
+    func decode<T>(_ type: T.Type, from request: Request, context: some RequestContext) async throws -> T where T : Decodable {
         guard let header = request.headers[.contentType].first else { throw HTTPError(.badRequest) }
         guard let mediaType = MediaType(from: header) else { throw HTTPError(.badRequest) }
         switch mediaType {

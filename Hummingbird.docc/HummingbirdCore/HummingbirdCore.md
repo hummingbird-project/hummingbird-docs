@@ -54,11 +54,6 @@ try await serviceGroup.run()
 - ``ResponseBody``
 - ``ResponseBodyWriter``
 
-### Errors
-
-- ``HTTPError``
-- ``HTTPResponseError``
-
 ### Miscellaneous
 
 - ``FlatDictionary``

@@ -6,7 +6,7 @@ If a middleware or route handler throws an error the server needs to know how to
 
 ## HTTPError
 
-Hummingbird uses the Error object ``HummingbirdCore/HTTPError`` throughout its codebase. The server recognises this and can generate a more informative response for the client from it. The error includes the status code that should be returned and a response message if needed. For example 
+Hummingbird uses the Error object ``Hummingbird/HTTPError`` throughout its codebase. The server recognises this and can generate a more informative response for the client from it. The error includes the status code that should be returned and a response message if needed. For example 
 
 ```swift
 app.get("user") { request -> User in
@@ -20,7 +20,7 @@ The `HTTPError` generated here will be recognised by the server and it will gene
 
 ## HTTPResponseError
 
-The server knows how to respond to a `HTTPError` because it conforms to protocol `HTTPResponseError`. You can create your own `Error` object and conform it to `HTTPResponseError` and the server will know how to generate a sensible error from it. The example below is a error class that outputs an error code in the response headers.
+The server knows how to respond to a `HTTPError` because it conforms to protocol ``Hummingbird/HTTPResponseError``. You can create your own `Error` object and conform it to `HTTPResponseError` and the server will know how to generate a sensible error from it. The example below is a error class that outputs an error code in the response headers.
 
 ```swift
 struct MyError: HTTPResponseError {
@@ -44,5 +44,5 @@ struct MyError: HTTPResponseError {
 
 ### Reference
 
-- ``HummingbirdCore/HTTPError``
-- ``HummingbirdCore/HTTPResponseError``
+- ``Hummingbird/HTTPError``
+- ``Hummingbird/HTTPResponseError``
