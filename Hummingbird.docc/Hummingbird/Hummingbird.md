@@ -80,9 +80,8 @@ try await app.runService()
 ### Request context
 
 - ``RequestContext``
-- ``InstantiableRequestContext``
 - ``RequestContextSource``
-- ``ServerRequestContextSource``
+- ``ApplicationRequestContextSource``
 - ``BasicRequestContext``
 - ``RemoteAddressRequestContext``
 - ``CoreRequestContextStorage``
@@ -130,6 +129,7 @@ try await app.runService()
 
 - ``Environment``
 - ``DateCache``
+- ``InitializableFromSource``
 
 ## See Also
 
