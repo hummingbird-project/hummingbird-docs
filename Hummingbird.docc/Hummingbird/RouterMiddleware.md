@@ -12,7 +12,7 @@ All middleware has to conform to the protocol `RouterMiddleware`. This requires 
 The following is a simple logging middleware that outputs every URI being sent to the server
 
 ```swift
-public struct LogRequestsMiddleware<Context: BaseRequestContext>: RouterMiddleware {
+public struct LogRequestsMiddleware<Context: RequestContext>: RouterMiddleware {
     public func handle(_ request: Request, context: Context, next: (Request, Context) async throws -> Response) async throws -> Response {
         // log request URI
         context.logger.log(level: .debug, String(describing:request.uri.path))

@@ -43,6 +43,7 @@ If you are using any other `In`/`Out` types you will need to implement the `requ
 
 - ``LambdaRequestContext``
 - ``BasicLambdaRequestContext``
+- ``LambdaRequestContextSource``
 
 ## See Also
 

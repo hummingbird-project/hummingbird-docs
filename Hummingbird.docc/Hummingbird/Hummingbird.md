@@ -16,7 +16,7 @@ router.get("hello") { request, _ -> String in
 }
 // create application using router
 let app = Application(
-    responder: router.buildResponder(),
+    router: router,
     configuration: .init(address: .hostname("127.0.0.1", port: 8080))
 )
 // run hummingbird application
@@ -63,6 +63,7 @@ try await app.runService()
 - ``RouterResponder``
 - ``EndpointPath``
 - ``RouterPath``
+- ``RequestID``
 
 ### Request/Response
 
@@ -78,11 +79,12 @@ try await app.runService()
 
 ### Request context
 
-- ``BaseRequestContext``
 - ``RequestContext``
-- ``CoreRequestContext``
+- ``RequestContextSource``
+- ``ApplicationRequestContextSource``
 - ``BasicRequestContext``
 - ``RemoteAddressRequestContext``
+- ``CoreRequestContextStorage``
 
 ### Encoding/Decoding
 
@@ -94,13 +96,17 @@ try await app.runService()
 - ``URLEncodedFormDecoder``
 - ``URLEncodedFormEncoder``
 
+### Errors
+
+- ``HTTPError``
+- ``HTTPResponseError``
+
 ### Middleware
 
 - ``MiddlewareProtocol``
 - ``RouterMiddleware``
 - ``MiddlewareGroup``
 - ``CORSMiddleware``
-- ``FileMiddleware``
 - ``LogRequestsMiddleware``
 - ``MetricsMiddleware``
 - ``TracingMiddleware``
@@ -111,14 +117,19 @@ try await app.runService()
 - ``MemoryPersistDriver``
 - ``PersistError``
 
-### File management
+### File management/middleware
 
 - ``FileIO``
+- ``FileMiddleware``
+- ``FileProvider``
+- ``FileMiddlewareFileAttributes``
+- ``LocalFileSystem``
 
 ### Miscellaneous
 
 - ``Environment``
 - ``DateCache``
+- ``InitializableFromSource``
 
 ## See Also
 
@@ -126,6 +137,7 @@ try await app.runService()
 - ``HummingbirdJobs``
 - ``HummingbirdTesting``
 - ``HummingbirdAuth``
+- ``HummingbirdCompression``
 - ``HummingbirdFluent``
 - ``HummingbirdLambda``
 - ``Mustache``

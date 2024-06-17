@@ -34,7 +34,7 @@ Route handlers are required to return a type conforming to the `ResponseGenerato
 /// Extend String to conform to ResponseGenerator
 extension String: ResponseGenerator {
     /// Generate response holding string
-    public func response(from request: Request, context: some BaseRequestContext) -> Response {
+    public func response(from request: Request, context: some RequestContext) -> Response {
         let buffer = context.allocator.buffer(string: self)
         return Response(status: .ok, headers: ["content-type": "text/plain; charset=utf-8"], body: .byteBuffer(buffer))
     }
@@ -112,7 +112,7 @@ app.router.get("/user/:id") { request, context in
     return getUser(id: id)
 }
 ```
-In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an ``/HummingbirdCore/HTTPError`` it will get converted to a valid HTTP response.
+In the example above if I fail to access the parameter as an `Int` then I throw an error. If you throw an ``/Hummingbird/HTTPError`` it will get converted to a valid HTTP response.
 
 The parameter name in your route can also be of the form `{id}`, similar to OpenAPI specifications. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
 
@@ -143,7 +143,7 @@ app.router.group("/todos")
 A ``RouteCollection`` is a collection of routes and middleware that can be added to a `Router` in one go. It has the same API as `RouterGroup`, so can have groups internal to the collection to allow for Middleware to applied to only sub-sections of the `RouteCollection`. 
 
 ```swift
-struct UserController<Context: BaseRequestContext> {
+struct UserController<Context: RequestContext> {
     var routes: RouteCollection<Context> {
         let routes = RouteCollection()
         routes.post("signup", use: signUp)

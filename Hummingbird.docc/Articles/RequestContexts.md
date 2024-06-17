@@ -9,22 +9,27 @@ All request handlers and middleware handlers have two function parameters: the r
 When you create your ``Router`` you provide the request context type you want to use. If you don't provide a context it will default to using ``BasicRequestContext`` the default implementation of a request context provided by Hummingbird.
 
 ```swift
-let router = Router(context: MyContext.self)
+let router = Router(context: MyRequestContext.self)
 ```
 
 ## Creating a context type
 
-As mentioned above your context type must conform to ``RequestContext``. This requires an `init()` and a single member variable
+As mentioned above your context type must conform to ``RequestContext``. This requires an `init(source:)` and a single member variable `coreContext`.
 
 ```swift
 struct MyRequestContext: RequestContext {
-    var coreContext: CoreRequestContext
+    var coreContext: CoreRequestContextStorage
 
-    init(channel: Channel, logger: Logger) {
-        self.coreContext = .init(allocator: channel.allocator, logger: logger)
+    init(source: Source) {
+        self.coreContext = .init(source: source)
     }
 }
 ```
+The ``Hummingbird/CoreRequestContextStorage`` holds the base set of information needed by the Hummingbird `Router` to process a `Request`.
+
+The `init` takes one parameter of type `Source`. `Source` is an associatedtype for the `RequestContext` protocol and provides setup data for the `RequestContext`. By default this is set to ``Hummingbird/ApplicationRequestContextSource`` which provides access to the `Channel` that created the request.
+
+If you are using ``HummingbirdLambda`` your RequestContext will need to conform to ``HummingbirdLambda/LambdaRequestContext`` and in that case the `Source` is a ``HummingbirdLambda/LambdaRequestContextSource`` which provide access to the `Event` that triggered the lambda and the `LambdaContext` from swift-aws-lambda-runtime.
 
 ## Encoding/Decoding
 
@@ -56,11 +61,11 @@ The other reason for using a custom context is to pass data you have extracted i
 ```swift
 /// Example request context with an additional field
 struct MyRequestContext: RequestContext {
-    var coreContext: CoreRequestContext
+    var coreContext: CoreRequestContextStorage
     var additionalData: String?
 
-    init(channel: Channel, logger: Logger) {
-        self.coreContext = .init(allocator: channel.allocator, logger: logger)
+    init(source: Source) {
+        self.coreContext = .init(source: source)
         self.additionalData = nil
     }
 }
@@ -87,12 +92,12 @@ The most obvious example of this is passing user authentication information forw
 
 ```swift
 public struct MyRequestContext: AuthRequestContext {
-    public var coreContext: CoreRequestContext
+    public var coreContext: CoreRequestContextStorage
     // required by AuthRequestContext
     public var auth: LoginCache
 
-    public init(channel: Channel, logger: Logger) {
-        self.coreContext = .init(allocator: channel.allocator, logger: logger)
+    public init(source: Source) {
+        self.coreContext = .init(source: source)
         self.auth = .init()
     }
 }
@@ -100,17 +105,10 @@ public struct MyRequestContext: AuthRequestContext {
 
 ``HummingbirdAuth`` does provide ``HummingbirdAuth/BasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/AuthRequestContext``.
 
-## BaseRequestContext
-
-`RequestContext` conforms to the protocol ``Hummingbird/BaseRequestContext``. `BaseRequestContext` defines requirements for accessing data from your context, while `RequestContext` defines requirements for initialization from a Swift NIO `Channel`. You will find in the codebase where data access is required the request context is required to conform to `BaseRequestContext` but ``Application`` still requires the context to conform to `RequestContext` as it needs to be able to create a context for each request. 
-
-This allows us to support running from AWS Lambda where we have no `Channel` to create the context from. Instead we have another protocol ``HummingbirdLambda/LambdaRequestContext`` that defines how we create a context from the lambda context and event that triggered the request.
-
 ## Topics
 
 ### Reference
 
-- ``Hummingbird/BaseRequestContext``
 - ``RequestContext``
 - ``BasicRequestContext``
 - ``Router``

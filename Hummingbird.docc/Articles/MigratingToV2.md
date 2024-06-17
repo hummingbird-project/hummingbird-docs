@@ -67,12 +67,12 @@ The request context is a generic value. As long as it conforms to ``RequestConte
 /// Example request context with an additional data attached
 struct MyRequestContext: RequestContext {
     // required by RequestContext
-    var coreContext: CoreRequestContext
+    var coreContext: CoreRequestContextStorage
     var additionalData: String?
 
     // required by RequestContext
-    init(channel: Channel, logger: Logger) {
-        self.coreContext = .init(allocator: channel.allocator, logger: logger)
+    init(source: Source) {
+        self.coreContext = .init(source: source)
         self.additionalData = nil
     }
 }
