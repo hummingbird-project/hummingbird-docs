@@ -27,9 +27,9 @@ struct MyRequestContext: RequestContext {
 ```
 The ``Hummingbird/CoreRequestContextStorage`` holds the base set of information needed by the Hummingbird `Router` to process a `Request`.
 
-The `init` takes one parameter of type `Source`. `Source` is an associatedtype for the `RequestContext` protocol and provides setup data for the `RequestContext`. By default this is set to ``Hummingbird/ServerRequestContextSource`` which provides access to the `Channel` that created the request.
+The `init` takes one parameter of type `Source`. `Source` is an associatedtype for the `RequestContext` protocol and provides setup data for the `RequestContext`. By default this is set to ``Hummingbird/ApplicationRequestContextSource`` which provides access to the `Channel` that created the request.
 
-If you are using ``HummingbirdLambda`` your RequestContext will need to conform to ``LambdaRequestContext`` and in that case the `Source` is a ``HummingbirdLambda/LambdaRequestContextSource`` which provide access to the `Event` that triggered the lambda and the `LambdaContext` from swift-aws-lambda-runtime.
+If you are using ``HummingbirdLambda`` your RequestContext will need to conform to ``HummingbirdLambda/LambdaRequestContext`` and in that case the `Source` is a ``HummingbirdLambda/LambdaRequestContextSource`` which provide access to the `Event` that triggered the lambda and the `LambdaContext` from swift-aws-lambda-runtime.
 
 ## Encoding/Decoding
 
