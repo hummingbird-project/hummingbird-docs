@@ -29,14 +29,19 @@ try await app.runService()
 
 ### Hummingbird Extensions
 
-Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules 
+Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules
 
 - ``HummingbirdJobs``: framework for pushing work onto a queue to be processed outside of a request (possibly by another server instance)
 - ``HummingbirdTLS``: TLS support.
 - ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
+
 - ``HummingbirdTesting``: helper functions to aid testing Hummingbird projects.
 
 ## Topics
+
+### Getting Started
+
+- <doc:GettingStarted>
 
 ### Guides
 

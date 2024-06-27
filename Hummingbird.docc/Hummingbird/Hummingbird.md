@@ -25,6 +25,10 @@ try await app.runService()
 
 ## Topics
 
+### Getting Started
+
+- <doc:GettingStarted>
+
 ### Guides
 
 - <doc:MigratingToV2>

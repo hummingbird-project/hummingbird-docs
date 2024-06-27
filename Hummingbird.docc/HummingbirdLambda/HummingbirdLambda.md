@@ -1,6 +1,6 @@
 # ``HummingbirdLambda``
 
-Run Hummingbird inside an AWS Lambda
+Run Hummingbird inside an AWS Lambda.
 
 ## Usage
 
