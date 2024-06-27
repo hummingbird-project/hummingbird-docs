@@ -18,7 +18,7 @@ If you are editing documentation inside VSCdde, the default build task will run 
 
 ## Testing changes
 
-To test changes locally you can use [swift-web](https://github.com/adam-fowler/swift-web). Once it is installed run `swift web docs` to run a local HTTP file server with base directory set to the `docs` folder. You can then access the documentation in your web browser from `http://localhost:8001/<version-number>/documentation/hummingbird`.
+To test changes locally you can use [swift-web](https://github.com/adam-fowler/swift-web). Once it is installed run `swift web docs` to run a local HTTP file server with base directory set to the `docs` folder. You can then access the documentation in your web browser from `http://localhost:8001/<version-number>/documentation/index`.
 
 ## Submitting changes
 
