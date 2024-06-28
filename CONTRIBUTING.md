@@ -26,4 +26,4 @@ Changes should be submitting in a PR. In the PR please describe what the changes
 
 ## Deploying changes
 
-Currently v1 documentation is stored on the `main` branch and v2 documentation is stored on the `2.x.x` branch. As soon as a PR is merged into either of these branches the deploy process will begin and you should see your changes live in less than 10 minutes.
+Currently v1 documentation is stored on the `1.x.x` branch and v2 documentation is stored on the `main` branch. As soon as a PR is merged into either of these branches the deploy process will begin and you should see your changes live in less than 10 minutes.
