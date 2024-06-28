@@ -18,7 +18,7 @@ If you are editing documentation inside VSCdde, the default build task will run 
 
 ## Testing changes
 
-To test changes locally you can use [swift-web](https://github.com/adam-fowler/swift-web). Once it is installed run `swift web docs` to run a local HTTP file server with base directory set to the `docs` folder. You can then access the documentation in your web browser from `http://localhost:8001/<version-number>/documentation/hummingbird`.
+To test changes locally you can use [swift-web](https://github.com/adam-fowler/swift-web). Once it is installed run `swift web docs` to run a local HTTP file server with base directory set to the `docs` folder. You can then access the documentation in your web browser from `http://localhost:8001/<version-number>/documentation/index`.
 
 ## Submitting changes
 
@@ -26,4 +26,4 @@ Changes should be submitting in a PR. In the PR please describe what the changes
 
 ## Deploying changes
 
-Currently v1 documentation is stored on the `main` branch and v2 documentation is stored on the `2.x.x` branch. As soon as a PR is merged into either of these branches the deploy process will begin and you should see your changes live in less than 10 minutes.
+Currently v1 documentation is stored on the `1.x.x` branch and v2 documentation is stored on the `main` branch. As soon as a PR is merged into either of these branches the deploy process will begin and you should see your changes live in less than 10 minutes.
