@@ -10,7 +10,7 @@ on:
 
 env:
   HUMMINGBIRD_VERSION: "1.0"
-  DEPLOY_ROOT_FOLDER: true
+  DEPLOY_ROOT_FOLDER: false
 
 jobs:
   build:
