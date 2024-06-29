@@ -28,6 +28,7 @@ try await app.runService()
 ### Getting Started
 
 - <doc:GettingStarted>
+- <doc:Todos>
 
 ### Guides
 
@@ -42,10 +43,6 @@ try await app.runService()
 - <doc:Testing>
 - <doc:PersistentData>
 - <doc:JobsGuide>
-
-### Tutorials
-
-- <doc:Todos>
 
 ### Application
 
@@ -132,7 +129,6 @@ try await app.runService()
 ### Miscellaneous
 
 - ``Environment``
-- ``DateCache``
 - ``InitializableFromSource``
 
 ## See Also

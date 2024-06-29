@@ -44,8 +44,8 @@
                 @Code(name: "Test Application", file: todos-setup-08.sh)
             }
             @Step {
-                Congratulations you wrote your first Hummingbird app. 
-                @Code(name: "Test Applicatoin", file: todos-setup-09.sh)
+                Congratulations you wrote your first Hummingbird app.
+                @Code(name: "Test Application", file: todos-setup-09.sh)
             }
         }
     }
@@ -83,6 +83,8 @@
             }
             @Step {
                 Now you can set the bind address of your server from the command line and anyone on your network can talk to your application.
+
+                As as alternative to the above you can use the [template project](https://github.com/hummingbird-project/template) to setup a similarly structured project.
                 @Code(name: "Test Application", file: todos-extend-08.sh)
             }
         }

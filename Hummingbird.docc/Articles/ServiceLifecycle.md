@@ -54,12 +54,12 @@ try await app.runService()
 
 ## Managing server startup
 
-In some situations you might want some services to start up before you startup your HTTP server, for instance when doing a database migration. With ``Application`` you can add processes to run before starting up the server, but while other services are running using ``Application/runBeforeServerStart(_:)``. You can call `runBeforeServerStart` multiple times to add multiple processes to be run before we startup the server.
+In some situations you might want some services to start up before you startup your HTTP server, for instance when doing a database migration. With ``Application`` you can add processes to run before starting up the server, but while other services are running using ``Application/beforeServerStarts(perform:)``. You can call `beforeServerStarts` multiple times to add multiple processes to be run before we startup the server.
 
 ```swift
 var app = Application(router: router)
 app.addServices(dbClient)
-app.runBeforeServerStart {
+app.beforeServerStarts {
     try await dbClient.migrate()
 }
 try await app.runService()
