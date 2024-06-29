@@ -18,24 +18,22 @@ let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
 
 First you must define your job. A job consists of three things, an identifier, the parameters required to run the job and a function that executes the job. 
 
-Below we define the parameters and the identifier. The parameters need to conform to `Sendable` and `Codable`. Note when adding the identifier you are extending `JobIdentifier<JobParameterType>` and not just `JobIdentifier`. The job identifier has the parameters required for the job associated with it, to ensure the correct parameters are passed in when pushing a job request onto the queue.
+We use a struct conforming to ``HummingbirdJobs/JobParameters`` to define the job parameters and identifier.
 
 ```swift
-struct SendEmailJobParameters: Codable, Sendable {
+struct SendEmailJobParameters: JobParameters {
+    /// jobName is used to create the job identifier. It should be unique
+    static let jobName = "SendEmail"
     let to: String
     let subject: String
     let body: String
-}
-
-extension JobIdentifier<SendEmailJobParameters> {
-    static let sendEmailJob: Self { "SendEmail" }
 }
 ```
 
 Then we register the job with a job queue and also provide a closure that executes the job.
 
 ```swift
-jobQueue.registerJob(id: .sendEmailJob) { parameters, context in
+jobQueue.registerJob(parameters: SendEmailJobParameters.self) { parameters, context in
     try await myEmailService.sendEmail(to: parameters.to, subject: parameters.subject, body: parameters.body)
 }
 ```
@@ -48,48 +46,12 @@ let job = SendEmailJobParameters(
     subject: "Testing Jobs",
     message: "..."
 )
-jobQueue.push(id: .sendEmailJob, .init(
-    to: "john@email.com",
-    subject: "Test email",
-    body: "Hello?"
-))
-```
-
-### Job parameters
-
-As an alternative to creating a parameter type and separate identifier you can create a type that conforms to ``/HummingbirdJobs/JobParameters`` to define both the parameters and identifier in one place.
-
-```swift
-struct SendEmailJobParameters: JobParameters {
-    static let jobID = "SendEmail"
-    let to: String
-    let subject: String
-    let body: String
-}
-```
-
-Registering the job will then be done with
-
-```swift
-jobQueue.registerJob(parameters: SendEmailJobParameters.self) { parameters, context in
-    try await myEmailService.sendEmail(to: parameters.to, subject: parameters.subject, body: parameters.body)
-}
-```
-
-And requesting a job be executed is done with
-
-```swift
-let job = SendEmailJobParameters(
-    to: "joe@email.com",
-    subject: "Testing Jobs",
-    message: "..."
-)
 jobQueue.push(job)
 ```
 
 ### Processing Jobs
 
-When you create a `JobQueue` the `numWorkers` parameter indicates how many workers you want servicing the job queue. If you want to activate these workers you need to add the job queue to your `ServiceGroup`.
+When you create a `JobQueue` the `numWorkers` parameter indicates how many jobs you want serviced concurrently by the job queue. If you want to activate these workers you need to add the job queue to your `ServiceGroup`.
 
 ```swift
 let serviceGroup = ServiceGroup(
@@ -99,7 +61,7 @@ let serviceGroup = ServiceGroup(
 )
 try await serviceGroup.run()
 ```
-Or it can be added to the array of jobs that `Application` manages
+Or it can be added to the array of services that `Application` manages
 ```swift
 let app = Application(...)
 app.addServices(jobQueue)
