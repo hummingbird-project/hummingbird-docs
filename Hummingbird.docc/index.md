@@ -27,11 +27,10 @@ let app = Application(
 try await app.runService()
 ```
 
-### Hummingbird Extensions
+### Extending Hummingbird
 
 Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules
 
-- ``HummingbirdJobs``: framework for pushing work onto a queue to be processed outside of a request (possibly by another server instance)
 - ``HummingbirdTLS``: TLS support.
 - ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
 
@@ -70,9 +69,9 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdCore``
 - ``/HummingbirdAuth``
 - ``/HummingbirdFluent``
-- ``/HummingbirdJobs``
 - ``/HummingbirdLambda``
-- ``/Mustache``
 - ``/HummingbirdRedis``
 - ``/HummingbirdTesting``
 - ``/HummingbirdWebSocket``
+- ``/Jobs``
+- ``/Mustache``

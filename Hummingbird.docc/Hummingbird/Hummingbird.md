@@ -134,14 +134,14 @@ try await app.runService()
 ## See Also
 
 - ``HummingbirdCore``
-- ``HummingbirdJobs``
 - ``HummingbirdTesting``
 - ``HummingbirdAuth``
 - ``HummingbirdCompression``
 - ``HummingbirdFluent``
 - ``HummingbirdLambda``
-- ``Mustache``
 - ``HummingbirdPostgres``
 - ``HummingbirdRedis``
 - ``HummingbirdRouter``
 - ``HummingbirdWebSocket``
+- ``Jobs``
+- ``Mustache``

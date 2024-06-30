@@ -4,7 +4,7 @@ Offload work your server would be doing to another server.
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. HummingbirdJobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``/HummingbirdJobsRedis`` and ``HummingbirdJobsPostgres`` that implemeent the job queue using a Redis database or Postgres database. 
+A Job consists of a payload and an execute method to run the job. HummingbirdJobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsRedis`` and ``JobsPostgres`` that implemeent the job queue using a Redis database or Postgres database. 
 
 ### Setting up a Job queue
 
@@ -18,7 +18,7 @@ let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
 
 First you must define your job. A job consists of three things, an identifier, the parameters required to run the job and a function that executes the job. 
 
-We use a struct conforming to ``HummingbirdJobs/JobParameters`` to define the job parameters and identifier.
+We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
 
 ```swift
 struct SendEmailJobParameters: JobParameters {
@@ -66,19 +66,19 @@ Or it can be added to the array of services that `Application` manages
 let app = Application(...)
 app.addServices(jobQueue)
 ```
-If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``HummingbirdJobsRedis/RedisQueue`` or ``HummingbirdJobsPostgres/PostgresQueue``.
+If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsRedis/RedisJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
 ## Topics
 
 ### Reference
 
-- ``/HummingbirdJobs/JobIdentifier``
-- ``/HummingbirdJobs/JobQueue``
-- ``/HummingbirdJobs/JobParameters``
-- ``/HummingbirdJobs/JobDefinition``
+- ``/Jobs/JobIdentifier``
+- ``/Jobs/JobQueue``
+- ``/Jobs/JobParameters``
+- ``/Jobs/JobDefinition``
 
 ## See Also
 
-- ``HummingbirdJobs``
-- ``HummingbirdJobsRedis``
-- ``HummingbirdJobsPostgres``
+- ``Jobs``
+- ``JobsRedis``
+- ``JobsPostgres``

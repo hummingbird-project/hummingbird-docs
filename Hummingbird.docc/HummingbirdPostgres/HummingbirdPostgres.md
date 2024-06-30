@@ -25,4 +25,3 @@ Working with Postgres databases.
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdJobsPostgres``

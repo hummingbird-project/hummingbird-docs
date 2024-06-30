@@ -1,4 +1,4 @@
-# ``/HummingbirdJobs/JobDefinition``
+# ``/Jobs/JobDefinition``
 
 Groups job parameters and process in one type.
 

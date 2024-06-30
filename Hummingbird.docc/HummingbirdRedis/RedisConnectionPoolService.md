@@ -22,8 +22,3 @@ try await redis.set("Test", to: "hello").get()
 ## Service Lifecycle
 
 Given `RedisConnectionPoolService` conforms to `Service` you can have its lifecycle managed by either adding it to the Hummingbird `ServiceGroup` using ``/Hummingbird/Application/addServices(_:)`` from ``/Hummingbird/Application`` or adding it to an independently managed `ServiceGroup`.
-
-## See Also
-
-- ``Hummingbird``
-- ``HummingbirdJobsRedis``

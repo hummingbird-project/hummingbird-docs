@@ -69,4 +69,3 @@ try await app.runService()
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdJobsRedis``
