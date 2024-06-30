@@ -1,6 +1,6 @@
 # ``HummingbirdHTTP2``
 
-Add HTTP2 support to Hummingbird server
+Add HTTP2 support to Hummingbird server.
 
 ## Overview
 

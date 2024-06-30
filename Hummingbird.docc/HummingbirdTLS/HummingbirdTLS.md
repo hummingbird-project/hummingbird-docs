@@ -1,6 +1,6 @@
 # ``HummingbirdTLS``
 
-Add TLS support to Hummingbird server
+Add TLS support to Hummingbird server.
 
 ## Overview
 

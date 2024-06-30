@@ -1,6 +1,6 @@
 # ``HummingbirdTesting``
 
-Test framework for Hummingbird
+Test framework for Hummingbird.
 
 ## Overview
 
