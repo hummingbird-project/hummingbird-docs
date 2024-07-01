@@ -1,10 +1,10 @@
-# ``HummingbirdJobs``
+# ``Jobs``
 
 Offload work your server would be doing to another server. 
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. HummingbirdJobs provides a framework for pushing jobs onto a queue and processing them. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs.
+A Job consists of a payload and an execute method to run the job. `Jobs` provides a framework for pushing jobs onto a queue and processing them. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs.
 
 ## Topics
 
@@ -33,5 +33,5 @@ A Job consists of a payload and an execute method to run the job. HummingbirdJob
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdJobsRedis``
-- ``HummingbirdJobsPostgres``
+- ``JobsRedis``
+- ``JobsPostgres``

@@ -46,13 +46,13 @@ await migrations.add(CreateMyTableMigration())
 
 ### Applying migrations
 
-As you need an active `PostgresClient` to apply migrations you need to run the migrate once you have called `PostgresClient.run`. It is also preferable to have run your migrations before your server is active and accepting connections. The best way to do this is use ``Hummingbird/Application/runBeforeServerStart(_:)``.
+As you need an active `PostgresClient` to apply migrations you need to run the migrate once you have called `PostgresClient.run`. It is also preferable to have run your migrations before your server is active and accepting connections. The best way to do this is use ``Hummingbird/Application/beforeServerStarts(perform:)``.
 
 ```swift
 var app = Application(router: router)
 // add postgres client as a service to ensure it is active
 app.addServices(postgresClient)
-app.runBeforeServerStart {
+app.beforeServerStarts {
     try await migrations.apply(client: postgresClient, logger: logger, dryRun: true)
 }
 ```

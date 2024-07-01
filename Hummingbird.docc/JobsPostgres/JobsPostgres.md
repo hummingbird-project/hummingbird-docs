@@ -1,4 +1,4 @@
-# ``HummingbirdJobsPostgres``
+# ``JobsPostgres``
 
 Postgres implementation for Hummingbird jobs framework
 
@@ -14,11 +14,11 @@ Hummingbird Jobs Queue driver using Postgres.
 
 ### Job Queue
 
-- ``PostgresQueue``
+- ``PostgresJobQueue``
 
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdJobs``
-- ``HummingbirdJobsRedis``
+- ``Jobs``
+- ``JobsRedis``
 - ``HummingbirdPostgres``

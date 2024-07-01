@@ -1,4 +1,4 @@
-# ``HummingbirdJobsRedis``
+# ``JobsRedis``
 
 Redis implementation for Hummingbird jobs framework
 
@@ -14,11 +14,11 @@ Hummingbird Jobs Queue driver using Redis queues.
 
 ### Job Queue
 
-- ``RedisQueue``
+- ``RedisJobQueue``
 
 ## See Also
 
 - ``Hummingbird``
-- ``HummingbirdJobs``
-- ``HummingbirdJobsPostgres``
+- ``Jobs``
+- ``JobsPostgres``
 - ``HummingbirdRedis``
