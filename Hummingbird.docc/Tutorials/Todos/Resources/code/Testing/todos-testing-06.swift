@@ -23,7 +23,7 @@ struct Todos: AsyncParsableCommand, AppArguments {
 
 /// Arguments extracted from commandline
 protocol AppArguments {
-    var hostname: String { get}
+    var hostname: String { get }
     var port: Int { get }
     var inMemoryTesting: Bool { get }
 }
