@@ -19,6 +19,7 @@ HummingbirdWSClient provides a way to connect to WebSocket servers.
 - ``WebSocketClient``
 - ``WebSocketClientConfiguration``
 - ``AutoPingSetup``
+- ``WebSocketCloseFrame``
 - ``WebSocketClientError``
 
 ### Handler
@@ -28,7 +29,6 @@ HummingbirdWSClient provides a way to connect to WebSocket servers.
 - ``WebSocketOutboundWriter``
 - ``WebSocketDataFrame``
 - ``WebSocketContext``
-- ``BasicWebSocketContext``
 
 ### Messages
 
@@ -46,3 +46,4 @@ HummingbirdWSClient provides a way to connect to WebSocket servers.
 
 - ``Hummingbird``
 - ``HummingbirdWebSocket``
+- ``HummingbirdWSCompression``
