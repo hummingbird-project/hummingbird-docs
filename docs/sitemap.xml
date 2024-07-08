@@ -6,6 +6,11 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketroutercontext/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketserverconfiguration/</loc>
     <lastmod>2024-07-08</lastmod>
     <priority>.40</priority>
@@ -46,84 +51,9 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketcontextfromrouter/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionfactory/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketcloseframe/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionhttpparameters/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketinboundmessagestream/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketoutboundwriter/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextension/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionbuilder/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketcontext/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/</loc>
     <lastmod>2024-07-08</lastmod>
     <priority>.80</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/autopingsetup/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/basicwebsocketcontext/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketmessage/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketdataframe/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketdatahandler/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketinboundstream/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/otphashfunction/</loc>
@@ -786,6 +716,46 @@
     <priority>.80</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketextensionfactory/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketcloseframe/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketextensionhttpparameters/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketinboundmessagestream/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketoutboundwriter/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketextension/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketextensionbuilder/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketcontext/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/</loc>
     <lastmod>2024-07-08</lastmod>
     <priority>.80</priority>
@@ -796,7 +766,37 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/autopingsetup/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketmessage/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketclienterror/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketextensioncontext/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketdataframe/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketdatahandler/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketinboundstream/</loc>
     <lastmod>2024-07-08</lastmod>
     <priority>.40</priority>
   </url>
@@ -1074,6 +1074,11 @@
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testhttpscheme/</loc>
     <lastmod>2024-07-08</lastmod>
     <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwstesting/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobparameters/</loc>
