@@ -18,6 +18,9 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 ### Server
 
+- ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-8zeh2``
+- ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-9qdwg``
+- ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(webSocketRouter:configuration:additionalChannelHandlers:)``
 - ``HTTP1WebSocketUpgradeChannel``
 - ``WebSocketServerConfiguration``
 - ``AutoPingSetup``
@@ -30,7 +33,6 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 - ``WebSocketOutboundWriter``
 - ``WebSocketDataFrame``
 - ``WebSocketContext``
-- ``BasicWebSocketContext``
 
 ### Messages
 
@@ -39,10 +41,10 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 ### Router
 
-- ``WebSocketContextFromRouter``
 - ``WebSocketRequestContext``
-- ``WebSocketHandlerReference``
 - ``BasicWebSocketRequestContext``
+- ``WebSocketRouterContext``
+- ``WebSocketHandlerReference``
 - ``WebSocketUpgradeMiddleware``
 - ``RouterShouldUpgrade``
 
@@ -50,6 +52,7 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 - ``WebSocketExtension``
 - ``WebSocketExtensionBuilder``
+- ``WebSocketExtensionContext``
 - ``WebSocketExtensionHTTPParameters``
 - ``WebSocketExtensionFactory``
 
@@ -57,3 +60,5 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 - ``Hummingbird``
 - ``HummingbirdWSClient``
+- ``HummingbirdWSCompression``
+- ``HummingbirdWSTesting``
