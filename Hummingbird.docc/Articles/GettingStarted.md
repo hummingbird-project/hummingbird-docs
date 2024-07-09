@@ -24,7 +24,8 @@ Run the configure script provided to create a new folder and project inside:
 
     ../template/configure.sh MyNewProject
 
-To run your app:
+This will ask some questions to configure your app. Change into the project folder you 
+creates and then, to run your app:
 
     swift run App
 
