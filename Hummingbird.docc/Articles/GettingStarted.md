@@ -15,17 +15,15 @@ Clone the starting template to your local machine:
 
     git clone https://github.com/hummingbird-project/template
 
-Create a new directory for your project:
-
-    mkdir MyNewProject
-    cd MyNewProject
-
 Run the configure script provided to create a new folder and project inside:
 
     ../template/configure.sh MyNewProject
 
-This will ask some questions to configure your app. Change into the project folder you 
-create and then, to run your app:
+Change into the new project directory:
+
+    cd MyNewProject
+
+Then run your app:
 
     swift run App
 
