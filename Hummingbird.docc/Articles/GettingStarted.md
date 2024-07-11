@@ -17,7 +17,7 @@ Clone the starting template to your local machine:
 
 Run the configure script provided to create a new folder and project inside:
 
-    ../template/configure.sh MyNewProject
+    ./template/configure.sh MyNewProject
 
 Change into the new project directory:
 
