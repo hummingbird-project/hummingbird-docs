@@ -356,11 +356,6 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responsebody/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/mustachesyntax/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
@@ -451,11 +446,6 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/response/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/filemiddlewarefileattributes/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
@@ -471,17 +461,7 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/request/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/migratingtov2/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestbody/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
   </url>
@@ -526,11 +506,6 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responsebodywriter/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/tracingmiddleware/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
@@ -557,11 +532,6 @@
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/applicationrequestcontextsource/</loc>
-    <lastmod>2024-07-22</lastmod>
-    <priority>.40</priority>
-  </url>
-  <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/bindaddress/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
   </url>
@@ -836,6 +806,11 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/responsebody/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.80</priority>
@@ -846,12 +821,37 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/response/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/httpchannelhandler/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/request/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/requestbody/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/responsebodywriter/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/httpusereventhandler/</loc>
+    <lastmod>2024-07-22</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/bindaddress/</loc>
     <lastmod>2024-07-22</lastmod>
     <priority>.40</priority>
   </url>
