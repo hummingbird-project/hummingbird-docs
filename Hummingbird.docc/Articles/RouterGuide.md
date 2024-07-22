@@ -201,7 +201,7 @@ let buffer = try await request.body.collate(maxSize: maximumBufferSizeAllowed)
 }
 ```
 
-Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `Request.collateBody(context:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer. 
+Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `Request.collectBody(upTo:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer. 
 
 ### Editing response in handler
 
