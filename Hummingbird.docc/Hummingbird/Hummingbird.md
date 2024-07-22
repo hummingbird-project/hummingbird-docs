@@ -105,6 +105,7 @@ try await app.runService()
 ### Middleware
 
 - ``MiddlewareProtocol``
+- ``MiddlewareFixedTypeBuilder``
 - ``RouterMiddleware``
 - ``MiddlewareGroup``
 - ``CORSMiddleware``
