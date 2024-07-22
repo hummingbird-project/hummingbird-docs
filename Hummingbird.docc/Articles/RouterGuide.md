@@ -138,6 +138,29 @@ app.router.group("/todos")
     .delete("{id}", deleteTodo)
 ```
 
+### RequestContext transformation
+
+The `RequestContext` can be transformed for the routes in a route group. First when you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
+
+```swift
+struct MyNewRequestContext: RequestContext {
+    typealias Source = BasicRouterRequestContext
+    init(source: Source) {
+        self.coreContext = .init(source: source)
+        ...
+    }
+}
+```
+Once you have defined how to perform the transform from your original `RequestContext` the conversion is added as follows
+
+```swift
+let app = Application(context: BasicRouterRequestContext.self)
+app.router.group("/todos", context: MyNewRequestContext.self)
+    .put(use: createTodo)
+    .get(use: listTodos)
+```
+
+
 ### Route Collections
 
 A ``RouteCollection`` is a collection of routes and middleware that can be added to a `Router` in one go. It has the same API as `RouterGroup`, so can have groups internal to the collection to allow for Middleware to applied to only sub-sections of the `RouteCollection`. 

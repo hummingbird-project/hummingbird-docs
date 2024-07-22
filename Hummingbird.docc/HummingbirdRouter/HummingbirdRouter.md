@@ -21,7 +21,7 @@ let router = RouterBuilder(context: BasicRouterRequestContext.self) {
 }
 ```
 
-A request is processed by each element of the router result builder until it hits a route that matches its URI. If it hits a ``RouteGroup`` and this matches the current request uri path component then the request (with matched URI path components dropped) will be processed by the children of the `RouteGroup`. When the request hits a route and the uri matches it will run that route and pass the response back to be processed by all the middleware that processed the request but in reverse order.
+A request is processed by each element of the router result builder until it hits a route that matches its URI and method. If it hits a ``RouteGroup`` and this matches the current request uri path component then the request (with matched URI path components dropped) will be processed by the children of the `RouteGroup`. When the request hits a route and the uri matches it will run that route and pass the response back to be processed by all the middleware that processed the request but in reverse order.
 
 ## Common Route Verbs
 
@@ -67,6 +67,35 @@ RouterBuilder(context: BasicRouterRequestContext.self) {
 }
 ```
 
+## RequestContext transformation
+
+You can transform the `RequestContext` to a different type for a group of routes using `ContextTransform`. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
+
+```swift
+struct MyNewRequestContext: RequestContext {
+    typealias Source = BasicRouterRequestContext
+    init(source: Source) {
+        self.coreContext = .init(source: source)
+        ...
+    }
+}
+```
+Once you have defined how to perform the transform from your original `RequestContext` the conversion is added as follows
+
+```swift
+let router = RouterBuilder(context: BasicRouterRequestContext.self) {
+    RouteGroup("user") {
+        ContextTransform(to: MyNewRequestContext.self) {
+            BasicAuthenticationMiddleware()
+            Route(.post, "login") { request, context in
+                ...
+            }
+        }
+    }
+}
+```
+It is best to wrap the `ContextTransform` inside a `RouteGroup` so you are only performing the transform when necessary.
+
 ## Topics
 
 ### RouterBuilder
@@ -100,5 +129,4 @@ RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ### Result Builders
 
-- ``MiddlewareFixedTypeBuilder``
 - ``RouteBuilder``

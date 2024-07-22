@@ -8,7 +8,7 @@ Middleware can be used to edit requests before they are forwared to the router, 
 
 ```swift
 let router = Router()
-router.middlewares.add(MyMiddlware())
+router.add(middleware: MyMiddlware())
 ```
 
 In the example above the `MyMiddleware` is applied to every request that comes into the server.
@@ -25,6 +25,21 @@ router.group()
     .post("/user", loginUser)
 ```
 The first route that calls `createUser` does not have the `BasicAuthenticatorMiddleware` applied to it. But the route calling `loginUser` which is inside the group does have the middleware applied.
+
+### Middleware result builder
+
+You can add multiple middleware to the router using the middleware stack result builder ``MiddlewareFixedTypeBuilder``.
+
+```swift
+let router = Router()
+router.add {
+    LogRequestsMiddleware()
+    MetricsMiddleware()
+    TracingMiddleware()
+}
+```
+
+This gives a slight performance boost over adding them individually.
 
 ### Writing Middleware
 
