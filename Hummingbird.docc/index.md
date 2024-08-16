@@ -41,6 +41,7 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 ### Getting Started
 
 - <doc:GettingStarted>
+- <doc:Todos>
 
 ### Guides
 
@@ -58,10 +59,6 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
-
-### Tutorials
-
-- <doc:Todos>
 
 ## See Also
 

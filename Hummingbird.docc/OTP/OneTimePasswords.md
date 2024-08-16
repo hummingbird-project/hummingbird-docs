@@ -6,7 +6,7 @@ A one time password (OTP) valid for only one login session.
 
 OTPs avoid a number of shortcomings that are associated with traditional (static) password-based authentication. OTP generation algorithms typically make use of pseudorandomness or randomness, making prediction of successor OTPs by an attacker difficult, and also cryptographic hash functions, which can be used to derive a value but are hard to reverse and therefore difficult for an attacker to obtain the data that was used for the hash. This is necessary because otherwise it would be easy to predict future OTPs by observing previous ones.
 
-HummingbirdAuth provides support for both time based (``HummingbirdAuth/TOTP``) and counter based (``HummingbirdAuth/HOTP``) one time passwords.
+HummingbirdAuth provides support for both time based (``OTP/TOTP``) and counter based (``OTP/HOTP``) one time passwords.
 
 ## Usage
 
@@ -33,10 +33,3 @@ let password = TOTP(secret: sharedSecret).compute()
 ```
 
 Compare it with the password provided by the user to verify the user credentials.
-
-## Topics
-
-### Reference
-
-- ``HummingbirdAuth/HOTP``
-- ``HummingbirdAuth/TOTP``

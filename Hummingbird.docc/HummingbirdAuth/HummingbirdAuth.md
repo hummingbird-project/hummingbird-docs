@@ -2,7 +2,7 @@
 
 Authentication framework and extensions for Hummingbird.
 
-Includes Authenticator middleware setup, bearer and basic authentication extraction from your Request headers, Bcrypt encryption for passwords and one time password support.
+Includes Authenticator middleware setup, bearer and basic authentication extraction from your Request headers. session authentication. Additional modules are available that support ``Bcrypt`` encryption, one time passwords (``OTP``) and include a Basic user/password authentication middleware (``HummingbirdBasicAuth``).
 
 ## Topics
 
@@ -10,7 +10,6 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 - <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
-- <doc:OneTimePasswords>
 
 ### Request Contexts
 
@@ -29,21 +28,17 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 - ``BasicAuthentication``
 - ``BearerAuthentication``
 
-### Encryption
-
-- ``Bcrypt``
-
 ### Sessions
 
-- ``SessionMiddleware``
+- ``SessionAuthenticator``
 - ``SessionStorage``
-
-### OTP
-
-- ``HOTP``
-- ``TOTP``
-- ``OTPHashFunction``
+- ``SessionUserRepository``
+- ``UserSessionClosure``
+- ``SessionMiddleware``
 
 ## See Also
 
+- ``Bcrypt``
+- ``OTP``
+- ``HummingbirdBasicAuth``
 - ``Hummingbird``
