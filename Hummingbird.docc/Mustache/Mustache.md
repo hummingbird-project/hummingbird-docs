@@ -20,11 +20,11 @@ Render an object with a template
 ```swift
 let output = library.render(object, withTemplate: "myTemplate")
 ```
-`HummingbirdMustache` treats an object as a set of key/value pairs when rendering and will render both dictionaries and objects via `Mirror` reflection. Find out more on how Mustache renders objects [here](https://hummingbird-project.github.io/hummingbird/current/hummingbird-mustache/mustache-syntax.html).
+`Mustache` treats an object as a set of key/value pairs when rendering and will render both dictionaries and objects via `Mirror` reflection.
 
 ## Support
 
-Hummingbird Mustache supports all standard Mustache tags and is fully compliant with the Mustache [spec](https://github.com/mustache/spec) with the exception of the Lambda support.  
+Mustache supports all standard Mustache tags and is fully compliant with the Mustache [spec](https://github.com/mustache/spec) with the exception of the Lambda support.  
 
 ## Topics
 

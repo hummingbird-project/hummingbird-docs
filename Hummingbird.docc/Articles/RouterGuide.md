@@ -203,6 +203,24 @@ let buffer = try await request.body.collate(maxSize: maximumBufferSizeAllowed)
 
 Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `Request.collectBody(upTo:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer. 
 
+### Writing the response body
+
+The response body is returned back to the server as a closure that will write the body. The closure is provided with a writer type conforming to ``HummingbirdCore/ResponseBodyWriter`` and the closure uses this to write the buffers that make up the body. In most cases you don't need to know this as ``HummingbirdCore/ResponseBody`` has initializers that take a single `ByteBuffer`, a sequence of `ByteBuffers` and an `AsyncSequence` of `ByteBuffers` which covers most of the kinds of responses. 
+
+In the situation where you need something a little more flexible you can use the closure form. Below is a `ResponseBody` that consists of 10 buffers of random data written with a one second pause between each buffer.
+
+```swift
+let responseBody = ResponseBody { writer in
+    for _ in 0..<10 {
+        try await Task.sleep(for: .seconds(1))
+        let buffer = (0..<size).map { _ in UInt8.random(in: 0...255) }
+        try await writer.write(buffer)
+    }
+    writer.finish(nil)
+}
+```
+Once you have finished writing your response body you need to tell the writer you have finished by calling ``HummingbirdCore/ResponseBodyWriter/finish(_:)``. At this point you can write trailing headers by passing them to the `finish` function. NB Trailing headers are only sent if your response body is a chunked and does not include a content length header.
+
 ### Editing response in handler
 
 The standard way to provide a custom response from a route handler is to return a `Response` from that handler. This method loses a lot of the automation of encoding responses, generating the correct status code etc. 

@@ -36,10 +36,17 @@ try await serviceGroup.run()
 - ``Server``
 - ``ServerConfiguration``
 - ``ServerChildChannel``
+- ``ServerChildChannelValue``
+- ``BindAddress``
+- ``AvailableConnectionsChannelHandler``
+- ``AvailableConnectionsDelegate``
+- ``MaximumAvailableConnections`` 
+
+### HTTP Server
+
 - ``HTTPServerBuilder``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
-- ``BindAddress``
 - ``HTTPUserEventHandler``
 
 ### Request
@@ -52,6 +59,7 @@ try await serviceGroup.run()
 
 - ``Response``
 - ``ResponseBody``
+- ``ResponseWriter``
 - ``ResponseBodyWriter``
 
 ### Miscellaneous
