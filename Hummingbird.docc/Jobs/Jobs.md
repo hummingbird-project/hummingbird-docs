@@ -26,6 +26,11 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``QueuedJob``
 - ``MemoryQueue``
 
+### Scheduler
+
+- ``JobSchedule``
+- ``Schedule``
+
 ### Error
 
 - ``JobQueueError``
