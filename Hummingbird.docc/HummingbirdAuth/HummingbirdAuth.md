@@ -32,8 +32,9 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 - ``SessionAuthenticator``
 - ``SessionStorage``
-- ``SessionUserRepository``
-- ``UserSessionClosure``
+- ``UserSessionRepository``
+- ``UserSessionClosureRepository``
+- ``UserRepositoryContext``
 - ``SessionMiddleware``
 
 ## See Also
