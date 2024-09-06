@@ -10,19 +10,13 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
             .info
         return logger
     }()
-    var postgresRepository: TodoPostgresRepository?
-    let router: Router<AppRequestContext>
     if !arguments.inMemoryTesting {
         let client = PostgresClient(
             configuration: .init(host: "localhost", username: "todos", password: "todos", database: "hummingbird", tls: .disable),
             backgroundLogger: logger
         )
-        let repository = TodoPostgresRepository(client: client, logger: logger)
-        postgresRepository = repository
-        router = buildRouter(repository)
-    } else {
-        router = buildRouter(TodoMemoryRepository())
     }
+    let router = buildRouter()
     var app = Application(
         router: router,
         configuration: .init(
@@ -31,13 +25,6 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
         ),
         logger: logger
     )
-    // if we setup a postgres service then add as a service and run createTable before
-    // server starts
-    if let postgresRepository {
-        app.addServices(postgresRepository.client)
-        app.beforeServerStarts {
-            try await postgresRepository.createTable()
-        }
-    }
     return app
 }
+

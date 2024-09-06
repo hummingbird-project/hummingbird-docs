@@ -8,7 +8,7 @@
     @Chapter(name: "Application setup") {
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
         
-        @TutorialReference(tutorial: "doc:Todos-1-Setup")
+        @TutorialReference(tutorial: "doc:Todos-1-Template")
     }
     
     @Chapter(name: "API Setup") {

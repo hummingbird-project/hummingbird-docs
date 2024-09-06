@@ -1,10 +1,12 @@
-@testable import Todos
 import Foundation
 import Hummingbird
 import HummingbirdTesting
+import Logging
 import XCTest
 
-extension TodosTests {
+@testable import App
+
+extension AppTests {
     func testDeletingTodoTwiceReturnsBadRequest() async throws {}
     func testGettingTodoWithInvalidUUIDReturnsBadRequest() async throws {}
     func test30ConcurrentlyCreatedTodosAreAllCreated() async throws {}

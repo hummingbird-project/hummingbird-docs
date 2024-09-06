@@ -10,6 +10,5 @@ func buildRouter() -> Router<AppRequestContext> {
     router.get("/health") { _, _ -> HTTPResponse.Status in
         return .ok
     }
-    router.addRoutes(TodoController(repository: TodoMemoryRepository()).endpoints, atPath: "/todos")
     return router
 }
