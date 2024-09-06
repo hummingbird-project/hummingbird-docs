@@ -10,9 +10,9 @@ Basic user/password authentication middleware
 
 ### Storage
 
-- ``PasswordUserRepository``
-- ``BasicAuthenticatorUser``
-- ``UserPasswordClosure``
+- ``UserPasswordRepository``
+- ``PasswordAuthenticatable``
+- ``UserPasswordClosureRepository``
 
 ### Passwords
 
