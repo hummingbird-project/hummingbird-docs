@@ -1,24 +1,22 @@
 import Foundation
-@_spi(ConnectionPool) import PostgresNIO
+import PostgresNIO
 
 struct TodoPostgresRepository: TodoRepository {
     let client: PostgresClient
 
     /// Create Todos table
     func createTable() async throws {
-        _ = try await client.withConnection { connection in
-            connection.query("""
-                CREATE TABLE IF NOT EXISTS todos (
-                    "id" uuid PRIMARY KEY,
-                    "title" text NOT NULL,
-                    "order" integer,
-                    "completed" boolean,
-                    "url" text
-                )
-                """,
-                logger: logger
+        try await self.client.query("""
+            CREATE TABLE IF NOT EXISTS todos (
+                "id" uuid PRIMARY KEY,
+                "title" text NOT NULL,
+                "order" integer,
+                "completed" boolean,
+                "url" text
             )
-        }
+            """,
+            logger: logger
+        )
     }
 
     /// Create todo.
