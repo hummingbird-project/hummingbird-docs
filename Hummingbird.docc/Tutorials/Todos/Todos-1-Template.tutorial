@@ -20,7 +20,7 @@
                 @Code(name: "Create Swift Package", file: todos-template-02.sh)
             }
             @Step {
-                Open `Package.swift`.
+                Now lets review what the template has setup. Open `Package.swift`.
 
                 You can see if has dependencies for Hummingbird and the Apple's Argument Parser library.
                 @Code(name: "Package.swift", file: todos-template-03.swift)
@@ -34,14 +34,14 @@
             @Step {
                 Open `Sources/App/Application+build.swift` to find the `buildApplication(_:) function.
 
-                Here we create a `Logger` with log level set by either the command line argument mentioned above, or the environment variable `LOG_LEVEL`. We then call a function `createRouter()` and use the result of that to create our `Application`.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-template-05.swift)
+                Here we create a `Logger` with log level set by either the command line argument mentioned above, or the environment variable `LOG_LEVEL`. We then call a function `buildRouter()` and use the result of that to create our `Application`.
+                @Code(name: "buildApplication() - Sources/App/Application+build.swift", file: todos-template-05.swift)
             }
             @Step {
-                If we look further down the file we can find the `createRouter()` function.
+                If we look further down the file we can find the `buildRouter()` function.
 
-                Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/health` which returns a 200(OK) response.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-template-06.swift)
+                Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/health` which returns a 200 (Ok) response.
+                @Code(name: "buildRouter() - Sources/App/Application+build.swift", file: todos-template-06.swift)
             }
             @Step {
                 We can run this application and use curl to test it works. 

@@ -2,7 +2,7 @@
 func buildRouter() -> Router<AppRequestContext> {
     let router = Router(context: AppRequestContext.self)
     // Add middleware
-    router.add {
+    router.addMiddleware {
         // logging middleware
         LogRequestsMiddleware(.info)
     }

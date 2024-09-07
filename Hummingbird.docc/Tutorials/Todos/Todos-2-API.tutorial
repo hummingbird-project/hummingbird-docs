@@ -1,4 +1,4 @@
-@Tutorial(time: 15) {
+@Tutorial(time: 20) {
     @Intro(title: "Add your application API") {
         Add some functionality to your application.
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
@@ -16,7 +16,7 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                Go back to `createRouter()` in Application+build.swift
+                Go back to `buildRouter()` in Application+build.swift
                 @Code(name: "Sources/App/Application+build.swift", file: todos-template-06.swift)
             }
             @Step {
@@ -24,7 +24,7 @@
                 @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift)
             }
             @Step {
-                Before we start adding routes, we going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
+                We are going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
             }
             @Step {
                 Create a product `Todo` that includes everything to define a todo.
@@ -51,11 +51,11 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
-                Go to `createRouter()` in Application+build.swift
+                Go to `buildRouter()` in Application+build.swift
                 @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift)
             }
             @Step {
-                And add the repository parameter to the TodoController initializer.
+                And add the repository parameter to the TodoController initializer. We are using the memory implementation of the `TodoRepository` we have already implemented above.
                 @Code(name: "Sources/App/Application+build.swift", file: todos-api-08.swift)
             }
             @Step {
@@ -69,7 +69,7 @@
             @Step {
                 This endpoint has a few other features. If it fails to convert the id to a UUID then it throws an `HTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
 
-                If the endpoint returns nil because it could not find a route this will automatically return a 204 (No Content) HTTP response to the client.
+                If the endpoint returns nil because it could not find a todo this will automatically return a 204 (No Content) HTTP response to the client.
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
@@ -81,7 +81,7 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                We now have an API we can test. Lets use curl to create a Todo. If we include the command line parameter `-i` we get the full HTTP response and that the status code is 201 (Created).
+                We now have an API we can test. Lets use curl to create a Todo. If we include the command line parameter `-i` we get the full HTTP response and can see that the status code is 201 (Created).
                 @Code(name: "Test create", file: todos-api-12.sh)
             }
             @Step {
@@ -91,11 +91,11 @@
                 @Code(name: "Test get", file: todos-api-13.sh)
             }
             @Step {
-                Continuing with adding our API endpoint
+                Continuing with adding our API endpoints
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-11.swift)
             }
             @Step {
-                This is the endpoint that lists all of the todos that have been created. Because Todo conforms to ResponseEncodable, Array\<Todo\> automatically conforms to ResponseEncodable as well.
+                This is the endpoint that lists all of the todos that have been created. Because `Todo` conforms to `ResponseEncodable`, `Array<Todo>` automatically conforms to `ResponseEncodable` as well.
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-14.swift)
             }
             @Step {
