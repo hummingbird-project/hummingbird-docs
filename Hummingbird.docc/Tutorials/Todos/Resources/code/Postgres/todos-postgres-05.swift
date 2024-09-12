@@ -9,7 +9,6 @@ public protocol AppArguments {
     var hostname: String { get }
     var port: Int { get }
     var logLevel: Logger.Level? { get }
-    var inMemoryTesting: Bool { get }
 }
 
 // Request context used by application

@@ -1,2 +1,0 @@
-> mkdir Todos
-> cd Todos

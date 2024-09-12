@@ -2,6 +2,6 @@
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 Content-Length: 164
-Date: Sat, 6 Jan 2024 11:50:01 GMT
+Date: Mon, 9 Sep 2024 11:50:01 GMT
 
 {"title":"Brush my teeth","completed":true,"url":"http:\/\/localhost:8080\/todos\/31B0FCCA-F084-4EB6-BCEF-002A00077549","id":"31B0FCCA-F084-4EB6-BCEF-002A00077549"}

@@ -12,7 +12,7 @@ extension TodoPostgresRepository {
         if try await selectStream.decode((UUID).self, context: .default).first(where: { _ in true} ) == nil {
             return false
         }
-        _ = try await connection.query("DELETE FROM todos WHERE id = \(id);", logger: logger)
+        try await client.query("DELETE FROM todos WHERE id = \(id);", logger: logger)
         return true
     }
     /// Delete all todos

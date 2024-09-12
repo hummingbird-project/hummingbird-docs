@@ -1,28 +1,24 @@
-// swift-tools-version: 5.9
-import PackageDescription
+import Hummingbird
+import HummingbirdTesting
+import Logging
+import XCTest
 
-let package = Package(
-    name: "Todos",
-    platforms: [.macOS(.v14)],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.0.0-alpha.1"),
-    ],
-    targets: [
-        .executableTarget(
-            name: "Todos",
-            dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "Hummingbird", package: "hummingbird"),
-            ]
-        ),
-        .testTarget(
-            name: "TodosTests",
-            dependencies: [
-                "Todos",
-                .product(name: "Hummingbird", package: "hummingbird"),
-                .product(name: "HummingbirdTesting", package: "hummingbird"),
-            ]
-        )
-    ]
-)
+@testable import App
+
+final class AppTests: XCTestCase {
+    struct TestArguments: AppArguments {
+        let hostname = "127.0.0.1"
+        let port = 0
+        let logLevel: Logger.Level? = .trace
+    }
+
+    func testApp() async throws {
+        let args = TestArguments()
+        let app = try await buildApplication(args)
+        try await app.test(.router) { client in
+            try await client.execute(uri: "/health", method: .get) { response in
+                XCTAssertEqual(response.status, .ok)
+            }
+        }
+    }
+}
