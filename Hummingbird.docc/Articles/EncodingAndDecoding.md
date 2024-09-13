@@ -2,7 +2,7 @@
 
 Hummingbird uses `Codable` to decode requests and encode responses. 
 
-The request context ``RequestContext`` that is provided alongside your ``Request`` has two member variables ``RequestContext/requestDecoder`` and ``RequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
+The request context ``RequestContext`` that is provided alongside your ``/HummingbirdCore/Request`` has two member variables ``RequestContext/requestDecoder`` and ``RequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
 
 The `decoder` must conform to ``RequestDecoder`` which requires a ``RequestDecoder/decode(_:from:context:)`` function that decodes a `Request`.
 
@@ -39,7 +39,7 @@ let router = Router(context: URLEncodedRequestContext.self)
 
 ## Decoding Requests
 
-Once you have a decoder you can implement decoding in your routes using the ``Request/decode(as:context:)`` method in the following manner
+Once you have a decoder you can implement decoding in your routes using the ``/HummingbirdCore/Request/decode(as:context:)`` method in the following manner
 
 ```swift
 struct User: Decodable {

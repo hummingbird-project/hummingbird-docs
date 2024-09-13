@@ -54,7 +54,7 @@ let app = Application(
 
 ## WebSocket Handler
 
-The WebSocket handle function has three parameters: an inbound sequence of WebSocket frames ( ``HummingbirdWebSocket/WebSocketInboundStream``), an outbound WebSocket frame writer (``HummingbirdWebSocket/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE frames are managed internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. 
+The WebSocket handle function has three parameters: an inbound sequence of WebSocket frames ( ``/HummingbirdWSCore/WebSocketInboundStream``), an outbound WebSocket frame writer (``/HummingbirdWSCore/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE frames are managed internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. 
 
 Below is a simple input and response style connection a frame is read from the inbound stream, processed and then a response is written back. If the connection is closed the inbound stream will end and we exit the function.
 
@@ -92,7 +92,7 @@ You should not use unstructured Tasks to manage your WebSockets. If you use an u
 
 ### Frames and messages
 
-A WebSocket message can be split across multiple WebSocket frames. The last frame indicated by the `FIN` flag being set to true. If you want to work with messages instead of frames you can convert the inbound stream of frames to a stream of messages using ``HummingbirdWebSocket/WebSocketInboundStream/messages(maxSize:)``.
+A WebSocket message can be split across multiple WebSocket frames. The last frame indicated by the `FIN` flag being set to true. If you want to work with messages instead of frames you can convert the inbound stream of frames to a stream of messages using ``/HummingbirdWSCore/WebSocketInboundStream/messages(maxSize:)``.
 
 ```swift
 wsRouter.ws("/ws") { inbound, outbound, context in
@@ -110,7 +110,7 @@ wsRouter.ws("/ws") { inbound, outbound, context in
 
 The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In most cases the context only holds a `Logger` for logging output and a `ByteBufferAllocator` if you need to allocate `ByteBuffers`. 
 
-But if the WebSocket was setup with a router, then the context also includes the ``Hummingbird/Request`` that initiated the WebSocket upgrade and the ``Hummingbird/RequestContext`` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a named WebSocket to a connection manager
+But if the WebSocket was setup with a router, then the context also includes the ``/HummingbirdCore/Request`` that initiated the WebSocket upgrade and the ``/Hummingbird/RequestContext`` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a named WebSocket to a connection manager
 
 ```swift
 wsRouter.ws("chat") { request, _ in

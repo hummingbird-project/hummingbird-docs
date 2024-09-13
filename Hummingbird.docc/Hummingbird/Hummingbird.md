@@ -68,12 +68,12 @@ try await app.runService()
 
 ### Request/Response
 
-- ``Request``
+- ``/HummingbirdCore/Request``
 - ``Parameters``
 - ``MediaType``
 - ``CacheControl``
-- ``Response``
-- ``ResponseBodyWriter``
+- ``/HummingbirdCore/Response``
+- ``/HummingbirdCore/ResponseBodyWriter``
 - ``EditedResponse``
 - ``Cookie``
 - ``Cookies``

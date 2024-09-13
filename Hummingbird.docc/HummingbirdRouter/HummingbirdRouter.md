@@ -4,7 +4,7 @@ Alternative result builder based router for Hummingbird.
 
 ## Overview
 
-HummingbirdRouter provides an alternative to the standard trie based router that is in the Hummingbird module. ``HummingbirdRouter/RouterBuilder`` uses a result builder to construct your router.
+HummingbirdRouter provides an alternative to the standard trie based router that is in the Hummingbird module. ``/HummingbirdRouter/RouterBuilder`` uses a result builder to construct your router.
 
 ```swift
 let router = RouterBuilder(context: BasicRouterRequestContext.self) {
@@ -21,7 +21,7 @@ let router = RouterBuilder(context: BasicRouterRequestContext.self) {
 }
 ```
 
-A request is processed by each element of the router result builder until it hits a route that matches its URI and method. If it hits a ``RouteGroup`` and this matches the current request uri path component then the request (with matched URI path components dropped) will be processed by the children of the `RouteGroup`. When the request hits a route and the uri matches it will run that route and pass the response back to be processed by all the middleware that processed the request but in reverse order.
+A request is processed by each element of the router result builder until it hits a route that matches its URI and method. If it hits a ``/HummingbirdRouter/RouteGroup`` and this matches the current request uri path component then the request (with matched URI path components dropped) will be processed by the children of the `RouteGroup`. When the request hits a route and the uri matches it will run that route and pass the response back to be processed by all the middleware that processed the request but in reverse order.
 
 ## Common Route Verbs
 
@@ -41,7 +41,7 @@ Get("health") { _,_ in
 
 ## Route middleware
 
-Routes can be initialised with their own result builder as long as they end with a route ``Handle`` function that returns the response. This allows us to apply middleware to individual routes. 
+Routes can be initialised with their own result builder as long as they end with a route ``/HummingbirdRouter/Handle`` function that returns the response. This allows us to apply middleware to individual routes. 
 
 ```swift
 Post("login") {
@@ -52,7 +52,7 @@ Post("login") {
 }
 ```
 
-If you are not adding the handler inline you can add the function reference without the ``Handle``.  
+If you are not adding the handler inline you can add the function reference without the ``/HummingbirdRouter/Handle``.  
 
 ```swift
 @Sendable func processLogin(request: Request, context: MyContext) async throws -> Response {
@@ -69,7 +69,7 @@ RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ## RequestContext transformation
 
-You can transform the `RequestContext` to a different type for a group of routes using `ContextTransform`. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
+You can transform the ``RequestContext`` to a different type for a group of routes using ``/HummingbirdRouter/ContextTransform``. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
 
 ```swift
 struct MyNewRequestContext: RequestContext {
@@ -100,33 +100,29 @@ It is best to wrap the `ContextTransform` inside a `RouteGroup` so you are only 
 
 ### RouterBuilder
 
-- ``RouterBuilder``
+- ``/HummingbirdRouter/RouterBuilder``
 
 ### Request Context
 
-- ``RouterRequestContext``
-- ``BasicRouterRequestContext``
-- ``RouterBuilderContext``
+- ``/HummingbirdRouter/RouterRequestContext``
+- ``/HummingbirdRouter/BasicRouterRequestContext``
+- ``/HummingbirdRouter/RouterBuilderContext``
 
 ### Result Builder
 
-- ``RouterBuilder``
-- ``RouteGroup``
-- ``Route``
-- ``Get(_:builder:)``
-- ``Get(_:handler:)``
-- ``Head(_:builder:)``
-- ``Head(_:handler:)``
-- ``Put(_:builder:)``
-- ``Put(_:handler:)``
-- ``Post(_:builder:)``
-- ``Post(_:handler:)``
-- ``Patch(_:builder:)``
-- ``Patch(_:handler:)``
-- ``Delete(_:builder:)``
-- ``Delete(_:handler:)``
-- ``Handle``
-
-### Result Builders
-
-- ``RouteBuilder``
+- ``/HummingbirdRouter/RouterBuilder``
+- ``/HummingbirdRouter/RouteGroup``
+- ``/HummingbirdRouter/Route``
+- ``/HummingbirdRouter/Get(_:builder:)``
+- ``/HummingbirdRouter/Get(_:handler:)``
+- ``/HummingbirdRouter/Head(_:builder:)``
+- ``/HummingbirdRouter/Head(_:handler:)``
+- ``/HummingbirdRouter/Put(_:builder:)``
+- ``/HummingbirdRouter/Put(_:handler:)``
+- ``/HummingbirdRouter/Post(_:builder:)``
+- ``/HummingbirdRouter/Post(_:handler:)``
+- ``/HummingbirdRouter/Patch(_:builder:)``
+- ``/HummingbirdRouter/Patch(_:handler:)``
+- ``/HummingbirdRouter/Delete(_:builder:)``
+- ``/HummingbirdRouter/Delete(_:handler:)``
+- ``/HummingbirdRouter/Handle``

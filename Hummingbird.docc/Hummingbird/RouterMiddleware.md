@@ -3,7 +3,7 @@
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
 }
-Version of ``MiddlewareProtocol`` whose Input is ``Request`` and output is ``Response``. 
+Version of ``MiddlewareProtocol`` whose Input is ``HummingbirdCore/Request`` and output is ``HummingbirdCore/Response``. 
 
 ## Overview
 
