@@ -86,6 +86,32 @@ struct MyMiddleware: MiddlewareProtocol {
 
 Now anything run after `MyMiddleware` can access the `additionalData` set in `MyMiddleware`. 
 
+## Using RequestContextSource
+
+You can also use the RequestContext to store information from the ``RequestContextSource``. If you are running a Hummingbird server then this contains the Swift NIO `Channel` that generated the request. Below is an example of extracting the remote IP from the Channel and passing it to an endpoint.
+
+```swift
+/// RequestContext that includes a copy of the Channel that created it
+struct AppRequestContext: RequestContext {
+    var coreContext: CoreRequestContextStorage
+    let channel: Channel
+
+    init(source: Source) {
+        self.coreContext = .init(source: source)
+        self.channel = source.channel
+    }
+
+    /// Extract Remote IP from Channel
+    var remoteAddress: SocketAddress? { self.channel.remoteAddress }
+}
+
+let router = Router(context: AppRequestContext.self)
+router.get("ip") { _, context in
+    guard let ip = context.remoteAddress else { throw HTTPError(.badRequest) }
+    return "Your IP is \(ip)"
+}
+```
+
 ## Authentication Middleware
 
 The most obvious example of this is passing user authentication information forward. The authentication framework from ``HummingbirdAuth`` makes use of this. If you want to use the authentication and sessions middleware your context will also need to conform to ``HummingbirdAuth/AuthRequestContext``. 
