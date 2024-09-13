@@ -69,7 +69,7 @@ RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ## RequestContext transformation
 
-You can transform the ``RequestContext`` to a different type for a group of routes using ``/HummingbirdRouter/ContextTransform``. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
+You can transform the ``/Hummingbird/RequestContext`` to a different type for a group of routes using ``/HummingbirdRouter/ContextTransform``. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
 
 ```swift
 struct MyNewRequestContext: RequestContext {
