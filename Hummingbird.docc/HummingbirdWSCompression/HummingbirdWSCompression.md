@@ -1,5 +1,9 @@
 # ``HummingbirdWSCompression``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Compression support for WebSockets
 
 ## Overview

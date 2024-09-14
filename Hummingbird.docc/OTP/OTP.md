@@ -1,5 +1,9 @@
 # ``OTP``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 One time passwords
 
 ## Topics

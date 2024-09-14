@@ -1,5 +1,9 @@
 #  Transforms
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Transforming objects during render
 
 ## Overview

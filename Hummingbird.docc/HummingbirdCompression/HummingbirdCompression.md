@@ -1,5 +1,9 @@
 # ``HummingbirdCompression``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Middleware for decompressing requests and compressing responses
 
 ## Usage

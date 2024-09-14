@@ -1,5 +1,9 @@
 # Lambdas
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Hummingbird Mustache Lambda implementation
 
 ## Overview

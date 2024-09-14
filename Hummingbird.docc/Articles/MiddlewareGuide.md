@@ -1,5 +1,9 @@
 # Middleware
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Processing requests and responses outside of request handlers. 
 
 ## Overview

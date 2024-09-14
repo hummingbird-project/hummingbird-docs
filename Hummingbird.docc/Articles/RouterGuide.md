@@ -1,5 +1,9 @@
 # Router
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 The router directs requests to their handlers based on the contents of their path. 
 
 ## Overview

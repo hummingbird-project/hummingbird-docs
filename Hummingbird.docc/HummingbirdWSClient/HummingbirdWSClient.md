@@ -1,5 +1,9 @@
 # ``HummingbirdWSClient``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Adds support for connecting to WebSocket. 
 
 ## Overview
@@ -18,29 +22,29 @@ HummingbirdWSClient provides a way to connect to WebSocket servers.
 
 - ``WebSocketClient``
 - ``WebSocketClientConfiguration``
-- ``AutoPingSetup``
-- ``WebSocketCloseFrame``
+- ``/HummingbirdWSCore/AutoPingSetup``
+- ``/HummingbirdWSCore/WebSocketCloseFrame``
 - ``WebSocketClientError``
 
 ### Handler
 
-- ``WebSocketDataHandler``
-- ``WebSocketInboundStream``
-- ``WebSocketOutboundWriter``
-- ``WebSocketDataFrame``
-- ``WebSocketContext``
+- ``/HummingbirdWSCore/WebSocketDataHandler``
+- ``/HummingbirdWSCore/WebSocketInboundStream``
+- ``/HummingbirdWSCore/WebSocketOutboundWriter``
+- ``/HummingbirdWSCore/WebSocketDataFrame``
+- ``/HummingbirdWSCore/WebSocketContext``
 
 ### Messages
 
-- ``WebSocketMessage``
-- ``WebSocketInboundMessageStream``
+- ``/HummingbirdWSCore/WebSocketMessage``
+- ``/HummingbirdWSCore/WebSocketInboundMessageStream``
 
 ### Extensions
 
-- ``WebSocketExtension``
-- ``WebSocketExtensionBuilder``
-- ``WebSocketExtensionHTTPParameters``
-- ``WebSocketExtensionFactory``
+- ``/HummingbirdWSCore/WebSocketExtension``
+- ``/HummingbirdWSCore/WebSocketExtensionBuilder``
+- ``/HummingbirdWSCore/WebSocketExtensionHTTPParameters``
+- ``/HummingbirdWSCore/WebSocketExtensionFactory``
 
 ## See Also
 

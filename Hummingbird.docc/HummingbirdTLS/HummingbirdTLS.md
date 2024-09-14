@@ -1,5 +1,9 @@
 # ``HummingbirdTLS``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Add TLS support to Hummingbird server.
 
 ## Overview

@@ -1,5 +1,9 @@
 # ``HummingbirdRedis``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Add Redis support to Hummingbird server with RediStack.
 
 ## Overview

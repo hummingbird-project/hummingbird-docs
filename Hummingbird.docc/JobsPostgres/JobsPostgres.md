@@ -1,5 +1,9 @@
 # ``JobsPostgres``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Postgres implementation for Hummingbird jobs framework
 
 ## Overview

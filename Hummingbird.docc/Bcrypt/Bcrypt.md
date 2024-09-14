@@ -1,5 +1,9 @@
 # ``Bcrypt``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Bcrypt encryption
 
 ## Topics

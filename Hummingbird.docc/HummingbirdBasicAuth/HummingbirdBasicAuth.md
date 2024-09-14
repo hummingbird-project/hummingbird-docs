@@ -1,5 +1,9 @@
 # ``HummingbirdBasicAuth``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Basic user/password authentication middleware
 
 ## Topics

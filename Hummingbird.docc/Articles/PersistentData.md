@@ -1,5 +1,9 @@
 # Persistent data
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 How to persist data between requests to your server.
 
 ## Overview

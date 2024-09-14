@@ -1,5 +1,9 @@
 # ``HummingbirdCore``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Swift NIO based HTTP server. 
 
 ## Overview

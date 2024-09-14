@@ -1,5 +1,9 @@
 # Getting Started with Hummingbird
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Create a new project on GitHub or an app locally from a starter template.
 
 ## Overview

@@ -1,5 +1,9 @@
 # Error Handling
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 How to build errors for the server to return.
 
 If a middleware or route handler throws an error the server needs to know how to handle this. If the server does not know how to handle the error then the only thing it can return to the client is a status code of 500 (Internal Server Error). This is not overly informative.

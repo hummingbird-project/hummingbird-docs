@@ -1,5 +1,9 @@
 # Jobs
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Offload work your server would be doing to another server. 
 
 ## Overview

@@ -1,5 +1,9 @@
 # ``HummingbirdFluent``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Integration with Vapor Fluent ORM framework.
 
 ```swift

@@ -1,5 +1,9 @@
 #  Template Inheritance
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Template inheritance is not part of the Mustache spec yet but it is a commonly implemented feature.
 
 ## Overview

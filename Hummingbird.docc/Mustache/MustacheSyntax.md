@@ -1,5 +1,9 @@
 # Mustache Syntax
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Overview of Mustache Syntax
 
 ## Overview

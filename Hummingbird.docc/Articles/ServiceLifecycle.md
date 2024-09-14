@@ -1,5 +1,9 @@
 # Service Lifecycle
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Integration with Swift Service Lifecycle
 
 ## Overview

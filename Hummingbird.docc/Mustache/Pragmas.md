@@ -1,5 +1,9 @@
 # Pragmas/Configuration variables
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Setting template render configuration settings.
 
 ## Overview
