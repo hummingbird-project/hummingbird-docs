@@ -1,5 +1,9 @@
 # ``HummingbirdWSTesting``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Testing framework for WebSockets
 
 ## Overview

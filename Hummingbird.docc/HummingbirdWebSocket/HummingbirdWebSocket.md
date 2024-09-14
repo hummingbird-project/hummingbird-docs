@@ -1,5 +1,9 @@
 # ``HummingbirdWebSocket``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Adds support for upgrading HTTP connections to WebSocket. 
 
 ## Overview

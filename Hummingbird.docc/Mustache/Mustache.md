@@ -1,5 +1,9 @@
 # ``Mustache``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Mustache template engine. 
 
 ## Overview

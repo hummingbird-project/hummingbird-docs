@@ -2,6 +2,7 @@
 
 @Metadata {
     @TechnologyRoot
+    @PageImage(purpose: icon, source: "logo")
 }
 
 Lightweight, flexible, modern server framework written in Swift.

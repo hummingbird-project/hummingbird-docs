@@ -1,5 +1,9 @@
 # ``HummingbirdLambda``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Run Hummingbird inside an AWS Lambda.
 
 ## Usage

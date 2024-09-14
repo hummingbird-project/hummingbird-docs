@@ -1,5 +1,9 @@
 # ``HummingbirdAuth``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Authentication framework and extensions for Hummingbird.
 
 Includes Authenticator middleware setup, bearer and basic authentication extraction from your Request headers. session authentication. Additional modules are available that support ``Bcrypt`` encryption, one time passwords (``OTP``) and include a Basic user/password authentication middleware (``HummingbirdBasicAuth``).

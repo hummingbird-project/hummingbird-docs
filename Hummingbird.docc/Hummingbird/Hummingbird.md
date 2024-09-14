@@ -1,5 +1,9 @@
 # ``Hummingbird``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Lightweight, modern, flexible server framework written in Swift.
 
 Hummingbird is a lightweight, modern, flexible server framework designed to require the minimum number of dependencies.

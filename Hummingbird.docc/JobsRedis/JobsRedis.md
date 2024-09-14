@@ -1,5 +1,9 @@
 # ``JobsRedis``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Redis implementation for Hummingbird jobs framework
 
 ## Overview

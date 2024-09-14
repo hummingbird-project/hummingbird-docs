@@ -1,5 +1,9 @@
 # One Time Passwords
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 A one time password (OTP) valid for only one login session. 
 
 ## Overview

@@ -1,5 +1,9 @@
 # WebSocket Client
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Connecting to WebSocket servers.
 
 A WebSocket connection is only setup after an initial HTTP upgrade request has been sent. ``HummingbirdWSClient/WebSocketClient`` manages the process of sending the initial HTTP request and then the handling of the WebSocket once it has been upgraded.

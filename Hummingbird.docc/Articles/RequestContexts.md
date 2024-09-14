@@ -1,5 +1,9 @@
 # Request Contexts
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Controlling contextual data provided to middleware and route handlers
 
 ## Overview

@@ -1,5 +1,9 @@
 # Migrations
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Managing database structure changes.
 
 ## Overview

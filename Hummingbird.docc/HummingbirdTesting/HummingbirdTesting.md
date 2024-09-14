@@ -1,5 +1,9 @@
 # ``HummingbirdTesting``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Test framework for Hummingbird.
 
 ## Overview

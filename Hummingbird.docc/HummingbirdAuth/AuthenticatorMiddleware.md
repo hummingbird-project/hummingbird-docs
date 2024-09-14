@@ -1,5 +1,9 @@
 # Authenticator Middleware
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Request authentication middleware
 
 ## Overview

@@ -1,5 +1,9 @@
 # ``HummingbirdHTTP2``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Add HTTP2 support to Hummingbird server.
 
 ## Overview

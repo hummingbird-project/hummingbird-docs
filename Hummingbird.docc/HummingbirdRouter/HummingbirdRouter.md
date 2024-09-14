@@ -1,5 +1,9 @@
 # ``HummingbirdRouter``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Alternative result builder based router for Hummingbird. 
 
 ## Overview
@@ -126,3 +130,7 @@ It is best to wrap the `ContextTransform` inside a `RouteGroup` so you are only 
 - ``/HummingbirdRouter/Delete(_:builder:)``
 - ``/HummingbirdRouter/Delete(_:handler:)``
 - ``/HummingbirdRouter/Handle``
+
+## See Also
+
+- ``Hummingbird``

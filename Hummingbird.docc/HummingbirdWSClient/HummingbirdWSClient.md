@@ -1,5 +1,9 @@
 # ``HummingbirdWSClient``
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Adds support for connecting to WebSocket. 
 
 ## Overview

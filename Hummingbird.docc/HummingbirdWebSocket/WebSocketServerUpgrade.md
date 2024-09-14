@@ -1,5 +1,9 @@
 # WebSocket Server Upgrade
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Support for upgrading HTTP1 connections to WebSocket.
 
 ## Overview

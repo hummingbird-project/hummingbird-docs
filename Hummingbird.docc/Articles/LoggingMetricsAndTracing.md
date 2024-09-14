@@ -1,5 +1,9 @@
 # Logging, Metrics and Tracing
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Considered the three pillars of observability, logging, metrics and tracing provide different ways of viewing how your application is working. 
 
 ## Overview

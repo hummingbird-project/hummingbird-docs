@@ -1,5 +1,10 @@
 # Encoding and Decoding
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
+
 Hummingbird uses `Codable` to decode requests and encode responses. 
 
 The request context ``RequestContext`` that is provided alongside your ``/HummingbirdCore/Request`` has two member variables ``RequestContext/requestDecoder`` and ``RequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 

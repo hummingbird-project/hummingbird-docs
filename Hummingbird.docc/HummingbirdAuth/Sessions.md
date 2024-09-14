@@ -1,5 +1,9 @@
 # Sessions
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Session based authentication
 
 Sessions allow you to persist user authentication data between multiple requests to the server. They work by creating a temporary session object that is stored in a key/value store. The key or session id is returned in the response. Subsequent requests can then access the session object by supplying the session id in their request. This object can then be used to authenicate the user. Normally the session id is stored in a cookie.

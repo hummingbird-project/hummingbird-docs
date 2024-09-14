@@ -1,5 +1,9 @@
 # Migrating to Hummingbird v2
 
+@Metadata {
+    @PageImage(purpose: icon, source: "logo")
+}
+
 Migration guide for converting Hummingbird v1 applications to Hummingbird v2
 
 ## Overview
