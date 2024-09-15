@@ -83,6 +83,10 @@
                 @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-14.swift)
             }
             @Step {
+                Update the `buildRouter` take the repository as an argument and pass it to the controller.
+                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-23.swift)
+            }
+            @Step {
                 Back to TodoPostgresRepository.swift to start implementing our repository methods.
                 @Code(name: "Sources/App/Repositories/TodoPostgresRepository.swift", file: todos-postgres-12.swift)
             }
