@@ -13,7 +13,7 @@ Database migrations are a controlled set of incremental changes applied to a dat
 Each migration includs an `apply` method that applies the change and a `revert` method that reverts the change.
 
 ```swift
-struct CreateMyTableMigration: PostgresMigration {
+struct CreateMyTableMigration: DatabaseMigration {
     func apply(connection: PostgresConnection, logger: Logger) async throws {
         try await connection.query(
             """
@@ -39,12 +39,12 @@ As an individual migration can be dependent on the results of a previous migrati
 
 ### Adding migrations
 
-You need to create a ``HummingbirdPostgres/PostgresMigrations`` object to store your migrations in. Only create one of these, otherwise you could confuse your database about what migrations need applied. Adding a migration is as simple as calling `add`.
+You need to create a ``/PostgresMigrations/DatabaseMigrations`` object to store your migrations in. Only create one of these, otherwise you could confuse your database about what migrations need applied. Adding a migration is as simple as calling `add`.
 
 ```swift
 import HummingbirdPostgres
 
-let migrations = PostgresMigrations()
+let migrations = DatabaseMigrations()
 await migrations.add(CreateMyTableMigration())
 ```
 
@@ -65,18 +65,18 @@ You will notice in the code above the parameter `dryRun` is set to true. This is
 ### Reverting migrations
 
 There are a number of situations where a migration maybe reverted. 
-- The user calls ``HummingbirdPostgres/PostgresMigrations/revert(client:groups:logger:dryRun:)``. This will revert all the migrations applied to the database.
-- A user removes a migration from the list. The migration still needs to be registered with the migration system as it needs to know how to revert that migration. This is done with a call to ``HummingbirdPostgres/PostgresMigrations/register(_:)``. When a migration is removed it is reverted and all subsequent migrations will be reverted and then re-applied.
+- The user calls ``/PostgresMigrations/DatabaseMigrations/revert(client:groups:logger:dryRun:)``. This will revert all the migrations applied to the database.
+- A user removes a migration from the list. The migration still needs to be registered with the migration system as it needs to know how to revert that migration. This is done with a call to ``/PostgresMigrations/DatabaseMigrations/register(_:)``. When a migration is removed it is reverted and all subsequent migrations will be reverted and then re-applied.
 - A user changes the order of migrations. This is generally a user error, but if it is intentional then the first migration affected by the order change and all subsequent migrations will be reverted and then re-applied.
 
 ### Migration groups
 
 A migration group is a group of migrations that can be applied to a database independent of all other migrations outside that group. By default all migrations are added to the `.default` migration group. Each group is applied independently to your database. A group allows for a modular piece of code to add additional migrations without affecting the ordering of other migrations and causing deletion of data.
 
-To create a group you need to extend `PostgresMigrationGroup` and add a new static variable for the migration group id.
+To create a group you need to extend `/PostgresMigrations/DatabaseMigrationsGroup` and add a new static variable for the migration group id.
 
 ```swift
-extension PostgresMigrationGroup {
+extension DatabaseMigrationGroup {
     public static var myGroup: Self { .init("my_group") }
 }
 ```
@@ -85,7 +85,7 @@ Then every migration that belongs to that group must set its group member variab
 
 ```swift
 extension CreateMyTableMigration {
-    var group: PostgresMigrationGroup { .myGroup }
+    var group: DatabaseMigrationGroup { .myGroup }
 }
 ```
 
@@ -95,6 +95,6 @@ The persist and job queue drivers that come with HummingbirdPostgres both use gr
 
 ### Reference
 
-- ``HummingbirdPostgres/PostgresMigrations``
-- ``HummingbirdPostgres/PostgresMigration``
-- ``HummingbirdPostgres/PostgresMigrationGroup``
+- ``/PostgresMigrations/DatabaseMigrations``
+- ``/PostgresMigrations/DatabaseMigration``
+- ``/PostgresMigrations/DatabaseMigrationGroup``
