@@ -23,7 +23,7 @@ Defines the requirements for job queue implementation.
 
 ### Jobs
 
-- ``push(_:)``
+- ``push(_:options:)``
 - ``finished(jobId:)``
 - ``failed(jobId:error:)``
 
