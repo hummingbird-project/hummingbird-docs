@@ -22,7 +22,6 @@ Hummingbird Jobs Queue driver using Redis queues.
 
 ## See Also
 
-- ``Hummingbird``
 - ``Jobs``
 - ``JobsPostgres``
-- ``HummingbirdRedis``
+- ``Hummingbird``
