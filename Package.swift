@@ -13,9 +13,9 @@ let package = Package(
             targets: ["HummingbirdDocs"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.0.1"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "2.0.0-rc.3"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "2.0.0-rc.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "2.0.0-rc.2"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "2.0.0-beta.3"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.0.0-beta.4"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-postgres.git", from: "1.0.0-beta.1"),
