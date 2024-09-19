@@ -4,7 +4,7 @@ import PostgresNIO
 extension TodoPostgresRepository {
     /// Get todo.
     func get(id: UUID) async throws -> Todo? { 
-        try await self.client.query("""
+        let stream = try await self.client.query("""
             SELECT "id", "title", "order", "url", "completed" FROM todos WHERE "id" = \(id)
             """, logger: logger
         )
