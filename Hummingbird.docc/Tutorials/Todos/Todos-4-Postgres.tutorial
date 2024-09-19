@@ -83,7 +83,7 @@
                 @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-14.swift)
             }
             @Step {
-                Update the `buildRouter` take the repository as an argument and pass it to the controller.
+                Update `buildRouter(_:)` to take the repository as an argument and pass it to the controller.
                 @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-23.swift)
             }
             @Step {
