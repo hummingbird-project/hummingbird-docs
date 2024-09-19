@@ -6,6 +6,8 @@
 
 How to build errors for the server to return.
 
+## Overview
+
 If a middleware or route handler throws an error the server needs to know how to handle this. If the server does not know how to handle the error then the only thing it can return to the client is a status code of 500 (Internal Server Error). This is not overly informative.
 
 ## HTTPError
@@ -37,9 +39,13 @@ struct MyError: HTTPResponseError {
 
     // required by HTTPResponseError protocol
     let status: HTTPResponseStatus
-    var headers: HTTPHeaders { ["error-code": self.errorCode] }
-    func body(allocator: ByteBufferAllocator) -> ByteBuffer? {
-        return nil
+
+    // required by HTTPResponseError protocol
+    func response(from request: Request, context: some RequestContext) throws -> Response {
+        .init(
+            status: self.status,
+            headers: ["error-code": self.errorCode]
+        )
     }
 }
 ```
