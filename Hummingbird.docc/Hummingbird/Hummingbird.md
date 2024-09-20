@@ -117,19 +117,19 @@ try await app.runService()
 - ``MetricsMiddleware``
 - ``TracingMiddleware``
 
+### File management/middleware
+
+- ``FileMiddleware``
+- ``FileIO``
+- ``FileProvider``
+- ``FileMiddlewareFileAttributes``
+- ``LocalFileSystem``
+
 ### Storage
 
 - ``PersistDriver``
 - ``MemoryPersistDriver``
 - ``PersistError``
-
-### File management/middleware
-
-- ``FileIO``
-- ``FileMiddleware``
-- ``FileProvider``
-- ``FileMiddlewareFileAttributes``
-- ``LocalFileSystem``
 
 ### Miscellaneous
 
