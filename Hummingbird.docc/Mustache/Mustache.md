@@ -32,7 +32,7 @@ Mustache supports all standard Mustache tags and is fully compliant with the Mus
 
 ## Topics
 
-### Additional Features
+### Features
 
 - <doc:Lambdas>
 - <doc:Pragmas>

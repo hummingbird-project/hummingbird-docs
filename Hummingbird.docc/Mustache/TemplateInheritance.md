@@ -1,14 +1,14 @@
-#  Template Inheritance
+#  Template Inheritance and parents
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")
 }
 
-Template inheritance is not part of the Mustache spec yet but it is a commonly implemented feature.
+Template inheritance and parents is an optional part of the Mustache specification.
 
 ## Overview
 
-Template inheritance is not part of the Mustache spec yet but it is a commonly implemented feature. Template inheritance allows you to override elements of an included partial. It allows you to create a base page template and override elements of it with your page content. A partial that includes overriding elements is indicated with a `{{<partial}}`. Note this is different from the normal partial reference which uses `>`. This is a section tag so needs a ending tag as well. Inside the section the tagged sections to override are added using the syntax `{{$tag}}contents{{/tag}}`. 
+Template inheritance allows you to override elements of an included partial. It allows you to create a base page template, or parent as it is called in the mustache manual, and override elements of it with your page content. A parent that includes overriding elements is indicated with a `{{<parent}}`. Note this is different from the normal partial reference which uses `>`. This is a section tag so needs a ending tag as well. Inside the section the tagged sections to override are added using the syntax `{{$tag}}contents{{/tag}}`.
 
 If your template is as follows
 ```
