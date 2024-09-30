@@ -8,7 +8,7 @@ Request authentication middleware
 
 ## Overview
 
-Authenticators are middleware that are used to check if a request is authenticated and then pass authentication data to functions further down the callstack via the request context. Authenticators should conform to protocol ``HummingbirdAuth/AuthenticatorMiddleware``. This requires you implement the function ``/HummingbirdAuth/AuthenticatorMiddleware/authenticate(request:context:)`` that returns a value conforming to ``HummingbirdAuth/Authenticatable``.
+Authenticators are middleware that are used to check if a request is authenticated and then pass authentication data to functions further down the callstack via the request context. Authenticators should conform to protocol ``HummingbirdAuth/AuthenticatorMiddleware``. This requires you implement the function ``HummingbirdAuth/AuthenticatorMiddleware/authenticate(request:context:)`` that returns a value conforming to `Sendable`.
 
 To use an authenticator it is required that your request context conform to ``HummingbirdAuth/AuthRequestContext``. When you return valid authentication data from your `authenticate` function it is recorded in the ``HummingbirdAuth/AuthRequestContext/auth`` member of your request context.
 
@@ -70,6 +70,5 @@ Or you can use ``HummingbirdAuth/LoginCache/require(_:)`` to access the authenti
 ### Reference
 
 - ``HummingbirdAuth/AuthenticatorMiddleware``
-- ``HummingbirdAuth/Authenticatable``
 - ``HummingbirdAuth/IsAuthenticatedMiddleware``
 - ``HummingbirdAuth/AuthRequestContext``

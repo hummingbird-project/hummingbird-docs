@@ -24,7 +24,6 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 ### Authenticators
 
 - ``AuthenticatorMiddleware``
-- ``Authenticatable``
 - ``IsAuthenticatedMiddleware``
 
 ### Header Authentication
