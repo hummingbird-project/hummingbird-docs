@@ -7,7 +7,7 @@ struct TodoController<Repository: TodoRepository> {
 
     // return todo endpoints
     var endpoints: RouteCollection<AppRequestContext> {
-        RouteCollection(context: AppRequestContext.self)
+        return RouteCollection(context: AppRequestContext.self)
             .get(":id", use: get)
     }
 
