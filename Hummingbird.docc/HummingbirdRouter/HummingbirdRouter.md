@@ -100,6 +100,26 @@ let router = RouterBuilder(context: BasicRouterRequestContext.self) {
 ```
 It is best to wrap the `ContextTransform` inside a `RouteGroup` so you are only performing the transform when necessary.
 
+### Controllers
+
+It is common practice to group routes into controller types that perform operations on a common type eg user management, CRUD operations for an asset type. By conforming your controller type to ``HummingbirdRouter/RouterController`` you can add the contained routes directly into your router eg
+
+```swift
+struct TodoController<Context: RouterRequestContext>: RouterController {
+    var body: some RouterMiddleware<Context> {
+        RouteGroup("todos") {
+            Put(handler: self.put)
+            Get(handler: self.get)
+            Patch(handler: self.update)
+            Delete(handler: self.delete)
+        }
+    }
+}
+let router = RouterBuilder(context: BasicRouterRequestContext.self) {
+    TodoController()
+}
+```
+
 ## Topics
 
 ### RouterBuilder
