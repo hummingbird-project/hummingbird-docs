@@ -8,19 +8,43 @@ Session based authentication
 
 Sessions allow you to persist user authentication data between multiple requests to the server. They work by creating a temporary session object that is stored in a key/value store. The key or session id is returned in the response. Subsequent requests can then access the session object by supplying the session id in their request. This object can then be used to authenicate the user. Normally the session id is stored in a cookie.
 
-## Setup
+## SessionMiddleware
 
-Before you can use sessions you need a ``HummingbirdAuth/SessionStorage`` to store your session data and a persist key value store. You can find out more about the persist framework here <doc: PersistentData>. In the example below we are using an in memory key value store, but ``HummingbirdFluent/FluentPersistDriver`` and ``HummingbirdRedis/RedisPersistDriver`` provide solutions that stores the session data in a database or redis database respectively.
+The ``HummingbirdAuth/SessionMiddleware`` is used to extract and save session state from the RequestContext. To use it your `RequestContext` must conform to ``HummingbirdAuth/SessionRequestContext``. Adding the `SessionMiddleware` to your middleware stack will mean any middleware or routes after will have read/write access to session state via the member ``HummingbirdAuth/SessionRequestContext/sessions``.
+
+The `SessionMiddleware` needs a persist key value store to save its state. You can find out more about the persist framework here <doc: PersistentData>. In the example below we are using an in memory key value store, but ``HummingbirdFluent/FluentPersistDriver`` and ``HummingbirdRedis/RedisPersistDriver`` provide solutions that stores the session data in a database or redis database respectively.
 
 ```swift
-let persist = MemoryPersistDriver()
-let sessions = SessionStorage(persist)
+router.add(
+    middleware: SessionMiddleware(
+        storage: MemoryPersistDriver()
+    )
+)
 ```
 
-By default sessions store the session id in a `SESSION_ID` cookie. At initialisation it is possible to set it up to use a different cookie.
+By default sessions store the session id in a `SESSION_ID` cookie and the default session expiration is 12 hours. At initialization it is possible to set these up differently. 
 
 ```swift
-app.addSessions(using: .memory, sessionID: .cookie("MY_SESSION_ID"))
+router.add(
+    middleware: SessionMiddleware(
+        storage: MemoryPersistDriver(),
+        sessionCookie: "MY_SESSION_ID",
+        defaultSessionExpiration: .seconds(60 * 60)
+    )
+)
+```
+
+## SessionRequestContext
+
+The ``HummingbirdAuth/SessionRequestContext`` protocol requires you include a member `sessions`. This is a ``HummingbirdAuth/SessionContext`` type which includes a generic parameter defining what your session object is.
+
+```swift
+struct MyRequestContext: SessionRequestContext {
+    /// core context
+    public var coreContext: CoreRequestContextStorage
+    /// session context with UUID as the session object
+    public let sessions: SessionContext<UUID>
+}
 ```
 
 ## Saving a session
@@ -28,50 +52,38 @@ app.addSessions(using: .memory, sessionID: .cookie("MY_SESSION_ID"))
 Once a user is authenticated you need to save a session for the user. 
 
 ```swift
-func login(_ request: Request) async throws -> HTTPResponseStatus {
+func login(_ request: Request, context: MyRequestContext) async throws -> HTTPResponseStatus {
     // get authenticated user
-    let user = try context.auth.require(User.self)
-    guard let userId = user.id else { return request.failure(.unauthorized) }
+    let user = try context.requireIdentity()
     // create session lasting 1 hour
-    let cookie = try await request.session.save(session: userId, expiresIn: .minutes(60))
-    let response = Response(status: .ok)
-    response.setCookie(cookie)
-    return response
+    context.sessions.setSession(user.id, expiresIn: .seconds(600))
+    return .ok
 }
 ```
 
-In this example the `userId` is saved with the session id. When you call `session.save` it returns a cookie to be returned in your response.
+In this example `user.id` is saved with the session id. The data we save in `setSession` is saved to storage when we return to the `SessionMiddleware`. If your route throws an error then the session data is not updated.
 
 ## Sessions Authentication
 
-To authenticate a user using a session id you need to add a session authenticator to the application. This extracts the session id from the request, gets the associated value for the session id from the key/value store and then converts this associated value into the authenticated user. Most of this work is done for you, but the conversion from session object to user most be provided by the application. To do this create an authenticator middleware that conforms to  ``HummingbirdAuth/SessionMiddleware`` and implement the `getValue` function and provide a reference to a ``HummingbirdAuth/SessionStorage`` object. 
+To authenticate a user using a session id you need to add a ``HummingbirdAuth/SessionAuthenticator`` middleware to the router. This uses the session stored in the request context and converts it into the authenticated user using the closure or ``HummingbirdAuth/UserSessionRepository`` provided. The session authenticator requires your `RequestContext` conforms to both `SessionRequestContext` and `AuthRequestContext`.
 
 ```swift
-struct MySessionAuthenticator<Context: AuthRequestContext>: SessionMiddleware {
-    /// requirement, where to get session data from
-    let sessionStorage: SessionStorage
-    func getValue(from session: UUID, request: Request, context: Context) async throws -> User? {
-        return try await getUserFromDatabase(id: session)
+router.addMiddleware {
+    SessionMiddleware(storage: MemoryPersistDriver())
+    SessionAuthenticator { session, context in
+        try await getUser(from: session)
     }
 }
+router.get("session") { request, context -> HTTPResponse.Status in
+    _ = try context.requireIdentity()
+    return .ok
+}
 ```
-
-Add the authenticator as middleware to the routes you want to enable session authentication for. As with all authenticators your request context will need to conform to ``HummingbirdAuth/AuthRequestContext``.
-
-```swift
-router.group()
-    .add(middleware: MySessionAuthenticator())
-    .get("session") { request, context -> HTTPResponse.Status in
-        _ = try context.auth.require(User.self)
-        return .ok
-    }
-```
-
-Your route will be able to access the authenticated user via `context.auth.require` or `context.auth.get`.
 
 ## Topics
 
 ### Reference
 
-- ``HummingbirdAuth/SessionStorage``
+- ``HummingbirdAuth/SessionRequestContext``
+- ``HummingbirdAuth/SessionAuthenticator``
 - ``HummingbirdAuth/SessionMiddleware``
