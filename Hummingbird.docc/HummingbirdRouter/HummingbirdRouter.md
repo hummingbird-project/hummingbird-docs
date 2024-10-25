@@ -73,13 +73,13 @@ RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ## RequestContext transformation
 
-You can transform the ``/Hummingbird/RequestContext`` to a different type for a group of routes using ``/HummingbirdRouter/ContextTransform``. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
+You can transform the ``/Hummingbird/RequestContext`` to a different type for a group of routes using ``/HummingbirdRouter/RouteGroup/init(_:context:builder:)``. When you define the `RequestContext` type you are converting to you need to define how you initialize it from the original `RequestContext`.
 
 ```swift
-struct MyNewRequestContext: RequestContext {
-    typealias Source = BasicRouterRequestContext
-    init(source: Source) {
-        self.coreContext = .init(source: source)
+struct MyNewRequestContext: ChildRequestContext {
+    typealias ParentContext = BasicRouterRequestContext
+    init(context: ParentContext) {
+        self.coreContext = context.coreContext
         ...
     }
 }
@@ -88,17 +88,14 @@ Once you have defined how to perform the transform from your original `RequestCo
 
 ```swift
 let router = RouterBuilder(context: BasicRouterRequestContext.self) {
-    RouteGroup("user") {
-        ContextTransform(to: MyNewRequestContext.self) {
-            BasicAuthenticationMiddleware()
-            Route(.post, "login") { request, context in
-                ...
-            }
+    RouteGroup("user", context: MyNewRequestContext.self) {
+        BasicAuthenticationMiddleware()
+        Route(.post, "login") { request, context in
+            ...
         }
     }
 }
 ```
-It is best to wrap the `ContextTransform` inside a `RouteGroup` so you are only performing the transform when necessary.
 
 ### Controllers
 

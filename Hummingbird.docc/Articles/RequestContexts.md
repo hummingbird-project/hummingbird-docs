@@ -124,11 +124,11 @@ The most obvious example of this is passing user authentication information forw
 public struct MyRequestContext: AuthRequestContext {
     public var coreContext: CoreRequestContextStorage
     // required by AuthRequestContext
-    public var auth: LoginCache
+    public var identity: User?
 
     public init(source: Source) {
         self.coreContext = .init(source: source)
-        self.auth = .init()
+        self.identity = nil
     }
 }
 ```

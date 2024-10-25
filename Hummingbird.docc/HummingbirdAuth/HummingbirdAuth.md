@@ -19,7 +19,6 @@ Includes Authenticator middleware setup, bearer and basic authentication extract
 
 - ``BasicAuthRequestContext``
 - ``AuthRequestContext``
-- ``LoginCache``
 
 ### Authenticators
 
