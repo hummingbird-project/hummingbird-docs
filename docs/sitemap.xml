@@ -61,6 +61,11 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/throwingcontexttransform/</loc>
+    <lastmod>2024-10-25</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/route/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
@@ -151,7 +156,12 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/authenticatable/</loc>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessioncontext/</loc>
+    <lastmod>2024-10-25</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/basicsessionrequestcontext/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
   </url>
@@ -196,7 +206,7 @@
     <priority>.40</priority>
   </url>
   <url>
-    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/logincache/</loc>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/closureauthenticator/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
   </url>
@@ -211,12 +221,22 @@
     <priority>.40</priority>
   </url>
   <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessiondata/</loc>
+    <lastmod>2024-10-25</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/isauthenticatedmiddleware/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/usersessionclosurerepository/</loc>
+    <lastmod>2024-10-25</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessionrequestcontext/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
   </url>
@@ -487,6 +507,11 @@
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routermethods/</loc>
+    <lastmod>2024-10-25</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/childrequestcontext/</loc>
     <lastmod>2024-10-25</lastmod>
     <priority>.40</priority>
   </url>
