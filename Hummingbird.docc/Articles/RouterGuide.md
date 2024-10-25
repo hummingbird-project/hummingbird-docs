@@ -144,7 +144,7 @@ app.router.group("/todos")
 
 ### RequestContext transformation
 
-The `RequestContext` can be transformed for the routes in a route group. The `RequestContext` you are converting to needs to confrom to ``ChildRequestContext``. This requires a parent context ie the `RequestContext` you are converting from and an ``ChildRequestContext/init(context:)`` function to perform the conversion.
+The `RequestContext` can be transformed for the routes in a route group. The `RequestContext` you are converting to needs to conform to ``ChildRequestContext``. This requires a parent context ie the `RequestContext` you are converting from and a ``ChildRequestContext/init(context:)`` function to perform the conversion.
 
 ```swift
 struct MyNewRequestContext: ChildRequestContext {
