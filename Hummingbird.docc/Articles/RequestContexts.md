@@ -128,7 +128,7 @@ public struct MyRequestContext: AuthRequestContext {
 
     public init(source: Source) {
         self.coreContext = .init(source: source)
-        self.auth = .init()
+        self.identity = nil
     }
 }
 ```
