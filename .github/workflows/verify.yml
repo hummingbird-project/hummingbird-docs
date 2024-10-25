@@ -8,6 +8,7 @@ on:
 env:
   HUMMINGBIRD_VERSION: "2.0"
   DEPLOY_ROOT_FOLDER: false
+  DOCC_HTML_DIR: "./scripts/swift-docc-render-artifact/dist"
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        submodules: recursive
     - name: Install rsync 📚
       run: |
         apt-get update && apt-get install -y rsync bc
