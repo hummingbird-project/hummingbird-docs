@@ -13,6 +13,7 @@ Working with Postgres databases.
 ### Articles
 
 - <doc:PersistentData>
+- <doc:MigrationsGuide>
 
 ### Persist
 
