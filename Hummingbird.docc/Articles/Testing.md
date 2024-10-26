@@ -35,8 +35,8 @@ func testApplicationReturnsCorrectText() async throw {
             headers: [:],  // default value
             body: nil      // default value
         ) { response in
-            XCTAssertEqual(response.status, .ok)
-            XCTAssertEqual(String(buffer: response.body), "Hello john!")
+            #expect(response.status == .ok)
+            #expect(String(buffer: response.body) == "Hello john!")
         }
     }
 }
@@ -63,6 +63,7 @@ The AsyncHTTPClient framework is the same as the live framework except it uses [
 The function ``HummingbirdTesting/TestClientProtocol/execute(uri:method:headers:body:testCallback:)`` sends a request to your application and provides the response in a closure. If you return something from the closure then this is returned by `execute`. In the following example we are testing whether a session cookie works.
 
 ```swift
+@Test
 func testApplicationReturnsCorrectText() async throw {
     try await app.test(.router) { client in
         // test login, returns a set-cookie header and extract
@@ -71,8 +72,8 @@ func testApplicationReturnsCorrectText() async throw {
             method: .post, 
             headers: [.authorization: "Basic blahblah"]
         ) { response in
-            XCTAssertEqual(response.status, .ok)
-            return try XCTUnwrap(response.headers[.setCookie])
+            #expect(response.status == .ok)
+            return try #require(response.headers[.setCookie])
         }
         // check session cookie works
         try await client.execute(
@@ -80,7 +81,7 @@ func testApplicationReturnsCorrectText() async throw {
             method: .get, 
             headers: [.cookie: cookie]
         ) { response in
-            XCTAssertEqual(response.status, .ok)
+            #expect(response.status == .ok)
         }
     }
 }

@@ -8,7 +8,7 @@ Test framework for Hummingbird.
 
 ## Overview
 
-Provides methods for easy setup of unit tests using XCTest framework. 
+Provides methods for easy setup of unit tests using either the XCTest or Swift Testing frameworks. 
 
 ### Usage
 
@@ -22,8 +22,8 @@ router.get("test") { _ in
 let app = Application(router: router)
 try await app.test(.router) { client in
     try await client.execute(uri: "test", method: .GET) { response in
-        XCTAssertEqual(response.status, .ok)
-        XCTAssertEqual(String(buffer: response.body), "testing")
+        #expect(response.status == .ok)
+        #expect(String(buffer: response.body) == "testing")
     }
 }
 ```
