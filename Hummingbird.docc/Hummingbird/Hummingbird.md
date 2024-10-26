@@ -88,8 +88,9 @@ try await app.runService()
 - ``RequestContextSource``
 - ``ApplicationRequestContextSource``
 - ``BasicRequestContext``
-- ``RemoteAddressRequestContext``
+- ``ChildRequestContext``
 - ``CoreRequestContextStorage``
+- ``RemoteAddressRequestContext``
 
 ### Encoding/Decoding
 

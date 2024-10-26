@@ -6,13 +6,13 @@
 
 Session based authentication
 
-Sessions allow you to persist user authentication data between multiple requests to the server. They work by creating a temporary session object that is stored in a key/value store. The key or session id is returned in the response. Subsequent requests can then access the session object by supplying the session id in their request. This object can then be used to authenicate the user. Normally the session id is stored in a cookie.
+Sessions allow you to persist state eg user authentication status between multiple requests to the server. They work by creating a temporary session object that is stored in a key/value store. The key or session id is returned in the response. Subsequent requests can then access the session object by supplying the session id in their request. This object can then be used to authenicate the user. Normally the session id is stored in a cookie.
 
 ## SessionMiddleware
 
-The ``HummingbirdAuth/SessionMiddleware`` is used to extract and save session state from the RequestContext. To use it your `RequestContext` must conform to ``HummingbirdAuth/SessionRequestContext``. Adding the `SessionMiddleware` to your middleware stack will mean any middleware or routes after will have read/write access to session state via the member ``HummingbirdAuth/SessionRequestContext/sessions``.
+The ``HummingbirdAuth/SessionMiddleware`` is used to extract and save session state from the RequestContext. To use it, your `RequestContext` must conform to ``HummingbirdAuth/SessionRequestContext``. Adding the `SessionMiddleware` to your middleware stack will mean any middleware or routes after will have read/write access to session state via the member ``HummingbirdAuth/SessionRequestContext/sessions``.
 
-The `SessionMiddleware` needs a persist key value store to save its state. You can find out more about the persist framework here <doc: PersistentData>. In the example below we are using an in memory key value store, but ``HummingbirdFluent/FluentPersistDriver`` and ``HummingbirdRedis/RedisPersistDriver`` provide solutions that stores the session data in a database or redis database respectively.
+The `SessionMiddleware` needs a persist key value store to save its state. You can find out more about the persist framework here <doc:PersistentData>. In the example below we are using an in memory key value store, but ``HummingbirdFluent/FluentPersistDriver`` and ``HummingbirdRedis/RedisPersistDriver`` provide solutions that stores the session data in a database or redis database respectively.
 
 ```swift
 router.add(
@@ -36,7 +36,7 @@ router.add(
 
 ## SessionRequestContext
 
-The ``HummingbirdAuth/SessionRequestContext`` protocol requires you include a member `sessions`. This is a ``HummingbirdAuth/SessionContext`` type which includes a generic parameter defining what your session object is.
+The ``HummingbirdAuth/SessionRequestContext`` protocol requires you include a member `sessions`. This is a ``HummingbirdAuth/SessionContext`` type which holds the session data for the current request and includes a generic parameter defining what type this session data is.
 
 ```swift
 struct MyRequestContext: SessionRequestContext {
