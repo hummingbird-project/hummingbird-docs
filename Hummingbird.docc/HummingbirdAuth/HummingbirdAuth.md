@@ -23,6 +23,7 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 ### Authenticators
 
 - ``AuthenticatorMiddleware``
+- ``ClosureAuthenticator``
 - ``IsAuthenticatedMiddleware``
 
 ### Header Authentication
