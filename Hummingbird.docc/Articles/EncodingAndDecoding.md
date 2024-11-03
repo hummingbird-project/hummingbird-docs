@@ -52,7 +52,7 @@ struct User: Decodable {
     let firstName: String
     let surname: String
 }
-app.router.post("user") { request, context -> HTTPResponse.Status in
+router.post("user") { request, context -> HTTPResponse.Status in
     // decode user from request
     let user = try await request.decode(as: User.self, context: context)
     // create user and if ok return `.ok` status
@@ -69,7 +69,7 @@ To have an object encoded in the response we have to conform it to `ResponseEnco
 ```swift
 extension User: ResponseEncodable {}
 
-app.router.get("user") { request -> User in
+router.get("user") { request, _ -> User in
     let user = User(email: "js@email.com", name: "John Smith")
     return user
 }

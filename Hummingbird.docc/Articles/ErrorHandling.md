@@ -15,7 +15,7 @@ If a middleware or route handler throws an error the server needs to know how to
 Hummingbird uses the Error object ``Hummingbird/HTTPError`` throughout its codebase. The server recognises this and can generate a more informative response for the client from it. The error includes the status code that should be returned and a response message if needed. For example 
 
 ```swift
-app.get("user") { request -> User in
+router.get("user") { request, context -> User in
     guard let userId = request.uri.queryParameters.get("id", as: Int.self) else {
         throw HTTPError(.badRequest, message: "Invalid user id")
     }

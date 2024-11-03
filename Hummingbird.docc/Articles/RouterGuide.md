@@ -24,7 +24,7 @@ There are shortcut functions for the most common HTTP methods. The above can be 
 
 ```swift
 let router = Router()
-app.router.get("/hello") { request, context in
+router.get("/hello") { request, context in
     return "Hello"
 }
 ```
@@ -56,7 +56,7 @@ You can use wildcards to match sections of a path component.
 A single `*` will skip one path component
 
 ```swift
-app.router.get("/files/*") { request, context in
+router.get("/files/*") { request, context in
     return request.uri.description
 }
 ```
@@ -69,7 +69,7 @@ GET /files/test2
 A `*` at the start of a route component will match all path components with the same suffix.
 
 ```swift
-app.router.get("/files/*.jpg") { request, context in
+router.get("/files/*.jpg") { request, context in
     return request.uri.description
 }
 ```
@@ -82,7 +82,7 @@ GET /files/test2.jpg
 A `*` at the end of a route component will match all path components with the same prefix.
 
 ```swift
-app.router.get("/files/image.*") { request, context in
+router.get("/files/image.*") { request, context in
     return request.uri.description
 }
 ```
@@ -95,7 +95,7 @@ GET /files/image.png
 A `**` will match and capture all remaining path components.
 
 ```swift
-app.router.get("/files/**") { request, context in
+router.get("/files/**") { request, context in
     // return catchAll captured string
     return context.parameters.getCatchAll().joined(separator: "/")
 }
@@ -111,7 +111,7 @@ GET /files/folder/image.png returns "folder/image.png" in the response body
 You can extract parameters out of the URI by prefixing the path with a colon. This indicates that this path section is a parameter. The parameter name is the string following the colon. You can get access to the URI extracted parameters from the context. This example extracts an id from the URI and uses it to return a specific user. so "/user/56" will return user with id 56. 
 
 ```swift
-app.router.get("/user/:id") { request, context in
+router.get("/user/:id") { request, context in
     let id = context.parameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
     return getUser(id: id)
 }
@@ -121,7 +121,7 @@ In the example above if I fail to access the parameter as an `Int` then I throw 
 The parameter name in your route can also be of the form `{id}`, similar to OpenAPI specifications. With this form you can also extract parameter values from the URI that are prefixes or suffixes of a path component.
 
 ```swift
-app.router.get("/files/{image}.jpg") { request, context in
+router.get("/files/{image}.jpg") { request, context in
     let imageName = context.parameters.get("image") else { throw HTTPError(.badRequest) }
     return getImage(image: imageName)
 }
@@ -134,7 +134,7 @@ Routes can be grouped together in a `RouterGroup`.  These allow for you to prefi
 
 ```swift
 let app = Application()
-app.router.group("/todos")
+router.group("/todos")
     .put(use: createTodo)
     .get(use: listTodos)
     .get("{id}", getTodo)
@@ -159,7 +159,7 @@ Once you have defined how to perform the transform from your original `RequestCo
 
 ```swift
 let app = Application(context: MyRequestContext.self)
-app.router.group("/todos", context: MyNewRequestContext.self)
+router.group("/todos", context: MyNewRequestContext.self)
     .put(use: createTodo)
     .get(use: listTodos)
 ```
@@ -231,7 +231,7 @@ The standard way to provide a custom response from a route handler is to return 
 Instead you can return what is called a `EditedResponse`. This includes a type that can generate a response on its own via the `ResponseGenerator` protocol and includes additional edits to the response.
 
 ```swift
-application.router.post("test") { request -> EditedResponse in
+router.post("test") { request, _ -> EditedResponse in
     return .init(
         status: .accepted,
         headers: [.contentType: "application/json"],
