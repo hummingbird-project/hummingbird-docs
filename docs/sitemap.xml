@@ -2,1297 +2,1302 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscompression/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/postgresmigrations/databasemigrations/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/postgresmigrations/databasemigrationerror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/postgresmigrations/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/postgresmigrations/databasemigration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/postgresmigrations/databasemigrationgroup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/get(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/contexttransform/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/post(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/patch(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routercontroller/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/basicrouterrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/throwingcontexttransform/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/route/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/delete(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routebuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/post(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routerbuildercontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/put(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/head(_%3Abuilder%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/handle/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/delete(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/get(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routegroup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/patch(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routerbuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/head(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routerbuilderoptions/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/put(_%3Ahandler%3A)/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdrouter/routerrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessioncontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/basicsessionrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessionauthenticator/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/authrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/basicauthrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/usersessionrepository/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessionstorage/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessionmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/basicauthentication/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/closureauthenticator/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/authenticatormiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/bearerauthentication/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessiondata/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/isauthenticatedmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/usersessionclosurerepository/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/sessionrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdauth/userrepositorycontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdfluent/fluent/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdfluent/fluentpersistdriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdfluent/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdfluent/fluentmigrations/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdredis/redisconnectionpoolservice/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdredis/redisconfiguration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdredis/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdredis/redispersistdriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/userpasswordclosurerepository/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/userpasswordrepository/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/bcryptpasswordverifier/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/passwordauthenticatable/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/basicauthenticator/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdbasicauth/passwordhashverifier/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtls/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtls/tlschannel/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/urlencodedformencoder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/httpresponder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/servicelifecycle/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/loggingmetricsandtracing/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/callbackresponder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/fileprovider/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/basicrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responsegenerator/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/cookies/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/metricsmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/errorhandling/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/onetimepasswords/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/tracingmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/fileio/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/lambdas/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestcontextsource/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/sessions/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/mustachesyntax/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/filemiddlewarefileattributes/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/gettingstarted/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/persistdriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/logrequestsmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/application/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/persistentdata/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/initializablefromsource/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/testing/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/urlencodedformdecoder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/environment/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/corsmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/memorypersistdriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/localfilesystem/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/cookie/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responseencoder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/pragmas/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routermethods/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/childrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/applicationconfiguration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/router/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routerpath/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/httpresponderbuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/editedresponse/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/httperror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responsecodable/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/responseencodable/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routermiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/authenticatormiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/parameters/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/httpresponseerror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/migratingtov2/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/corerequestcontextstorage/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/middlewarefixedtypebuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routeroptions/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestdecoder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/middlewareguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/mediatype/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestid/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/transforms/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routerguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/applicationprotocol/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routerbuilderguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/migrationsguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routergroup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/websocketserverupgrade/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/jobsguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/templateinheritance/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/cachecontrol/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/websocketclientguide/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routecollection/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/applicationrequestcontextsource/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/requestcontexts/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/middlewareprotocol/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/middlewaregroup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/encodinganddecoding/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/routerresponder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/persisterror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/remoteaddressrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/filemiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/endpointpath/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbird/eventloopgroupprovider/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testresponse/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testclient/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testhttpscheme/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testclientprotocol/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdtesting/testingsetup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketclientconfiguration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketclient/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/websocketclienterror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwsclient/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdhttp2/http2upgradechannel/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdhttp2/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/bcrypt/bcrypt/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/bcrypt/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionhttpparameters/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketoutboundwriter/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionfactory/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketinboundmessagestream/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/autopingsetup/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketdatahandler/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensionbuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketmessage/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketcloseframe/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextensioncontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketextension/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketinboundstream/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwscore/websocketdataframe/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobspostgres/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobspostgres/postgresjobqueue/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdpostgres/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdpostgres/postgrespersistdriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/index/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websockethandlerreference/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/basicwebsocketrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/shouldupgraderesult/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketrequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/http1websocketupgradechannel/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketupgrademiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketserverconfiguration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/routershouldupgrade/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwebsocket/websocketroutercontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachecustomrenderable/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachetransformable/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachetemplate/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachecontenttypes/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachelibrary/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachelambda/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachesequence/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustachecontenttype/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustacheparsercontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/mustache/mustacheparent/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/responsewriter/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/flatdictionary/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/httpserverbuilder/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/responsebodywriter/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/requestbody/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/response/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/http1channel/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/bindaddress/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/maximumavailableconnections/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/serverchildchannelvalue/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/server/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/httpusereventhandler/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/serverchildchannel/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/request/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
+    <priority>.40</priority>
+  </url>
+  <url>
+    <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/nioasyncchannelrequestbody/</loc>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/responsebody/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/availableconnectionschannelhandler/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/uri/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/httpchannelhandler/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/serverconfiguration/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcore/availableconnectionsdelegate/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirddocs/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirddocs/hummingbird_docs/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/lambdafunction/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/lambdarequestcontextsource/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/apigatewayv2lambdafunction/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/basiclambdarequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/lambdarequestcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambda/apigatewaylambdafunction/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdwstesting/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambdatesting/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambdatesting/lambdatestableevent/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdlambdatesting/lambdatestclient/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/otp/otphashfunction/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/otp/hotp/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/otp/totp/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/otp/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobqueueerror/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobdefinition/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/joboptions/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobqueueoptions/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobidentifier/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobparameters/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobcontext/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobschedule/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/schedule/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/memoryqueue/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/queuedjob/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobqueuedriver/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobs/jobqueue/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobsredis/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/jobsredis/redisjobqueue/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcompression/responsecompressionmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcompression/requestdecompressionmiddleware/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.40</priority>
   </url>
   <url>
     <loc>https://docs.hummingbird.codes/2.0/documentation/hummingbirdcompression/</loc>
-    <lastmod>2024-11-04</lastmod>
+    <lastmod>2024-11-15</lastmod>
     <priority>.80</priority>
   </url>
 </urlset>
