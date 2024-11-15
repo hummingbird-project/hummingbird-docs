@@ -112,7 +112,7 @@ wsRouter.ws("/ws") { inbound, outbound, context in
 
 ### WebSocket Context
 
-The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In most cases the context only holds a `Logger` for logging output and a `ByteBufferAllocator` if you need to allocate `ByteBuffers`. 
+The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In most cases the context only holds a `Logger` for logging output. 
 
 But if the WebSocket was setup with a router, then the context also includes the ``/HummingbirdCore/Request`` that initiated the WebSocket upgrade and the ``/Hummingbird/RequestContext`` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a named WebSocket to a connection manager
 
