@@ -55,6 +55,7 @@ if test "$BUILD_SYMBOLS" == 1; then
     cp $SG_FOLDER/Mustache* $HB_SG_FOLDER
     cp $SG_FOLDER/Jobs* $HB_SG_FOLDER
     cp $SG_FOLDER/PostgresMigrations* $HB_SG_FOLDER
+    cp $SG_FOLDER/WS* $HB_SG_FOLDER
     #rm $HB_SG_FOLDER/*@*
 fi
 

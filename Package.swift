@@ -24,7 +24,8 @@ let package = Package(
         .package(url: "https://github.com/hummingbird-project/swift-mustache.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-postgres.git", from: "0.5.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", from: "2.0.0-beta.4"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "2.0.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", branch: "split-ws-client"),
+        .package(url: "https://github.com/hummingbird-project/swift-websocket.git", branch: "utf8-validation"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
@@ -53,8 +54,8 @@ let package = Package(
                 .product(name: "PostgresMigrations", package: "hummingbird-postgres"),
                 .product(name: "HummingbirdRedis", package: "hummingbird-redis"),
                 .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
-                .product(name: "HummingbirdWSClient", package: "hummingbird-websocket"),
-                .product(name: "HummingbirdWSCompression", package: "hummingbird-websocket"),
+                .product(name: "WSClient", package: "swift-websocket"),
+                .product(name: "WSCompression", package: "swift-websocket"),
                 .product(name: "HummingbirdWSTesting", package: "hummingbird-websocket"),
             ]),
     ]

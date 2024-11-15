@@ -6,11 +6,11 @@
 
 Connecting to WebSocket servers.
 
-A WebSocket connection is only setup after an initial HTTP upgrade request has been sent. ``HummingbirdWSClient/WebSocketClient`` manages the process of sending the initial HTTP request and then the handling of the WebSocket once it has been upgraded.
+A WebSocket connection is only setup after an initial HTTP upgrade request has been sent. ``WSClient/WebSocketClient`` manages the process of sending the initial HTTP request and then the handling of the WebSocket once it has been upgraded.
 
 ## Setup
 
-A WebSocket client is created with the server URL, a closure to handle the connection and optional configuration values. To connect call ``HummingbirdWSClient/WebSocketClient/run()``. This will exit once the WebSocket connection has closed.
+A WebSocket client is created with the server URL, a closure to handle the connection and optional configuration values. To connect call ``WSClient/WebSocketClient/run()``. This will exit once the WebSocket connection has closed.
 
 ```swift
 let ws = WebSocketClient(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
@@ -43,4 +43,4 @@ More details on the WebSocket handler can be found in the <doc:WebSocketServerUp
 
 ## Reference
 
-- ``HummingbirdWSClient/WebSocketClient``
+- ``WSClient/WebSocketClient``
