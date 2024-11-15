@@ -4,7 +4,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Adds support for connecting to WebSocket server. 
+Support for connecting to WebSocket server. 
 
 ## Overview
 

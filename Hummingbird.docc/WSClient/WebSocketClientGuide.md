@@ -13,7 +13,7 @@ A WebSocket connection is only setup after an initial HTTP upgrade request has b
 A WebSocket client is created with the server URL, a closure to handle the connection and optional configuration values. To connect call ``WSClient/WebSocketClient/run()``. This will exit once the WebSocket connection has closed.
 
 ```swift
-let ws = WebSocketClient(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
+let ws = WebSocketClient(url: "ws://mywebsocket/ws") { inbound, outbound, context in
     try await outbound.write(.text("Hello"))
     for try await frame in inbound {
         context.logger.info(frame)
@@ -25,7 +25,7 @@ try await ws.run()
 As a shortcut you can call the following which will initialize and run the WebSocket client in one function call
 
 ```swift
-try await WebSocketClient.connect(URI("ws://mywebsocket/ws")) { inbound, outbound, context in
+try await WebSocketClient.connect(url: "ws://mywebsocket/ws") { inbound, outbound, context in
     try await outbound.write(.text("Hello"))
     for try await frame in inbound {
         context.logger.info(frame)
