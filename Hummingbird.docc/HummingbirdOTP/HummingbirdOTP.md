@@ -1,4 +1,4 @@
-# ``OTP``
+# ``HummingbirdOTP``
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")

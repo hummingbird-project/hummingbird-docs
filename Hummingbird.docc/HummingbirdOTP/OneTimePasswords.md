@@ -8,9 +8,9 @@ A one time password (OTP) valid for only one login session.
 
 ## Overview
 
-OTPs avoid a number of shortcomings that are associated with traditional (static) password-based authentication. OTP generation algorithms typically make use of pseudorandomness or randomness, making prediction of successor OTPs by an attacker difficult, and also cryptographic hash functions, which can be used to derive a value but are hard to reverse and therefore difficult for an attacker to obtain the data that was used for the hash. This is necessary because otherwise it would be easy to predict future OTPs by observing previous ones.
+OTPs avoid a number of shortcomings that are associated with traditional (static) password-based authentication. OTP generation algorithms typically make use of pseudo-randomness or randomness, making prediction of successor OTPs by an attacker difficult, and also cryptographic hash functions, which can be used to derive a value but are hard to reverse and therefore difficult for an attacker to obtain the data that was used for the hash. This is necessary because otherwise it would be easy to predict future OTPs by observing previous ones.
 
-HummingbirdAuth provides support for both time based (``OTP/TOTP``) and counter based (``OTP/HOTP``) one time passwords.
+HummingbirdAuth provides support for both time based (``HummingbirdOTP/TOTP``) and counter based (``HummingbirdOTP/HOTP``) one time passwords.
 
 ## Usage
 
