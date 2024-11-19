@@ -1,4 +1,4 @@
-# ``Bcrypt``
+# ``HummingbirdBcrypt``
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")
