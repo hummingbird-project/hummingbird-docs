@@ -99,7 +99,7 @@
             @Step {
                 If we look further down the file we can find the `buildRouter()` function.
                 
-                Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/health` which returns a 200 (Ok) response.
+                Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/` which returns "Hello!"
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-15.swift)
             }
             @Step {
