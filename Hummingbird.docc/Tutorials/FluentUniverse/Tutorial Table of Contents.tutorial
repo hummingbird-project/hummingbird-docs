@@ -1,0 +1,9 @@
+@Tutorials(name: "Galaxy Backend") {
+    @Intro(title: "Store Data with Fluent") {
+        A tutorial that shows you how to set up Hummingbird 2 with Fluent to store, access, edit and delete your Galaxy.
+    }
+    
+    @Chapter(name: "Application Setup") {
+        @TutorialReference(tutorial: "doc:Fluent-1-Galaxy")
+    }
+}

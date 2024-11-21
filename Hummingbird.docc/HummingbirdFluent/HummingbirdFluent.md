@@ -4,7 +4,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Integration with Vapor Fluent ORM framework.
+Integration with Vapor's Fluent ORM framework.
 
 ```swift
 let fluent = Fluent()
@@ -76,3 +76,8 @@ Read the [Vapor docs](https://docs.vapor.codes/fluent/overview/) for more inform
 
 - ``Hummingbird``
 - ``HummingbirdPostgres``
+
+## Examples
+
+- [todos-fluent](https://github.com/hummingbird-project/hummingbird-examples/tree/main/todos-fluent) - Todos application, based off [TodoBackend](http://todobackend.com/) spec, using Fluent
+- [todos-auth-fluent](https://github.com/hummingbird-project/hummingbird-examples/tree/main/todos-fluent) - A more complete example which shows authentication, CRUD operations and mustache rendering all in one Fluent-based app.
