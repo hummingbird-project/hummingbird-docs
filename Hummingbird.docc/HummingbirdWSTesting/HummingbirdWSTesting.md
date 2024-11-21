@@ -40,4 +40,4 @@ WebSocket testing requires a live server so it only works with the `.live` and `
 
 - ``Hummingbird``
 - ``HummingbirdWebSocket``
-- ``HummingbirdWSClient``
+- ``WSClient``

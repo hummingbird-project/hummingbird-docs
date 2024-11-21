@@ -140,6 +140,8 @@ try await app.runService()
 ## See Also
 
 - ``HummingbirdCore``
+- ``HummingbirdHTTP2``
+- ``HummingbirdTLS``
 - ``HummingbirdTesting``
 - ``HummingbirdAuth``
 - ``HummingbirdCompression``

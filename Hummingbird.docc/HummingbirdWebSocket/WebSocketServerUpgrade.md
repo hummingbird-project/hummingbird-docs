@@ -12,7 +12,7 @@ Before a HTTP connection can be upgraded to a WebSocket connection a server must
 
 ## Setup
 
-You can access this by setting the `server` parameter in `Application.init()` to ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-9qdwg``. This is initialized with a closure that returns either ``/HummingbirdWebSocket/ShouldUpgradeResult/dontUpgrade`` to not perform the WebSocket upgrade or ``/HummingbirdWebSocket/ShouldUpgradeResult/upgrade(_:_:)`` along with the closure handling the WebSocket connection.
+You can access this by setting the `server` parameter in `Application.init()` to ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-3n8zf``. This is initialized with a closure that returns either ``/HummingbirdWebSocket/ShouldUpgradeResult/dontUpgrade`` to not perform the WebSocket upgrade or ``/HummingbirdWebSocket/ShouldUpgradeResult/upgrade(_:_:)`` along with the closure handling the WebSocket connection.
 
 ```swift
 let app = Application(
@@ -58,7 +58,7 @@ let app = Application(
 
 ## WebSocket Handler
 
-The WebSocket handle function has three parameters: an inbound sequence of WebSocket frames ( ``/HummingbirdWSCore/WebSocketInboundStream``), an outbound WebSocket frame writer (``/HummingbirdWSCore/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE frames are managed internally. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. 
+The WebSocket handle function has three parameters: an inbound sequence of WebSocket frames ( ``/WSCore/WebSocketInboundStream``), an outbound WebSocket frame writer (``/WSCore/WebSocketOutboundWriter``) and a context parameter. The WebSocket is kept open as long as you don't leave this function. PING, PONG and CLOSE frames are managed internally. As soon as you leave this function it will perform the CLOSE handshake. If you want to send a regular PING keep-alive you can control that via the WebSocket configuration. By default servers send a PING every 30 seconds. 
 
 Below is a simple input and response style connection a frame is read from the inbound stream, processed and then a response is written back. If the connection is closed the inbound stream will end and we exit the function.
 
@@ -92,11 +92,11 @@ wsRouter.ws("/ws") { inbound, outbound, context in
     }
 }
 ```
-You should not use unstructured Tasks to manage your WebSockets. If you use an unstructured Task it is harder to control the lifecycle of these Tasks.
+You should not use unstructured Tasks to manage your WebSockets. If you use an unstructured Task you increase the likelyhood of processing a WebSocket connection that has already been closed.
 
 ### Frames and messages
 
-A WebSocket message can be split across multiple WebSocket frames. The last frame indicated by the `FIN` flag being set to true. If you want to work with messages instead of frames you can convert the inbound stream of frames to a stream of messages using ``/HummingbirdWSCore/WebSocketInboundStream/messages(maxSize:)``.
+A WebSocket message can be split across multiple WebSocket frames. The last frame indicated by the `FIN` flag being set to true. If you want to work with messages instead of frames you can convert the inbound stream of frames to a stream of messages using ``/WSCore/WebSocketInboundStream/messages(maxSize:)``.
 
 ```swift
 wsRouter.ws("/ws") { inbound, outbound, context in
@@ -112,7 +112,7 @@ wsRouter.ws("/ws") { inbound, outbound, context in
 
 ### WebSocket Context
 
-The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In most cases the context only holds a `Logger` for logging output and a `ByteBufferAllocator` if you need to allocate `ByteBuffers`. 
+The context that is passed to the WebSocket handler along with the inbound stream and outbound writer is different depending on how you setup your WebSocket connection. In most cases the context only holds a `Logger` for logging output. 
 
 But if the WebSocket was setup with a router, then the context also includes the ``/HummingbirdCore/Request`` that initiated the WebSocket upgrade and the ``/Hummingbird/RequestContext`` from that same call. With this you can configure your WebSocket connection based on details from the initial request. Below we are using a query parameter to add a named WebSocket to a connection manager
 
