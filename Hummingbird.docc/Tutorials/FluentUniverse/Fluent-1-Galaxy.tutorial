@@ -25,7 +25,17 @@
                 Like with Vapor, you can use different Fluent Drivers as your backing storage.
                 @Code(name: "Package.swift", file: fluent-universe-04.swift, previousFile: fluent-universe-03.swift)
             }
+        }
+    }
+    
+    @Section(title: "Add Galaxy API") {
+        @ContentAndMedia {
+            With your Package.swift set up, it's time to dive into the project's sources.
             
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
             @Step {
                 Open `Sources/App/Application+build.swift`.
                 
@@ -63,6 +73,7 @@
                 This allows it to integrate with Hummingbird's ecosystem, including the Jobs framework and the Auth framework. 
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-10.swift)
             }
+            
             @Step {
                 Finally, both Fluent and the FluentPersistDriver are added to swift-service-lifecycle. 
                 
@@ -108,6 +119,17 @@
                 Because the database is empty now, we'll add a single Galaxy on boot!
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-16.swift)
             }
+        }
+    }
+    
+    @Section(title: "Test your Backend") {
+        @ContentAndMedia {
+            Now that your Fluent backend is complete, it's time to validate the results!
+            
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
             @Step {
                 We can run this application and use curl to test it works. 
                 @Code(name: "Test Application", file: fluent-universe-17.sh)
