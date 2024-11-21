@@ -49,7 +49,7 @@ let value = try await persist.get(key: "mykey", as: MyValueType.self)
 ```
 
 This returns the value associated with the key or `nil` if that value doesn't exist.
-If the value is not of the expected type, this will throw ``PersistError.invalidConversion``.
+If the value is not of the expected type, this will throw ``PersistError/invalidConversion``.
 
 And finally if you want to delete a key you can use
 ```swift
