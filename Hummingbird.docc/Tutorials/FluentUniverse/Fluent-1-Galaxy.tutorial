@@ -58,7 +58,7 @@
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-09.swift)
             }
             @Step {
-                Next, we'll use Fluent as a persistence mechanism for the Persist framework.
+                Next, we'll use Fluent as a persistence mechanism for the Persist framework. This step is **optional** for this tutorial.
                 
                 This allows it to integrate with Hummingbird's ecosystem, including the Jobs framework and the Auth framework. 
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-10.swift)

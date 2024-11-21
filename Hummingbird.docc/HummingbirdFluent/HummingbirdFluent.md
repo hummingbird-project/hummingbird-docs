@@ -55,13 +55,16 @@ app.addServices(fluent, persist)
 try await app.runService()
 ```
 
-Read the [Vapor docs](https://docs.vapor.codes/fluent/overview/) for more information on Fluent.
+For more information:
+- Follow the tutorial: <doc:Fluent>
+- Read the [Fluent docs](https://docs.vapor.codes/fluent/overview/)
 
 ## Topics
 
 ### Guides
 
 - <doc:PersistentData>
+- <doc:Fluent>
 
 ### Fluent
 

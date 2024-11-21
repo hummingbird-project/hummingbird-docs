@@ -81,5 +81,10 @@ func buildRouter(fluent: Fluent) -> Router<AppRequestContext> {
     router.get("/galaxies") { _,_ -> [Galaxy] in
         try await Galaxy.query(on: self.fluent.db()).all()
     }
+    router.put("/galaxies") { req, content -> HTTPResponseStatus in
+        let galaxy = try await req.decode(as: Galaxy.self, context: context)
+        try await galaxy.save(on: fluent.db())
+        return .created
+    }
     return router
 }

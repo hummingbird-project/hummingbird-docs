@@ -47,6 +47,7 @@ try await app.runService()
 - <doc:Testing>
 - <doc:PersistentData>
 - <doc:JobsGuide>
+- <doc:Fluent>
 
 ### Application
 
