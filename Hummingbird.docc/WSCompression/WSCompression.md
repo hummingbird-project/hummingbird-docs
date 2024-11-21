@@ -1,4 +1,4 @@
-# ``HummingbirdWSCompression``
+# ``WSCompression``
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")
@@ -29,11 +29,11 @@ let app = Application(
 
 ### Compression extension
 
-- ``/HummingbirdWSCore/WebSocketExtensionFactory/perMessageDeflate(clientMaxWindow:clientNoContextTakeover:serverMaxWindow:serverNoContextTakeover:compressionLevel:memoryLevel:maxDecompressedFrameSize:minFrameSizeToCompress:)``
-- ``/HummingbirdWSCore/WebSocketExtensionFactory/perMessageDeflate(maxWindow:noContextTakeover:maxDecompressedFrameSize:minFrameSizeToCompress:)``
+- ``/WSCore/WebSocketExtensionFactory/perMessageDeflate(clientMaxWindow:clientNoContextTakeover:serverMaxWindow:serverNoContextTakeover:compressionLevel:memoryLevel:maxDecompressedFrameSize:minFrameSizeToCompress:)``
+- ``/WSCore/WebSocketExtensionFactory/perMessageDeflate(maxWindow:noContextTakeover:maxDecompressedFrameSize:minFrameSizeToCompress:)``
 
 ## See Also
 
 - ``Hummingbird``
 - ``HummingbirdWebSocket``
-- ``HummingbirdWSClient``
+- ``WSClient``
