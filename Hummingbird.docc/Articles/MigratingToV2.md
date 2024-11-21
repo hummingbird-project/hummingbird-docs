@@ -94,7 +94,7 @@ let router = Router(context: MyRequestContext.self)
 
 > Important: This feature is at the heart of Hummingbird 2, so we recommend reading our guide to <doc:RequestContexts>. 
 
-# Router
+## Router
 
 Instead of creating an application and adding routes to it, in v2 you create a router and add routes to it and then create an application using that router. 
 
@@ -143,7 +143,7 @@ let router = RouterBuilder(context: MyContext.self) {
 let app = Application(router: router)
 ```
 
-# Miscellaneous
+## Miscellaneous
 
 Below is a list of other smaller changes that might catch you out
 
