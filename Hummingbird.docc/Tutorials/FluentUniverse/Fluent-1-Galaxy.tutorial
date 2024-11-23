@@ -116,7 +116,7 @@
             @Step {
                 We'll add a single route `GET /galaxies`, which lists all registered galaxies.
                 
-                Because the database is empty now, we'll add a single Galaxy on boot!
+                Because the database is empty now, we'll add a route to add your own galaxies.
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-16.swift)
             }
         }
@@ -131,12 +131,18 @@
         
         @Steps {
             @Step {
-                We can run this application and use curl to test it works. 
+                We can run this application and use curl to test it works.
+                
+                First, create your own galaxy!
                 @Code(name: "Test Application", file: fluent-universe-17.sh)
             }
             @Step {
-                Now we have a running server, lets add some functionality to it.
+                Then, query the list of galaxies. 
                 @Code(name: "Test Application", file: fluent-universe-18.sh)
+            }
+            @Step {
+                Now we have a running server, lets add some functionality to it.
+                @Code(name: "Test Application", file: fluent-universe-19.sh)
             }
         }
     }

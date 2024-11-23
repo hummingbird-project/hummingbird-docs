@@ -58,9 +58,6 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
         ),
         logger: logger
     )
-    let galaxy = Galaxy(name: "Andromeda")
-    try await galaxy.create(on: fluent.db())
-
     app.addServices(fluent, fluentPersist)
     return app
 }
@@ -81,10 +78,10 @@ func buildRouter(fluent: Fluent) -> Router<AppRequestContext> {
     router.get("/galaxies") { _,_ -> [Galaxy] in
         try await Galaxy.query(on: self.fluent.db()).all()
     }
-    router.put("/galaxies") { req, content -> HTTPResponseStatus in
-        let galaxy = try await req.decode(as: Galaxy.self, context: context)
+    router.put("/galaxies") { request, context -> Response in
+        let galaxy = try await request.decode(as: Galaxy.self, context: context)
         try await galaxy.save(on: fluent.db())
-        return .created
+        return Response(status: .created)
     }
     return router
 }
