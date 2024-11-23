@@ -116,7 +116,7 @@
             @Step {
                 We'll add a single route `GET /galaxies`, which lists all registered galaxies.
                 
-                Because the database is empty now, we'll add a route to add your own galaxies.
+                Because the database is empty now, we'll add a route `PUT /galaxies` to add your own galaxies.
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-16.swift)
             }
         }
