@@ -5,7 +5,7 @@
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
     }
     
-    @Chapter(name: "Application setup") {
+    @Chapter(name: "Application Setup") {
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
         
         @TutorialReference(tutorial: "doc:Todos-1-Template")
