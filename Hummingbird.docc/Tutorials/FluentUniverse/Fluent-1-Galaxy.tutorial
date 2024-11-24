@@ -28,9 +28,9 @@
         }
     }
     
-    @Section(title: "Add Galaxy API") {
+    @Section(title: "Add Fluent") {
         @ContentAndMedia {
-            With your Package.swift set up, it's time to dive into the project's sources.
+            With your Package.swift set up, lets add Fluent to your project.
             
             @Image(source: "hummingbird.png", alt: "Hummingbird logo")
         }
@@ -80,7 +80,15 @@
                 This allows it to integrate with Hummingbird's ecosystem, including the Jobs framework and the Auth framework. 
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-11.swift)
             }
+        }
+    }
+    @Section(title: "Add Galaxy API") {
+        @ContentAndMedia {
+            Add your database models and routes to edit them.
             
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        @Steps {
             @Step {
                 Create a file named `Galaxy.swift`, and add the following Fluent Model.
                 
