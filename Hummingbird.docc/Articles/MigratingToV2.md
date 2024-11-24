@@ -12,13 +12,15 @@ In the short lifetime of the Hummingbird server framework there have been many m
 
 ## Symbol names
 
-The first thing you will notice when moving to v2 are the symbol names. In Version 2 of Hummingbird we have removed the "HB" prefix from all the symbols. To ease the move we have added typealiases that convert from the old "HB" symbol names to the new names. These typealiases have been deprecated so your IDE should suggest the new symbol. The typealiases will be removed when we do the full v2 release though. 
+The first thing you will notice when moving to v2 are the symbol names. In Version 2 of Hummingbird we have removed the "HB" prefix from all the symbols.
 
 ## SwiftNIO and Swift Concurrency
 
 In the time that the Hummingbird server framework has been around there has been a seismic shift in the Swift language. When it was first in development the initial pitches for Swift Concurrency were only just being posted. It wasn't for another 9 months before we actually saw a release of Swift with any concurrency features. As features have become available we have tried to support them but the internals of Hummingbird were still SwiftNIO EventLoop based and held us back from providing full support for Concurrency.
 
-Hummingbird v2 is now exclusively Swift concurrency based. All EventLoop based APIs have been removed. 
+Hummingbird v2 is now exclusively Swift concurrency based. All EventLoop based APIs have been removed.
+
+### Using EventLoop-based Libraries
 
 If you have libraries you are calling into that still only provide EventLoop based APIs you can convert them to Swift concurrency using the `get` method from `EventLoopFuture`.
 
@@ -41,7 +43,9 @@ In Hummingbird v1 you could extend the `Application` and `Request` types to incl
 
 ### Application
 
-In the case of the application we decided we didn't want to make `Application` this huge mega global that held everything. We have moved to a model of explicit dependency injection. For each route controller you supply the dependencies you need at initialization, instead of extracting them from the application when you use them. This makes it clearer what dependencies you are using in each controller. eg
+In the case of the application we decided we didn't want to make `Application` this huge mega global that held everything. We have moved to a model of explicit dependency injection.
+
+For each route controller you supply the dependencies you need at initialization, instead of extracting them from the application when you use them. This makes it clearer what dependencies you are using in each controller.
 
 ```swift
 struct UserController {
@@ -54,18 +58,18 @@ struct UserController {
 
 ### Request and RequestContext
 
-We have replaced extending of `Request` with a custom request context type that is passed along with the request. This means `Request` is just the HTTP request data (as it should be). The additional request context parameter will hold any custom data required. In situations in the past where you would use data attached to `Request` or `Application` you should now use the context.
+We have replaced extending of `Request` with a custom request context type that is passed along with the request. This means `Request` is just the HTTP request data (as it should be). The additional request context parameter will hold any custom data required. In situations in the past where you would use data attached to `Request`, you should now use the context.
 
 ```swift
 router.get { request, context in
     // logger is attached to the context
-    context.logger.info("The logger attached to the context includes an id.")
+    context.logger.info("The logger attached to the context includes the request's id.")
     // request decoder is attached to the context instead of the application
     let myObject = try await request.decode(as: MyObject.self, context: context)
 }
 ```
 
-The request context is a generic value. As long as it conforms to ``RequestContext`` it can hold anything you like. 
+The request context is a generic value. As long as it conforms to ``RequestContext`` it can hold anything you like.
 
 ```swift
 /// Example request context with an additional data attached
@@ -81,32 +85,41 @@ struct MyRequestContext: RequestContext {
     }
 }
 ```
+
 When you create your router you pass in the request context type you'd like to use. If you don't pass one in it will default to using ``BasicRequestContext`` which provides enough data for the router to run but not much else.
 
 ```swift
 let router = Router(context: MyRequestContext.self)
 ```
 
+> Important: This feature is at the heart of Hummingbird 2, so we recommend reading our guide to <doc:RequestContexts>. 
+
 ## Router
 
 Instead of creating an application and adding routes to it, in v2 you create a router and add routes to it and then create an application using that router. 
 
-```swift
-let app = Application()
-app.router.get { request in
-    "hello"
+@Row {
+    @Column {
+        ### Hummingbird 1
+        ```swift
+        let app = Application()
+        app.router.get { request in
+            "hello"
+        }
+        ```
+    }
+    @Column {
+        ### Hummingbird 2
+        ```swift
+        let router = Router()
+        router.get { request, context in
+            "hello"
+        }
+        let app = Application(router: router)
+        ```
+    }
 }
-```
 
-is now implemented as
-
-```swift
-let router = Router()
-router.get { request, context in
-    "hello"
-}
-let app = Application(router: router)
-```
 When we are passing in the router we are actually passing in a type that can build a ``HTTPResponder`` a protocol for a type with one function that takes a request and context and returns a response.
 
 ### Router Builder

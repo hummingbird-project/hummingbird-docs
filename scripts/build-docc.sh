@@ -39,8 +39,8 @@ do
 done
 
 if [ -z "${DOCC_HTML_DIR:-}" ]; then
-    git clone https://github.com/apple/swift-docc-render-artifact "$TEMP_DIR"/swift-docc-render-artifact
-     export DOCC_HTML_DIR="$TEMP_DIR/swift-docc-render-artifact/dist"
+    git submodule update --init --recursive
+    export DOCC_HTML_DIR="./scripts/swift-docc-render-artifact/dist"
 fi
 
 if test "$BUILD_SYMBOLS" == 1; then
