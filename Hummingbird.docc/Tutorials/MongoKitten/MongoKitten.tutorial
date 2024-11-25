@@ -1,0 +1,13 @@
+@Tutorials(name: "MongoKitten Backend") {
+    @Intro(title: "Store Data with MongoKitten") {
+        A tutorial that shows you how to set up Hummingbird 2 with MongoKitten to create and share your kittens.
+        
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Chapter(name: "Build a Social Media Platform for Kittens") {
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        
+        @TutorialReference(tutorial: "doc:MongoKitten-1-Setup")
+    }
+}

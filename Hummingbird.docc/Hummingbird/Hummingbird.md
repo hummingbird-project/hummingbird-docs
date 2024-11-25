@@ -48,6 +48,7 @@ try await app.runService()
 - <doc:PersistentData>
 - <doc:JobsGuide>
 - <doc:Fluent>
+- <doc:MongoKitten>
 
 ### Application
 
