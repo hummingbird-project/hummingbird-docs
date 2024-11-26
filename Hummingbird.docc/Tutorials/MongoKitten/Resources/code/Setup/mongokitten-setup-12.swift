@@ -32,7 +32,7 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
 
     let mongo = try await MongoDatabase.connect(to: arguments.connectionString)
 
-    let router = buildRouter()
+    let router = buildRouter(db: mongo)
     let app = Application(
         router: router,
         configuration: .init(
