@@ -1,5 +1,5 @@
 @Tutorial(time: 15) {
-    @Intro(title: "Create a Hummingbird + Fluent application.") {
+    @Intro(title: "Create a Hummingbird + MongoKitten application.") {
         Create a simple web application using the Hummingbird template.
         @Image(source: "mongokitten.png", alt: "MongoKitten logo")
     }
