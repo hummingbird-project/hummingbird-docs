@@ -102,7 +102,7 @@
             }
             
             @Step {
-                We'll add a single route `GET /kittens`, which lists all registered galaxies.
+                We'll add a single route `GET /kittens`, which lists all registered kittens.
                 
                 Because the database is empty now, we'll add a route `PUT /kittens` to add your own kittens.
                 @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-11.swift)
@@ -125,7 +125,7 @@
                 @Code(name: "Test Application", file: mongokitten-setup-17.sh)
             }
             @Step {
-                Then, query the list of galaxies. 
+                Then, query the list of kittens. 
                 @Code(name: "Test Application", file: mongokitten-setup-18.sh)
             }
             @Step {
