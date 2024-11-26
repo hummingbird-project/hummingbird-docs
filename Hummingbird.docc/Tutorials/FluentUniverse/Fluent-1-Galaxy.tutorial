@@ -70,15 +70,12 @@
             @Step {
                 Next, we'll use Fluent as a persistence mechanism for the Persist framework. This step is **optional** for this tutorial.
                 
-                This allows it to integrate with Hummingbird's ecosystem, including the Jobs framework and the Auth framework. 
+                This allows it to integrate with Hummingbird's ecosystem, including the Auth framework.
                 @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-10.swift)
             }
             
             @Step {
                 Finally, both Fluent and the FluentPersistDriver are added to swift-service-lifecycle. 
-                
-                This allows it to integrate with Hummingbird's ecosystem, including the Jobs framework and the Auth framework. 
-                @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-11.swift)
             }
         }
     }
@@ -139,7 +136,7 @@
         
         @Steps {
             @Step {
-                We can run this application and use curl to test it works.
+                We can run the application and use curl to test it works.
                 
                 First, create your own galaxy!
                 @Code(name: "Test Application", file: fluent-universe-17.sh)
@@ -149,7 +146,7 @@
                 @Code(name: "Test Application", file: fluent-universe-18.sh)
             }
             @Step {
-                Now we have a running server, lets add some functionality to it.
+                You can see the galaxy added in the first call, is returned when we ask to list all the galaxies.
                 @Code(name: "Test Application", file: fluent-universe-19.sh)
             }
         }
