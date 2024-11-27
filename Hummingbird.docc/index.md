@@ -30,7 +30,7 @@ try await app.runService()
 
 ### Extending Hummingbird
 
-The Hummingbird package comes with a number of libraries to extend your application.
+The Hummingbird package comes with a number of modules to extend your application.
 
 - ``HummingbirdTLS``: TLS support.
 - ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
