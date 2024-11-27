@@ -86,7 +86,7 @@
         @ContentAndMedia {
             Add your database models and routes to edit them.
             
-            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+            @Image(source: "mongokitten.png", alt: "MongoKitten logo")
         }
         @Steps {
             @Step {
