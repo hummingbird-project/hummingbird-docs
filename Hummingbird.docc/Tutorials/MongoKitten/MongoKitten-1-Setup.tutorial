@@ -32,7 +32,7 @@
         @ContentAndMedia {
             MongoDB is a serivce that needs to run alongside your application. It's a prerequisite for running MongoKitten.
             
-            @Image(source: "mongokitten.png", alt: "MongoKitten logo")
+            @Image(source: "mongodb.png", alt: "MongoDB logo")
         }
         
         @Steps {
@@ -104,7 +104,7 @@
             }
             
             @Step {
-                We'll add a single route `GET /kittens`, which lists all registered kittens.
+                We'll add a single route `GET /kittens`, which lists all registered kittens. This requires passing in the database handle to your routes.
                 
                 Because the database is empty now, we'll add a route `PUT /kittens` to add your own kittens.
                 @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-12.swift)
@@ -127,7 +127,7 @@
                 @Code(name: "Test Application", file: mongokitten-setup-17.sh)
             }
             @Step {
-                Then, query the list of kittens. 
+                Then, query the list of kittens.
                 @Code(name: "Test Application", file: mongokitten-setup-18.sh)
             }
             @Step {
