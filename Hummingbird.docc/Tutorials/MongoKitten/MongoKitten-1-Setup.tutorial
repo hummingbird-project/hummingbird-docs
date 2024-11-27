@@ -76,7 +76,7 @@
             @Step {
                 Open `Sources/App/Application+build.swift` again. We can now start the MongoKitten driver.
                 
-                This will connect and login to the server immediately. If the any network hiccups occur, MongoKitten reconnects automatically.
+                This will connect and login to the server immediately. If any network hiccups occur, MongoKitten reconnects automatically.
                 @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-09.swift, previousFile: mongokitten-setup-06.swift)
             }
         }
