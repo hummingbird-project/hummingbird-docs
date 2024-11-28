@@ -1,7 +1,6 @@
 import Hummingbird
 import Logging
 import MongoKitten
-import Foundation
 
 /// Application arguments protocol. We use a protocol so we can call
 /// `buildApplication` inside Tests as well as in the App executable.

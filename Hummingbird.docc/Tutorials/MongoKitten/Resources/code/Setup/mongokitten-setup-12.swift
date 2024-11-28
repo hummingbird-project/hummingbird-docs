@@ -1,7 +1,6 @@
 import Hummingbird
 import Logging
 import MongoKitten
-import Foundation
 
 /// Application arguments protocol. We use a protocol so we can call
 /// `buildApplication` inside Tests as well as in the App executable.
@@ -58,7 +57,7 @@ func buildRouter(db: MongoDatabase) -> Router<AppRequestContext> {
     }
     // List all kittens
     router.get("/kittens") { _, _ in
-        return try await db[Kitten.collection].find().drain()
+        return try await db[Kitten.collection].find().decode(Kitten.self).drain()
     }
     router.put("/kittens") { request, context -> Kitten in
         let body = try await request.decode(as: CreateKittenRequest.self, context: context)
