@@ -30,12 +30,22 @@ try await app.runService()
 
 ### Extending Hummingbird
 
-Hummingbird is designed to require the least number of dependencies possible, but this means many features are unavailable to the core libraries. Additional features are provided through extensions. The Hummingbird repository comes with additional modules
+The Hummingbird package comes with a number of modules to extend your application.
 
 - ``HummingbirdTLS``: TLS support.
 - ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
-
 - ``HummingbirdTesting``: helper functions to aid testing Hummingbird projects.
+
+Support for other features come via additional packages in the [hummingbird project](https://github.com/hummingbird-project).
+
+- [HummingbirdAuth](https://github.com/hummingbird-project/hummingbird-auth): Authentication framework
+- [HummingbirdWebSocket](https://github.com/hummingbird-project/hummingbird-websocket): WebSocket support
+- [HummingbirdLambda](https://github.com/hummingbird-project/hummingbird-lambda): Run Hummingbird on AWS Lambda
+- [HummingbirdPostgres](https://github.com/hummingbird-project/hummingbird-lambda): Integration with PostgresNIO
+- [HummingbirdFluent](https://github.com/hummingbird-project/hummingbird-fluent): Integration with Vapor's FluentKit ORM
+- [HummingbirdRedis](https://github.com/hummingbird-project/hummingbird-redis): Redis support via RediStack
+- [Jobs](https://github.com/hummingbird-project/swift-jobs): Job Queue Framework
+- [Mustache](https://github.com/hummingbird-project/swift-mustache): Mustache templating engine
 
 ## Topics
 
@@ -43,11 +53,9 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 
 - <doc:GettingStarted>
 - <doc:Todos>
-- <doc:Fluent>
 
-### Guides
+### Hummingbird Server
 
-- <doc:MigratingToV2>
 - <doc:RouterGuide>
 - <doc:RequestContexts>
 - <doc:EncodingAndDecoding>
@@ -57,10 +65,35 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - <doc:ServiceLifecycle>
 - <doc:Testing>
 - <doc:PersistentData>
-- <doc:JobsGuide>
+- <doc:MigratingToV2>
+
+### Authentication
+
 - <doc:AuthenticatorMiddleware>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
+
+### WebSockets
+
+- <doc:WebSocketServerUpgrade>
+- <doc:WebSocketClientGuide>
+
+### Database Integration
+
+- <doc:MigrationsGuide>
+- <doc:Fluent>
+
+### Offloading work
+
+- <doc:JobsGuide>
+
+### Mustache
+
+- <doc:Pragmas>
+- <doc:TemplateInheritance>
+- <doc:Transforms>
+- <doc:Lambdas>
+- <doc:MustacheSyntax>
 
 ## See Also
 
@@ -69,6 +102,7 @@ Hummingbird is designed to require the least number of dependencies possible, bu
 - ``/HummingbirdAuth``
 - ``/HummingbirdFluent``
 - ``/HummingbirdLambda``
+- ``/HummingbirdPostgres``
 - ``/HummingbirdRedis``
 - ``/HummingbirdTesting``
 - ``/HummingbirdWebSocket``
