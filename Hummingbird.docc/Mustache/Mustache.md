@@ -32,16 +32,10 @@ Mustache supports all standard Mustache tags and is fully compliant with the Mus
 
 ## Topics
 
-### Features
-
-- <doc:Lambdas>
-- <doc:Pragmas>
-- <doc:TemplateInheritance>
-- <doc:Transforms>
-
 ### Articles
 
 - <doc:MustacheSyntax>
+- <doc:MustacheFeatures>
 
 ### Template Library
 

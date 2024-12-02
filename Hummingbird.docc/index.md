@@ -69,11 +69,8 @@ Below is a list of guides and tutorials to help you get started with building yo
 
 ### Mustache
 
-- <doc:Pragmas>
-- <doc:TemplateInheritance>
-- <doc:Transforms>
-- <doc:Lambdas>
 - <doc:MustacheSyntax>
+- <doc:MustacheFeatures>
 
 ## See Also
 
