@@ -1,11 +1,11 @@
-# Hummingbird
+# Hummingbird Guides
 
 @Metadata {
     @TechnologyRoot
     @PageImage(purpose: icon, source: "logo")
 }
 
-Lightweight, flexible, modern server framework written in Swift.
+Documentation for Hummingbird the lightweight, flexible, modern server framework written in Swift.
 
 ## Hummingbird
 
@@ -13,41 +13,20 @@ Hummingbird is a lightweight and flexible web application framework. It provides
 
 ```swift
 import Hummingbird
-
 // create router and add a single GET /hello route
 let router = Router()
-router.get("hello") { request, _ -> String in
-    return "Hello"
-}
+    .get("hello") { request, _ -> String in
+        return "Hello"
+    }
 // create application using router
-let app = Application(
-    router: router,
-    configuration: .init(address: .hostname("127.0.0.1", port: 8080))
-)
+let app = Application(router: router)
 // run hummingbird application
 try await app.runService()
 ```
 
-### Extending Hummingbird
-
-The Hummingbird package comes with a number of modules to extend your application.
-
-- ``HummingbirdTLS``: TLS support.
-- ``HummingbirdHTTP2``: Support for HTTP2 upgrades.
-- ``HummingbirdTesting``: helper functions to aid testing Hummingbird projects.
-
-Support for other features come via additional packages in the [hummingbird project](https://github.com/hummingbird-project).
-
-- [HummingbirdAuth](https://github.com/hummingbird-project/hummingbird-auth): Authentication framework
-- [HummingbirdWebSocket](https://github.com/hummingbird-project/hummingbird-websocket): WebSocket support
-- [HummingbirdLambda](https://github.com/hummingbird-project/hummingbird-lambda): Run Hummingbird on AWS Lambda
-- [HummingbirdPostgres](https://github.com/hummingbird-project/hummingbird-lambda): Integration with PostgresNIO
-- [HummingbirdFluent](https://github.com/hummingbird-project/hummingbird-fluent): Integration with Vapor's FluentKit ORM
-- [HummingbirdRedis](https://github.com/hummingbird-project/hummingbird-redis): Redis support via RediStack
-- [Jobs](https://github.com/hummingbird-project/swift-jobs): Job Queue Framework
-- [Mustache](https://github.com/hummingbird-project/swift-mustache): Mustache templating engine
-
 ## Topics
+
+Below is a list of guides to help you get started.
 
 ### Getting Started
 

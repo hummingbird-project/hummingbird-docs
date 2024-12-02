@@ -21,6 +21,7 @@ Working with Postgres databases.
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``
 - ``JobsPostgres``
 - ``PostgresMigrations``

@@ -41,6 +41,7 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 
 ## See Also
 
-- ``Hummingbird``
 - ``JobsRedis``
 - ``JobsPostgres``
+- <doc:index>
+- ``Hummingbird``

@@ -48,6 +48,7 @@ WSClient provides a way to connect to WebSocket servers.
 
 ## See Also
 
-- ``Hummingbird``
-- ``HummingbirdWebSocket``
 - ``WSCompression``
+- ``HummingbirdWebSocket``
+- <doc:index>
+- ``Hummingbird``

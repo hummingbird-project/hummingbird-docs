@@ -28,4 +28,5 @@ Adding request decompression middleware means when a request comes in with heade
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``

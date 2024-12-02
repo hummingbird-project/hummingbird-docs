@@ -77,6 +77,7 @@ For more information:
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdPostgres``
 

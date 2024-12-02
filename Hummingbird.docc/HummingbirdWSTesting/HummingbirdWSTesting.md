@@ -38,6 +38,7 @@ WebSocket testing requires a live server so it only works with the `.live` and `
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdWebSocket``
 - ``WSClient``

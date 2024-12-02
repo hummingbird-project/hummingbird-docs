@@ -24,5 +24,6 @@ Hummingbird Jobs Queue driver using Postgres.
 
 - ``Jobs``
 - ``JobsRedis``
+- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdPostgres``

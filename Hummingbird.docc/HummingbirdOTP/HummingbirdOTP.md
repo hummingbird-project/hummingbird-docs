@@ -20,4 +20,6 @@ One time passwords
 
 ## See Also
 
+- <doc:index>
+- ``Hummingbird``
 - ``HummingbirdAuth``

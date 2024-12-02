@@ -42,6 +42,7 @@ try await app.test(.router) { client in
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``
 
 

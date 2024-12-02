@@ -72,4 +72,5 @@ try await app.runService()
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``

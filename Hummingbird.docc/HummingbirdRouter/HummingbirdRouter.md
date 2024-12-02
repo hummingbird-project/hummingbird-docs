@@ -63,4 +63,5 @@ let router = RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ## See Also
 
+- <doc:index>
 - ``Hummingbird``

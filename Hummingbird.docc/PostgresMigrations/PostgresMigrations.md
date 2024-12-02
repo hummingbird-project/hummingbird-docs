@@ -21,4 +21,5 @@ Postgres database migration service
 ## See Also
 
 - ``HummingbirdPostgres``
+- <doc:index>
 - ``Hummingbird``

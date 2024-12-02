@@ -138,6 +138,7 @@ try await app.runService()
 
 ## See Also
 
+- <doc:index>
 - ``HummingbirdCore``
 - ``HummingbirdHTTP2``
 - ``HummingbirdTLS``

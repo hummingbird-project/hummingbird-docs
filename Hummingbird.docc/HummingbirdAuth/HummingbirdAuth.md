@@ -49,7 +49,8 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## See Also
 
+- <doc:index>
+- ``Hummingbird``
 - ``HummingbirdBasicAuth``
 - ``HummingbirdBcrypt``
 - ``HummingbirdOTP``
-- ``Hummingbird``
