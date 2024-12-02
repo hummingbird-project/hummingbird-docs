@@ -82,6 +82,7 @@ Support for other features come via additional packages in the [hummingbird proj
 
 - <doc:MigrationsGuide>
 - <doc:Fluent>
+- <doc:MongoKitten>
 
 ### Offloading work
 

@@ -1,0 +1,139 @@
+@Tutorial(time: 15) {
+    @Intro(title: "Create a Hummingbird + MongoKitten application.") {
+        Create a simple web application using the Hummingbird template.
+        @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+    }
+    
+    @Section(title: "Create your project") {
+        @ContentAndMedia {
+            Clone the Hummingbird template, configure a project and review the contents of the generated project.
+            @Image(source: "mongokitten.png", alt: "MongoKitten logo")
+        }
+        
+        @Steps {
+            @Step {
+                Clone the Hummingbird template GitHub project
+                @Code(name: "Clone template", file: mongokitten-setup-01.sh)
+            }
+            @Step {
+                Create your project, using the template configure script. Press return on each question to use the default value.
+                @Code(name: "Create Swift Package", file: mongokitten-setup-02.sh)
+            }
+            @Step {
+                Add the `MongoKitten` dependency.
+                
+                MongoKitten doesn't need any special treatment. It works seamlessly with Hummingbird.
+                @Code(name: "Package.swift", file: mongokitten-setup-04.swift, previousFile: mongokitten-setup-03.swift)
+            }
+        }
+    }
+    
+    @Section(title: "Setup MongoDB") {
+        @ContentAndMedia {
+            MongoDB is a serivce that needs to run alongside your application. It's a prerequisite for running MongoKitten.
+            
+            @Image(source: "mongodb.png", alt: "MongoDB logo")
+        }
+        
+        @Steps {
+            @Step {
+                Install and Run [Docker](https://www.docker.com/products/docker-desktop/) if it's not running already.
+                
+                Then, run this command to download and run MongoDB.
+                
+                @Code(name: "Terminal.app", file: install-mongodb-docker.sh)
+            }
+        }
+    }
+    
+    @Section(title: "Add MongoKitten") {
+        @ContentAndMedia {
+            With your Package.swift and database set up, lets add MongoKitten to your project.
+            
+            @Image(source: "mongokitten.png", alt: "MongoKitten logo")
+        }
+        
+        @Steps {
+            @Step {
+                Open `Sources/App/Application+build.swift`.
+                
+                Add the MongoKitten dependency, and modify the `AppArguments` to contain two new variables.
+                @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-06.swift, previousFile: mongokitten-setup-05.swift)
+            }
+            
+            @Step {
+                Open `Sources/App/App.swift`
+                
+                This contains an `App` type conforming to `AsyncParsableCommand` with three options, the `hostname` and `port` are used to define the server bind address, `logLevel` sets the level of logging required. Finally the `run()` function which calls `buildApplication(_:)` to create an `Application` and then runs it using `runService()`. You can find out more about the argument parser library [here](https://apple.github.io/swift-argument-parser/documentation/argumentparser).
+                @Code(name: "Sources/App/App.swift", file: mongokitten-setup-07.swift)
+            }
+            @Step {
+                Add the new app arguments with default values.
+                
+                @Code(name: "Sources/App/App.swift", file: mongokitten-setup-08.swift)
+            }
+            
+            @Step {
+                Open `Sources/App/Application+build.swift` again. We can now start the MongoKitten driver.
+                
+                This will connect and login to the server immediately. If any network hiccups occur, MongoKitten reconnects automatically.
+                @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-09.swift, previousFile: mongokitten-setup-06.swift)
+            }
+        }
+    }
+    
+    @Section(title: "Add Kittens API") {
+        @ContentAndMedia {
+            Add your database models and routes to edit them.
+            
+            @Image(source: "mongokitten.png", alt: "MongoKitten logo")
+        }
+        @Steps {
+            @Step {
+                Create a file named `Kitten.swift`, and add the following data model.
+                
+                MongoKitten always requires a stored property named `_id`. This is used by MongoDB as the unique ID.
+                @Code(name: "Sources/App/Kitten.swift", file: mongokitten-setup-10.swift)
+            }
+            
+            @Step {
+                If we look further down the file we can find the `buildRouter()` function.
+                
+                Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/` which returns "Hello!"
+                @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-11.swift)
+            }
+            
+            @Step {
+                We'll add a single route `GET /kittens`, which lists all registered kittens. This requires passing in the database handle to your routes.
+                
+                Because the database is empty now, we'll add a route `PUT /kittens` to add your own kittens.
+                @Code(name: "Sources/App/Application+build.swift", file: mongokitten-setup-12.swift)
+            }
+        }
+    }
+    
+    @Section(title: "Test your Backend") {
+        @ContentAndMedia {
+            Now that your MongoDB backend is complete, it's time to validate the results!
+            
+            @Image(source: "hummingbird.png", alt: "Hummingbird logo")
+        }
+        
+        @Steps {
+            @Step {
+                We can run this application and use curl to test it works.
+                
+                First, add your own kitten!
+                @Code(name: "Test Application", file: mongokitten-setup-17.sh)
+            }
+            @Step {
+                Then, query the list of kittens.
+                @Code(name: "Test Application", file: mongokitten-setup-18.sh)
+            }
+            @Step {
+                Now we have a running server, lets add some functionality to it.
+                @Code(name: "Test Application", file: mongokitten-setup-19.sh)
+            }
+        }
+    }
+}
