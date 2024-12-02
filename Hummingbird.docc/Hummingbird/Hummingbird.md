@@ -46,9 +46,6 @@ try await app.runService()
 - <doc:ServiceLifecycle>
 - <doc:Testing>
 - <doc:PersistentData>
-- <doc:JobsGuide>
-- <doc:Fluent>
-- <doc:MongoKitten>
 
 ### Application
 
