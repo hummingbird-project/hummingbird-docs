@@ -5,7 +5,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Documentation for Hummingbird the lightweight, flexible, modern server framework written in Swift.
+Documentation for Hummingbird the lightweight, flexible, modern server framework.
 
 ## Hummingbird
 
@@ -24,9 +24,9 @@ let app = Application(router: router)
 try await app.runService()
 ```
 
-## Topics
+Below is a list of guides and tutorials to help you get started with building your own Hummingbird based web application.
 
-Below is a list of guides to help you get started.
+## Topics
 
 ### Getting Started
 
