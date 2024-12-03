@@ -15,5 +15,5 @@ Bcrypt encryption
 ## See Also
 
 - ``HummingbirdAuth``
-- <doc:index>
+- ``HummingbirdBasicAuth``
 - ``Hummingbird``

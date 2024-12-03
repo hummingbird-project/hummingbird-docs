@@ -72,7 +72,6 @@ try await serviceGroup.run()
 
 ## See Also
 
-- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdHTTP2``
 - ``HummingbirdTLS``

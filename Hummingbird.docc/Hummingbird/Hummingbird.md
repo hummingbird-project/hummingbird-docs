@@ -29,24 +29,6 @@ try await app.runService()
 
 ## Topics
 
-### Getting Started
-
-- <doc:GettingStarted>
-- <doc:Todos>
-
-### Guides
-
-- <doc:MigratingToV2>
-- <doc:RouterGuide>
-- <doc:RequestContexts>
-- <doc:EncodingAndDecoding>
-- <doc:MiddlewareGuide>
-- <doc:ErrorHandling>
-- <doc:LoggingMetricsAndTracing>
-- <doc:ServiceLifecycle>
-- <doc:Testing>
-- <doc:PersistentData>
-
 ### Application
 
 - ``Application``
@@ -138,18 +120,5 @@ try await app.runService()
 
 ## See Also
 
-- <doc:index>
-- ``HummingbirdCore``
-- ``HummingbirdHTTP2``
-- ``HummingbirdTLS``
-- ``HummingbirdTesting``
-- ``HummingbirdAuth``
-- ``HummingbirdCompression``
-- ``HummingbirdFluent``
-- ``HummingbirdLambda``
-- ``HummingbirdPostgres``
-- ``HummingbirdRedis``
 - ``HummingbirdRouter``
-- ``HummingbirdWebSocket``
-- ``Jobs``
-- ``Mustache``
+- ``HummingbirdTesting``

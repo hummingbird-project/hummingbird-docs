@@ -64,3 +64,9 @@ router.addMiddleware {
     IsAuthenticatedMiddleware()
 }
 ```
+
+## See Also
+
+- ``HummingbirdAuth/AuthenticatorMiddleware``
+- ``HummingbirdAuth/AuthRequestContext``
+- ``HummingbirdAuth/IsAuthenticatedMiddleware``

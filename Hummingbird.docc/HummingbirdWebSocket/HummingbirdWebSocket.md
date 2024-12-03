@@ -14,10 +14,6 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 ## Topics
 
-### Guides
-
-- <doc:WebSocketServerUpgrade>
-
 ### Configuration
 
 ### Server
@@ -62,8 +58,5 @@ HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgr
 
 ## See Also
 
-- <doc:index>
-- ``Hummingbird``
-- ``/WSClient``
 - ``/WSCompression``
 - ``HummingbirdWSTesting``

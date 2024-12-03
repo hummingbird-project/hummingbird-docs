@@ -30,7 +30,6 @@ let app = Application(
 
 ## See Also
 
-- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdCore``
 - ``HummingbirdTLS``

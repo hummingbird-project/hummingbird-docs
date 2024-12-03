@@ -7,10 +7,6 @@ Postgres database migration service
 }
 ## Topics
 
-### Articles
-
-- <doc:MigrationsGuide>
-
 ### Migrations
 
 - ``DatabaseMigrations``
@@ -21,5 +17,4 @@ Postgres database migration service
 ## See Also
 
 - ``HummingbirdPostgres``
-- <doc:index>
 - ``Hummingbird``

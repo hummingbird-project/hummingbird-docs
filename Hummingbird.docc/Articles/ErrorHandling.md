@@ -49,3 +49,8 @@ struct MyError: HTTPResponseError {
     }
 }
 ```
+
+## See Also
+
+- ``HTTPError``
+- ``HTTPResponseError``

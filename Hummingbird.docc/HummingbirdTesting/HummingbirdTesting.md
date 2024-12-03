@@ -30,10 +30,6 @@ try await app.test(.router) { client in
 
 ## Topics
 
-### Guides
-
-- <doc:Testing>
-
 ### Test Setup
 
 - ``TestingSetup``
@@ -42,7 +38,6 @@ try await app.test(.router) { client in
 
 ## See Also
 
-- <doc:index>
 - ``Hummingbird``
 
 

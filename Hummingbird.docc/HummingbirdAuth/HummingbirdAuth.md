@@ -10,11 +10,6 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## Topics
 
-### Articles
-
-- <doc:AuthenticatorMiddlewareGuide>
-- <doc:Sessions>
-
 ### Request Contexts
 
 - ``BasicAuthRequestContext``
@@ -39,6 +34,7 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 - ``SessionData``
 - ``BasicSessionRequestContext``
 - ``SessionStorage``
+- ``SessionCookieParameters``
 
 ### Session authenticator
 
@@ -49,8 +45,6 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## See Also
 
-- <doc:index>
-- ``Hummingbird``
 - ``HummingbirdBasicAuth``
 - ``HummingbirdBcrypt``
 - ``HummingbirdOTP``

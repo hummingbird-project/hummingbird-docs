@@ -92,3 +92,8 @@ extension CreateMyTableMigration {
 You should only use groups if you can guarantee the migrations inside it will always be independent of migrations outside the group. 
 
 The persist driver that come with ``HummingbirdPostgres`` and the job queue driver from ``JobsPostgres`` both use groups to separate their migrations from any the user might add.
+
+## See Also
+
+- ``DatabaseMigration``
+- ``DatabaseMigrations``

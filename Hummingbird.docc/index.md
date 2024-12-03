@@ -1,4 +1,4 @@
-# Hummingbird Guides
+# Hummingbird Documentation
 
 @Metadata {
     @TechnologyRoot
@@ -41,6 +41,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 - <doc:MiddlewareGuide>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
+- <doc:RouterBuilderGuide>
 - <doc:ServiceLifecycle>
 - <doc:Testing>
 - <doc:PersistentData>
@@ -72,16 +73,17 @@ Below is a list of guides and tutorials to help you get started with building yo
 - <doc:MustacheSyntax>
 - <doc:MustacheFeatures>
 
-## See Also
+### Reference Documentation
 
 - ``/Hummingbird``
 - ``/HummingbirdCore``
 - ``/HummingbirdAuth``
+- ``/HummingbirdCompression``
 - ``/HummingbirdFluent``
 - ``/HummingbirdLambda``
 - ``/HummingbirdPostgres``
 - ``/HummingbirdRedis``
-- ``/HummingbirdTesting``
 - ``/HummingbirdWebSocket``
 - ``/Jobs``
 - ``/Mustache``
+- ``/WSClient``

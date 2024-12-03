@@ -79,3 +79,8 @@ router.get("session") { request, context -> HTTPResponse.Status in
     return .ok
 }
 ```
+
+## See Also
+
+- ``HummingbirdAuth/SessionAuthenticator``
+- ``HummingbirdAuth/SessionRequestContext``

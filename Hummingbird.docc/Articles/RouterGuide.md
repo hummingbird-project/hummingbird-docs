@@ -239,3 +239,11 @@ router.post("test") { request, _ -> EditedResponse in
     )
 }
 ```
+
+## See Also
+
+- ``HummingbirdCore/Request``
+- ``HummingbirdCore/Response``
+- ``Router``
+- ``RouteCollection``
+- ``RouterGroup``

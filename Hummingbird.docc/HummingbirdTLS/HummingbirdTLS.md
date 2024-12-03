@@ -32,7 +32,6 @@ The function `tls` can be used to wrap any other child channel in the example ab
 
 ## See Also
 
-- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdCore``
 - ``HummingbirdHTTP2``

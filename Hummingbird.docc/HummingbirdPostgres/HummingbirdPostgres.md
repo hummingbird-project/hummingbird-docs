@@ -10,19 +10,12 @@ Working with Postgres databases.
 
 ## Topics
 
-### Articles
-
-- <doc:PersistentData>
-- <doc:MigrationsGuide>
-
 ### Persist
 
 - ``PostgresPersistDriver``
 
 ## See Also
 
-- <doc:index>
-- ``Hummingbird``
-- ``JobsPostgres``
 - ``PostgresMigrations``
+- ``JobsPostgres``
 

@@ -8,10 +8,6 @@ One time passwords
 
 ## Topics
 
-### Articles
-
-- <doc:OneTimePasswords>
-
 ### OTP
 
 - ``HOTP``
@@ -20,6 +16,5 @@ One time passwords
 
 ## See Also
 
-- <doc:index>
 - ``Hummingbird``
 - ``HummingbirdAuth``

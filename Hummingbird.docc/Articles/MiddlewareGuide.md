@@ -61,3 +61,7 @@ public struct LogRequestsMiddleware<Context: RequestContext>: RouterMiddleware {
     }
 }
 ```
+
+## See Also
+
+- ``RouterMiddleware``
