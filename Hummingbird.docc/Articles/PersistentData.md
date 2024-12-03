@@ -58,7 +58,7 @@ try await persist.remove(key: "mykey")
 
 ## Drivers
 
-The `persist` framework defines an API for storing key/value pairs. You also need a driver for the framework. When configuring your application if you want to use `persist` you have to add it to the application and indicate what driver you are going to use. `Hummingbird` comes with a memory based driver which will store these values in the memory of your server. 
+The `persist` framework defines an API for storing key/value pairs. You also need a driver for the framework. When configuring your application if you want to use `persist` you have to add it to the application and indicate what driver you are going to use. `Hummingbird` comes with a memory based driver ``Hummingbird/MemoryPersistDriver`` which will store these values in the memory of your server. 
 ```swift
 let persist = MemoryPersistDriver()
 ```
@@ -66,7 +66,7 @@ If you use the memory based driver the key/value pairs you store will be lost if
 
 ### Redis
 
-You can use Redis to store the `persists` key/value pairs with the `HummingbirdRedis` library. You would setup `persist` to use Redis as follows. To use the Redis driver you need to have setup Redis with Hummingbird as well.
+You can use Redis to store the `persists` key/value pairs with ``HummingbirdRedis/RedisPersistDriver`` from the `HummingbirdRedis` library. You would setup `persist` to use Redis as follows. To use the Redis driver you need to have setup Redis with Hummingbird as well.
 ```swift
 let redis = RedisConnectionPoolService(
     .init(hostname: redisHostname, port: 6379), 
@@ -87,15 +87,3 @@ if shouldMigrate {
     try await fluent.migrate()
 }
 ```
-
-## Topics
-
-### Reference
-
-- ``PersistDriver``
-- ``PersistError``
-- ``MemoryPersistDriver``
-- ``HummingbirdFluent/FluentPersistDriver``
-- ``HummingbirdPostgres/PostgresPersistDriver``
-- ``HummingbirdRedis/RedisPersistDriver``
-

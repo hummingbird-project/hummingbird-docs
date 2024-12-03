@@ -49,10 +49,3 @@ struct MyError: HTTPResponseError {
     }
 }
 ```
-
-## Topics
-
-### Reference
-
-- ``Hummingbird/HTTPError``
-- ``Hummingbird/HTTPResponseError``

@@ -47,7 +47,7 @@ This gives a slight performance boost over adding them individually.
 
 ### Writing Middleware
 
-All middleware has to conform to the protocol `RouterMiddleware`. This requires one function `handle(_:context:next)` to be implemented. At some point in this function unless you want to shortcut the router and return your own response you should call `next(request, context)` to continue down the middleware stack and return the result, or a result processed by your middleware. 
+All middleware has to conform to the protocol ``Hummingbird/RouterMiddleware``. This requires one function `handle(_:context:next)` to be implemented. At some point in this function unless you want to shortcut the router and return your own response you should call `next(request, context)` to continue down the middleware stack and return the result, or a result processed by your middleware. 
 
 The following is a simple logging middleware that outputs every URI being sent to the server
 
@@ -61,9 +61,3 @@ public struct LogRequestsMiddleware<Context: RequestContext>: RouterMiddleware {
     }
 }
 ```
-
-## Topics
-
-### Reference
-
-- ``RouterMiddleware``

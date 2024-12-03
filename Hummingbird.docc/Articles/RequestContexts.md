@@ -134,11 +134,3 @@ public struct MyRequestContext: AuthRequestContext {
 ```
 
 ``HummingbirdAuth`` does provide ``HummingbirdAuth/BasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/AuthRequestContext``.
-
-## Topics
-
-### Reference
-
-- ``RequestContext``
-- ``BasicRequestContext``
-- ``Router``
