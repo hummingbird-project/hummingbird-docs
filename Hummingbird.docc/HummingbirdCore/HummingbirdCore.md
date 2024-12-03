@@ -12,15 +12,21 @@ HummingbirdCore contains a Swift NIO based server. The server is setup with a ty
 
 ```swift
 let server = Server(
-    childChannelSetup: HTTP1Channel { _, context in
-        let responseBody = channel.allocator.buffer(string: "Hello")
-        return Response(status: .ok, body: .init(byteBuffer: responseBody))
+    childChannelSetup: HTTP1Channel { (_, responseWriter: consuming ResponseWriter, _) in
+        let responseBody = ByteBuffer(string: "Hello")
+        var bodyWriter = try await responseWriter.writeHead(.init(status: .ok))
+        try await bodyWriter.write(responseBody)
+        try await bodyWriter.finish(nil)
     },
     configuration: .init(address: .hostname(port: 8080)),
     eventLoopGroup: eventLoopGroup,
     logger: Logger(label: "HelloServer")
 )
 ```
+
+> Note: In general you won't need to create a `Server` directly. You would let ``Hummingbird/Application`` do this for you. But the ability is left open to you if you want to write your own HTTP server.
+
+## Lifecycle management
 
 Hummingbird makes use of [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage startup and shutdown. `Server` conforms to the `Service` protocol required by Swift Service Lifecycle. The following will start the above server and ensure it shuts down gracefully on a shutdown signal.
 
