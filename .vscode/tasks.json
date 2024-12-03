@@ -8,7 +8,7 @@
             "detail": "Build docc documentation for Hummingbird",
             "type": "shell",
             "command": "HUMMINGBIRD_VERSION=2.0 ./scripts/build-docc.sh",
-            "problemMatcher": [],
+            "problemMatcher": ["$swiftc"],
             "group": "build"
         }
     ]

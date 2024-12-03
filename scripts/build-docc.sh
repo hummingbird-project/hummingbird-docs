@@ -71,6 +71,7 @@ $DOCC convert Hummingbird.docc \
     --additional-symbol-graph-dir $HB_SG_FOLDER \
     --output-path "$OUTPUT_PATH" \
     $WARNINGS_AS_ERRORS \
-    --hosting-base-path /"$HUMMINGBIRD_VERSION"
+    --hosting-base-path /"$HUMMINGBIRD_VERSION" \
+    --ide-console-output
 # copy root files template to docs file
 rsync -trv scripts/docsTemplate/* $BASE_OUTPUT_PATH
