@@ -95,5 +95,5 @@ The persist driver that come with ``HummingbirdPostgres`` and the job queue driv
 
 ## See Also
 
-- ``DatabaseMigration``
-- ``DatabaseMigrations``
+- ``PostgresMigrations/DatabaseMigration``
+- ``PostgresMigrations/DatabaseMigrations``
