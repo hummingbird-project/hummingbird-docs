@@ -12,7 +12,7 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ### Articles
 
-- <doc:AuthenticatorMiddleware>
+- <doc:AuthenticatorMiddlewareGuide>
 - <doc:Sessions>
 
 ### Request Contexts

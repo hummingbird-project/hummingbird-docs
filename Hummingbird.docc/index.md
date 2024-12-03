@@ -48,7 +48,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 
 ### Authentication
 
-- <doc:AuthenticatorMiddleware>
+- <doc:AuthenticatorMiddlewareGuide>
 - <doc:Sessions>
 - <doc:OneTimePasswords>
 
