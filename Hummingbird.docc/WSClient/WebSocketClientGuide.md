@@ -41,6 +41,7 @@ The handler closure works exactly like the WebSocket server handler. You are pro
 
 More details on the WebSocket handler can be found in the <doc:WebSocketServerUpgrade#WebSocket-Handler> section of the WebSocket server upgrade guide.
 
-## Reference
+## See Also
 
-- ``WSClient/WebSocketClient``
+- ``/WSCore/WebSocketInboundStream``
+- ``/WSCore/WebSocketOutboundWriter``

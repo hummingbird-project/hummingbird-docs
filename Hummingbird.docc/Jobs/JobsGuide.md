@@ -72,17 +72,7 @@ app.addServices(jobQueue)
 ```
 If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsRedis/RedisJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
-## Topics
-
-### Reference
-
-- ``/Jobs/JobIdentifier``
-- ``/Jobs/JobQueue``
-- ``/Jobs/JobParameters``
-- ``/Jobs/JobDefinition``
-
 ## See Also
 
-- ``Jobs``
-- ``JobsRedis``
-- ``JobsPostgres``
+- ``Jobs/JobParameters``
+- ``Jobs/JobQueue``

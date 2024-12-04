@@ -70,3 +70,7 @@ try await app.runService()
 ```
 
 Read the Swift Service Lifecycle [documentation](https://swiftpackageindex.com/swift-server/swift-service-lifecycle/main/documentation/servicelifecycle) to find out more.
+
+## See Also
+
+- ``Application``

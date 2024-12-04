@@ -8,7 +8,7 @@ Controlling contextual data provided to middleware and route handlers
 
 ## Overview
 
-All request handlers and middleware handlers have two function parameters: the request and a context. The context provides contextual data for processing your request. The context parameter is a generic value which must conform to the protocol ``RequestContext``. This requires a minimal set of values needed by Hummingbird to process your request. This includes a `Logger`, `ByteBufferAllocator`, request decoder, response encoder and the resolved endpoint path.
+All request handlers and middleware handlers have two function parameters: the request and a context. The context provides contextual data for processing your request. The context parameter is a generic value which must conform to the protocol ``RequestContext``. This requires a minimal set of values needed by Hummingbird to process your request. This includes a `Logger`, request decoder, response encoder and the resolved endpoint path.
 
 When you create your ``Router`` you provide the request context type you want to use. If you don't provide a context it will default to using ``BasicRequestContext`` the default implementation of a request context provided by Hummingbird.
 
@@ -135,10 +135,9 @@ public struct MyRequestContext: AuthRequestContext {
 
 ``HummingbirdAuth`` does provide ``HummingbirdAuth/BasicAuthRequestContext``: a default implementation of ``HummingbirdAuth/AuthRequestContext``.
 
-## Topics
-
-### Reference
+## See Also
 
 - ``RequestContext``
+- ``HummingbirdAuth/AuthRequestContext``
 - ``BasicRequestContext``
-- ``Router``
+- ``CoreRequestContextStorage``

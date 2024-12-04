@@ -61,11 +61,6 @@ For more information:
 
 ## Topics
 
-### Guides
-
-- <doc:PersistentData>
-- <doc:Fluent>
-
 ### Fluent
 
 - ``Fluent``
@@ -74,13 +69,3 @@ For more information:
 ### Storage
 
 - ``FluentPersistDriver``
-
-## See Also
-
-- ``Hummingbird``
-- ``HummingbirdPostgres``
-
-## Examples
-
-- [todos-fluent](https://github.com/hummingbird-project/hummingbird-examples/tree/main/todos-fluent) - Todos application, based off [TodoBackend](http://todobackend.com/) spec, using Fluent
-- [todos-auth-fluent](https://github.com/hummingbird-project/hummingbird-examples/tree/main/todos-fluent) - A more complete example which shows authentication, CRUD operations and mustache rendering all in one Fluent-based app.

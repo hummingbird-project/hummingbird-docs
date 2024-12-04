@@ -75,9 +75,7 @@ router.middlewares.add(TracingMiddleware(recordingHeaders: ["content-type", "con
 
 If you would like to find out more about tracing, or implement your own tracing backend you can find out more [here](https://swiftpackageindex.com/apple/swift-distributed-tracing/main/documentation/tracing).
 
-## Topics
-
-### Reference
+## See Also
 
 - ``LogRequestsMiddleware``
 - ``MetricsMiddleware``

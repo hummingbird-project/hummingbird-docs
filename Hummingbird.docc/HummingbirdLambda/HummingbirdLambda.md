@@ -51,5 +51,4 @@ If you are using any other `In`/`Out` types you will need to implement the `requ
 
 ## See Also
 
-- ``Hummingbird``
 - ``HummingbirdLambdaTesting``

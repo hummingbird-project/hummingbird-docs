@@ -26,3 +26,5 @@ Basic user/password authentication middleware
 ## See Also
 
 - ``HummingbirdAuth``
+- ``HummingbirdBcrypt``
+- ``Hummingbird``

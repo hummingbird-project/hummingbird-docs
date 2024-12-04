@@ -57,10 +57,6 @@ try await app.runService()
 
 ## Topics
 
-### Guides
-
-- <doc:PersistentData>
-
 ### Connection Pool
 
 - ``RedisConnectionPoolService``
@@ -72,4 +68,4 @@ try await app.runService()
 
 ## See Also
 
-- ``Hummingbird``
+- ``JobsRedis``

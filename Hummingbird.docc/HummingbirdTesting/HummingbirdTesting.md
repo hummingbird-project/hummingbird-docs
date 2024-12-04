@@ -30,10 +30,6 @@ try await app.test(.router) { client in
 
 ## Topics
 
-### Guides
-
-- <doc:Testing>
-
 ### Test Setup
 
 - ``TestingSetup``

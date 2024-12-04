@@ -8,7 +8,9 @@ Managing database structure changes.
 
 ## Overview
 
-Database migrations are a controlled set of incremental changes applied to a database. You can use a migration list to transition a database from one state to a new desired state. A migration can involve creating/deleting tables, adding/removing columns, changing types and constraints. 
+Database migrations are a controlled set of incremental changes applied to a database. You can use a migration list to transition a database from one state to a new desired state. A migration can involve creating/deleting tables, adding/removing columns, changing types and constraints. The ``PostgresMigrations`` library that comes with HummingbirdPostgres provides support for setting up your own database migrations. 
+
+> Note: If you are using Fluent then you should use the migration support that comes with Fluent.
 
 Each migration includs an `apply` method that applies the change and a `revert` method that reverts the change.
 
@@ -93,8 +95,7 @@ You should only use groups if you can guarantee the migrations inside it will al
 
 The persist driver that come with ``HummingbirdPostgres`` and the job queue driver from ``JobsPostgres`` both use groups to separate their migrations from any the user might add.
 
-### Reference
+## See Also
 
-- ``/PostgresMigrations/DatabaseMigrations``
-- ``/PostgresMigrations/DatabaseMigration``
-- ``/PostgresMigrations/DatabaseMigrationGroup``
+- ``PostgresMigrations/DatabaseMigration``
+- ``PostgresMigrations/DatabaseMigrations``

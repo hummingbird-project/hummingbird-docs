@@ -138,9 +138,3 @@ There is one subtle difference between the result builder based `RouterBuilder` 
 With the trie based `Router` a request is matched against an endpoint and then only runs the middleware applied to that endpoint. 
 
 With the result builder a request is processed by each element of the router result builder until it hits a route that matches its URI and method. If it hits a ``/HummingbirdRouter/RouteGroup`` and this matches the current request uri path component then the request (with matched URI path components dropped) will be processed by the children of the `RouteGroup` including its middleware. The request path matching and middleware processing is done at the same time which means middleware only needs its parent `RouteGroup` paths to be matched for it to run.
-
-## Topics
-
-### Reference
-
-- ``/HummingbirdRouter/RouterBuilder``

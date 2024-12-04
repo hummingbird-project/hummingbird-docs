@@ -12,10 +12,6 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 
 ## Topics
 
-### Guides
-
-- <doc:JobsGuide>
-
 ### Jobs
 
 - ``JobContext``
@@ -41,6 +37,5 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 
 ## See Also
 
-- ``Hummingbird``
 - ``JobsRedis``
 - ``JobsPostgres``

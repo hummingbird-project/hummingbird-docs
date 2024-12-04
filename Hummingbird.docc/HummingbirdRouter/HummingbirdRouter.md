@@ -27,10 +27,6 @@ let router = RouterBuilder(context: BasicRouterRequestContext.self) {
 
 ## Topics
 
-### Guides
-
-- <doc:RouterBuilderGuide>
-
 ### RouterBuilder
 
 - ``/HummingbirdRouter/RouterBuilder``

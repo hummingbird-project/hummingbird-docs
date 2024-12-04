@@ -37,3 +37,8 @@ let password = TOTP(secret: sharedSecret).compute()
 ```
 
 Compare it with the password provided by the user to verify the user credentials.
+
+## See Also
+
+- ``HummingbirdOTP/TOTP``
+- ``HummingbirdOTP/HOTP``

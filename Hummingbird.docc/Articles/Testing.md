@@ -86,3 +86,8 @@ func testApplicationReturnsCorrectText() async throw {
     }
 }
 ```
+
+## See Also
+
+- ``/Hummingbird/ApplicationProtocol/test(_:_:)``
+- ``/HummingbirdTesting/TestClientProtocol``

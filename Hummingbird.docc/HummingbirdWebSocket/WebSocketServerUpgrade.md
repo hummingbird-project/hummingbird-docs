@@ -131,3 +131,8 @@ wsRouter.ws("chat") { request, _ in
 ```
 
 Alternatively you could use the `RequestContext` to extract authentication data to get the user's name.
+
+## See Also
+
+- ``/WSCore/WebSocketInboundStream``
+- ``/WSCore/WebSocketOutboundWriter``

@@ -32,17 +32,6 @@ Mustache supports all standard Mustache tags and is fully compliant with the Mus
 
 ## Topics
 
-### Features
-
-- <doc:Lambdas>
-- <doc:Pragmas>
-- <doc:TemplateInheritance>
-- <doc:Transforms>
-
-### Articles
-
-- <doc:MustacheSyntax>
-
 ### Template Library
 
 - ``MustacheLibrary``
@@ -59,7 +48,3 @@ Mustache supports all standard Mustache tags and is fully compliant with the Mus
 
 - ``MustacheContentType``
 - ``MustacheContentTypes``
-
-## See Also
-
-- ``Hummingbird``

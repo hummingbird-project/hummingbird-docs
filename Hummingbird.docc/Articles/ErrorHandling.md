@@ -50,9 +50,7 @@ struct MyError: HTTPResponseError {
 }
 ```
 
-## Topics
+## See Also
 
-### Reference
-
-- ``Hummingbird/HTTPError``
-- ``Hummingbird/HTTPResponseError``
+- ``HTTPError``
+- ``HTTPResponseError``

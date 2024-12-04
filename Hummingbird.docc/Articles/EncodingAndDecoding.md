@@ -98,9 +98,8 @@ struct MyRequestDecoder: RequestDecoder {
 
 In a similar manner you could also create a `ResponseEncoder` based on the "accepts" header in the request.
 
-## Topics
-
-### Reference
+## See Also 
 
 - ``RequestDecoder``
 - ``ResponseEncoder``
+- ``RequestContext``

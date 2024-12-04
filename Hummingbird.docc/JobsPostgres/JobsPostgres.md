@@ -12,10 +12,6 @@ Hummingbird Jobs Queue driver using Postgres.
 
 ## Topics
 
-### Guides
-
-- <doc:JobsGuide>
-
 ### Job Queue
 
 - ``PostgresJobQueue``

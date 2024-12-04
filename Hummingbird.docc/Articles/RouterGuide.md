@@ -130,7 +130,7 @@ In the example above we match all paths that are a file with a jpg extension ins
 
 ### Groups
 
-Routes can be grouped together in a `RouterGroup`.  These allow for you to prefix a series of routes with the same path and more importantly apply middleware to only those routes. The example below is a group that includes five handlers all prefixed with the path "/todos".
+Routes can be grouped together in a ``RouterGroup``.  These allow for you to prefix a series of routes with the same path and more importantly apply middleware to only those routes. The example below is a group that includes five handlers all prefixed with the path "/todos".
 
 ```swift
 let app = Application()
@@ -240,10 +240,10 @@ router.post("test") { request, _ -> EditedResponse in
 }
 ```
 
-## Topics
+## See Also
 
-### Reference
-
+- ``HummingbirdCore/Request``
+- ``HummingbirdCore/Response``
 - ``Router``
+- ``RouteCollection``
 - ``RouterGroup``
-- ``RouterMethods``

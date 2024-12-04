@@ -34,6 +34,6 @@ let app = Application(
 
 ## See Also
 
-- ``Hummingbird``
-- ``HummingbirdWebSocket``
 - ``WSClient``
+- ``HummingbirdWebSocket``
+- ``Hummingbird``

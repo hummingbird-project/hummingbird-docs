@@ -14,10 +14,6 @@ WSClient provides a way to connect to WebSocket servers.
 
 ## Topics
 
-### Guides
-
-- <doc:WebSocketClientGuide>
-
 ### Client
 
 - ``WebSocketClient``
@@ -48,6 +44,4 @@ WSClient provides a way to connect to WebSocket servers.
 
 ## See Also
 
-- ``Hummingbird``
-- ``HummingbirdWebSocket``
 - ``WSCompression``

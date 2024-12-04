@@ -25,7 +25,3 @@ Adding request decompression middleware means when a request comes in with heade
 ### Response compression
 
 - ``ResponseCompressionMiddleware``
-
-## See Also
-
-- ``Hummingbird``
