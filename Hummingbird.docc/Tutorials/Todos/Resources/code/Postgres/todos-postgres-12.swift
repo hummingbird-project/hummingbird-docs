@@ -3,6 +3,7 @@ import PostgresNIO
 
 struct TodoPostgresRepository: TodoRepository {
     let client: PostgresClient
+    let logger: Logger
 
     /// Create Todos table
     func createTable() async throws {
