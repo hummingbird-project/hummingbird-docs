@@ -10,23 +10,24 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "HummingbirdDocs",
-            targets: ["HummingbirdDocs"]),
+            targets: ["HummingbirdDocs"]
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.3.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.6.1"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "2.0.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "2.0.0-beta.3"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.0.0-beta.4"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-postgres.git", from: "1.0.0-beta.1"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-redis.git", from: "1.0.0-beta.6"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "2.0.0-rc.3"),
         .package(url: "https://github.com/hummingbird-project/swift-mustache.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-postgres.git", from: "0.5.0"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", from: "2.0.0-beta.4"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-redis.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-websocket.git", from: "2.2.0"),
-        .package(url: "https://github.com/hummingbird-project/swift-websocket.git", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
+        .package(url: "https://github.com/hummingbird-project/swift-websocket.git", from: "1.2.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -57,6 +58,7 @@ let package = Package(
                 .product(name: "WSClient", package: "swift-websocket"),
                 .product(name: "WSCompression", package: "swift-websocket"),
                 .product(name: "HummingbirdWSTesting", package: "hummingbird-websocket"),
-            ]),
+            ]
+        )
     ]
 )
