@@ -24,8 +24,8 @@ Defines the requirements for job queue implementation.
 ### Jobs
 
 - ``push(_:options:)``
-- ``finished(jobId:)``
-- ``failed(jobId:error:)``
+- ``finished(jobID:)``
+- ``failed(jobID:error:)``
 
 ### Metadata
 

@@ -20,7 +20,7 @@ let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
 
 ### Creating a Job
 
-First you must define your job. A job consists of three things, an identifier, the parameters required to run the job and a function that executes the job. 
+Before you can start running jobs you need to define yours job. A job definition requires an identifier for the job, the job parameters and the function that runs the job. 
 
 We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
 
