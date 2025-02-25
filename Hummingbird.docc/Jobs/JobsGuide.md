@@ -12,17 +12,15 @@ A Job consists of a payload and an execute method to run the job. Swift Jobs pro
 
 ### Setting up a Job queue
 
-Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory that will process four jobs concurrently.
+Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
 
 ```swift
-let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
+let jobQueue = JobQueue(.memory, logger: logger)
 ```
 
 ### Creating a Job
 
-Before you can start running jobs you need to define a job. A job definition requires an identifier for the job, the job parameters and the function that runs the job. 
-
-We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
+Creating a job requires an identifier, the parameters for the job and the function that runs the job. We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
 
 ```swift
 struct SendEmailJobParameters: JobParameters {
@@ -42,7 +40,7 @@ jobQueue.registerJob(parameters: SendEmailJobParameters.self) { parameters, cont
 }
 ```
 
-Now your job is ready to create. Jobs can be queued up using the function `push` on `JobQueue`.
+Now your job is ready to create. Jobs can be queued up using the function ``Jobs/JobQueue/push(_:options:)`` from `JobQueue`.
 
 ```swift
 let job = SendEmailJobParameters(
@@ -53,13 +51,29 @@ let job = SendEmailJobParameters(
 jobQueue.push(job)
 ```
 
-### Processing Jobs
-
-When you create a `JobQueue` the `numWorkers` parameter indicates how many jobs you want serviced concurrently by the job queue. If you want to activate these workers you need to add the job queue to your `ServiceGroup`.
+Alternatively you can create a job using a ``Jobs/JobName``. This associates a type with a name, but that type can be used multiple times with different job names.
 
 ```swift
+let printStringJob = JobName<String>("Print String")
+jobQueue.registerJob(printStringJob) { parameters, context in
+    print(parameters)
+}
+```
+
+You then queue your job for execution using ``Jobs/JobQueue/push(_:parameters:options:)``
+
+```swift
+jobQueue.push(printStringJob, parameters: "Testing,testing,1,2,3")
+```
+
+### Processing Jobs
+
+To start processing jobs on your queue you need a ``Jobs/JobQueueProcessor``. You can create the job processor for a job queue by calling ``Jobs/JobQueue/processor(options:)``. The options passed in when creating your `JobQueueProcessor` includes the parameter `numWorkers` which indicates how many jobs you want to run concurrently. If you want to activate the `JobQueueProcessor` you can call the ``Jobs/JobQueueProcessor/run()`` method but it is preferable to use [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage the running of the processor to ensure clean shutdown when your application is shutdown.
+
+```swift
+let jobProcessor = jobQueue.processor(options: .init(numWorkers: 8))
 let serviceGroup = ServiceGroup(
-    services: [server, jobQueue],
+    services: [server, jobProcessor],
     configuration: .init(gracefulShutdownSignals: [.sigterm, .sigint]),
     logger: logger
 )
@@ -68,7 +82,7 @@ try await serviceGroup.run()
 Or it can be added to the array of services that `Application` manages
 ```swift
 let app = Application(...)
-app.addServices(jobQueue)
+app.addServices(jobProcessor)
 ```
 If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsRedis/RedisJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
@@ -117,13 +131,6 @@ Setting it to `.all` will schedule a job for every trigger point it missed eg if
 ```swift
 jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
 ```
-
-## Topics
-
-### Reference
-
-- ``JobsPostgres``
-- ``JobsRedis``
 
 ## See Also
 

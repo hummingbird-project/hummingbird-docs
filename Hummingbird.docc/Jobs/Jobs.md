@@ -14,6 +14,7 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 
 ### Jobs
 
+- ``JobName``
 - ``JobDefinition``
 - ``JobParameters``
 - ``JobExecutionContext``
@@ -21,10 +22,19 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 ### Queues
 
 - ``JobQueue``
+- ``JobQueueProcessor``
+- ``JobQueueProtocol``
 - ``JobQueueOptions``
+- ``JobQueueProcessorOptions``
 - ``JobQueueDriver``
 - ``MemoryQueue``
 - ``JobOptionsProtocol``
+
+### Optional features
+
+- ``CancellableJobQueue``
+- ``ResumableJobQueue``
+- ``JobMetadataDriver``
 
 ### Scheduler
 
@@ -37,7 +47,9 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``MetricsJobMiddleware``
 - ``TracingJobMiddleware``
 - ``JobMiddlewareBuilder``
-- ``JobQueueContext``
+- ``JobPushQueueContext``
+- ``JobPopQueueContext``
+- ``JobCompletedQueueContext``
 
 ### Error
 
@@ -51,6 +63,13 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``JobQueueResult``
 - ``JobRegistry``
 - ``JobRequest``
+- ``JobRetryOptions``
+
+### Retry
+
+- ``JobRetryStrategy``
+- ``ExponentialJitterJobRetryStrategy``
+- ``NoRetryJobRetryStrategy``
 
 ## See Also
 

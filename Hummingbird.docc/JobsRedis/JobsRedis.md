@@ -31,7 +31,6 @@ let jobQueue = JobQueue(
             pollTime: .milliseconds(50)
         )
     ),
-    numWorkers: 10,
     logger: logger
 )
 let serviceGroup = ServiceGroup(
@@ -103,6 +102,56 @@ let jobID = try await jobQueue.push(TestJob(), options: .init(delayUntil: .now +
 try await jobQueue.pause(jobID: jobID)
 try await jobQueue.resume(jobID: jobID)
 ```
+
+### Job retention
+
+The queue has options to retain jobs once it has finished with them depending on status. By default the queue will retain failed jobs and drop cancelled or completed jobs, but these decisions are configurable.
+
+```swift
+let jobQueue = JobQueue(
+    .redis(
+        redisService.pool, 
+        configuration: .init(
+            queueKey: "MyJobQueue", 
+            retentionPolicy: .init(
+                completedJobs: .retain, 
+                failedJobs: .retain, 
+                cancelledJobs: .doNotRetain
+            )
+        )
+    ),
+    logger: logger
+)
+```
+
+### Job queue cleanup
+
+If you do opt to retain jobs after processing you will probably eventually want to clean them up. The Redis queue provides a method `cleanup` which allows you to remove or attempt to re-run jobs based on what state they are in. You should be careful not to do anything to pending or processing jobs while the job queue is being processed as it might confuse the job processor.
+
+```swift
+jobQueue.queue.cleanup(
+    pendingJobs: .doNothing,
+    processingJobs: .doNothing,
+    completedJobs: .remove(maxAge: .seconds(7*24*60*60)),
+    failedJobs: .rerun,
+    cancelledJobs: .remove, 
+)
+```
+
+#### Scheduling cleanup
+
+Given this is a job you will probably want to do regularly the queue also provides a job you can use in conjunction with the `JobScheduler` that will do the cleanup for you. 
+
+```swift
+var jobSchedule = JobSchedule()
+jobSchedule.addJob(
+    jobQueue.queue.cleanupJob,
+    parameters: .init(completedJobs: .remove, failedJobs: .rerun, cancelledJobs: .remove),
+    schedule: .weekly(day: .sunday)
+)
+```
+
+You can find out more about the Job scheduler in the Jobs guide <doc:JobsGuide#Job-Scheduler>
 
 ## Topics
 
