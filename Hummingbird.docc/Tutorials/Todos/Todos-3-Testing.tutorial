@@ -13,13 +13,13 @@
             @Step {
                 Open Package.swift
 
-                You see at the bottom there is a test target call `AppTests`. It is dependent on the target `App` and the library `HummingbirdTesting`.
+                You see at the bottom there is a test target called `AppTests`. It is dependent on the target `App` and the library `HummingbirdTesting`.
                 @Code(name: "Package.swift", file: todos-testing-01.swift)
             }
             @Step {
                 Open Tests/AppTests/AppTests.swift
 
-                It contains one test, `testApp()`. This creates a copy of the Application using `buildApplication(_:)` and uses the Hummingbird test framework to verify the GET `/health` endpoint returns a 200 (Ok) response.
+                It contains one test, `testApp()`. This creates a copy of the Application using `buildApplication(_:)` and uses the Hummingbird test framework to verify the GET `/` endpoint returns a "Hello!" string.
                 @Code(name: "Tests/AppTests/AppTests.swift", file: todos-testing-02.swift)
             }
             @Step {
