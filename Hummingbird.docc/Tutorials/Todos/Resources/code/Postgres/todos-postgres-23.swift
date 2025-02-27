@@ -6,9 +6,9 @@ func buildRouter(_ repository: some TodoRepository) -> Router<AppRequestContext>
         // logging middleware
         LogRequestsMiddleware(.info)
     }
-    // Add health endpoint
-    router.get("/health") { _, _ -> HTTPResponse.Status in
-        return .ok
+    // Add default endpoint
+    router.get("/") { _,_ in
+        return "Hello!"
     }
     router.addRoutes(TodoController(repository: repository).endpoints, atPath: "/todos")
     return router
