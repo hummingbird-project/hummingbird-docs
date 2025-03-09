@@ -42,10 +42,7 @@ extension String: ResponseGenerator {
         let buffer = ByteBuffer(string: self)
         return Response(
             status: .ok,
-            headers: .defaultHummingbirdHeaders(
-                contentType: "text/plain; charset=utf-8",
-                contentLength: buffer.readableBytes
-            ),
+            headers: [.contentType: "text/plain; charset=utf-8"],
             body: .init(byteBuffer: buffer)
         )
     }
