@@ -39,8 +39,12 @@ Route handlers are required to return a type conforming to the `ResponseGenerato
 extension String: ResponseGenerator {
     /// Generate response holding string
     public func response(from request: Request, context: some RequestContext) -> Response {
-        let buffer = context.allocator.buffer(string: self)
-        return Response(status: .ok, headers: ["content-type": "text/plain; charset=utf-8"], body: .byteBuffer(buffer))
+        let buffer = ByteBuffer(string: self)
+        return Response(
+            status: .ok,
+            headers: [.contentType: "text/plain; charset=utf-8"],
+            body: .init(byteBuffer: buffer)
+        )
     }
 }
 ```
