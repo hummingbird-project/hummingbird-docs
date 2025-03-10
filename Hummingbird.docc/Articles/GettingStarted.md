@@ -34,7 +34,7 @@ Then run your app:
 
 The starting template is also designed so that you can create a new GitHub repository from it.
 
-### Create trough GitHub
+### Create using GitHub template
 
 - Sign in to GitHub.
 - Navigate to [https://github.com/hummingbird-project/template](https://github.com/hummingbird-project/template).
