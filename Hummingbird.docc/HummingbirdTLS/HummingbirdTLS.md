@@ -30,6 +30,12 @@ The function `tls` can be used to wrap any other child channel in the example ab
 
 ## Topics
 
+### Server
+
+- ``/HummingbirdCore/HTTPServerBuilder/tls(_:tlsConfiguration:)``
+- ``/HummingbirdCore/HTTPServerBuilder/tls(_:configuration:)``
+- ``TLSChannel``
+
 ## See Also
 
 - ``Hummingbird``
