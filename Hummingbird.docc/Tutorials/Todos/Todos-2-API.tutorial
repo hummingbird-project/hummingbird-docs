@@ -35,7 +35,7 @@
                 @Code(name: "Sources/App/Repositories/Todo.swift", file: todos-api-04.swift)
             }
             @Step {
-                Create a `TodoRepository` protocol that defines all the methods to manage todos: (get, list, create, update, delete and deleteAll). This allows us to use a different implementation of the repository for different storage engines.
+                Create a `TodoRepository` protocol that defines all the methods to manage todos: (get, list, create, update, delete and deleteAll). This allows us to use a different implementation of the repository for different storage methods.
                 @Code(name: "Sources/App/Repositories/TodoRepository.swift", file: todos-api-05.swift)
             }
             @Step {
