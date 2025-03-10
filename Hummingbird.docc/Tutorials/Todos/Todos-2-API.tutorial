@@ -16,7 +16,7 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                Go back to `buildRouter()` in Application+build.swift
+                Go back to `buildRouter()` in Application+build.swift. Routers ensure a Request is _routed_ to the correct handler function.
                 @Code(name: "Sources/App/Application+build.swift", file: todos-template-06.swift)
             }
             @Step {
@@ -31,15 +31,15 @@
                 @Code(name: "Sources/App/Repositories/Todo.swift", file: todos-api-03.swift)
             }
             @Step {
-                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseEncodable`. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances.
+                We are going to use `Todo` as the return value for some of our routes, so it needs to conform to `ResponseEncodable`. This allows us to return it from our routes and have it automatically encoded as JSON. Later we will also be using it in tests so lets add `Decodable` and `Equatable` conformances, for reading JSON and comparing todos.
                 @Code(name: "Sources/App/Repositories/Todo.swift", file: todos-api-04.swift)
             }
             @Step {
-                Create a `TodoRepository` protocol that defines all the methods to manage todos: (get, list, create, update, delete and deleteAll).
+                Create a `TodoRepository` protocol that defines all the methods to manage todos: (get, list, create, update, delete and deleteAll). This allows us to use a different implementation of the repository for different storage engines.
                 @Code(name: "Sources/App/Repositories/TodoRepository.swift", file: todos-api-05.swift)
             }
             @Step {
-                Create a concrete implementation of `TodoRepository` protocol that saves everything to memory. We use an actor because multiple tasks could be accessing the repository at the same time.
+                Create a concrete implementation of `TodoRepository` protocol that saves everything to memory. We use an actor because multiple tasks could be accessing the repository at the same time, and actors are thread safe.
                 @Code(name: "Sources/App/Repositories/TodoMemoryRepository.swift", file: todos-api-06.swift)
             }
             @Step {
@@ -47,7 +47,7 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                And add a generic repository member variable conforming to `TodoRepository` to be used by the `TodoController` routes.
+                And add a generic repository member variable conforming to `TodoRepository` to be used by the `TodoController` routes. Generics allow us to use the same controller for different repository implementations.
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
@@ -55,11 +55,11 @@
                 @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift)
             }
             @Step {
-                And add the repository parameter to the TodoController initializer. We are using the memory implementation of the `TodoRepository` we have already implemented above.
+                And add the repository parameter to the TodoController initializer. We are using the memory implementation of the `TodoRepository` we have already implemented previously.
                 @Code(name: "Sources/App/Application+build.swift", file: todos-api-08.swift)
             }
             @Step {
-                Return to TodoController.swift. We can now start adding our endpoints.
+                Return to TodoController.swift. We can now start adding our endpoints. An endpoint (or Route) is a function that replies to a request if the path and method match.
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift)
             }
             @Step {
@@ -73,7 +73,7 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-09.swift)
             }
             @Step {
-                Our second endpoint is to create a Todo. We have added a struct to decode from the request. In a similar way the get endpoint response uses JSONEncoder to generate its response, this uses the JSONDecoder attached to the context. We then call the repository `create` method and return the result.
+                Our second endpoint is to create a Todo. We have added a struct to decode from the request. In a similar way the get endpoint response uses JSONEncoder to generate its response, this uses the JSONDecoder attached to the context to read JSON from the request. We then call the repository `create` method and return the result.
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-10.swift)
             }
             @Step {
