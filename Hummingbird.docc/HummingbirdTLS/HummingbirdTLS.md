@@ -8,7 +8,15 @@ Add TLS support to Hummingbird server.
 
 ## Overview
 
-HummingbirdTLS provides TLS support via ``TLSChannel``. You can add this to your application using ``HummingbirdCore/HTTPServerBuilder/tls(_:tlsConfiguration:)``.
+HummingbirdTLS is bundled with Hummingbird, but is not enabled by default. To enable TLS support, you need to add the target dependency to your target:
+
+```sh
+swift package add-target-dependency HummingbirdTLS <MyApp> --package hummingbird
+```
+
+Make sure to replace `<MyApp>` with the name of your App's target.
+
+HummingbirdTLS provides TLS protocol support via ``TLSChannel``. You can add this to your application using ``HummingbirdCore/HTTPServerBuilder/tls(_:tlsConfiguration:)``.
 
 ```swift
 // Load certificates and private key to construct server TLS configuration
@@ -26,7 +34,7 @@ let app = Application(
 )
 ```
 
-The function `tls` can be used to wrap any other child channel in the example above we use it to wrap an HTTP1 channel.
+The function `tls` can be used to wrap another protocol. In the example above we use it to wrap HTTP1 server, and you can also wrap a WebSocket Supporting HTTP/1 server.
 
 ## Topics
 
@@ -41,3 +49,4 @@ The function `tls` can be used to wrap any other child channel in the example ab
 - ``Hummingbird``
 - ``HummingbirdCore``
 - ``HummingbirdHTTP2``
+- ``HummingbirdWebSocket``
