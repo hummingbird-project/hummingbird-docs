@@ -62,11 +62,11 @@ router.post("user") { request, context -> HTTPResponse.Status in
     return .ok
 }
 ```
-Like the standard ``Decoder.decode`` functions ``Request.decode`` can throw an error if decoding fails. The decode function is also async as the request body is an asynchronous sequence of `ByteBuffer`s. We need to collate the request body into one buffer before we can decode it.
+Like the standard `Decoder.decode` functions `Request.decode` can throw an error if decoding fails. The decode function is also async as the request body is an asynchronous sequence of `ByteBuffers`. We need to collate the request body into one buffer before we can decode it.
 
 ## Encoding Responses
 
-To have an object encoded in the response we have to conform it to ``ResponseEncodable``. This then allows you to create a route handler that returns this object and it will automatically get encoded. If we extend the `User` object from the above example we can do this:
+To have an object encoded in the response we have to conform it to `ResponseEncodable`. This then allows you to create a route handler that returns this object and it will automatically get encoded. If we extend the `User` object from the above example we can do this
 
 ```swift
 extension User: ResponseEncodable {}
