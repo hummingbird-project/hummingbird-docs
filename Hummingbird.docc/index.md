@@ -42,6 +42,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
 - <doc:RouterBuilderGuide>
+- <doc:ServerProtocol>
 - <doc:ServiceLifecycle>
 - <doc:Testing>
 - <doc:PersistentData>
