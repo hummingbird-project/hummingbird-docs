@@ -8,7 +8,7 @@ Adding support for TLS and HTTP/2 upgrades.
 
 ## Overview
 
-By default a Hummingbird application runs with a HTTP/1.1 server. The Hummingbird comes with additional libraries that allow you to change this to leverage TLS, HTTP/2 and WebSockets.
+By default a Hummingbird application runs with a HTTP/1.1 server. The Hummingbird comes with additional libraries that allow you to change this to leverage TLS, HTTP/2 and WebSockets. WebSocket upgrade handling is covered in <doc:WebSocketServerUpgrade>.
 
 ### Setting server protocol
 
