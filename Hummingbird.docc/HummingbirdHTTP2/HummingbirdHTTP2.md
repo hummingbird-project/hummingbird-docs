@@ -8,6 +8,14 @@ Add HTTP2 support to Hummingbird server.
 
 ## Overview
 
+HummingbirdHTTP2 is bundled with Hummingbird, but is not enabled by default. To enable HTTP2 support, you need to add the target dependency to your target:
+
+```sh
+swift package add-target-dependency HummingbirdHTTP2 <MyApp> --package hummingbird
+```
+
+Make sure to replace `<MyApp>` with the name of your App's target.
+
 HummingbirdHTTP2 provides HTTP2 upgrade support via ``HTTP2UpgradeChannel``. You can add this to your application using ``HummingbirdCore/HTTPServerBuilder/http2Upgrade(tlsConfiguration:additionalChannelHandlers:)``.
 
 ```swift
