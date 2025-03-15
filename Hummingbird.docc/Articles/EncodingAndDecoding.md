@@ -5,7 +5,9 @@
 }
 
 
-Hummingbird uses `Codable` to decode requests and encode responses. 
+Hummingbird uses `Codable` to decode requests and encode responses. Codable is a flexible, type-safe way to encode and decode data from various formats.
+
+Hummingbird provides a JSON-based solution out-of-the-box, but also provides support for URL-encoded form data. In addition, other Codable libraries can be used with Hummingbird by implementing the ``RequestDecoder`` and ``ResponseEncoder`` protocols.
 
 The request context ``RequestContext`` that is provided alongside your ``/HummingbirdCore/Request`` has two member variables ``RequestContext/requestDecoder`` and ``RequestContext/responseEncoder``. These define how requests/responses are decoded/encoded. 
 
