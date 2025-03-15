@@ -28,6 +28,12 @@ let app = Application(
 
 ## Topics
 
+### Server
+
+- ``/HummingbirdCore/HTTPServerBuilder/http2Upgrade(tlsConfiguration:configuration:)``
+- ``/HummingbirdCore/HTTPServerBuilder/http2Upgrade(tlsChannelConfiguration:configuration:)``
+- ``HTTP2UpgradeChannel``
+
 ## See Also
 
 - ``Hummingbird``
