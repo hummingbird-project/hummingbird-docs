@@ -250,7 +250,7 @@ let responseBody = ResponseBody { writer in
     writer.finish(nil)
 }
 ```
-Once you have finished writing your response body you need to tell the writer you have finished by calling ``HummingbirdCore/ResponseBodyWriter/finish(_:)``. At this point you can write trailing headers by passing them to the `finish` function. NB Trailing headers are only sent if your response body is a chunked and does not include a content length header.
+Once you have finished writing your response body you need to tell the writer you have finished by calling ``HummingbirdCore/ResponseBodyWriter/finish(_:)``. At this point you can write trailing headers by passing them to the `finish` function. NB Trailing headers are only sent if your response body is chunked and does not include a content length header.
 
 ### Editing response in handler
 
