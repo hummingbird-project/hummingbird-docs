@@ -132,6 +132,30 @@ router.get("/files/{image}.jpg") { request, context in
 ```
 In the example above we match all paths that are a file with a jpg extension inside the files folder and then call a function with that image name.
 
+### Query parameters
+
+The `Request` url query parameters are available via a number of methods from `Request` member ``/HummingbirdCore/Request/uri``. You can get the full query string using ``/HummingbirdCore/URI/query``. You can get the query string broken up into individual parameters and percent decoded using ``/HummingbirdCore/URI/queryParameters``.
+
+```swift
+router.get("/user") { request, context in
+    let id = request.uri.queryParameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
+    return getUser(id: id)
+}
+```
+
+You can also use ``/HummingbirdCore/URI/decodeQuery(as:context:)`` to convert the query parameters into a Swift object.
+
+```swift
+struct Coordinate: Decodable {
+    let x: Double
+    let y: Double
+}
+router.get("tile") { request, context in
+    let position = request.uri.decodeQuery(as: Coordinate.self, context: context)
+    return tiles.get(at: position)
+}
+```
+
 ### Groups
 
 Routes can be grouped together in a ``RouterGroup``.  These allow for you to prefix a series of routes with the same path and more importantly apply middleware to only those routes. The example below is a group that includes five handlers all prefixed with the path "/todos".
