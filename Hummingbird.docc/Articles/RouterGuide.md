@@ -51,7 +51,7 @@ extension String: ResponseGenerator {
 
 In addition to `String` `ByteBuffer`, `HTTPResponseStatus` and `Optional` have also been extended to conform to `ResponseGenerator`.
 
-It is also possible to extend `Codable` objects to generate `Response` by conforming these objects to `ResponseEncodable`. The object will use the response encoder attached to your context to encode these objects. If an object conforms to `ResponseEncodable` then also so do arrays and dictionaries of these objects.
+It is also possible to extend `Codable` objects to generate a `Response` by conforming these objects to ``ResponseEncodable``. The object will use the response encoder attached to your context to encode these objects. If an object conforms to `ResponseEncodable` then also so do arrays and dictionaries of these objects. Read more about generating `Response`s via `Codable` in <doc:ResponseEncoding>.
 
 ### Wildcards
 
