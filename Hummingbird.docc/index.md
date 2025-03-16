@@ -36,9 +36,9 @@ Below is a list of guides and tutorials to help you get started with building yo
 ### Hummingbird Server
 
 - <doc:RouterGuide>
-- <doc:RequestContexts>
 - <doc:RequestDecoding>
-- <doc:EncodingAndDecoding>
+- <doc:ResponseEncoding>
+- <doc:RequestContexts>
 - <doc:MiddlewareGuide>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>
