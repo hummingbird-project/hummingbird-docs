@@ -138,12 +138,13 @@ The `Request` url query parameters are available via a number of methods from `R
 
 ```swift
 router.get("/user") { request, context in
+    // extract parameter from URL of form /user?id={userId}
     let id = request.uri.queryParameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
     return getUser(id: id)
 }
 ```
 
-You can also use ``/HummingbirdCore/URI/decodeQuery(as:context:)`` to convert the query parameters into a Swift object.
+You can also use ``/HummingbirdCore/URI/decodeQuery(as:context:)`` to convert the query parameters into a Swift object. As with `URI.queryParameters` the values will be percent decoded.
 
 ```swift
 struct Coordinate: Decodable {
@@ -151,6 +152,7 @@ struct Coordinate: Decodable {
     let y: Double
 }
 router.get("tile") { request, context in
+    // create `Coordinate` from query parameters in URL of form /tile?x={xCoordinate}&y={yCoordinate}
     let position = request.uri.decodeQuery(as: Coordinate.self, context: context)
     return tiles.get(at: position)
 }
