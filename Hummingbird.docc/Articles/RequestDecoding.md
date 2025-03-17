@@ -30,7 +30,7 @@ Like the standard `Codable` decode functions `Request.decode(as:context:)` can t
 
 ### Date decoding
 
-As mentioned above the default is to use `JSONDecoder` for decoding `Request` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you generating requests for a Hummingbird server using `JSONEncoder` you can output ISO 8601 dates by setting `JSONEncoder.dateEncodingStrategy` to `.iso8601`.
+As mentioned above the default is to use `JSONDecoder` for decoding `Request` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you are generating requests for a Hummingbird server in a Swift app using `JSONEncoder` you can output ISO 8601 dates by setting `JSONEncoder.dateEncodingStrategy` to `.iso8601`.
 
 ## Setting up a custom decoder
 

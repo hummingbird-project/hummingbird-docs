@@ -28,7 +28,7 @@ router.get("user") { request, _ -> User in
 
 ### Date encoding
 
-As mentioned above the default is to use `JSONEncoder` for encoding `Response` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you are decoding responses from a Hummingbird server using `JSONDecoder` you can parse dates using ISO 8601 by setting `JSONDecoder.dateDecodingStrategy` to `.iso8601`.
+As mentioned above the default is to use `JSONEncoder` for encoding `Response` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you are decoding responses from a Hummingbird server in a Swift app using `JSONDecoder` you can parse dates using ISO 8601 by setting `JSONDecoder.dateDecodingStrategy` to `.iso8601`.
 
 ## Setting up a custom encoder
 
