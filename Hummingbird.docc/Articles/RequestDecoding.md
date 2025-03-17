@@ -28,6 +28,10 @@ router.post("user") { request, context -> HTTPResponse.Status in
 ```
 Like the standard `Codable` decode functions `Request.decode(as:context:)` can throw an error if decoding fails. The decode function is also async as the request body is an asynchronous sequence of `ByteBuffers`. We need to collate the request body into one buffer before we can decode it.
 
+### Date decoding
+
+As mentioned above the default is to use `JSONDecoder` for decoding `Request` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you generating requests for a Hummingbird server using `JSONEncoder` you can output ISO 8601 dates by setting `JSONEncoder.dateEncodingStrategy` to `.iso8601`.
+
 ## Setting up a custom decoder
 
 If you want to use a different format, a different JSON encoder or want to support multiple formats, you need to setup you own `requestDecoder` in a custom request context. Your request decoder needs to conform to the `RequestDecoder` protocol which has one requirement ``RequestDecoder/decode(_:from:context:)``. For instance `Hummingbird` also includes a decoder for URL encoded form data. Below you can see a custom request context setup to use ``URLEncodedFormDecoder`` for request decoding. The router is then initialized with this context. Read <doc:RequestContexts> to find out more about request contexts. 

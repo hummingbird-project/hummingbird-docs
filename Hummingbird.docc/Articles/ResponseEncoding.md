@@ -26,7 +26,11 @@ router.get("user") { request, _ -> User in
  {"email":"js@email.com","name":"John Smith"}
  ```
 
- ## Setting up a custom encoder
+### Date encoding
+
+As mentioned above the default is to use `JSONEncoder` for encoding `Response` bodies. This default is also set to use ISO 8601 dates in the form `YYYY-MM-DDThh:mm:ssZ`. If you are decoding responses from a Hummingbird server using `JSONDecoder` you can parse dates using ISO 8601 by setting `JSONDecoder.dateDecodingStrategy` to `.iso8601`.
+
+## Setting up a custom encoder
 
 If you want to use a different format, a different JSON encoder or want to support multiple formats, you need to setup you own `responseEncoder` in a custom request context. Your response encoder needs to conform to the `ResponseEncoder` protocol which has one requirement ``ResponseEncoder/encode(_:from:context:)``. For instance `Hummingbird` also includes a encoder for URL encoded form data. Below you can see a custom request context setup to use ``URLEncodedFormEncoder`` for response encoding. The router is then initialized with this context. Read <doc:RequestContexts> to find out more about request contexts. 
 
