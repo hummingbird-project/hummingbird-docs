@@ -56,7 +56,7 @@ struct MyRequestContext: RequestContext {
 }
 ```
 
-You can find out more about request decoding and response encoding in <doc:EncodingAndDecoding>.
+You can find out more about request decoding and response encoding in <doc:RequestDecoding> and <doc:ResponseEncoding>.
 
 ## Passing data forward
 
