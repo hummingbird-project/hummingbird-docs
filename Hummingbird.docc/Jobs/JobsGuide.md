@@ -109,7 +109,7 @@ jobSchedule.addJob(TestJobParameters(), schedule: .crontab("0 */4 * * sat,sun"))
 
 ### Schedule accuracy
 
-You can setup how accurate you want your scheduler to adhere to the schedule regardless of whether the schduler is running or not. Obviously if your scheduler is not running it cannot schedule jobs. But you can use the `accuracy` parameter of a schedule to indicate what you want your scheduler to do once it comes back online after having been down. 
+You can setup how accurate you want your scheduler to adhere to the schedule regardless of whether the scheduler is running or not. Obviously if your scheduler is not running it cannot schedule jobs. But you can use the `accuracy` parameter of a schedule to indicate what you want your scheduler to do once it comes back online after having been down. 
 
 Setting it to `.all` will schedule a job for every trigger point it missed eg if your scheduler was down for 6 hours and you had a hourly schedule it would push a job to the JobQueue for every one of those hours missed. Setting it to `.latest` will mean it only schedules a job for last trigger point if it was missed. If you don't set the value then it will default to `.latest`.
 
@@ -121,3 +121,4 @@ jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy:
 
 - ``Jobs/JobParameters``
 - ``Jobs/JobQueue``
+- ``Jobs/JobSchedule``
