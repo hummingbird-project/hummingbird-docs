@@ -8,7 +8,71 @@ Redis implementation for Hummingbird jobs framework
 
 ## Overview
 
-Hummingbird Jobs Queue driver using Redis queues.
+Hummingbird Jobs Queue driver using [RediStack](https://github.com/swift-server/redistack).
+
+### Setup
+
+Currently `RediStack` is not setup to use `ServiceLifecycle`. So to ensure clean shutdown of `RediStack` you either need to use the ``HummingbirdRedis/RedisConnectionPoolService`` that is part of ``HummingbirdRedis`` or write your own `Service` type that will manage the shutdown of a `RedisConnectionPool`.
+
+#### Using HummingbirdRedis
+
+If you choose to use `HummingbirdRedis` you can setup a JobQueue using `RediStack` as follows
+
+```swift
+let redisService = try RedisConnectionPoolService(
+    .init(hostname: redisHost, port: 6379),
+    logger: logger
+)
+let jobQueue = JobQueue(
+    .redis(redisService.pool),
+    numWorkers: 10,
+    logger: logger
+)
+let serviceGroup = ServiceGroup(
+    configuration: .init(
+        services: [redisService, jobQueue],
+        gracefulShutdownSignals: [.sigterm, .sigint],
+        logger: logger
+    )
+)
+try await serviceGroup.run()
+```
+
+#### Write RedisConnectionPool Service
+
+Alternatively you can write your own `Service` to manage the lifecycle of the `RedisConnectionPool`. This basically keeps a reference to the `RedisConnectionPool` and waits for graceful shutdown. At graceful shutdown it will close the connection pool. Unfortunately `RedisConnectionPool` is not `Sendable` so we either have to add an `@unchecked Sendable` to `RedisConnectionPoolService` or import `RediStack` using `@preconcurrency`.
+
+```swift
+struct RedisConnectionPoolService: Service, @unchecked Sendable {
+    let pool: RedisConnectionPool
+
+    public func run() async throws {
+        // Wait for graceful shutdown and ignore cancellation error
+        try? await gracefulShutdown()
+        // close connection pool
+        let promise = self.pool.eventLoop.makePromise(of: Void.self)
+        self.pool.close(promise: promise)
+        return try await promise.futureResult.get()
+    }
+}
+```
+
+## Additional Features
+
+There are features specific to the Redis Job Queue implementation.
+
+### Push Options
+
+When pushing a job to the queue there are a number of options you can provide. 
+
+#### Delaying jobs
+
+As with all queue drivers you can add a delay before a job is processed. The job will sit in the pending queue and will not be available for processing until time has passed its delay until time.
+
+```swift
+// Add TestJob to the queue, but don't process it for 2 minutes
+try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
+```
 
 ## Topics
 
