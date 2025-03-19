@@ -1,14 +1,14 @@
-# TLS and HTTP/2
+# Server protocol
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")
 }
 
-Adding support for TLS and HTTP/2 upgrades.
+Support for TLS and HTTP2 upgrades
 
 ## Overview
 
-By default a Hummingbird application runs with a HTTP/1.1 server. The Hummingbird comes with additional libraries that allow you to change this to leverage TLS, HTTP/2 and WebSockets. WebSocket upgrade handling is covered in <doc:WebSocketServerUpgrade>.
+By default a Hummingbird application runs with a HTTP/1.1 server. The Hummingbird comes with additional libraries that allow you to change this to use TLS, HTTP2 and WebSockets
 
 ### Setting server protocol
 
@@ -27,11 +27,10 @@ HTTPS is pretty much a requirement for a server these days. Many people run Ngin
 
 ```swift
 import HummingbirdTLS
-import NIOSSL
 
 let tlsConfiguration = TLSConfiguration.makeServerConfiguration(
-    certificateChain: try NIOSSLCertificate.fromPEMFile("/path/to/certificate.pem").map { .certificate($0) },
-    privateKey: .privateKey(try NIOSSLPrivateKey(file: "/path/to/privatekey.pem", format: .pem))
+    certificateChain: certificateChain,
+    privateKey: privateKey
 )
 let app = Application(
     router: router,
@@ -63,10 +62,56 @@ let app = Application(
 ```
 
 The HTTP2 upgrade protocol has a fair amount of configuration. It includes a number of different timeouts, 
-- `idleTimeout`: How long a connection is kept open while idle.
-- `gracefulCloseTimeout`: The maximum amount of time to wait for the client to respond before all streams are closed during graceful close of the connection.
+- `idleTimeout`: How long a connection is kept open while idle
+- `gracefulCloseTimeout`: The maximum amount of time to wait for the client to respond before all streams are closed after the second GOAWAY is sent
 - `maxAgeTimeout`: a maximum amount of time a connection should be open.
 Then each HTTP2 stream (request) has its own idle timeout as well.
+
+## WebSockets
+
+WebSocket upgrades are also implemented via the server protocol parameter.
+
+```swift
+import HummingbirdWebSocket
+
+let app = Application(
+    router: router,
+    server: .http1WebSocketUpgrade { request, channel, logger in
+        // upgrade if request URI is "/ws"
+        guard request.uri == "/ws" else { return .dontUpgrade }
+        // The upgrade response includes the headers to include in the response and 
+        // the WebSocket handler
+        return .upgrade([:]) { inbound, outbound, context in
+            for try await frame in inbound {
+                // send "Received" for every frame we receive
+                try await outbound.write(.text("Received"))
+            }
+        }
+    }
+)
+```
+
+In a similar way you add TLS encryption to the HTTP1 connection you can also add TLS to a connection that accepts WebSocket upgrades.
+
+```swift
+let app = Application(
+    router: router,
+    server: .tls(
+        .http1WebSocketUpgrade { request, channel, logger in
+            // upgrade if request URI is "/ws"
+            guard request.uri == "/ws" else { return .dontUpgrade }
+            // The upgrade response includes the headers to include in the response and 
+            // the WebSocket handler
+            return .upgrade([:]) { inbound, outbound, context in
+                try await outbound.write(.text("Hello"))
+            }
+        },
+        tlsConfiguration: tlsConfiguration
+    )    
+)
+```
+
+To find out more about WebSocket upgrades and handling WebSocket connections read <doc:WebSocketServerUpgrade>.
 
 ## Topics
 
@@ -74,3 +119,4 @@ Then each HTTP2 stream (request) has its own idle timeout as well.
 
 - ``HummingbirdHTTP2``
 - ``HummingbirdTLS``
+- ``HummingbirdWebSocket``
