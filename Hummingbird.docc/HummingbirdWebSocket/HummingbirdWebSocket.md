@@ -12,7 +12,7 @@ WebSockets is a protocol providing simultaneous two-way communication channels o
 
 It is designed to work over the HTTP ports 80 and 443 via an upgrade process where an initial HTTP request is sent before the connection is upgraded to a WebSocket connection.
 
-HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgrade. HummingbirdWebSocket is Autobahn compliant and supports both compression and TLS.
+HummingbirdWebSocket allows you to implement an HTTP1 server with WebSocket upgrade. HummingbirdWebSocket passes all the tests in the [Autobahn test suite](https://github.com/crossbario/autobahn-testsuite), supporting both compression and TLS.
 
 To add `HummingbirdWebSocket` to your project, run the following command in your Terminal:
 
