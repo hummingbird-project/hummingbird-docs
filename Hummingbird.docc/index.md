@@ -9,7 +9,9 @@ Documentation for Hummingbird the lightweight, flexible, modern server framework
 
 ## Hummingbird
 
-Hummingbird is a lightweight and flexible web application framework. It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, custom encoding/decoding of requests/responses, TLS and HTTP2.
+Hummingbird is a lightweight and flexible web application framework. It provides a router for directing different endpoints to their handlers, middleware for processing requests before they reach your handlers and processing the responses returned, custom encoding/decoding of requests and responses, TLS and HTTP2.
+
+If you're new to Hummingbird, start here: <doc:Todos>
 
 ```swift
 import Hummingbird
@@ -36,8 +38,9 @@ Below is a list of guides and tutorials to help you get started with building yo
 ### Hummingbird Server
 
 - <doc:RouterGuide>
+- <doc:RequestDecoding>
+- <doc:ResponseEncoding>
 - <doc:RequestContexts>
-- <doc:EncodingAndDecoding>
 - <doc:MiddlewareGuide>
 - <doc:ErrorHandling>
 - <doc:LoggingMetricsAndTracing>

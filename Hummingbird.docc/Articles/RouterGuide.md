@@ -51,7 +51,7 @@ extension String: ResponseGenerator {
 
 In addition to `String` `ByteBuffer`, `HTTPResponseStatus` and `Optional` have also been extended to conform to `ResponseGenerator`.
 
-It is also possible to extend `Codable` objects to generate `Response` by conforming these objects to `ResponseEncodable`. The object will use the response encoder attached to your context to encode these objects. If an object conforms to `ResponseEncodable` then also so do arrays and dictionaries of these objects.
+It is also possible to extend `Codable` objects to generate a `Response` by conforming these objects to ``ResponseEncodable``. The object will use the response encoder attached to your context to encode these objects. If an object conforms to `ResponseEncodable` then also so do arrays and dictionaries of these objects. Read more about generating `Response`s via `Codable` in <doc:ResponseEncoding>.
 
 ### Wildcards
 
@@ -131,6 +131,32 @@ router.get("/files/{image}.jpg") { request, context in
 }
 ```
 In the example above we match all paths that are a file with a jpg extension inside the files folder and then call a function with that image name.
+
+### Query parameters
+
+The `Request` url query parameters are available via a number of methods from `Request` member ``/HummingbirdCore/Request/uri``. You can get the full query string using ``/HummingbirdCore/URI/query``. You can get the query string broken up into individual parameters and percent decoded using ``/HummingbirdCore/URI/queryParameters``.
+
+```swift
+router.get("/user") { request, context in
+    // extract parameter from URL of form /user?id={userId}
+    let id = request.uri.queryParameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
+    return getUser(id: id)
+}
+```
+
+You can also use ``/HummingbirdCore/URI/decodeQuery(as:context:)`` to convert the query parameters into a Swift object. As with `URI.queryParameters` the values will be percent decoded.
+
+```swift
+struct Coordinate: Decodable {
+    let x: Double
+    let y: Double
+}
+router.get("tile") { request, context in
+    // create `Coordinate` from query parameters in URL of form /tile?x={xCoordinate}&y={yCoordinate}
+    let position = request.uri.decodeQuery(as: Coordinate.self, context: context)
+    return tiles.get(at: position)
+}
+```
 
 ### Groups
 
@@ -226,7 +252,7 @@ let responseBody = ResponseBody { writer in
     writer.finish(nil)
 }
 ```
-Once you have finished writing your response body you need to tell the writer you have finished by calling ``HummingbirdCore/ResponseBodyWriter/finish(_:)``. At this point you can write trailing headers by passing them to the `finish` function. NB Trailing headers are only sent if your response body is a chunked and does not include a content length header.
+Once you have finished writing your response body you need to tell the writer you have finished by calling ``HummingbirdCore/ResponseBodyWriter/finish(_:)``. At this point you can write trailing headers by passing them to the `finish` function. NB Trailing headers are only sent if your response body is chunked and does not include a content length header.
 
 ### Editing response in handler
 
