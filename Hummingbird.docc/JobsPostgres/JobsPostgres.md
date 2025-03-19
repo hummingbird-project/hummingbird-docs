@@ -14,6 +14,10 @@ JobsPostgres provides a Hummingbird Jobs Queue driver using [PostgresNIO](https:
 
 The Postgres job queue driver uses `PostgresClient` from `PostgresNIO` and ``PostgresMigrations/DatabaseMigrations`` from the ``PostgresMigrations`` library to perform the database migrations needed for the driver.
 
+The Postgres job queue configuration includes two values.
+- `pollTime`: This is the amount of time between the last time the queue was empty and the next time the driver starts looking for pending jobs.
+- `queueName`: Name of queue used to differentiate itself from other queues.
+
 ```swift
 import JobsPostgres
 import PostgresNIO

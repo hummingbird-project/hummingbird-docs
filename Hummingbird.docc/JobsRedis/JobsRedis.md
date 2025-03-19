@@ -24,7 +24,13 @@ let redisService = try RedisConnectionPoolService(
     logger: logger
 )
 let jobQueue = JobQueue(
-    .redis(redisService.pool),
+    .redis(
+        redisService.pool, 
+        configuration: .init(
+            queueKey: "MyJobQueue", 
+            pollTime: .milliseconds(50)
+        )
+    ),
     numWorkers: 10,
     logger: logger
 )
@@ -37,6 +43,9 @@ let serviceGroup = ServiceGroup(
 )
 try await serviceGroup.run()
 ```
+The Redis job queue configuration includes two values.
+- `queueKey`: Prefix to all the Redis keys used to store queues.
+- `pollTime`: This is the amount of time between the last time the queue was empty and the next time the driver starts looking for pending jobs.
 
 #### Write RedisConnectionPool Service
 
