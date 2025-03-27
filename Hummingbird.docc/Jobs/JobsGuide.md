@@ -8,7 +8,7 @@ Offload work your server would be doing to another server.
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. HummingbirdJobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsRedis`` and ``JobsPostgres`` that implement the job queue using a Redis database or Postgres database. 
+A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsRedis`` and ``JobsPostgres`` that implement the job queue using a Redis database or Postgres database. 
 
 ### Setting up a Job queue
 
@@ -20,7 +20,7 @@ let jobQueue = JobQueue(.memory, numWorkers: 4, logger: logger)
 
 ### Creating a Job
 
-Before you can start running jobs you need to define yours job. A job definition requires an identifier for the job, the job parameters and the function that runs the job. 
+Before you can start running jobs you need to define a job. A job definition requires an identifier for the job, the job parameters and the function that runs the job. 
 
 We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
 
@@ -105,6 +105,7 @@ If these aren't flexible enough a `Schedule` can be setup using a five value cro
 ```swift
 jobSchedule.addJob(TestJobParameters(), schedule: .crontab("0 12 * * *")) // daily at 12 o'clock
 jobSchedule.addJob(TestJobParameters(), schedule: .crontab("0 */4 * * sat,sun")) // every four hours on Saturday and Sunday
+jobSchedule.addJob(TestJobParameters(), schedule: .crontab("@daily")) // crontab default, every day at midnight 
 ```
 
 ### Schedule accuracy
