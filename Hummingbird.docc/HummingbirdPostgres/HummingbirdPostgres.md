@@ -6,7 +6,7 @@
 
 Working with Postgres databases.
 
-`HummingbirdPostgres` provides a Postgres implementation of the persist framework. It uses `PostgresClient` from [PostgresNIO](https://github.com/vapor/postgres-nio) as its database client.
+`HummingbirdPostgres` provides a Postgres implementation of the persist framework. It uses `PostgresClient` from [PostgresNIO](https://api.vapor.codes/postgresnio/documentation/postgresnio/) as its database client.
 
 ## Topics
 
