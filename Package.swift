@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.0.0-beta.8"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-postgres.git", from: "1.0.0-beta.2"),
-        .package(url: "https://github.com/hummingbird-project/swift-jobs-redis.git", from: "1.0.0-beta.7"),
+        .package(url: "https://github.com/hummingbird-project/swift-jobs-redis.git", revision: "bdb42b1ca7499818bb3798f1005880ff77da5ab2"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "2.0.0-rc.3"),
         .package(url: "https://github.com/hummingbird-project/swift-mustache.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-postgres.git", branch: "0.8.0"),
