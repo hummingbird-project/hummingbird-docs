@@ -83,6 +83,27 @@ As with all queue drivers you can add a delay before a job is processed. The job
 try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
 ```
 
+### Cancellation
+
+The ``JobsRedis/RedisJobQueue`` conforms to protocol ``Jobs/CancellableJobQueue``. This requires support for cancelling jobs that are in the pending queue. It adds one new function ``JobsRedis/RedisJobQueue/cancel(jobID:)``. If you supply this function with the `JobID` returned by ``JobsRedis/RedisJobQueue/push(_:options:)`` it will remove it from the pending queue. 
+
+```swift
+// Add TestJob to the queue and immediately cancel it
+let jobID = try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
+try await jobQueue.cancel(jobID: jobID)
+```
+
+### Pause and Resume
+
+The ``JobsRedis/RedisJobQueue`` conforms to protocol ``Jobs/ResumableJobQueue``. This requires support for pausing and resuming jobs that are in the pending queue. It adds two new functions ``JobsRedis/RedisJobQueue/pause(jobID:)`` and ``JobsRedis/RedisJobQueue/resume(jobID:)``. If you supply these function with the `JobID` returned by ``JobsRedis/RedisJobQueue/push(_:options:)`` you can remove from the pending queue and add them back in at a later date.
+
+```swift
+// Add TestJob to the queue and immediately remove it and then add it back to the queue
+let jobID = try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
+try await jobQueue.pause(jobID: jobID)
+try await jobQueue.resume(jobID: jobID)
+```
+
 ## Topics
 
 ### Job Queue
