@@ -14,26 +14,43 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 
 ### Jobs
 
-- ``JobContext``
 - ``JobDefinition``
-- ``JobIdentifier``
 - ``JobParameters``
+- ``JobExecutionContext``
 
 ### Queues
 
 - ``JobQueue``
+- ``JobQueueOptions``
 - ``JobQueueDriver``
-- ``QueuedJob``
 - ``MemoryQueue``
+- ``JobOptionsProtocol``
 
 ### Scheduler
 
 - ``JobSchedule``
 - ``Schedule``
 
+### Middleware
+
+- ``JobMiddleware``
+- ``MetricsJobMiddleware``
+- ``TracingJobMiddleware``
+- ``JobMiddlewareBuilder``
+- ``JobQueueContext``
+
 ### Error
 
 - ``JobQueueError``
+
+### JobQueue Drivers
+
+- ``AnyDecodableJob``
+- ``JobInstanceProtocol``
+- ``JobInstanceData``
+- ``JobQueueResult``
+- ``JobRegistry``
+- ``JobRequest``
 
 ## See Also
 

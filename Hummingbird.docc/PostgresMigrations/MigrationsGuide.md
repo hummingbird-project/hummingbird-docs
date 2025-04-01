@@ -1,4 +1,4 @@
-# Database Migrations
+# Postgres Migrations
 
 @Metadata {
     @PageImage(purpose: icon, source: "logo")
