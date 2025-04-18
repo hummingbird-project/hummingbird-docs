@@ -118,6 +118,13 @@ Setting it to `.all` will schedule a job for every trigger point it missed eg if
 jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
 ```
 
+## Topics
+
+### Reference
+
+- ``JobsPostgres``
+- ``JobsRedis``
+
 ## See Also
 
 - ``Jobs/JobParameters``
