@@ -231,10 +231,11 @@ for try await buffer in request.body {
 ```swift
 // collect all the buffers in the sequence into a single buffer
 let buffer = try await request.body.collate(maxSize: maximumBufferSizeAllowed)
-}
 ```
 
-Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `Request.collectBody(upTo:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer. 
+Once you have read the sequence of buffers you cannot read it again. If you want to read the contents of a request body in middleware before it reaches the route handler, but still have it available for the route handler you can use `Request.collectBody(upTo:)`. After this point though the request body cannot be treated as a sequence of buffers as it has already been collapsed into a single buffer.
+
+Any errors you receive while iterating the request body should always be propagated further up the callstack. It is fine to catch the errors but you should rethrow them once you are done with them, so they can passed back to `Application` to be dealt with according.
 
 ### Writing the response body
 

@@ -40,7 +40,14 @@ let app = Application(
 
 - ``/HummingbirdCore/HTTPServerBuilder/http2Upgrade(tlsConfiguration:configuration:)``
 - ``/HummingbirdCore/HTTPServerBuilder/http2Upgrade(tlsChannelConfiguration:configuration:)``
+- ``/HummingbirdCore/HTTPServerBuilder/plaintextHTTP2(configuration:)``
 - ``HTTP2UpgradeChannel``
+- ``HTTP2Channel``
+
+### Configuration
+
+- ``HTTP2ChannelConfiguration``
+- ``TLSChannelConfiguration``
 
 ## See Also
 
