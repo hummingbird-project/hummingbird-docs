@@ -32,8 +32,6 @@ Then run your app:
 
     swift run
 
-The starting template is also designed so that you can create a new GitHub repository from it.
-
 ### Next Steps
 
 Follow our TODO's application to get started with the framework: <doc:Todos>
