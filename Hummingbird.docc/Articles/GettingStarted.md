@@ -30,17 +30,9 @@ Change into the new project directory:
 
 Then run your app:
 
-    swift run App
+    swift run
 
 The starting template is also designed so that you can create a new GitHub repository from it.
-
-### Create using GitHub template
-
-- Sign in to GitHub.
-- Navigate to [https://github.com/hummingbird-project/template](https://github.com/hummingbird-project/template).
-- Click "Use this template" and create your new repository.
-- Clone the repository to a codespace or your local machine.
-- Run the configuration script (`./configure.sh`) to configure your new project.
 
 ### Next Steps
 
