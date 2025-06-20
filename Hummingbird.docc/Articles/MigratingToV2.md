@@ -120,7 +120,7 @@ Instead of creating an application and adding routes to it, in v2 you create a r
     }
 }
 
-When we are passing in the router we are actually passing in a type that can build a ``HTTPResponder`` a protocol for a type with one function that takes a request and context and returns a response.
+When we are passing in the router we are actually passing in a type that can build a ``HTTPResponder`` a protocol for a type with one function that takes a HTTP request and context and returns a HTTP response. The `Application` creates the HTTP responder from the current state of the router when it is initialized. Any routes added to the router after having created your `Application` will be ignored.
 
 ### Router Builder
 
