@@ -104,6 +104,53 @@ try await jobQueue.pause(jobID: jobID)
 try await jobQueue.resume(jobID: jobID)
 ```
 
+### Job Retention
+
+When initializing the job queue you can set you can set what the queue should do with failed, cancelled and completed jobs.
+
+```swift
+let jobQueue = JobQueue(
+    .redis(
+        redisService.pool,
+        configuration: .init(
+            retentionPolicy: .init(
+                cancelled: .doNotRetain, completed: .retain, failed: .retain
+            )
+        ),
+        logger: logger
+    ),
+    ...
+```
+
+If you don't set the retention policy the default is to retain failed jobs, but delete both cancelled and completed jobs.
+
+### Job Cleanup
+
+The redis job queue driver includes the function ``RedisJobQueue/cleanup(failedJobs:processingJobs:pendingJobs:cancelledJobs:completedJobs:)`` to do large scale cleanup of the job queue. This allows you to remove jobs or add them back onto the pending queue based on their current state eg the code below will add the failed jobs back onto the pending queue and deletes any completed jobs older than 7 days.
+
+```swift
+try await jobQueue.queue.cleanup(
+    failedJobs: .rerun,
+    completedJobs: .remove(maxAge: .seconds(60*60*24*7))
+)
+```
+
+The cleanup allows you to edit the status of jobs in the `pending` and `processing` state. This should be done with care though. Don't do this while a queue handler is processing the queue as this will have undefined results.
+
+If you are retaining completed or cancelled jobs you most likely don't want to keep them forever. The redis job queue provides a cleanup job you can use alongside the job scheduler to remove old jobs at regular intervals.
+
+```swift
+var jobSchedule = JobSchedule()
+jobSchedule.addJob(
+    jobQueue.queue.cleanupJob, 
+    parameters: .init(completedJobs: .remove(maxAge: 60*60*24*7)), 
+    schedule: .weekly(day: .sunday, hour: 1)
+)
+```
+
+Read more about the job scheduler in the <doc:JobsGuide#Job-Scheduler> section of the Jobs guide.
+
+
 ## Topics
 
 ### Job Queue
