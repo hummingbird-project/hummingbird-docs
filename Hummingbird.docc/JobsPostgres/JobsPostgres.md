@@ -35,7 +35,6 @@ let jobQueue = JobQueue(
         ),
         logger: logger
     ), 
-    numWorkers: 4, 
     logger: logger
 )
 ```
