@@ -17,20 +17,17 @@ Defines the requirements for job queue implementation.
 
 ### Lifecycle
 
-- ``onInit()``
+- ``waitUntilReady()``
 - ``stop()``
 - ``shutdownGracefully()``
 
 ### Jobs
 
+- ``registerJob(_:)``
 - ``push(_:options:)``
 - ``finished(jobID:)``
 - ``failed(jobID:error:)``
-
-### Metadata
-
-- ``getMetadata(_:)``
-- ``setMetadata(key:value:)``
+- ``retry(_:jobRequest:options:)``
 
 ### Implementations
 
