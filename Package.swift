@@ -21,7 +21,7 @@ let package = Package(
         .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.0.0-rc"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-postgres.git", from: "1.0.0-rc"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-redis.git", from: "1.0.0-rc"),
-        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "2.0.0-rc.3"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", branch: "main"),
         .package(url: "https://github.com/hummingbird-project/swift-mustache.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-postgres.git", from: "1.0.0-rc"),
         .package(url: "https://github.com/hummingbird-project/postgres-migrations.git", from: "1.0.0-rc"),
