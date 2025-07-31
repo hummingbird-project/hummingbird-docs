@@ -8,40 +8,35 @@ Run Hummingbird inside an AWS Lambda.
 
 ## Usage
 
-Create struct conforming to `LambdaFunction`. Setup your router in the `buildResponder` function: add routes, middleware etc and then return its responder.
+Create ``/Hummingbird/Router``, set it up, create your lambda function and run it.
 
 ```swift
-@main
-struct MyHandler: LambdaFunction {
-    typealias Event = APIGatewayRequest
-    typealias Output = APIGatewayResponse
-    typealias Context = BasicLambdaRequestContext<APIGatewayRequest>
+typealias AppRequestContext = BasicLambdaRequestContext<APIGatewayV2Request>
 
-    init(context: LambdaInitializationContext) {}
-    
-    /// build responder that will create a response from a request
-    func buildResponder() -> some Responder<Context> {
-        let router = Router(context: Context.self)
-        router.get("hello/{name}") { request, context in
-            let name = try context.parameters.require("name")
-            return "Hello \(name)"
-        }
-        return router.buildResponder()
-    }
+// Create router and add a single route returning "Hello" and name in its body
+let router = Router(context: AppRequestContext.self)
+router.get("hello/{name}") { request, context in
+    let name = try context.parameters.require("name")
+    return "Hello \(name)"
 }
+// create APIGatewayV2 lambda using router and run.
+let lambda = LambdaFunction(
+    router: router,
+    event: APIGatewayV2Request.self,
+    output: APIGatewayV2Response.self
+)
+try await lambda.runService()
 ```
-
-The `Event` and `Output` types define your input and output objects. If you are using an `APIGateway` REST interface to invoke your Lambda then set these to `APIGateway.Request` and `APIGateway.Response` respectively. If you are using an `APIGateway` HTML interface then set these to `APIGateway.V2.Request` and `APIGateway.V2.Response`. The protocols ``APIGatewayLambdaFunction`` and ``APIGatewayV2LambdaFunction`` set these up for you.
-
-If you are using any other `In`/`Out` types you will need to implement the `request(context:application:from:)` and `output(from:)` methods yourself.
 
 ## Topics
 
-### Lambda protocols
+### Lambda function
 
 - ``LambdaFunction``
+- ``LambdaFunctionProtocol``
 - ``APIGatewayLambdaFunction``
 - ``APIGatewayV2LambdaFunction``
+- ``FunctionURLLambdaFunction``
 
 ### Request context
 
