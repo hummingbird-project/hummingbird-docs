@@ -247,7 +247,7 @@ struct AuthenticatedRequestContext: ChildRequestContext {
 
     init(context: MyAppRequestContext) throws {
         guard let user = context.user else {
-            throw Abort(.unauthorized)
+            throw HTTPError(.unauthorized)
         }
 
         self.coreContext = context.coreContext
