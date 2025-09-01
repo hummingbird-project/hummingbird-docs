@@ -76,6 +76,7 @@
             
             @Step {
                 Finally, both Fluent and the FluentPersistDriver are added to swift-service-lifecycle. 
+                @Code(name: "Sources/App/Application+build.swift", file: fluent-universe-11.swift)
             }
         }
     }
