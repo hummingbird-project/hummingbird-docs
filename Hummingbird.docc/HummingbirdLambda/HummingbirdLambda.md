@@ -6,9 +6,12 @@
 
 Run Hummingbird inside an AWS Lambda.
 
+Package that allows you to use the Hummingbird Router and Middleware inside an AWS Lambda.
+
 ## Usage
 
-Create ``/Hummingbird/Router``, set it up, create your lambda function and run it.
+Creating a Hummingbird Lambda is very similar to how you create a Hummingbird server application. You create your
+router, create a ``LambdaFunction`` using the router and then run the lambda function.
 
 ```swift
 typealias AppRequestContext = BasicLambdaRequestContext<APIGatewayV2Request>
