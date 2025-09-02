@@ -285,7 +285,7 @@ app.addServices(
 
 Swift's Observability APIs offer a powerful and flexible way to instrument and observe the application. Hummingbird already reports to [swift-log](https://github.com/apple/swift-log) and provides middleware for [swift-metrics](https://github.com/apple/swift-metrics) and [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing). These will report to the globally set up observability backend(s) automatically, if they're set up.
 
-By default, logs are emitted to `stdout`, and metrics + traces are discarded. If you want to trace signals in a single place, we recommend using [swift-otel](https://github.com/swift-otel/swift-otel/issues) as an observability backend.
+By default, logs are emitted to `stdout`, and metrics + traces are discarded. If you want to trace signals in a single place, we recommend using [swift-otel](https://github.com/swift-otel/swift-otel) as an observability backend.
 
 See the [OTel Example Project](https://github.com/hummingbird-project/hummingbird-examples/tree/main/open-telemetry) for a complete example.
 
