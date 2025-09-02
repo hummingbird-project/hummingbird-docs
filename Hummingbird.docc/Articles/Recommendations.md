@@ -1,6 +1,6 @@
 # Recommendations
 
-When you're starting out with a new application, especially with a new frameworks, there are lots of tips and tools you'd wish you had known about earlier. This document outlines some of the recommendations we've learned from building Hummingbird and our community. We're open to any feedback, additions and improvements on this doucment at any time!
+When you're starting out with a new application, especially with a new framework, there are lots of tips and tools you might wish you had known about earlier. This document outlines some of the recommendations we've learned from building Hummingbird and from our community. We're open to any feedback, additions, and improvements to this document at any time!
 
 ## Dependencies
 
@@ -12,9 +12,9 @@ The project structure is a recommended project layout, defining what modules are
 
 ### Module Structure
 
-Every Hummingbird projects needs a primary executable target. This is the **MyApp** target in the example below.
+Every Hummingbird project needs a primary executable target. This is the **MyApp** target in the example below.
 
-If a user has an OpenAPI specification for their API, a separate OpenAPI module is recommended based on [swift-openapi-generator](https://github.com/apple/swift-openapi-generator). This module will be used to generate the API server code.
+If you have an OpenAPI specification for your API, it is recommended to create a separate OpenAPI module using [swift-openapi-generator](https://github.com/apple/swift-openapi-generator). This module can be used to generate the API server code.
 
 ```
 ├── Sources
@@ -303,7 +303,7 @@ func banUser(
 
 Users should define externally managed resources in "Services".
 
-Each service manages it's lifecycle through [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). The order of services is important, as services are initialized in the order they are added to the application, and teared down in reverse order.
+Each service manages its lifecycle through [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). The order of services is important, as services are initialized in the order they are added to the application and torn down in reverse order.
 
 When adding services to a Hummingbird app, the Hummingbird app is always initialized after your services and torn down first.
 
@@ -321,7 +321,7 @@ app.addServices(
 
 ## Observability
 
-Swift's Observability APIs offer a powerful and flexible way to instrument and observe the application. Hummingbird already reports to [swift-log](https://github.com/apple/swift-log) and provides middleware for [swift-metrics](https://github.com/apple/swift-metrics) and [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing). These will report to the globally set up observability backend(s) automatically, if they're set up.
+Swift's Observability APIs offer a powerful and flexible way to instrument and observe the application. Hummingbird already reports to [swift-log](https://github.com/apple/swift-log) and provides middleware for [swift-metrics](https://github.com/apple/swift-metrics) and [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing). These will report to the globally configured observability backend(s) automatically, if they're configured.
 
 By default, logs are emitted to `stdout`, and metrics + traces are discarded. If you want to trace signals in a single place, we recommend using [swift-otel](https://github.com/swift-otel/swift-otel) as an observability backend.
 
@@ -359,7 +359,7 @@ Some libraries that play well into this:
 - [IkigaJSON](https://github.com/orlandos-nl/ikigajson) supports streaming JSON lines or JSON arrays.
 - [Server Sent Events](https://github.com/orlandos-nl/ssekit) supports streaming Server Sent Events.
 - [Swift-WebSocket](https://github.com/hummingbird-project/swift-websocket) and [Hummingbird-WebSocket](https://github.com/hummingbird-project/hummingbird-websocket) support streaming over WebSocket connections.
-- [PostgreNIO](https://github.com/vapor/posrtgresnio), [Valkey-Swift](https://github.com/valkey-io/valkey-swift) and [MongoKitten](https://github.com/orlandos-nl/mongokitten) all support streaming in their database operations.
+- [PostgreNIO](https://github.com/vapor/postgresnio), [Valkey-Swift](https://github.com/valkey-io/valkey-swift), and [MongoKitten](https://github.com/orlandos-nl/mongokitten) all support streaming in their database operations.
 
 You can handle the request and response bodies as an `AsyncSequence`.
 
@@ -387,4 +387,4 @@ Leverage [swift-jobs](https://github.com/hummingbird-project/swift-jobs) or othe
 
 Avoid local database systems such as [SQLite](https://sqlite.org), including wrappers like [GRDB](https://github.com/groue/GRDB.swift), as these only reside on the local machine.
 
-Database such as [Postgres](https://www.postgresql.org) or [Valkey](https://valkey.io/)/[Redis](https://redis.io) are highly scalable and mature solutions for persistence and/or caching. These databases have mature libraries for Swift, and are well supported by the community.
+Databases such as [PostgreSQL](https://www.postgresql.org) or [Valkey](https://valkey.io)/[Redis](https://redis.io) are highly scalable and mature solutions for persistence and/or caching. These databases have mature libraries for Swift and are well supported by the community.
