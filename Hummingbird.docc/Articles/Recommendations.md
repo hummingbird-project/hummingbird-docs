@@ -1,3 +1,7 @@
+# Recommendations
+
+When you're starting out with a new application, especially with a new frameworks, there are lots of tips and tools you'd wish you had known about earlier. This document outlines some of the recommendations we've learned from building Hummingbird and our community. We're open to any feedback, additions and improvements on this doucment at any time!
+
 ## Dependencies
 
 Hummingbird won't enforce any dependencies, or provide special treatment for dependencies on a framework level. However, we'll provide some guidelines and tips for _common_ dependencies and how to use them.
@@ -8,14 +12,14 @@ The project structure is a recommended project layout, defining what modules are
 
 ### Module Structure
 
-Every Hummingbird projects neds a primary executable target. This is the **MyApp** target in the example below.
+Every Hummingbird projects needs a primary executable target. This is the **MyApp** target in the example below.
 
 If a user has an OpenAPI specification for their API, a separate OpenAPI module is recommended based on [swift-openapi-generator](https://github.com/apple/swift-openapi-generator). This module will be used to generate the API server code.
 
 ```
 ├── Sources
 │   ├── MyApp
-│   └── MyAppOpenAPI # Optional
+│   └── MyAppAPI # Optional
 │       
 ├── Tests
 │   └── MyAppTests
@@ -25,7 +29,7 @@ If a user has an OpenAPI specification for their API, a separate OpenAPI module 
 
 ## App Module Structure
 
-The **MyApp** module is the primary module for the project. It contains the entry point for the application in **App.swift**, and has folders for **routes**, **database**, **repositories**, **services**, **middleware** and **config**.
+The **MyApp** module is the primary module for the project. It contains the entry point for the application in **App.swift**, and has folders for **routes**, **database**, **services**, **middleware** and **config**.
 
 
 ```
@@ -36,9 +40,6 @@ The **MyApp** module is the primary module for the project. It contains the entr
 ├── Database
 │   ├── Models
 │   └── Migrations
-│
-├── Repositories
-│   └── UserRepository.swift
 │
 ├── Services
 │   └── OTelService.swift
@@ -154,8 +155,11 @@ protocol SomeInjectableService {
     func doSomething()
 }
 
-struct UserController<Context: RequestContext> {
-    let service: any SomeInjectableService
+struct UserController<
+    Context: RequestContext,
+    SomeDependency: SomeInjectableService
+> {
+    let service: SomeDependency
 
     var routes: RouteCollection<Context> {
         return RouteCollection(context: Context.self)
@@ -210,6 +214,8 @@ protocol AuthenticatedRequestContext {
 
 Middleware follow the same RequestContext conventions and recommendations as Routes. There's one distinction between Routes in that middleware can modify the request context.
 
+In many applications, Middleware can be re-used across multiple routes. By using a generic middleware, you can ensure that the middleware is applicable to a variety of routes or route groups.
+
 ```swift
 public struct AuthenticationGuardMiddleware<Context: AuthRequestContext>: RouterMiddleware {
     public init() {}
@@ -225,6 +231,14 @@ public struct AuthenticationGuardMiddleware<Context: AuthRequestContext>: Router
 
 ### Child Request Contexts
 
+When a route (group) requires additional refinement over a context, you can define that refinement as a ``ChildRequestContext``.
+
+During refinement, you can specify additional properties or leverage the throwing-initializer to unwrap optional properties or validate properties.
+
+In the following example, the top-level context has an _optional_ `User` instance, set by a ``RouterMiddleware`` that validates a token.
+
+The ``ChildRequestContext`` refines the original ``RequestContext`` by unwrapping the user property, throwing an error when the request did not authenticate itself.
+
 ```swift
 struct MyAppRequestContext: RequestContext {
     public var coreContext: CoreRequestContextStorage
@@ -237,9 +251,7 @@ struct MyAppRequestContext: RequestContext {
         self.user = nil
     }
 }
-```
 
-```swift
 struct AuthenticatedRequestContext: ChildRequestContext {
     public var coreContext: CoreRequestContextStorage
     // User is required in all routes, and this is statically known
@@ -256,18 +268,44 @@ struct AuthenticatedRequestContext: ChildRequestContext {
 }
 ```
 
+ChildRequestContexts are a powerful way of enforcing compile-time guarantees that requests adhere to certain requirements. And by expressing these requirements as protocol conformances, you can compose these properties and flexibly express those requirements.
+
+```swift
+func getMyProfile(
+    request: Request,
+    context: some AuthenticatedRequestContext
+) async throws -> User.Profile {
+    ...
+}
+```
+
+In addition, you can compose and refine protocol requirements:
+
+```swift
+public protocol AutenticatedRequestContext: RequestContext { .. }
+public protocol AdminRequestContext: AuthenticatedRequestContext { .. }
+```
+
+You can also specify a tuple of conformances in routes and middleware:
+
+```swift
+// Banning users is only allowed from pre-authorized IP addresses
+func banUser(
+    request: Request,
+    context: some AdminRequestContext & IPWhitelistedRequestContext
+) async throws -> Response {
+    ...
+    return Response(status: .ok)
+}
+```
+
 ## Services
 
-Users should define (external) resources in `Services`. For example:
-
-- PostgreSQL
-- S3 Bucket Management
-- Job Queues
-- Caching
-- OpenTelemetry
-- File System Access
+Users should define externally managed resources in "Services".
 
 Each service manages it's lifecycle through [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). The order of services is important, as services are initialized in the order they are added to the application, and teared down in reverse order.
+
+When adding services to a Hummingbird app, the Hummingbird app is always initialized after your services and torn down first.
 
 ```swift
 let app = Application()
@@ -307,19 +345,25 @@ logger.info("User \(user.id) logged in")
 
 ## Scalability
 
-Hummingbird is explicitly designed for resource efficiency. A good example is how HTTP bodies are always represented as an `AsyncSequence` of bytes. This means that the server can stream data to the client without having to buffer the entire response in memory. Likewise, any uploads from a user through Hummingbird can be efficiently handled through the `AsyncSequence` APIs.
+Hummingbird is explicitly designed for resource efficiency. A good example is how HTTP bodies are always represented as a stream (`AsyncSequence`) of bytes. This means that the server can stream data to the client without having to buffer the entire response in memory. Likewise, any uploads from a user through Hummingbird can be efficiently handled through the `AsyncSequence` APIs.
 
-It's highly recommended that you avoid `collect`ing responses into memory if possible. Instead, attempt to leverage the `AsyncSequence` APIs to stream data.
+- Set a realistic expectation of how large that image can be.
+- Make sure you enforce that limit in your API, regardless of whether you're collecting or streaming.
+- Avoid collecting the data into a single buffer, if possible. Use streaming APIs instead.
+- Try to move the CPU and RAM intensive work of providing the correct format to the client if possible.
+    - This means your API only needs to validate the data before processing/saving.
+- Prefer using libraries that support streaming if your dataset gets large.
 
-Any data that needs to be stored in contiguous memory, like a JSON blob, should be strictly limited in the maximum size as to avoid (memory) resource exhaustion and performance issues.
+Some libraries that play well into this:
+- [MultipartKit 5](https://github.com/vapor/multipart-kit) (beta) will support streaming multipart parsing.
+- [IkigaJSON](https://github.com/orlandos-nl/ikigajson) supports streaming JSON lines or JSON arrays.
+- [Server Sent Events](https://github.com/orlandos-nl/ssekit) supports streaming Server Sent Events.
+- [Swift-WebSocket](https://github.com/hummingbird-project/swift-websocket) and [Hummingbird-WebSocket](https://github.com/hummingbird-project/hummingbird-websocket) support streaming over WebSocket connections.
+- [PostgreNIO](https://github.com/vapor/posrtgresnio), [Valkey-Swift](https://github.com/valkey-io/valkey-swift) and [MongoKitten](https://github.com/orlandos-nl/mongokitten) all support streaming in their database operations.
 
-### Handling Bodies
+You can handle the request and response bodies as an `AsyncSequence`.
 
-If you're using standard libraries like Foundation's `JSONDecoder`, limit the body size to "reasonable" sizes. What is considered reasonable depends per application, but lower is generally better.
-
-[MultipartKit 5](https://github.com/vapor/multipart-kit) will support streaming multipart parsing, in addition to [IkigaJSON](https://github.com/orlandos-nl/ikigajson) for streaming JSON parsing.
-
-You can handle the request/response bodies as an `AsyncSequence`, so you can iterate over the body. This will provide backpressure to the source if any part of the system cannot keep up.
+Requests can iterate over the body as an `AsyncSequence`. This will provide backpressure to the source if any part of the system cannot keep up.
 
 ```swift
 router.get { req, context in
@@ -332,6 +376,10 @@ router.get { req, context in
 ```
 
 In the above example, if the disk cannot keep up, the client's upload speed will be throttled to match the disk's speed. This prevents excessive memory build up in the server.
+
+Responses can be streamed by providing an AsyncSequence of ByteBuffer into ``ResponseBody.init(asyncSequence:)`` initializer.
+
+In addition, you can write into a ``ResponseBodyWriter`` to stream the response body using ``ResponseBody.init(contentLength:_:)``.
 
 ### Persistence
 
