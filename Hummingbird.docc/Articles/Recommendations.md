@@ -1,20 +1,17 @@
-# Recommendations
+# Tips for Building Hummingbird Apps
 
-When you're starting out with a new application, especially with a new framework, there are lots of tips and tools you might wish you had known about earlier. This document outlines some of the recommendations we've learned from building Hummingbird and from our community. We're open to any feedback, additions, and improvements to this document at any time!
+When you start a new app, especially with a new framework, you will find many useful tips and tools. Here are lessons we learned from building Hummingbird and from our community. Please send us feedback or suggestions for this document anytime!
 
 ## Dependencies
 
 Hummingbird won't enforce any dependencies, or provide special treatment for dependencies on a framework level. However, we'll provide some guidelines and tips for _common_ dependencies and how to use them.
 
-## Project Structure
-
-The project structure is a recommended project layout, defining what modules are recommended to create and how these modules are structured in terms of folders and files.
-
 ### Module Structure
 
-Every Hummingbird project needs a primary executable target. This is the **MyApp** target in the example below.
+Every Hummingbird project needs a main executable target. In the example below, this is the **MyApp** target.
 
-If you have an OpenAPI specification for your API, it is recommended to create a separate OpenAPI module using [swift-openapi-generator](https://github.com/apple/swift-openapi-generator). This module can be used to generate the API server code.
+
+If you have an OpenAPI specification for your API, create a separate OpenAPI module using [swift-openapi-generator](https://github.com/apple/swift-openapi-generator). This module generates the API server code.
 
 ```
 ├── Sources
@@ -54,9 +51,10 @@ The **MyApp** module is the primary module for the project. It contains the entr
 
 ### App.swift
 
-The **App.swift** file is the entry point for the application. It's a command line tool based on [swift-argument-parser](https://github.com/apple/swift-argument-parser), allowing deployments to customize the application's configuration through command line arguments.
 
-The `MyApp` type also confirms to `MyAppArguments`, which is a user-defined protocol that specifies the command line arguments for the application. This enables the Hummingbird Application to be configured with different settings when running in a unit test, or other environments.
+The **App.swift** file starts the application. It is a command line tool built with [swift-argument-parser](https://github.com/apple/swift-argument-parser). You can change the app's settings using command line arguments.
+
+The `MyApp` type follows the `MyAppArguments` protocol, which you define to set command line arguments for the app. This lets you configure Hummingbird with different settings for unit tests or other environments.
 
 ```swift
 import ArgumentParser
@@ -83,9 +81,10 @@ struct MyApp: AsyncParsableCommand, MyAppArguments {
 
 ### Application+Build.swift
 
-The **Application+build.swift** file is a recommended file that contains the `buildApplication` function. This function is used to build the application, and is used in the `App.swift` file.
 
-The file also contains a global default `RequestContext` type, which is used to customize the context carried through the request lifecycle for the application. The default `typealias` enables users to easily customize the type without having to change the entire application.
+We suggest creating an **Application+build.swift** file with the `buildApplication` function. Call this function from `App.swift` to build your app.
+
+This file also sets a global default `RequestContext` type. The default `typealias` makes it easy to change the type without updating the whole app.
 
 ```swift
 // Customize the RequestContext type to your needs
@@ -117,9 +116,10 @@ func buildApplication(_ arguments: some MyAppArguments) async throws -> Applicat
 
 ## Routes and Controllers
 
-The **routes** folder contains functions that apply routes to the router through "controller" types. Each Controller is generically contrained over the ``RequestContext`` type, so that it can be used with any Router, RouterGroup or other implementation.
 
-Let's take **UserController.swift** as an example:
+Put functions for routes in the **routes** folder. Controller types can be flexible over a ``RequestContext`` type, so you can use them with any Router, RouterGroup, or other implementation.
+
+Take a look at **UserController.swift** as an example:
 
 ```swift
 struct UserController<Context: RequestContext> {
@@ -171,7 +171,8 @@ struct UserController<
 }
 ```
 
-All Controllers' routes are combined into a single router in **BuildRouter.swift**:
+
+Combine all controller routes into one router in **BuildRouter.swift**:
 
 ```swift
 let router = Router(context: MyContext.self)
@@ -180,18 +181,20 @@ router.add("users", routes: UserController().routes)
 
 ## Request Context
 
-It's also recommended to users that they refine the AppContext requirements for only as much as strictly required by the routes. For example:
+
+We suggest refining AppContext requirements so each route only gets what it needs. For example:
 
 ```swift
-// ✅ This is recommended, because it allows a different RequestContext to be used for login routes
+// Good: This lets you use a different RequestContext for login routes
 struct UserController<Context: RequestContext> { ... }
 ```
 
-If a route has requirements for the request, like being authenticated, it's recommended to leverage _protocol composition_ to refine the RequestContext.
+
+If a route needs something special, like authentication, use _protocol composition_ to refine the RequestContext.
 
 ```swift
-// ✅ This is recommended, because it leverages protocol composition to refine the RequestContext
-// while still being flexible enough to allow different concrete types to fulfil the requirements
+// Good: This uses protocol composition to refine the RequestContext
+// and lets you use different types to meet the requirements
 struct UserProfileController<
     Context: RequestContext & AuthenticatedRequestContext
 > { ... }
@@ -233,11 +236,11 @@ public struct AuthenticationGuardMiddleware<Context: AuthRequestContext>: Router
 
 When a route (group) requires additional refinement over a context, you can define that refinement as a ``ChildRequestContext``.
 
-During refinement, you can specify additional properties or leverage the throwing-initializer to unwrap optional properties or validate properties.
+During refinement, you can specify additional properties or leverage the throwing initializer to unwrap optional properties or validate properties.
 
 In the following example, the top-level context has an _optional_ `User` instance, set by a ``RouterMiddleware`` that validates a token.
 
-The ``ChildRequestContext`` refines the original ``RequestContext`` by unwrapping the user property, throwing an error when the request did not authenticate itself.
+The `ChildRequestContext` unwraps the user property from the original RequestContext. If the request is not verified, it throws an error.
 
 ```swift
 struct MyAppRequestContext: RequestContext {
@@ -254,7 +257,7 @@ struct MyAppRequestContext: RequestContext {
 
 struct AuthenticatedRequestContext: ChildRequestContext {
     public var coreContext: CoreRequestContextStorage
-    // User is required in all routes, and this is statically known
+    // The Compiler guarantees that the User is present
     public var user: User
 
     init(context: MyAppRequestContext) throws {
@@ -303,9 +306,10 @@ func banUser(
 
 Users should define externally managed resources in "Services".
 
-Each service manages its lifecycle through [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). The order of services is important, as services are initialized in the order they are added to the application and torn down in reverse order.
 
-When adding services to a Hummingbird app, the Hummingbird app is always initialized after your services and torn down first.
+Each service controls its own life cycle using [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle). Services start in the order you add them to the app, and stop in reverse order.
+
+When you add services to a Hummingbird app, the app starts after your services and stops before them.
 
 ```swift
 let app = Application()
@@ -319,17 +323,14 @@ app.addServices(
 )
 ```
 
-## Observability
 
-Swift's Observability APIs offer a powerful and flexible way to instrument and observe the application. Hummingbird already reports to [swift-log](https://github.com/apple/swift-log) and provides middleware for [swift-metrics](https://github.com/apple/swift-metrics) and [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing). These will report to the globally configured observability backend(s) automatically, if they're configured.
+## Monitoring and Logging
 
-By default, logs are emitted to `stdout`, and metrics + traces are discarded. If you want to trace signals in a single place, we recommend using [swift-otel](https://github.com/swift-otel/swift-otel) as an observability backend.
-
-See the [OTel Example Project](https://github.com/hummingbird-project/hummingbird-examples/tree/main/open-telemetry) for a complete example.
+Swift's monitoring APIs help you track and log your app. Hummingbird supports [swift-log](https://github.com/apple/swift-log), [swift-metrics](https://github.com/apple/swift-metrics) and [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing). These tools report to your global monitoring backend if you set one up.
 
 ### Logging Recommendations
 
-Use the [Logging Guidelines](https://www.swift.org/documentation/server/guides/libraries/log-levels.html) set forth by the Swift Server Workgroup. It's strongly recommended to leverage **structured logging** to make logs more readable and searchable.
+Use the [Logging Guidelines](https://www.swift.org/documentation/server/guides/libraries/log-levels.html) from the Swift Server Workgroup. Leverage **structured logging** to make logs more readable and searchable. By default, the app writes logs to `stdout` and ignores metrics and traces.
 
 ✅ Good:
 
@@ -343,23 +344,25 @@ logger.info("User logged in", metadata: ["user_id": .string(user.id)])
 logger.info("User \(user.id) logged in")
 ```
 
-## Scalability
+See the [OTel Example Project](https://github.com/hummingbird-project/hummingbird-examples/tree/main/open-telemetry) for a complete example.
+
+## Scaling Your App
 
 Hummingbird is explicitly designed for resource efficiency. A good example is how HTTP bodies are always represented as a stream (`AsyncSequence`) of bytes. This means that the server can stream data to the client without having to buffer the entire response in memory. Likewise, any uploads from a user through Hummingbird can be efficiently handled through the `AsyncSequence` APIs.
 
 - Set a realistic expectation of how large that image can be.
 - Make sure you enforce that limit in your API, regardless of whether you're collecting or streaming.
-- Avoid collecting the data into a single buffer, if possible. Use streaming APIs instead.
+- Avoid collecting the data into a single buffer, whenever possible. Use streaming APIs instead.
 - Try to move the CPU and RAM intensive work of providing the correct format to the client if possible.
     - This means your API only needs to validate the data before processing/saving.
-- Prefer using libraries that support streaming if your dataset gets large.
+- Use libraries that support streaming data if your dataset is large.
 
 Some libraries that play well into this:
 - [MultipartKit 5](https://github.com/vapor/multipart-kit) (beta) will support streaming multipart parsing.
 - [IkigaJSON](https://github.com/orlandos-nl/ikigajson) supports streaming JSON lines or JSON arrays.
 - [Server Sent Events](https://github.com/orlandos-nl/ssekit) supports streaming Server Sent Events.
 - [Swift-WebSocket](https://github.com/hummingbird-project/swift-websocket) and [Hummingbird-WebSocket](https://github.com/hummingbird-project/hummingbird-websocket) support streaming over WebSocket connections.
-- [PostgreNIO](https://github.com/vapor/postgresnio), [Valkey-Swift](https://github.com/valkey-io/valkey-swift), and [MongoKitten](https://github.com/orlandos-nl/mongokitten) all support streaming in their database operations.
+- [PostgreNIO](https://github.com/vapor/posrtgresnio), [Valkey-Swift](https://github.com/valkey-io/valkey-swift) and [MongoKitten](https://github.com/orlandos-nl/mongokitten) all support streaming in their database operations.
 
 You can handle the request and response bodies as an `AsyncSequence`.
 
@@ -375,16 +378,15 @@ router.get { req, context in
 }
 ```
 
-In the above example, if the disk cannot keep up, the client's upload speed will be throttled to match the disk's speed. This prevents excessive memory build up in the server.
+In the above example, if a component is slow, the server slows down the client to match the speed. This prevents too much memory from building up in the server.
 
-Responses can be streamed by providing an AsyncSequence of ByteBuffer into ``ResponseBody.init(asyncSequence:)`` initializer.
-
-In addition, you can write into a ``ResponseBodyWriter`` to stream the response body using ``ResponseBody.init(contentLength:_:)``.
+- Stream data in chunks using in ``ResponseBody.init(contentLength:_:)``.
+- Use a ``ResponseBodyWriter`` to send the response body with backpressure.
 
 ### Persistence
 
-Leverage [swift-jobs](https://github.com/hummingbird-project/swift-jobs) or other job queue implementations to offload long running tasks, or tasks that can be parallelized to a background job. This will enable you to scale your application horizontally by adding more instances of your Hummingbird app.
+Use [swift-jobs](https://github.com/hummingbird-project/swift-jobs) or other job queue tools to run long tasks or tasks you can run at the same time as background jobs. This helps your app handle more requests by adding more Hummingbird app instances.
 
 Avoid local database systems such as [SQLite](https://sqlite.org), including wrappers like [GRDB](https://github.com/groue/GRDB.swift), as these only reside on the local machine.
 
-Databases such as [PostgreSQL](https://www.postgresql.org) or [Valkey](https://valkey.io)/[Redis](https://redis.io) are highly scalable and mature solutions for persistence and/or caching. These databases have mature libraries for Swift and are well supported by the community.
+Use databases like Postgres or Redis to save data and cache. These work well with Swift and have good community support.
