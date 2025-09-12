@@ -64,15 +64,15 @@ let persist = MemoryPersistDriver()
 ```
 If you use the memory based driver the key/value pairs you store will be lost if your server goes down, also you will not be able to share values between server processes. 
 
-### Redis
+### Valkey/Redis
 
-You can use Redis to store the `persists` key/value pairs with ``HummingbirdRedis/RedisPersistDriver`` from the `HummingbirdRedis` library. You would setup `persist` to use Redis as follows.
+You can use Valkey/Redis to store the `persists` key/value pairs with ``HummingbirdValkey/ValkeyPersistDriver`` from the `HummingbirdValkey` library. You would setup `persist` to use Valkey as follows.
 ```swift
-let redis = RedisConnectionPoolService(
-    .init(hostname: redisHostname, port: 6379), 
-    logger: Logger(label: "Redis")
+let valkeyClient = ValkeyClient(
+    .hostname(valkeyHostname, port: 6379), 
+    logger: Logger(label: "Valkey")
 )
-let persist = RedisPersistDriver(redisConnectionPoolService: redis)
+let persist = ValkeyPersistDriver(client: valkeyClient)
 ```
 
 ### Fluent
@@ -93,5 +93,5 @@ if shouldMigrate {
 - ``PersistDriver``
 - ``MemoryPersistDriver``
 - ``HummingbirdFluent/FluentPersistDriver``
-- ``HummingbirdRedis/RedisPersistDriver``
+- ``HummingbirdValkey/ValkeyPersistDriver``
 - ``HummingbirdPostgres/PostgresPersistDriver``
