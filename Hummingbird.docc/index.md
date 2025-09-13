@@ -86,7 +86,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 - ``/HummingbirdFluent``
 - ``/HummingbirdLambda``
 - ``/HummingbirdPostgres``
-- ``/HummingbirdRedis``
+- ``/HummingbirdValkey``
 - ``/HummingbirdWebSocket``
 - ``/Jobs``
 - ``/Mustache``

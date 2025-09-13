@@ -12,39 +12,7 @@ Hummingbird Jobs Queue driver using [RediStack](https://github.com/swift-server/
 
 ### Setup
 
-Currently `RediStack` is not setup to use `ServiceLifecycle`. So to ensure clean shutdown of `RediStack` you either need to use the ``HummingbirdRedis/RedisConnectionPoolService`` that is part of ``HummingbirdRedis`` or write your own `Service` type that will manage the shutdown of a `RedisConnectionPool`.
-
-#### Using HummingbirdRedis
-
-If you choose to use `HummingbirdRedis` you can setup a JobQueue using `RediStack` as follows
-
-```swift
-let redisService = try RedisConnectionPoolService(
-    .init(hostname: redisHost, port: 6379),
-    logger: logger
-)
-let jobQueue = JobQueue(
-    .redis(
-        redisService.pool, 
-        configuration: .init(
-            queueKey: "MyJobQueue", 
-            pollTime: .milliseconds(50)
-        )
-    ),
-    logger: logger
-)
-let serviceGroup = ServiceGroup(
-    configuration: .init(
-        services: [redisService, jobQueue],
-        gracefulShutdownSignals: [.sigterm, .sigint],
-        logger: logger
-    )
-)
-try await serviceGroup.run()
-```
-The Redis job queue configuration includes two values.
-- `queueKey`: Prefix to all the Redis keys used to store queues.
-- `pollTime`: This is the amount of time between the last time the queue was empty and the next time the driver starts looking for pending jobs.
+Currently `RediStack` is not setup to use `ServiceLifecycle`. So to ensure clean shutdown of `RediStack` you need to create your own `Service` type that will manage the shutdown of a `RedisConnectionPool`.
 
 #### Write RedisConnectionPool Service
 
