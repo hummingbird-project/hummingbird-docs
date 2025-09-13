@@ -136,7 +136,7 @@ struct MyNewRequestContext: ChildRequestContext {
 Once you have defined how to perform the transform from your original `RequestContext` the conversion is added as follows
 
 ```swift
-let app = Application(context: MyRequestContext.self)
+let router = Router(context: MyRequestContext.self)
 router.group("/todos", context: MyNewRequestContext.self)
     .put(use: createTodo)
     .get(use: listTodos)
