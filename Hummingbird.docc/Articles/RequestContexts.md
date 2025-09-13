@@ -56,6 +56,10 @@ struct MyRequestContext: RequestContext {
 }
 ```
 
+### Limiting memory usage
+
+You can limit the amount of memory uploaded to your server when decoding requests by setting the value ``Hummingbird/RequestContext/maxUploadSize`` in your `RequestContext`. If someone sends a request larger than the `maxUploadSize` value defined the server will respond with a response with status code `(413) Content too large`. The `maxUploadSize` value defaults to 2MB. The request decoders provided with Hummingbird for JSON and URL Encoded Forms both use this limit.
+
 You can find out more about request decoding and response encoding in <doc:RequestDecoding> and <doc:ResponseEncoding>.
 
 ## Passing data forward
@@ -113,6 +117,43 @@ let router = Router(context: AppRequestContext.self)
 router.get("ip") { _, context in
     guard let ip = context.remoteAddress else { throw HTTPError(.badRequest) }
     return "Your IP is \(ip)"
+}
+```
+
+### RequestContext transformation
+
+The `RequestContext` can be transformed for the routes in a route group. The `RequestContext` you are converting to needs to conform to ``ChildRequestContext``. This requires a parent context ie the `RequestContext` you are converting from and a ``ChildRequestContext/init(context:)`` function to perform the conversion.
+
+```swift
+struct MyNewRequestContext: ChildRequestContext {
+    typealias ParentContext = MyRequestContext
+    init(context: ParentContext) throws {
+        self.coreContext = context.coreContext
+        ...
+    }
+}
+```
+Once you have defined how to perform the transform from your original `RequestContext` the conversion is added as follows
+
+```swift
+let router = Router(context: MyRequestContext.self)
+router.group("/todos", context: MyNewRequestContext.self)
+    .put(use: createTodo)
+    .get(use: listTodos)
+```
+
+Transforming the `RequestContext` is a powerful way of enforcing compile-time guarantees that requests adhere to certain requirements. And by expressing these requirements as protocol conformances, you can compose these properties and flexibly express those requirements. 
+
+An example of using a `ChildRequestContext` would be to unwrap an optional authentication identity. Every route that uses that child request context with the unwrapped identity now knows for sure you have an authenticated identity.
+
+```swift
+struct MyAuthenticatedRequestContext: ChildRequestContext {
+    typealias ParentContext = MyRequestContext
+    init(context: ParentContext) throws {
+        self.coreContext = context.coreContext
+        self.identity = try context.requireIdentity()
+        ...
+    }
 }
 ```
 
