@@ -1,4 +1,4 @@
-# Tips for Building Hummingbird Apps
+# Guidelines for Building Hummingbird Apps
 
 When you start a new app, especially with a new framework, you will find many useful tips and tools. Here are lessons we learned from building Hummingbird and from our community. Please send us feedback or suggestions for this document anytime!
 
