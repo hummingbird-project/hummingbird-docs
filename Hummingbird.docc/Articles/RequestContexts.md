@@ -142,7 +142,20 @@ router.group("/todos", context: MyNewRequestContext.self)
     .get(use: listTodos)
 ```
 
-Transforming the `RequestContext` is a powerful way of enforcing compile-time guarantees that requests adhere to certain requirements. And by expressing these requirements as protocol conformances, you can compose these properties and flexibly express those requirements.
+Transforming the `RequestContext` is a powerful way of enforcing compile-time guarantees that requests adhere to certain requirements. And by expressing these requirements as protocol conformances, you can compose these properties and flexibly express those requirements. 
+
+An example of using a `ChildRequestContext` would be to unwrap an optional authentication identity. Every route that uses that child request context with the unwrapped identity now knows for sure you have an authenticated identity.
+
+```swift
+struct MyAuthenticatedRequestContext: ChildRequestContext {
+    typealias ParentContext = MyRequestContext
+    init(context: ParentContext) throws {
+        self.coreContext = context.coreContext
+        self.identity = try context.requireIdentity()
+        ...
+    }
+}
+```
 
 ## Authentication Middleware
 
