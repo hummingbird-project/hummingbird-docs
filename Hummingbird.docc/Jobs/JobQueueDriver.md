@@ -32,5 +32,5 @@ Defines the requirements for job queue implementation.
 ### Implementations
 
 - ``memory``
-- ``redis(_:configuration:logger:)``
+- ``valkey(_:configuration:logger:)``
 - ``postgres(client:migrations:configuration:logger:)``

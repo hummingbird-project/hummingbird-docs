@@ -84,7 +84,7 @@ Or it can be added to the array of services that `Application` manages
 let app = Application(...)
 app.addServices(jobProcessor)
 ```
-If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsRedis/RedisJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
+If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsValkey/ValkeyJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
 ## Job Scheduler
 

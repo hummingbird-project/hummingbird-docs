@@ -42,4 +42,4 @@ try await app.runService()
 
 ## See Also
 
-- ``JobsRedis``
+- ``JobsValkey``
