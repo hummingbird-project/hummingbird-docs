@@ -8,7 +8,7 @@ Offload work your server would be doing to another server.
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsRedis`` and ``JobsPostgres`` that implement the job queue using a Redis database or Postgres database. 
+A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsValkey`` and ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database. 
 
 ### Setting up a Job queue
 
@@ -84,7 +84,7 @@ Or it can be added to the array of services that `Application` manages
 let app = Application(...)
 app.addServices(jobProcessor)
 ```
-If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsRedis/RedisJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
+If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsValkey/ValkeyJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
 ## Job Scheduler
 

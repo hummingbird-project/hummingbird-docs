@@ -166,6 +166,6 @@ You can find out more about the Job scheduler in the Jobs guide <doc:JobsGuide#J
 ## See Also
 
 - ``Jobs``
-- ``JobsRedis``
+- ``JobsValkey``
 - ``Hummingbird``
 - ``HummingbirdPostgres``
