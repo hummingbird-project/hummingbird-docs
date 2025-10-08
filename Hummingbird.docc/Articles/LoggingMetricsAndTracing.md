@@ -64,13 +64,19 @@ The middleware ``TracingMiddleware`` will record spans for each request made to 
 import OpenTelemetry
 import Tracing
 
-// Bootstrap Open Telemetry
-let otel = OTel(serviceName: "example", eventLoopGroup: .singleton)
-try otel.start().wait()
-InstrumentationSystem.bootstrap(otel.tracer())
+// Bootstrap Open Telemetry and create OTel service
+var otelConfig = OTel.Configuration.default
+otelConfig.serviceName = "Hummingbird"
+let otel = try OTel.bootstrap(configuration: otelConfig)
 
 // Add tracing middleware
 router.middlewares.add(TracingMiddleware(recordingHeaders: ["content-type", "content-length"]))
+
+// Include otel in Hummingbird services
+let application = Application(
+    router: router,
+    services: [otel]
+)
 ```
 
 If you would like to find out more about tracing, or implement your own tracing backend you can find out more [here](https://swiftpackageindex.com/apple/swift-distributed-tracing/main/documentation/tracing).
