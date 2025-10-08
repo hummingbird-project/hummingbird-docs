@@ -8,18 +8,18 @@ Processing requests and responses outside of request handlers.
 
 ## Overview
 
-Middleware can be used to edit requests before they are forwared to the router, edit the responses returned by the route handlers or even shortcut the router and return their own responses. Middleware is added to the application as follows.
+Middleware can be used to edit requests before they are forwared to the router, edit the responses returned by the route handlers or even shortcut the router and return their own responses. Middleware is added to the router as follows.
 
 ```swift
 let router = Router()
 router.add(middleware: MyMiddlware())
 ```
 
-In the example above the `MyMiddleware` is applied to every request that comes into the server.
+In the example above the `MyMiddleware` is applied to every request that comes into the server. Note of caution middleware is only applied to routes added after it has been added. Using this you can filter which routes have a particular middlware applied. A better way to do this though is with groups.
 
 ### Groups
 
-Middleware can also be applied to a specific set of routes using groups. Below is a example of applying an authentication middleware `BasicAuthenticatorMiddleware` to routes that need protected.
+Middleware can be applied to a specific set of routes using groups. Below is a example of applying an authentication middleware `BasicAuthenticatorMiddleware` to routes that need protected.
 
 ```swift
 let router = Router()

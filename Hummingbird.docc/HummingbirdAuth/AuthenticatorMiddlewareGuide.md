@@ -51,7 +51,7 @@ Then in your request handler you can access your authentication data with `conte
 /// Get current logged in user
 func current(_ request: Request, context: MyContext) throws -> User {
     // get authentication data for user. If it doesnt exist then throw unauthorized error
-    let user = context.requireIdentity()
+    let user = try context.requireIdentity()
     return user
 }
 ```
