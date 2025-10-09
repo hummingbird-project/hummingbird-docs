@@ -17,7 +17,11 @@ You can find the migrations for these in the [Migrations folder](https://github.
 
 On top of the two tables created, the example uses the postgres driver ``/HummingbirdPostgres/PostgresPersistDriver`` for the persist framework to store session keys. You will find out more about the persist framework at <doc:PersistentData> and there is a guide to the migration support in <doc:MigrationsGuide>.
 
-There is a docker-compose file available to run a local Postgres database.
+There is a docker-compose file available to run a local Postgres database. You can run the Postgres database using
+
+```
+docker compose up
+```
 
 ## Walkthrough
 
