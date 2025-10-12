@@ -77,6 +77,10 @@ Below is a list of guides and tutorials to help you get started with building yo
 - <doc:MustacheSyntax>
 - <doc:MustacheFeatures>
 
+### Examples
+
+- <doc:OTPAuthenticationExample>
+
 ### Reference Documentation
 
 - ``/Hummingbird``
