@@ -70,3 +70,5 @@ router.addMiddleware {
 - ``HummingbirdAuth/AuthenticatorMiddleware``
 - ``HummingbirdAuth/AuthRequestContext``
 - ``HummingbirdAuth/IsAuthenticatedMiddleware``
+- <doc:OTPAuthenticationExample>
+- <doc:TodosAuthExample>

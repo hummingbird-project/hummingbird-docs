@@ -18,3 +18,4 @@ One time passwords
 
 - ``Hummingbird``
 - ``HummingbirdAuth``
+- <doc:OTPAuthenticationExample>

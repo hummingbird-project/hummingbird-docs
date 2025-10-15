@@ -8,12 +8,12 @@ This example starts with a standard username/password login. There is a link to 
 
 ## Database
 
-`PostgresNIO` and ``PostgresMigrations`` are used in this example to access and store your persistent data. The demo creates two tables and an index.
+`PostgresNIO` and ``PostgresMigrations`` are used in this example to access and store your persistent data. The example creates two tables and an index.
 - Table `users` with columns `id`, `name`, `email`, `passwordHash` 
 - Table `totp` with columns `user_id` and `secret`
 - Index for `email` in table `users`
 
-You can find the migrations for these in the [Migrations folder](https://github.com/hummingbird-project/hummingbird-examples/tree/main/auth-otp/Sources/App/Migrations). These are added to the migration list in the `buildApplication` function. We need to apply these migrations before the server starts but after the PostgresClient connection manager background process has started. This can be done by calling the ``/PostgresMigrations/DatabaseMigrations/apply(client:groups:logger:dryRun:)`` function inside a closure sent to ``/Hummingbird/Application/beforeServerStarts(perform:)``.
+You can find the migrations for these in the [Migrations folder](https://github.com/hummingbird-project/hummingbird-examples/tree/main/auth-otp/Sources/App/Migrations). These are added to the migration list in the `buildApplication` function. We need to apply these migrations before the server starts but after the PostgresClient connection manager background process has started. This can be done by calling the ``/PostgresMigrations/DatabaseMigrations/apply(client:groups:logger:dryRun:)`` function inside a closure sent to ``/Hummingbird/Application/beforeServerStarts(perform:)``. The first time you run this example you should run it with the `--migrate` parameter to perform the migrations.
 
 On top of the two tables created, the example uses the postgres driver ``/HummingbirdPostgres/PostgresPersistDriver`` for the persist framework to store session keys. You will find out more about the persist framework at <doc:PersistentData> and there is a guide to the migration support in <doc:MigrationsGuide>.
 
