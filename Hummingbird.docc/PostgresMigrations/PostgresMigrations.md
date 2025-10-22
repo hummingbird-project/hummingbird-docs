@@ -7,6 +7,10 @@ Postgres database migration service
 }
 ## Topics
 
+### Articles
+
+- <doc:MigrationsGuide>
+
 ### Migrations
 
 - ``DatabaseMigrations``
