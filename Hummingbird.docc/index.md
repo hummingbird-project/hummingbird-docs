@@ -79,7 +79,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 
 ### Examples
 
-- <doc:OTPAuthenticationExample>
+- <doc:ExamplesGuide>
 
 ### Reference Documentation
 
