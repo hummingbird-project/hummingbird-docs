@@ -66,10 +66,39 @@ You will notice in the code above the parameter `dryRun` is set to true. This is
 
 ### Reverting migrations
 
-There are a number of situations where a migration maybe reverted. 
-- The user calls ``/PostgresMigrations/DatabaseMigrations/revert(client:groups:logger:dryRun:)``. This will revert all the migrations applied to the database.
-- A user removes a migration from the list. The migration still needs to be registered with the migration system as it needs to know how to revert that migration. This is done with a call to ``/PostgresMigrations/DatabaseMigrations/register(_:)``. When a migration is removed it is reverted and all subsequent migrations will be reverted and then re-applied.
-- A user changes the order of migrations. This is generally a user error, but if it is intentional then the first migration affected by the order change and all subsequent migrations will be reverted and then re-applied.
+You can use ``/PostgresMigrations/DatabaseMigrations/revert(client:groups:options:logger:dryRun:)`` to revert all the migrations and will reset your database back to its starting point. If it comes across a migration name in the database it doesn't recognise, it will throw the error ``/PostgresMigrations/DatabaseMigrationError/cannotRevertMigration``. In this situation you have two options.
+1) Register the missing migration using ``/PostgresMigrations/DatabaseMigrations/register(_:)``. The system will now know about this migration but it will not apply it.
+2) Run the `revert` function again but including either option ``/PostgresMigrations/DatabaseMigrations/RevertOptions/ignoreUnknownMigrations`` or ``/PostgresMigrations/DatabaseMigrations/RevertOptions/removeUnknownMigrations``.
+
+```swift
+await migrations.revert(
+    client: postgresClient, 
+    options: .ignoreUnknownMigrations, 
+    logger: logger, 
+    dryRun: false
+)
+```
+
+### Inconsistencies between expected and applied migrations 
+
+If the order your application expects migrations to be applied and the order they have actually been applied is different then when you call ``/PostgresMigrations/DatabaseMigrations/apply(client:groups:options:logger:dryRun:)`` it will throw a ``/PostgresMigrations/DatabaseMigrationError/appliedMigrationsInconsistent`` error. This can occur when you have inserted a new migration in the middle of the migration list, removed a migration from the middle of the migration list or have swapped the order of applying migrations. 
+
+The best way to fix this is to ensure the order of migrations you would like to apply is consistent with the list of already applied migrations in your database. If this is not possible though you can use the function ``/PostgresMigrations/DatabaseMigrations/revertInconsistent(client:groups:options:logger:dryRun:)`` to revert applied migrations until the applied migration list is consistent with the list the application expects. This is a destructive function. Always run it with `dryRun` set to `true` first. With this set, it will output to the log the list of operations it will perform but not actually perform them. 
+
+```swift
+await migrations.revertInconsistent(
+    client: postgresClient, 
+    logger: logger, 
+    dryRun: true
+)
+```
+
+The default operation is to find the first inconsistency in the lists and then revert every migration after that as it cannot be certain they will have been applied correctly. This is obviously very destructive. You have a number of options that affect this operation.
+- ``/PostgresMigrations/DatabaseMigrations/RevertInconsistentOptions/ignoreUnknownMigrations`` will ignore any applied migrations the system doesn't know about.
+- ``/PostgresMigrations/DatabaseMigrations/RevertInconsistentOptions/removeUnknownMigrations`` will remove any applied migrations the system doesn't know about. This will also revert any migrations that follow the unknown migration. 
+- ``/PostgresMigrations/DatabaseMigrations/RevertInconsistentOptions/disableRevertsFollowingRevert`` disables reverting any migrations that follow a migration that has been reverted. You should use this with care as subsequent migrations may depend on the reverted migration. With this option set if it finds a migration that has not been applied in the middle of the applied migrations it will ignore that migration and not revert any subsequent migrations.
+
+This function is provided as a way to fixup inconsistencies but it should not be relied upon. Ensuring the order your migrations are applied is consistent is the best way to proceed.
 
 ### Migration groups
 
