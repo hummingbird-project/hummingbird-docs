@@ -49,7 +49,7 @@ import HummingbirdHTTP2
 
 let app = Application(
     router: router,
-    server: .http2(
+    server: .http2Upgrade(
         tlsConfiguration: tlsConfiguration,
         configuration: .init(
             idleTimeout: .seconds(60),
