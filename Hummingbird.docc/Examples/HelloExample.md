@@ -1,6 +1,6 @@
 # Hello Example
 
-Example demonstaritng how to setup and start up a server
+Example demonstrating how to setup and start up a server.
 
 > The source code for this example can be found [here](https://github.com/hummingbird-project/hummingbird-examples/tree/main/hello).
 
