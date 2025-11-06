@@ -139,7 +139,7 @@ The `Request` url query parameters are available via a number of methods from `R
 ```swift
 router.get("/user") { request, context in
     // extract parameter from URL of form /user?id={userId}
-    let id = request.uri.queryParameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
+    guard let id = request.uri.queryParameters.get("id", as: Int.self) else { throw HTTPError(.badRequest) }
     return getUser(id: id)
 }
 ```
