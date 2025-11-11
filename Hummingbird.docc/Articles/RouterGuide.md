@@ -12,7 +12,7 @@ The default router that comes with Hummingbird uses a Trie based lookup. Routes 
 
 ```swift
 let router = Router()
-router.on("/hello", method: .GET) { request, context in
+router.on("/hello", method: .get) { request, context in
     return "Hello"
 }
 ```
