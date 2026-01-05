@@ -1,28 +1,22 @@
 ///  Build application
-/// - Parameter arguments: application arguments
-public func buildApplication(_ arguments: some AppArguments) async throws -> some ApplicationProtocol {
-    let environment = Environment()
+/// - Parameter reader: configuration reader
+func buildApplication(reader: ConfigReader) async throws -> some ApplicationProtocol {
     let logger = {
-        var logger = Logger(label: "todos-postgres-tutorial")
-        logger.logLevel =
-            arguments.logLevel ??
-            environment.get("LOG_LEVEL").map { Logger.Level(rawValue: $0) ?? .info } ??
-            .info
+        var logger = Logger(label: "Todos")
+        logger.logLevel = reader.string(forKey: "log.level", as: Logger.Level.self, default: .info)
         return logger
     }()
-    if !arguments.inMemoryTesting {
+    let inMemoryTesting = reader.bool(forKey: "db.inMemoryTesting", default: false)
+    if !inMemoryTesting {
         let client = PostgresClient(
             configuration: .init(host: "localhost", username: "todos", password: "todos", database: "hummingbird", tls: .disable),
             backgroundLogger: logger
         )
     }
     let router = buildRouter()
-    var app = Application(
+    let app = Application(
         router: router,
-        configuration: .init(
-            address: .hostname(arguments.hostname, port: arguments.port),
-            serverName: "todos-postgres-tutorial"
-        ),
+        configuration: ApplicationConfiguration(reader: reader.scoped(to: "http")),
         logger: logger
     )
     return app

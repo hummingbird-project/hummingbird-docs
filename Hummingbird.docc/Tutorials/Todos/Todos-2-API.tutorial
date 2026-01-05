@@ -1,4 +1,4 @@
-@Tutorial(time: 20) {
+@Tutorial(time: 15) {
     @Intro(title: "Add your application API") {
         Add some functionality to your application.
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
@@ -21,7 +21,7 @@
             }
             @Step {
                 And add the TodoController endpoints to your router. The Todos API has a URI prefix of "todos".
-                @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift)
+                @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift, previousFile: todos-template-06.swift)
             }
             @Step {
                 We are going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
@@ -48,7 +48,7 @@
             }
             @Step {
                 And add a generic repository member variable conforming to `TodoRepository` to be used by the `TodoController` routes. Generics allow us to use the same controller for different repository implementations.
-                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift)
+                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift, previousFile: todos-api-01.swift)
             }
             @Step {
                 Go to `buildRouter()` in Application+build.swift
@@ -64,7 +64,7 @@
             }
             @Step {
                 Our first endpoint is to return a Todo given an id in the URI. We extract the id from the URI, attempt to convert it to a UUID and then call the repository method `get` and return the result. The result is then converted to a response using the response encoder (JSONEncoder by default) attached to the context.
-                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-09.swift)
+                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-09.swift, previousFile: todos-api-07.swift)
             }
             @Step {
                 This endpoint has a few other features. If it fails to convert the id to a UUID then it throws an `HTTPError`. This is an error that can be converted by the server to a valid HTTP response. If the server receives an error it cannot convert to an HTTP response it will return a 500 (Internal Server Error) HTTP error to the client.
@@ -78,7 +78,7 @@
             }
             @Step {
                 Returning an object and not a raw Response, in general sets the response status to 200 (OK). In this situation we want to return a 201 (Created) status. We can do this by returning an `EditedResponse` which can be used to edit the status code and headers of a generated response.
-                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-11.swift)
+                @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-11.swift, previousFile: todos-api-10.swift)
             }
             @Step {
                 We now have an API we can test. Lets use curl to create a Todo. If we include the command line parameter `-i` we get the full HTTP response and can see that the status code is 201 (Created).

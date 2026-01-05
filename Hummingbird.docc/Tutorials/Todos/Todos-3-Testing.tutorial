@@ -1,4 +1,4 @@
-@Tutorial(time: 15) {
+@Tutorial(time: 10) {
     @Intro(title: "Testing your application") {
         Test your application using the HummingbirdTesting framework
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
@@ -19,12 +19,8 @@
             @Step {
                 Open Tests/AppTests/AppTests.swift
 
-                It contains one test, `testApp()`. This creates a copy of the Application using `buildApplication(_:)` and uses the Hummingbird test framework to verify the GET `/` endpoint returns a "Hello!" string.
+                It contains one test, `app()`. This creates a copy of the Application using `buildApplication(reader:)`. The application is configured using a custom test `ConfigReader` with default values for testing. We verify the GET `/` endpoint returns a "Hello!" string.
                 @Code(name: "Tests/AppTests/AppTests.swift", file: todos-testing-02.swift)
-            }
-            @Step {
-                We cannot create an instance of `App`, so need another way of passing the arguments to the `buildApplication` function in our tests. So `buildApplication(_:)` doesn't take `App` as a parameter. Instead its parameter is a type that conforms to the protocol `AppArguments` which includes the parameters the function needs. We then conform `App` to  `AppArguments` and in our tests create a new type `TestArguments` which conforms to the protocol `AppArguments`.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-testing-03.swift)
             }
         }
     }
@@ -35,7 +31,7 @@
         }
         @Steps {
             @Step {
-                Lets replace the `testApp` function with a test for the create todo function. Application testing is done with the function ``Hummingbird/ApplicationProtocol/test(_:_:)``. The first parameter indicates what test framework you want to use. Here we are using `.router` which sends our request directly to the router without a live server process.
+                Lets replace the `test` function with a test for the create todo function. Application testing is done with the function ``Hummingbird/ApplicationProtocol/test(_:_:)``. The first parameter indicates what test framework you want to use. Here we are using `.router` which sends our request directly to the router without a live server process.
 
                 In the closure passed to `test` you are provided with a client to interact with the current test framework. With this you can send requests and verify the contents of their responses.
                 @Code(name: "Tests/AppTests/AppTests.swift", file: todos-testing-08.swift)
