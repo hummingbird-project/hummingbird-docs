@@ -16,12 +16,12 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-01.swift)
             }
             @Step {
-                Go back to `buildRouter()` in Application+build.swift. Routers ensure a Request is _routed_ to the correct handler function.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-template-06.swift)
+                Go back to `buildRouter()` in App+build.swift. Routers ensure a Request is _routed_ to the correct handler function.
+                @Code(name: "Sources/App/App+build.swift", file: todos-template-06.swift)
             }
             @Step {
                 And add the TodoController endpoints to your router. The Todos API has a URI prefix of "todos".
-                @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift, previousFile: todos-template-06.swift)
+                @Code(name: "Sources/App/App+build.swift", file: todos-api-02.swift, previousFile: todos-template-06.swift)
             }
             @Step {
                 We are going to use the [repository design pattern](https://www.geeksforgeeks.org/repository-design-pattern/) to separate our storage concerns from our API. With this we should be able to create an API and test it without worrying about Database setup.
@@ -51,12 +51,12 @@
                 @Code(name: "Sources/App/Controllers/TodoController.swift", file: todos-api-07.swift, previousFile: todos-api-01.swift)
             }
             @Step {
-                Go to `buildRouter()` in Application+build.swift
-                @Code(name: "Sources/App/Application+build.swift", file: todos-api-02.swift)
+                Go to `buildRouter()` in App+build.swift
+                @Code(name: "Sources/App/App+build.swift", file: todos-api-02.swift)
             }
             @Step {
                 And add the repository parameter to the TodoController initializer. We are using the memory implementation of the `TodoRepository` we have already implemented previously.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-api-08.swift)
+                @Code(name: "Sources/App/App+build.swift", file: todos-api-08.swift)
             }
             @Step {
                 Return to TodoController.swift. We can now start adding our endpoints. An endpoint (or Route) is a function that replies to a request if the path and method match.

@@ -32,16 +32,16 @@
                 @Code(name: "Sources/App/App.swift", file: todos-template-04.swift)
             }
             @Step {
-                Open `Sources/App/Application+build.swift` to find the `buildApplication(_:) function.
+                Open `Sources/App/App+build.swift` to find the `buildApplication(_:) function.
 
                 Here we create a `Logger` with log level extracted from the configuration reader mentioned above. We then call a function `buildRouter()` and use the result of that to create our `Application`. The application uses configuration values `HTTP_HOST` and `HTTP_PORT` to define its bind address.
-                @Code(name: "buildApplication() - Sources/App/Application+build.swift", file: todos-template-05.swift)
+                @Code(name: "buildApplication() - Sources/App/App+build.swift", file: todos-template-05.swift)
             }
             @Step {
                 If we look further down the file we can find the `buildRouter()` function.
 
                 Here we create the `Router`. We add a logging middleware to it (this logs all requests to the router). The function uses a result builder to create a stack of middleware, but you can also use `Router.add(middleware:)` to add individual middleware. Finally we add a single endpoint GET `/` which returns a String response: "Hello!".
-                @Code(name: "buildRouter() - Sources/App/Application+build.swift", file: todos-template-06.swift)
+                @Code(name: "buildRouter() - Sources/App/App+build.swift", file: todos-template-06.swift)
             }
             @Step {
                 We can run this application and use curl to test it works. 
