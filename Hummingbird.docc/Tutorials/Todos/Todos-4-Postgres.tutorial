@@ -31,28 +31,16 @@
                 @Code(name: "Package.swift", file: todos-postgres-04.swift)
             }
             @Step {
-                In Sources/App/Application+build.swift...
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-05.swift)
+                In Sources/App/App+build.swift...
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-05.swift)
             }
             @Step {
-                we add a new requirement `inMemoryTesting` to `AppArguments`. This will decide whether we store Todos in memory or a Postgres database.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-06.swift)
-            }
-            @Step {
-                We then need to add implementations of this requirement in Sources/App/App.swift
-                @Code(name: "Sources/App/App.swift", file: todos-postgres-07.swift)
-            }
-            @Step {
-                and Tests/AppTests/AppTests.swift
-                @Code(name: "Tests/AppTests/AppTests.swift", file: todos-postgres-08.swift)
-            }
-            @Step {
-                We are going to use `PostgresClient` from PostgresNIO for our Postgres support. The `inMemoryTesting` flag is used to decide on whether we should set one up. Note the Postgres configuration details are the same as the Postgres role we set up earlier in psql.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-09.swift)
+                We are going to use `PostgresClient` from PostgresNIO for our Postgres support. We use the configuration value `db.inMemoryTesting` flag to decide on whether we should use the client. Note the Postgres configuration details are the same as the Postgres role we set up earlier in psql.
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-09.swift)
             }
             @Step {
                 `PostgresClient` sets up background processes that requires lifecycle management. You can add a service to `Application` to have its lifecycle managed as long as it conforms to `Service`. This is done by adding it to an internally held `ServiceGroup`. More details on `Service` and `ServiceGroup` can be found in the documentation for [Swift Service Lifecycle](https://swiftpackageindex.com/swift-server/swift-service-lifecycle/main/documentation/servicelifecycle).
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-10.swift)
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-10.swift, previousFile: todos-postgres-09.swift)
             }
         }
     }
@@ -75,16 +63,16 @@
                 @Code(name: "Sources/App/Repositories/TodoPostgresRepository.swift", file: todos-postgres-12.swift)
             }
             @Step {
-                Return to `buildApplication(_:)` in Application+build.swift...
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-10.swift)
+                Return to `buildApplication(_:)` in App+build.swift...
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-10.swift)
             }
             @Step {
                 Use the newly created `TodoPostgresRepository` and once the `PostgresClient` is running call `createTable`.  
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-14.swift)
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-14.swift)
             }
             @Step {
                 Update `buildRouter(_:)` to take the repository as an argument and pass it to the controller.
-                @Code(name: "Sources/App/Application+build.swift", file: todos-postgres-23.swift)
+                @Code(name: "Sources/App/App+build.swift", file: todos-postgres-23.swift)
             }
             @Step {
                 Back to TodoPostgresRepository.swift to start implementing our repository methods.
@@ -117,7 +105,7 @@
                 @Code(name: "Tests/AppTests/AppTests.swift", file: todos-postgres-21.swift)
             }
             @Step {
-                You can switch the `inMemoryTesting` boolean to false to test your Postgres solution. 
+                You can add a `db.inMemoryTesting` configuration values to switch between testing your Postgres solution and the in memory solution. 
                 @Code(name: "Tests/AppTests/AppTests.swift", file: todos-postgres-22.swift)
             }
             @Step {

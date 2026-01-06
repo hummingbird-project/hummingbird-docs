@@ -1,13 +1,5 @@
-import Foundation
-import Hummingbird
-import HummingbirdTesting
-import Logging
-import XCTest
-
-@testable import App
-
 extension AppTests {
-    func testAPI() async throws {
+    @Test func testAPI() async throws {
         let app = try await buildApplication(TestArguments())
         try await app.test(.router) { client in
             // create two todos

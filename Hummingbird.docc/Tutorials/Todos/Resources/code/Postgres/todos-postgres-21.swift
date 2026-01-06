@@ -1,15 +1,16 @@
+import Configuration
+import Foundation
 import Hummingbird
 import HummingbirdTesting
 import Logging
-import XCTest
+import Testing
 
 @testable import App
 
-final class AppTests: XCTestCase {
-    struct TestArguments: AppArguments {
-        let hostname = "127.0.0.1"
-        let port = 8080
-        let logLevel: Logger.Level? = nil
-        let inMemoryTesting = true
-    }
-
+private let reader = ConfigReader(providers: [
+    InMemoryProvider(values: [
+        "host": "127.0.0.1",
+        "port": "0",
+        "log.level": "trace"
+    ])
+])

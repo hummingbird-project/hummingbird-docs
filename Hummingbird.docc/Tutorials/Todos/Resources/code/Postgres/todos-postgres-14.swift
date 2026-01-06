@@ -1,18 +1,15 @@
 ///  Build application
-/// - Parameter arguments: application arguments
-public func buildApplication(_ arguments: some AppArguments) async throws -> some ApplicationProtocol {
-    let environment = Environment()
+/// - Parameter reader: configuration reader
+func buildApplication(reader: ConfigReader) async throws -> some ApplicationProtocol {
     let logger = {
-        var logger = Logger(label: "todos-postgres-tutorial")
-        logger.logLevel =
-            arguments.logLevel ??
-            environment.get("LOG_LEVEL").map { Logger.Level(rawValue: $0) ?? .info } ??
-            .info
+        var logger = Logger(label: "Todos")
+        logger.logLevel = reader.string(forKey: "log.level", as: Logger.Level.self, default: .info)
         return logger
     }()
-    var postgresRepository: TodoPostgresRepository?
+    let inMemoryTesting = reader.bool(forKey: "db.inMemoryTesting", default: false)
+    var postgresClient: PostgresClient?
     let router: Router<AppRequestContext>
-    if !arguments.inMemoryTesting {
+    if !inMemoryTesting {
         let client = PostgresClient(
             configuration: .init(host: "localhost", username: "todos", password: "todos", database: "hummingbird", tls: .disable),
             backgroundLogger: logger
@@ -23,12 +20,10 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
     } else {
         router = buildRouter(TodoMemoryRepository())
     }
+    let router = buildRouter()
     var app = Application(
         router: router,
-        configuration: .init(
-            address: .hostname(arguments.hostname, port: arguments.port),
-            serverName: "todos-postgres-tutorial"
-        ),
+        configuration: ApplicationConfiguration(reader: reader.scoped(to: "http")),
         logger: logger
     )
     // if we setup a postgres service then add as a service and run createTable before
@@ -41,3 +36,5 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
     }
     return app
 }
+
+

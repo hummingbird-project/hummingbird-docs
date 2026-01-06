@@ -1,1 +1,1 @@
-> curl -i localhost:8080/health
+> curl -i localhost:8080

@@ -1,3 +1,6 @@
 {
-    "swift.sourcekit-lsp.backgroundIndexing": "off"
+    "swift.sourcekit-lsp.backgroundIndexing": "off",
+    "[swift]": {
+        "editor.formatOnSave": false
+    }
 }

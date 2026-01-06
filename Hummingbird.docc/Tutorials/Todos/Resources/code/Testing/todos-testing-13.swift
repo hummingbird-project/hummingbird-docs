@@ -1,14 +1,6 @@
-import Foundation
-import Hummingbird
-import HummingbirdTesting
-import Logging
-import XCTest
-
-@testable import App
-
 extension AppTests {
-    func testDeletingTodoTwiceReturnsBadRequest() async throws {}
-    func testGettingTodoWithInvalidUUIDReturnsBadRequest() async throws {}
-    func test30ConcurrentlyCreatedTodosAreAllCreated() async throws {}
-    func testUpdatingNonExistentTodoReturnsBadRequest() async throws {}
+    @Test func testDeletingTodoTwiceReturnsBadRequest() async throws {}
+    @Test func testGettingTodoWithInvalidUUIDReturnsBadRequest() async throws {}
+    @Test func test30ConcurrentlyCreatedTodosAreAllCreated() async throws {}
+    @Test func testUpdatingNonExistentTodoReturnsBadRequest() async throws {}
 }
