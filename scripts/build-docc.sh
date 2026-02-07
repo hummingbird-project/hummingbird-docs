@@ -2,6 +2,7 @@
 set -eux
 
 TEMP_DIR="$(pwd)/temp"
+TEMPLATE_VERSION="release/6.2.2"
 
 cleanup()
 {
@@ -39,8 +40,11 @@ do
 done
 
 if [ -z "${DOCC_HTML_DIR:-}" ]; then
-    git submodule update --init --recursive
+    pushd scripts/swift-docc-render-artifact
+    git fetch
+    git checkout "$TEMPLATE_VERSION"
     export DOCC_HTML_DIR="./scripts/swift-docc-render-artifact/dist"
+    popd
 fi
 
 if test "$BUILD_SYMBOLS" == 1; then
