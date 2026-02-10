@@ -2,7 +2,7 @@
 set -eux
 
 TEMP_DIR="$(pwd)/temp"
-TEMPLATE_VERSION="release/6.2.2"
+TEMPLATE_VERSION="release/6.3"
 
 cleanup()
 {
@@ -40,6 +40,7 @@ do
 done
 
 if [ -z "${DOCC_HTML_DIR:-}" ]; then
+    git submodule update --init --recursive
     pushd scripts/swift-docc-render-artifact
     git fetch
     git checkout "$TEMPLATE_VERSION"
