@@ -12,11 +12,27 @@ Authenticators are middleware that are used to check if a request is authenticat
 
 To use an authenticator it is required that your request context conform to ``HummingbirdAuth/AuthRequestContext``. When you return valid authentication data from your `authenticate` function it is recorded in the ``HummingbirdAuth/AuthRequestContext/identity`` member of your request context.
 
+## Getting started
+
+Support for authenticators is part of the ``HummingbirdAuth`` library in the [hummingbird-auth](https://github.com/hummingbird-project/hummingbird-auth) package. If you don't already have the `hummingbird-auth` library as a dependency in your project you use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/hummingbird-auth.git --from "2.1.0"
+```
+
+And then add the target dependency to your application using the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbird-auth
+```
+
 ## Usage
 
 A simple username, password authenticator could be implemented as follows. If the authenticator is successful it returns a `User` struct, otherwise it returns `nil`.
 
 ```swift
+import HummingbirdAuth
+
 struct BasicAuthenticator: AuthenticatorMiddleware {
     func authenticate<Context: AuthRequestContext>(request: Request, context: Context) async throws -> Identity? {
         // Basic authentication info in the "Authorization" header, is accessible

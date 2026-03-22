@@ -12,11 +12,27 @@ OTPs avoid a number of shortcomings that are associated with traditional (static
 
 HummingbirdAuth provides support for both time based (``HummingbirdOTP/TOTP``) and counter based (``HummingbirdOTP/HOTP``) one time passwords.
 
+## Getting started
+
+Support for one time passwords is part of the ``HummingbirdOTP`` library in the [hummingbird-auth](https://github.com/hummingbird-project/hummingbird-auth) package. If you don't already have the `hummingbird-auth` library as a dependency in your project you use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/hummingbird-auth.git --from "2.1.0"
+```
+
+And then add the target dependency to your application using the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency HummingbirdOTP <MyApp> --package hummingbird-auth
+```
+
 ## Usage
 
 To setup one time password authentication you need a shared secret for each user. Store the shared secret with your user in a database. You can generate an authentication URL to supply to the user which includes a base32 encoded version of the shared secret. 
 
 ```swift
+import HummingbirdOTP
+
 // create shared secret
 let sharedSecret = "random string"
 // store shared secret in database alongside user
