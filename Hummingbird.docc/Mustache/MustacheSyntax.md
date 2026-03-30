@@ -10,6 +10,20 @@ Overview of Mustache Syntax
 
 Mustache is a "logic-less" templating engine. The core language has no flow control statements. Instead it has tags that can be replaced with a value, nothing, or a series of values. This article documents the standard mustache tags.
 
+## Getting started
+
+The Mustache templating engine can be found in the [swift-mustache](https://github.com/hummingbird-project/swift-mustache) repository. If you don't already have the `swift-mustache` library as a dependency in your project use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/swift-mustache.git --from "2.0.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency Mustache <MyApp> --package swift-mustache
+```
+
 ### Context
 
 Mustache renders a template with a context stack. A context is a list of key/value pairs. These can be represented by either a `Dictionary` or the reflection information that `Mirror` provides. For example, the following two objects render in the same way

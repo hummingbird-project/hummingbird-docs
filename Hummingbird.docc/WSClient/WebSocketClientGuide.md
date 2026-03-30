@@ -8,11 +8,27 @@ Connecting to WebSocket servers.
 
 A WebSocket connection is only setup after an initial HTTP upgrade request has been sent. ``WSClient/WebSocketClient`` manages the process of sending the initial HTTP request and then the handling of the WebSocket once it has been upgraded.
 
+## Getting started
+
+The WebSocket client can be found in the ``WSClient`` library in the [swift-websocket](https://github.com/hummingbird-project/swift-websocket) package. If you don't already have the `swift-websocket` library as a dependency in your project you use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/swift-websocket.git --from "1.5.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency WSClient <MyApp> --package swift-websocket
+```
+
 ## Setup
 
 A WebSocket client is created with the server URL, a closure to handle the connection and optional configuration values. To connect call ``WSClient/WebSocketClient/run()``. This will exit once the WebSocket connection has closed.
 
 ```swift
+import WSClient
+
 let ws = WebSocketClient(url: "ws://mywebsocket/ws") { inbound, outbound, context in
     try await outbound.write(.text("Hello"))
     for try await frame in inbound {

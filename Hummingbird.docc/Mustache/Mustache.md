@@ -12,6 +12,20 @@ Mustache is a "logic-less" templating language commonly used in web and mobile p
 
 While swift-mustache has been designed to be used with the Hummingbird server framework, it has no dependencies and can be used as a standalone library.
 
+## Getting started
+
+The Mustache templating engine can be found in the [swift-mustache](https://github.com/hummingbird-project/swift-mustache) repository. If you don't already have the `swift-mustache` library as a dependency in your project use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/swift-mustache.git --from "2.0.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency Mustache <MyApp> --package swift-mustache
+```
+
 ## Usage
 
 Load your templates from the filesystem 

@@ -12,6 +12,22 @@ Database migrations are a controlled set of incremental changes applied to a dat
 
 > Note: If you are using Fluent then you should use the migration support that comes with Fluent.
 
+## Getting started
+
+The Postgres Migration support can be found in the [postgres-migrations](https://github.com/hummingbird-project/postgres-migrations) repository. To add the library as a dependency in your project use the following command line.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/postgres-migrations.git --from "1.1.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency PostgresMigrations <MyApp> --package postgres-migrations
+```
+
+### Defining a migration
+
 Each migration includs an `apply` method that applies the change and a `revert` method that reverts the change.
 
 ```swift

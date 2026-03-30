@@ -6,7 +6,23 @@
 
 Session based authentication
 
+## Overview
+
 Sessions allow you to persist state eg user authentication status between multiple requests to the server. They work by creating a temporary session object that is stored in a key/value store. The key or session id is returned in the response. Subsequent requests can then access the session object by supplying the session id in their request. This object can then be used to authenicate the user. Normally the session id is stored in a cookie.
+
+## Getting started
+
+Support for sessions is part of the ``HummingbirdAuth`` library in the [hummingbird-auth](https://github.com/hummingbird-project/hummingbird-auth) package. If you don't already have the `hummingbird-auth` library as a dependency in your project you use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/hummingbird-auth.git --from "2.1.0"
+```
+
+And then add the target dependency to your application using the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbird-auth
+```
 
 ## SessionMiddleware
 
@@ -15,6 +31,8 @@ The ``HummingbirdAuth/SessionMiddleware`` is used to extract and save session st
 The `SessionMiddleware` needs a persist key value store to save its state. You can find out more about the persist framework here <doc:PersistentData>. In the example below we are using an in memory key value store, but ``HummingbirdFluent/FluentPersistDriver`` and ``HummingbirdValkey/ValkeyPersistDriver`` provide solutions that stores the session data in a database or valkey/redis database respectively.
 
 ```swift
+import HummingbirdAuth
+
 router.add(
     middleware: SessionMiddleware(
         storage: MemoryPersistDriver()

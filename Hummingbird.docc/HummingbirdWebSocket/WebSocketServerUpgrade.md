@@ -10,11 +10,27 @@ Support for upgrading HTTP1 connections to WebSocket.
 
 Before a HTTP connection can be upgraded to a WebSocket connection a server must process an initial upgrade request and respond with a switching protocols response. HummingbirdWebSocket provides a server child channel setup that implements this for you with entry points to decide whether the upgrade should occur and then how to handle the upgraded WebSocket connection.
 
+## Getting started
+
+The server support for WebSockets is part of the ``HummingbirdWebSocket`` library in the [hummingbird-websocket](https://github.com/hummingbird-project/hummingbird-websocket) package. If you don't already have the `hummingbird-websocket` library as a dependency in your project you use the following command line to add it.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/hummingbird-websocket.git --from "2.6.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency HummingbirdWebSocket <MyApp> --package hummingbird-websocket
+```
+
 ## Setup
 
 You can access this by setting the `server` parameter in `Application.init()` to ``/HummingbirdCore/HTTPServerBuilder/http1WebSocketUpgrade(configuration:additionalChannelHandlers:shouldUpgrade:)-3n8zf``. This is initialized with a closure that returns either ``/HummingbirdWebSocket/ShouldUpgradeResult/dontUpgrade`` to not perform the WebSocket upgrade or ``/HummingbirdWebSocket/ShouldUpgradeResult/upgrade(_:_:)`` along with the closure handling the WebSocket connection.
 
 ```swift
+import HummingbirdWebsocket
+
 let app = Application(
     router: router,
     server: .http1WebSocketUpgrade { request, channel, logger in
