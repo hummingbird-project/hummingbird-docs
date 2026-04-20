@@ -8,21 +8,7 @@ Durable job execution. Offload work your server would be doing to another server
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs. If you are looking for a durable solution your shouldn't use the memory implementation, instead use one of the implementations from ``JobsValkey`` or ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database respectively. 
-
-## Getting started
-
-The Job queue support can be found in the [swift-jobs](https://github.com/hummingbird-project/swift-jobs) repository. To add the library as a dependency in your project use the following command line.
-
-```
-swift package add-dependency https://github.com/hummingbird-project/swift-jobs.git --from "1.1.0"
-```
-
-To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
-
-```
-swift package add-target-dependency Jobs <MyApp> --package swift-jobs
-```
+A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsValkey`` and ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database. 
 
 ## Getting started
 
