@@ -4,11 +4,11 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Offload work your server would be doing to another server. 
+Durable job execution. Offload work your server would be doing to another server. 
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsValkey`` and ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database. 
+A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs. If you are looking for a durable solution your shouldn't use the memory implementation, instead use one of the implementations from ``JobsValkey`` or ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database respectively. 
 
 ## Getting started
 
@@ -26,15 +26,22 @@ swift package add-target-dependency Jobs <MyApp> --package swift-jobs
 
 ### Setting up a Job queue
 
-Before you can start adding or processing jobs you need to setup a Jobs queue to push jobs onto. Below we create a job queue stored in local memory.
+To process jobs a JobQueue is needed. Below we create a job queue using the Valkey driver for swift-jobs.
 
 ```swift
-let jobQueue = JobQueue(.memory, logger: logger)
+let jobQueue = JobQueue(
+    .valkey(
+        valkeyClient, 
+        configuration: .init(queueName: "MyQueue"),
+        logger: logger
+    ), 
+    logger: logger
+)
 ```
 
-### Creating a Job
+### Creating a Job Definition
 
-Creating a job requires an identifier, the parameters for the job and the function that runs the job. We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
+Creating a job definition requires an identifier, the parameters for the job and the function that runs the job. We use a struct conforming to ``Jobs/JobParameters`` to define the job parameters and identifier.
 
 ```swift
 struct SendEmailJobParameters: JobParameters {
@@ -93,12 +100,61 @@ let serviceGroup = ServiceGroup(
 )
 try await serviceGroup.run()
 ```
-Or it can be added to the array of services that `Application` manages
+If you are running a Hummingbird server you can add the job processor to the array of services that `Application` manages
 ```swift
 let app = Application(...)
 app.addServices(jobProcessor)
 ```
 If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsValkey/ValkeyJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
+
+### Retrying Jobs
+
+When you create a job you can define a retry strategy for when it fails. By default this is set to `.dontRetry` which will not attempt to retry a failed job. Swift-jobs provides a standard retry strategy ``Jobs/ExponentialJitterJobRetryStrategy`` where the backoff between each retry is exponential with a random jitter applied. The retry strategy for a job is defined at the same time you create a `JobDefinition` or when you register a job handler using `jobQueue.registerJob()`. As an alternative to ``Jobs/ExponentialJitterJobRetryStrategy``, the shorthand `.exponentialJitter()` is available.
+
+```swift
+let emailJob = JobDefinition(
+    parameters: SendEmailJobParameters.self, 
+    retryStrategy: .exponentialJitter(
+        maxAttempts: 4, // number of times to retry
+        maxBackoff: 60, // maximum when calculating the backoff 
+        minJitter: -0.25, // min jitter as a ratio of calculated backoff
+        maxJitter: 0.33 // max jitter as a ratio of calculated backoff
+    )
+) { parameters, context in
+    try sendEmail(parameters)
+}
+jobQueue.registerJob(emailJob)
+```
+
+The ``Jobs/JobRetryStrategy`` is a protocol. So you can define your own retry strategies as well. 
+
+```swift
+struct MyRetryStrategy: JobRetryStrategy {
+    /// Should we retry a failed job
+    func shouldRetry(attempt: Int, error: any Error) -> Bool {
+        isItSunday()
+    }
+
+    ///  Calculate backoff amount
+    func calculateBackoff(attempt: Int) -> Duration {
+        .seconds(60*60*24)
+    }
+}
+```
+
+### Sleeping jobs
+
+If a job starts and the resources it relies on are not ready, or you want to reschedule a job based on some other condition, you can get the job to sleep for a specified period and attempt at a later point using the ``Jobs/JobSleep`` error. If a job handler throws this error the job is re-queued to run at the time specified in the error.
+
+```swift
+jobQueue.registerJob(parameters: MyJob.self) { parameters, context in
+    guard let resource = getResource(parameters.resourceID) else {
+        // resource isn't ready lets sleep for 30 mins
+        throw JobSleep(for: .seconds(30*60))
+    }
+    try await processResource(resource)
+}
+```
 
 ## Job Scheduler
 

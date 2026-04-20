@@ -4,7 +4,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Offload work your server would be doing to another server. 
+Durable job execution. Offload work your server would be doing to another server. 
 
 ## Overview
 
@@ -22,9 +22,10 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 ### Queues
 
 - ``JobQueue``
-- ``JobQueueProcessor``
 - ``JobQueueProtocol``
 - ``JobQueueOptions``
+- ``JobQueueContext``
+- ``JobQueueProcessor``
 - ``JobQueueProcessorOptions``
 - ``JobQueueDriver``
 - ``MemoryQueue``
@@ -35,6 +36,7 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``CancellableJobQueue``
 - ``ResumableJobQueue``
 - ``JobMetadataDriver``
+- ``JobMetadataKey``
 
 ### Scheduler
 
@@ -70,6 +72,7 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``JobRetryStrategy``
 - ``ExponentialJitterJobRetryStrategy``
 - ``NoRetryJobRetryStrategy``
+- ``JobSleep``
 
 ## See Also
 

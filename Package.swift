@@ -14,11 +14,11 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.6.1"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.22.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-auth.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-compression.git", from: "2.0.0"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-fluent.git", from: "2.0.0"),
-        .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.1.0"),
+        .package(url: "https://github.com/hummingbird-project/swift-jobs.git", from: "1.2.0"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-postgres.git", from: "1.1.0"),
         .package(url: "https://github.com/hummingbird-project/swift-jobs-valkey.git", from: "1.0.0-rc.5"),
         .package(url: "https://github.com/hummingbird-project/hummingbird-lambda.git", from: "2.0.0"),
