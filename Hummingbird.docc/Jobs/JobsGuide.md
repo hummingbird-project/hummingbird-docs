@@ -173,6 +173,16 @@ var app = Application(router: router)
 app.addService(jobSchedule.scheduler(on: jobQueue, named: "MyScheduler"))
 ```
 
+The job scheduler can be run on multiple servers. Each scheduler will attempt to gain control of the schedule but only one can have control at any time. Once a scheduler has control it keeps control for a defined period. At regular intervals it will keep extend the time it has control. The other schedulers will continue to attempt to claim control. If the scheduler who has control crashes then no longer than the the length of the two time intervals another scheduler will take control. At that point it will attempt to schedule any missed jobs. With this you can ensure the schedule is always running. You can control the length of the time intervals using the scheduler options.
+
+```swift
+let service = jobSchedule.scheduler(
+    on: jobQueue, 
+    named: "MyScheduler",
+    options: .init(schedulerLock: .init(.acquire(every: .seconds(60), for: .seconds(70))))
+)
+```
+
 ### Schedule types
 
 A ``Jobs/Schedule`` can be setup in a number of ways. It includes functions to trigger once every minute, hour, day, month, week day and functions to trigger on multiple minutes, hours, etc.
@@ -194,9 +204,11 @@ jobSchedule.addJob(TestJobParameters(), schedule: .crontab("@daily")) // crontab
 
 ### Schedule accuracy
 
-You can setup how accurate you want your scheduler to adhere to the schedule regardless of whether the scheduler is running or not. Obviously if your scheduler is not running it cannot schedule jobs. But you can use the `accuracy` parameter of a schedule to indicate what you want your scheduler to do once it comes back online after having been down. 
+When the scheduler hits a point to run a job, it adds it to the job queue. This does mean if the job queue is busy, the scheduled job may not execute at the exact time expected. You can mitigate this by running scheduled jobs on a separate queue or if you are using the Postgres driver you can set the priority for scheduled jobs to be higher.
 
-Setting it to `.all` will schedule a job for every trigger point it missed eg if your scheduler was down for 6 hours and you had a hourly schedule it would push a job to the JobQueue for every one of those hours missed. Setting it to `.latest` will mean it only schedules a job for last trigger point if it was missed. If you don't set the value then it will default to `.latest`.
+Also you can setup how accurate you want your scheduler to adhere to the schedule regardless of whether the scheduler is running or not. Obviously if your scheduler is not running it cannot schedule jobs. But you can use the `accuracy` parameter of a schedule to indicate what you want your scheduler to do once it comes back online after having been down. 
+
+Setting it to `.all` will schedule a job for every trigger point it missed eg if your scheduler was down for 6 hours and you had a hourly schedule it would push a job to the JobQueue for every one of those hours missed. Setting it to `.latest` will mean it only schedules a job for last trigger point missed. If you don't set the value then it will default to `.latest`.
 
 ```swift
 jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
