@@ -4,7 +4,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Postgres implementation for Hummingbird jobs framework
+Postgres implementation for swift-jobs framework
 
 ## Overview
 

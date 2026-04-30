@@ -10,7 +10,25 @@ Durable job execution. Offload work your server would be doing to another server
 
 A Job consists of a payload and an execute method to run the job. `Jobs` provides a framework for pushing jobs onto a queue and processing them. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs.
 
+## Getting started
+
+The Job queue support can be found in the [swift-jobs](https://github.com/hummingbird-project/swift-jobs) repository. To add the library as a dependency in your project use the following command line.
+
+```
+swift package add-dependency https://github.com/hummingbird-project/swift-jobs.git --from "1.1.0"
+```
+
+To add the target dependency to your application use the following, replacing the `<MyApp>` text with the name of your application target.
+
+```
+swift package add-target-dependency Jobs <MyApp> --package swift-jobs
+```
+
 ## Topics
+
+### Articles
+
+- <doc:JobsGuide>
 
 ### Jobs
 

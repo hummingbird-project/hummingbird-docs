@@ -3,7 +3,7 @@
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
 }
-Bring together ``Jobs/JobQueue`` and ``Jobs/JobSchedule`` in one place.
+Bring together a job queue and job scheduler.
 
 ## Overview
 

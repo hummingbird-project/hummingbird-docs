@@ -4,7 +4,7 @@
     @PageImage(purpose: icon, source: "logo")
 }
 
-Valkey/Redis implementation for Hummingbird jobs framework
+Valkey/Redis implementation for swift-jobs framework
 
 ## Overview
 
