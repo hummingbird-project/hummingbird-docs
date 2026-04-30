@@ -8,7 +8,9 @@ Durable job execution. Offload work your server would be doing to another server
 
 ## Overview
 
-A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. The module comes with a driver that stores jobs in local memory and uses your current server to process the jobs, but there are also implementations in ``JobsValkey`` and ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database. 
+A Job consists of a payload and an execute method to run the job. Swift Jobs provides a framework for pushing jobs onto a queue and processing them at a later point. If the driver backing up the job queue uses persistent storage then a separate server can be used to process the jobs. 
+
+The ``Jobs`` framework comes with a driver that stores jobs in local memory and processes them locally, but this should only ever be used for debugging purposes. A production grade server should use one of ``JobsValkey`` and ``JobsPostgres`` that implement the job queue using a Valkey/Redis database or Postgres database respectively. 
 
 ## Getting started
 
@@ -26,7 +28,7 @@ swift package add-target-dependency Jobs <MyApp> --package swift-jobs
 
 ### Setting up a Job service
 
-To process jobs a JobService is needed. Below we create a job service using the Valkey driver for swift-jobs.
+To process jobs a JobService is needed. ``Jobs/JobService`` combines a job queue, job queue processor and job scheduler into one type. Below we create a job service using the Valkey driver for swift-jobs.
 
 ```swift
 let jobService = JobService(
@@ -72,7 +74,7 @@ let job = SendEmailJobParameters(
 jobService.push(job)
 ```
 
-Alternatively you can create a job using a ``Jobs/JobName``. This associates a type with a name, but that type can be used multiple times with different job names.
+Alternatively you can create a job using a ``Jobs/JobName``. This associates a type with a name, but that type can be used multiple times with different job names. Remember each job should have a unique job name.
 
 ```swift
 let printStringJob = JobName<String>("Print String")
@@ -87,9 +89,21 @@ You then queue your job for execution using ``Jobs/JobQueue/push(_:parameters:op
 jobService.push(printStringJob, parameters: "Testing,testing,1,2,3")
 ```
 
+A common way to do this is to extend ``Jobs/JobName`` with a static variable to aid autocomplete.
+
+```swift
+extension JobName where Parameters == String {
+    static var printString: Self { .init("Print String") }
+}
+jobService.registerJob(.printString) { parameters, context in
+    print(parameters)
+}
+jobService.push(.printString, parameters: "Testing,testing,1,2,3")
+```
+
 ### Processing Jobs
 
-To start processing jobs you need to run the job queue processor. You can do this using ``Jobs/JobService/run()``, although it is preferable to use [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage the running of the processor to ensure clean shutdown when your application is shutdown. You can how jobs the job queue processor runs concurrently, via options setup when initializing the `JobService`.
+To start processing jobs you need to run the job queue processor. You can do this using ``Jobs/JobService/run()`` from `JobService`, although it is preferable to use [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage the running of the processor to ensure clean shutdown when your application is shutdown. You can control how many jobs the job queue processor runs concurrently, via options setup when initializing the `JobService`.
 
 ```swift
 let jobService = JobService(
@@ -108,16 +122,21 @@ let serviceGroup = ServiceGroup(
 )
 try await serviceGroup.run()
 ```
-If you are running a Hummingbird server you can add the job processor to the array of services that `Application` manages
+
+If you are running a Hummingbird server you can add the job processor to the array of services that `Application` manages.
+
 ```swift
 let app = Application(...)
 app.addServices(jobService)
 ```
+
 If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsValkey/ValkeyJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
 ### Retrying Jobs
 
-When you create a job you can define a retry strategy for when it fails. By default this is set to `.dontRetry` which will not attempt to retry a failed job. Swift-jobs provides a standard retry strategy ``Jobs/ExponentialJitterJobRetryStrategy`` where the backoff between each retry is exponential with a random jitter applied. The retry strategy for a job is defined at the same time you create a `JobDefinition` or when you register a job handler using `jobQueue.registerJob()`. As an alternative to ``Jobs/ExponentialJitterJobRetryStrategy``, the shorthand `.exponentialJitter()` is available.
+When a job fails most swift-job drivers save them separately so you can manually retry them at a later date. But you can also automate retrying of a failed job by defining a retry strategy for it.
+
+The retry strategy is defined at the point you create a job. By default this is set to `.dontRetry` which will not attempt to retry a failed job. Swift-jobs provides a standard retry strategy ``Jobs/ExponentialJitterJobRetryStrategy`` where the backoff between each retry exponentially increases with a random jitter applied. The retry strategy for a job is defined at the same time you create a `JobDefinition` or when you register a job handler using `jobQueue.registerJob()`. As an alternative to ``Jobs/ExponentialJitterJobRetryStrategy``, the shorthand `.exponentialJitter()` is available.
 
 ```swift
 let emailJob = JobDefinition(
@@ -134,7 +153,7 @@ let emailJob = JobDefinition(
 jobService.registerJob(emailJob)
 ```
 
-The ``Jobs/JobRetryStrategy`` is a protocol. So you can define your own retry strategies as well. 
+``Jobs/JobRetryStrategy`` is a protocol. So you can define your own retry strategies as well.
 
 ```swift
 struct MyRetryStrategy: JobRetryStrategy {
@@ -166,16 +185,16 @@ jobService.registerJob(parameters: MyJob.self) { parameters, context in
 
 ## Job Scheduler
 
-The Jobs framework also comes with a scheduler that allows you to schedule jobs to occur at regular times. You can add a scheduled job using ``Jobs/JobService/addScheduledJob(_:schedule:accuracy:)``.
+The Jobs framework also comes with a scheduler that allows you to schedule jobs to occur at regular times. You can add a scheduled job using ``Jobs/JobService/addScheduledJob(_:schedule:accuracy:)`` from `JobService`.
 
 ```swift
 jobService.addScheduledJob(BirthdayRemindersJob(), schedule: .daily(hour: 9))
 jobService.addScheduledJob(CleanupStaleSessionDataJob(), schedule: .weekly(day: .sunday, hour: 4))
 ```
 
-When `JobService` is running it will add jobs to the queue at the scheduled times. You need to ensure all your scheduled jobs have been added before running the service. If your job queue driver supports it, it will add background schedule jobs for cleaning up the underlying storage and rescuing orphaned jobs where a server crashed.
+When `JobService` is running it will add jobs to the queue at the scheduled times. You need to ensure all your job schedules are defined before running the service. If your job queue driver supports it, it will add background schedule jobs for cleaning up the underlying storage and rescuing orphaned jobs where a server crashed.
 
-When the `JobService` is run on multiple servers the scheduler process will attempt to gain control of the schedule but only one can have control at any time. Once a scheduler has control it keeps control for a defined period. At regular intervals it will keep extend the time it has control. The other schedulers will continue to attempt to claim control. If the scheduler who has control crashes then no longer than the the length of the two time intervals another scheduler will take control. At that point it will attempt to schedule any missed jobs. With this you can ensure the schedule is always running. You can control the length of the time intervals using the scheduler options in the `JobService` initializer.
+When the `JobService` is run on multiple servers the scheduler process will attempt to gain control of the schedule but only one can have control at any time. Once a scheduler has control it keeps control for a defined period. At regular intervals it will keep extending the time it has control. The other schedulers will continue to attempt to claim control. If the scheduler who has control crashes then no longer than the the length of the two time intervals another scheduler will take control. At that point it will attempt to schedule any missed jobs. With this you can ensure the schedule is always running. You can control the length of the time intervals using the scheduler options in the `JobService` initializer.
 
 ```swift
 let jobService = JobService(
@@ -219,7 +238,11 @@ Also you can setup how accurate you want your scheduler to adhere to the schedul
 Setting it to `.all` will schedule a job for every trigger point it missed eg if your scheduler was down for 6 hours and you had a hourly schedule it would push a job to the JobQueue for every one of those hours missed. Setting it to `.latest` will mean it only schedules a job for last trigger point missed. If you don't set the value then it will default to `.latest`.
 
 ```swift
-jobService.addScheduledJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
+jobService.addScheduledJob(
+    TestJobParameters(), 
+    schedule: .hourly(minute: 30), 
+    accuracy: .all
+)
 ```
 
 ## See Also

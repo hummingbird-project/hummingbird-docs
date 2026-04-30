@@ -18,6 +18,7 @@ A Job consists of a payload and an execute method to run the job. `Jobs` provide
 - ``JobDefinition``
 - ``JobParameters``
 - ``JobExecutionContext``
+- ``JobService``
 
 ### Queues
 
