@@ -24,17 +24,17 @@ To add the target dependency to your application use the following, replacing th
 swift package add-target-dependency Jobs <MyApp> --package swift-jobs
 ```
 
-### Setting up a Job queue
+### Setting up a Job service
 
-To process jobs a JobQueue is needed. Below we create a job queue using the Valkey driver for swift-jobs.
+To process jobs a JobService is needed. Below we create a job service using the Valkey driver for swift-jobs.
 
 ```swift
-let jobQueue = JobQueue(
+let jobService = JobService(
     .valkey(
         valkeyClient, 
         configuration: .init(queueName: "MyQueue"),
         logger: logger
-    ), 
+    ),
     logger: logger
 )
 ```
@@ -56,12 +56,12 @@ struct SendEmailJobParameters: JobParameters {
 Then we register the job with a job queue and also provide a closure that executes the job.
 
 ```swift
-jobQueue.registerJob(parameters: SendEmailJobParameters.self) { parameters, context in
+jobService.registerJob(parameters: SendEmailJobParameters.self) { parameters, context in
     try await myEmailService.sendEmail(to: parameters.to, subject: parameters.subject, body: parameters.body)
 }
 ```
 
-Now your job is ready to create. Jobs can be queued up using the function ``Jobs/JobQueue/push(_:options:)`` from `JobQueue`.
+Now your job is ready to create. Jobs can be queued up using the function ``Jobs/JobService/push(_:options:)`` from `JobService`.
 
 ```swift
 let job = SendEmailJobParameters(
@@ -69,14 +69,14 @@ let job = SendEmailJobParameters(
     subject: "Testing Jobs",
     message: "..."
 )
-jobQueue.push(job)
+jobService.push(job)
 ```
 
 Alternatively you can create a job using a ``Jobs/JobName``. This associates a type with a name, but that type can be used multiple times with different job names.
 
 ```swift
 let printStringJob = JobName<String>("Print String")
-jobQueue.registerJob(printStringJob) { parameters, context in
+jobService.registerJob(printStringJob) { parameters, context in
     print(parameters)
 }
 ```
@@ -84,17 +84,25 @@ jobQueue.registerJob(printStringJob) { parameters, context in
 You then queue your job for execution using ``Jobs/JobQueue/push(_:parameters:options:)``
 
 ```swift
-jobQueue.push(printStringJob, parameters: "Testing,testing,1,2,3")
+jobService.push(printStringJob, parameters: "Testing,testing,1,2,3")
 ```
 
 ### Processing Jobs
 
-To start processing jobs on your queue you need a ``Jobs/JobQueueProcessor``. You can create the job processor for a job queue by calling ``Jobs/JobQueue/processor(options:)``. The options passed in when creating your `JobQueueProcessor` includes the parameter `numWorkers` which indicates how many jobs you want to run concurrently. If you want to activate the `JobQueueProcessor` you can call the ``Jobs/JobQueueProcessor/run()`` method but it is preferable to use [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage the running of the processor to ensure clean shutdown when your application is shutdown.
+To start processing jobs you need to run the job queue processor. You can do this using ``Jobs/JobService/run()``, although it is preferable to use [Swift Service Lifecycle](https://github.com/swift-server/swift-service-lifecycle) to manage the running of the processor to ensure clean shutdown when your application is shutdown. You can how jobs the job queue processor runs concurrently, via options setup when initializing the `JobService`.
 
 ```swift
-let jobProcessor = jobQueue.processor(options: .init(numWorkers: 8))
+let jobService = JobService(
+    .valkey(
+        valkeyClient, 
+        configuration: .init(queueName: "MyQueue"),
+        logger: logger
+    ),
+    logger: logger,
+    options: .init(processor: .init(numWorkers: 64))
+)
 let serviceGroup = ServiceGroup(
-    services: [server, jobProcessor],
+    services: [server, jobService],
     configuration: .init(gracefulShutdownSignals: [.sigterm, .sigint]),
     logger: logger
 )
@@ -103,7 +111,7 @@ try await serviceGroup.run()
 If you are running a Hummingbird server you can add the job processor to the array of services that `Application` manages
 ```swift
 let app = Application(...)
-app.addServices(jobProcessor)
+app.addServices(jobService)
 ```
 If you want to process jobs on a separate server you will need to use a job queue driver that saves to some external storage eg ``JobsValkey/ValkeyJobQueue`` or ``JobsPostgres/PostgresJobQueue``.
 
@@ -123,7 +131,7 @@ let emailJob = JobDefinition(
 ) { parameters, context in
     try sendEmail(parameters)
 }
-jobQueue.registerJob(emailJob)
+jobService.registerJob(emailJob)
 ```
 
 The ``Jobs/JobRetryStrategy`` is a protocol. So you can define your own retry strategies as well. 
@@ -147,7 +155,7 @@ struct MyRetryStrategy: JobRetryStrategy {
 If a job starts and the resources it relies on are not ready, or you want to reschedule a job based on some other condition, you can get the job to sleep for a specified period and attempt at a later point using the ``Jobs/JobSleep`` error. If a job handler throws this error the job is re-queued to run at the time specified in the error.
 
 ```swift
-jobQueue.registerJob(parameters: MyJob.self) { parameters, context in
+jobService.registerJob(parameters: MyJob.self) { parameters, context in
     guard let resource = getResource(parameters.resourceID) else {
         // resource isn't ready lets sleep for 30 mins
         throw JobSleep(for: .seconds(30*60))
@@ -158,28 +166,28 @@ jobQueue.registerJob(parameters: MyJob.self) { parameters, context in
 
 ## Job Scheduler
 
-The Jobs framework comes with a scheduler `Service` that allows you to schedule jobs to occur at regular times. Job schedules are defined using the ``Jobs/JobSchedule`` type.
+The Jobs framework also comes with a scheduler that allows you to schedule jobs to occur at regular times. You can add a scheduled job using ``Jobs/JobService/addScheduledJob(_:schedule:accuracy:)``.
 
 ```swift
-var jobSchedule = JobSchedule()
-jobSchedule.addJob(BirthdayRemindersJob(), schedule: .daily(hour: 9))
-jobSchedule.addJob(CleanupStaleSessionDataJob(), schedule: .weekly(day: .sunday, hour: 4))
+jobService.addScheduledJob(BirthdayRemindersJob(), schedule: .daily(hour: 9))
+jobService.addScheduledJob(CleanupStaleSessionDataJob(), schedule: .weekly(day: .sunday, hour: 4))
 ```
 
-To get your `JobSchedule` to schedule jobs on a `JobQueue` you need to create the scheduler `Service` and then add it to your `Application` service list or `ServiceGroup`.
+When `JobService` is running it will add jobs to the queue at the scheduled times. You need to ensure all your scheduled jobs have been added before running the service. If your job queue driver supports it, it will add background schedule jobs for cleaning up the underlying storage and rescuing orphaned jobs where a server crashed.
+
+When the `JobService` is run on multiple servers the scheduler process will attempt to gain control of the schedule but only one can have control at any time. Once a scheduler has control it keeps control for a defined period. At regular intervals it will keep extend the time it has control. The other schedulers will continue to attempt to claim control. If the scheduler who has control crashes then no longer than the the length of the two time intervals another scheduler will take control. At that point it will attempt to schedule any missed jobs. With this you can ensure the schedule is always running. You can control the length of the time intervals using the scheduler options in the `JobService` initializer.
 
 ```swift
-var app = Application(router: router)
-app.addService(jobSchedule.scheduler(on: jobQueue, named: "MyScheduler"))
-```
-
-The job scheduler can be run on multiple servers. Each scheduler will attempt to gain control of the schedule but only one can have control at any time. Once a scheduler has control it keeps control for a defined period. At regular intervals it will keep extend the time it has control. The other schedulers will continue to attempt to claim control. If the scheduler who has control crashes then no longer than the the length of the two time intervals another scheduler will take control. At that point it will attempt to schedule any missed jobs. With this you can ensure the schedule is always running. You can control the length of the time intervals using the scheduler options.
-
-```swift
-let service = jobSchedule.scheduler(
-    on: jobQueue, 
-    named: "MyScheduler",
-    options: .init(schedulerLock: .init(.acquire(every: .seconds(60), for: .seconds(70))))
+let jobService = JobService(
+    .valkey(
+        valkeyClient, 
+        configuration: .init(queueName: "MyQueue"),
+        logger: logger
+    ),
+    logger: logger,
+    options: .init(
+        scheduler: .init(schedulerLock: .init(.acquire(every: .seconds(60), for: .seconds(70))))
+    )
 )
 ```
 
@@ -188,18 +196,18 @@ let service = jobSchedule.scheduler(
 A ``Jobs/Schedule`` can be setup in a number of ways. It includes functions to trigger once every minute, hour, day, month, week day and functions to trigger on multiple minutes, hours, etc.
 
 ```swift
-jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30))
-jobSchedule.addJob(TestJobParameters(), schedule: .yearly(month: 4, date: 1, hour: 8))
-jobSchedule.addJob(TestJobParameters(), schedule: .onMinutes([0,15,30,45]))
-jobSchedule.addJob(TestJobParameters(), schedule: .onDays([.saturday, .sunday], hour: 12, minute: 45))
+jobService.addScheduledJob(TestJobParameters(), schedule: .hourly(minute: 30))
+jobService.addScheduledJob(TestJobParameters(), schedule: .yearly(month: 4, date: 1, hour: 8))
+jobService.addScheduledJob(TestJobParameters(), schedule: .onMinutes([0,15,30,45]))
+jobService.addScheduledJob(TestJobParameters(), schedule: .onDays([.saturday, .sunday], hour: 12, minute: 45))
 ```
 
 If these aren't flexible enough a `Schedule` can be setup using a five value crontab format. Most crontabs are supported but combinations setting both week day and date are not supported.
 
 ```swift
-jobSchedule.addJob(TestJobParameters(), schedule: .crontab("0 12 * * *")) // daily at 12 o'clock
-jobSchedule.addJob(TestJobParameters(), schedule: .crontab("0 */4 * * sat,sun")) // every four hours on Saturday and Sunday
-jobSchedule.addJob(TestJobParameters(), schedule: .crontab("@daily")) // crontab default, every day at midnight 
+jobService.addScheduledJob(TestJobParameters(), schedule: .crontab("0 12 * * *")) // daily at 12 o'clock
+jobService.addScheduledJob(TestJobParameters(), schedule: .crontab("0 */4 * * sat,sun")) // every four hours on Saturday and Sunday
+jobService.addScheduledJob(TestJobParameters(), schedule: .crontab("@daily")) // crontab default, every day at midnight 
 ```
 
 ### Schedule accuracy
@@ -211,11 +219,10 @@ Also you can setup how accurate you want your scheduler to adhere to the schedul
 Setting it to `.all` will schedule a job for every trigger point it missed eg if your scheduler was down for 6 hours and you had a hourly schedule it would push a job to the JobQueue for every one of those hours missed. Setting it to `.latest` will mean it only schedules a job for last trigger point missed. If you don't set the value then it will default to `.latest`.
 
 ```swift
-jobSchedule.addJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
+jobService.addScheduledJob(TestJobParameters(), schedule: .hourly(minute: 30), accuracy: .all)
 ```
 
 ## See Also
 
 - ``Jobs/JobParameters``
-- ``Jobs/JobQueue``
-- ``Jobs/JobSchedule``
+- ``Jobs/JobService``

@@ -12,7 +12,7 @@ Hummingbird Jobs Queue driver using [valkey-swift](https://github.com/valkey-io/
 
 ## Setup
 
-The Postgres job queue driver uses `ValkeyClient` from `valkey-swift`.
+The Valkey job queue driver uses `ValkeyClient` from `valkey-swift`.
 
 The Valkey job queue configuration includes three values.
 - `pollTime`: This is the amount of time between the last time the queue was empty and the next time the driver starts looking for pending jobs.
@@ -25,7 +25,7 @@ import ServiceLifecycle
 import Valkey
 
 let valkeyClient = ValkeyClient(...)
-let jobQueue = JobQueue(
+let jobService = JobService(
     .valkey(
         valkeyClient,
         configuration: .init(
@@ -51,7 +51,7 @@ As with all queue drivers you can add a delay before a job is processed. The job
 
 ```swift
 // Add TestJob to the queue, but don't process it for 2 minutes
-try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
+try await jobService.push(TestJob(), options: .init(delayUntil: .now + 120))
 ```
 
 ### Cancellation
@@ -60,8 +60,8 @@ The ``JobsValkey/ValkeyJobQueue`` conforms to protocol ``Jobs/CancellableJobQueu
 
 ```swift
 // Add TestJob to the queue and immediately cancel it
-let jobID = try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
-try await jobQueue.cancel(jobID: jobID)
+let jobID = try await jobService.push(TestJob(), options: .init(delayUntil: .now + 120))
+try await jobService.cancel(jobID: jobID)
 ```
 
 ### Pause and Resume
@@ -70,9 +70,9 @@ The ``JobsValkey/ValkeyJobQueue`` conforms to protocol ``Jobs/ResumableJobQueue`
 
 ```swift
 // Add TestJob to the queue and immediately remove it and then add it back to the queue
-let jobID = try await jobQueue.push(TestJob(), options: .init(delayUntil: .now + 120))
-try await jobQueue.pause(jobID: jobID)
-try await jobQueue.resume(jobID: jobID)
+let jobID = try await jobService.push(TestJob(), options: .init(delayUntil: .now + 120))
+try await jobService.pause(jobID: jobID)
+try await jobService.resume(jobID: jobID)
 ```
 
 ### Job retention
@@ -80,7 +80,7 @@ try await jobQueue.resume(jobID: jobID)
 The queue has options to retain jobs once it has finished with them depending on status. By default the queue will retain failed jobs and drop cancelled or completed jobs, but these decisions are configurable.
 
 ```swift
-let jobQueue = JobQueue(
+let jobService = JobService(
     .valkey(
         valkeyClient, 
         configuration: .init(
@@ -101,7 +101,7 @@ let jobQueue = JobQueue(
 If you do opt to retain jobs after processing you will probably eventually want to clean them up. The Valkey/Redis queue provides a method `cleanup` which allows you to remove or attempt to re-run jobs based on what state they are in. You should be careful not to do anything to pending or processing jobs while the job queue is being processed as it might confuse the job processor.
 
 ```swift
-jobQueue.queue.cleanup(
+jobService.queue.queue.cleanup(
     pendingJobs: .doNothing,
     processingJobs: .doNothing,
     completedJobs: .remove(maxAge: .seconds(7*24*60*60)),
@@ -113,18 +113,22 @@ jobQueue.queue.cleanup(
 
 #### Scheduling cleanup
 
-Given this is a job you will probably want to do regularly the queue also provides a job you can use in conjunction with the `JobScheduler` that will do the cleanup for you. 
+Given this is a job you will probably want to do regularly the queue also provides a job you can use in conjunction with the `JobScheduler` that will do the cleanup for you. There are options to set this up at initialization of your `JobService`.
 
 ```swift
-var jobSchedule = JobSchedule()
-jobSchedule.addJob(
-    jobQueue.queue.cleanupJob,
-    parameters: .init(completedJobs: .remove, failedJobs: .rerun, cancelledJobs: .remove, pausedJobs: .doNothing),
-    schedule: .weekly(day: .sunday)
+let jobService = JobService(
+    .valkey(...),
+    logger: logger,
+    options: .init(
+        cleanup: .init(
+            jobs: .init(
+                parameters: .init(completedJobs: .remove(maxAge: .seconds(60*60*24*7))),
+                schedule: .weekly(day: .sunday)
+            )
+        )
+    )
 )
 ```
-
-You can find out more about the Job scheduler in the Jobs guide <doc:JobsGuide#Job-Scheduler>
 
 ## Topics
 
