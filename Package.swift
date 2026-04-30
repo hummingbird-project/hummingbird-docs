@@ -36,6 +36,8 @@ let package = Package(
         .target(
             name: "HummingbirdDocs",
             dependencies: [
+                .product(name: "Hummingbird", package: "hummingbird"),
+                .product(name: "HummingbirdCore", package: "hummingbird"),
                 .product(name: "HummingbirdTLS", package: "hummingbird"),
                 .product(name: "HummingbirdHTTP2", package: "hummingbird"),
                 .product(name: "HummingbirdRouter", package: "hummingbird"),
@@ -57,6 +59,7 @@ let package = Package(
                 .product(name: "HummingbirdValkey", package: "hummingbird-valkey"),
                 .product(name: "HummingbirdWebSocket", package: "hummingbird-websocket"),
                 .product(name: "WSClient", package: "swift-websocket"),
+                .product(name: "WSCore", package: "swift-websocket"),
                 .product(name: "WSCompression", package: "swift-websocket"),
                 .product(name: "HummingbirdWSTesting", package: "hummingbird-websocket"),
             ]
