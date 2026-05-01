@@ -8,7 +8,7 @@ Postgres implementation for swift-jobs framework
 
 ## Overview
 
-JobsPostgres provides a Hummingbird Jobs Queue driver using [PostgresNIO](https://api.vapor.codes/postgresnio/documentation/postgresnio/) and the ``PostgresMigrations`` library.
+JobsPostgres provides a swift-jobs Queue driver using [PostgresNIO](https://api.vapor.codes/postgresnio/documentation/postgresnio/) and the ``PostgresMigrations`` library.
 
 ## Setup
 

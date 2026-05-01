@@ -8,7 +8,7 @@ Valkey/Redis implementation for swift-jobs framework
 
 ## Overview
 
-Hummingbird Jobs Queue driver using [valkey-swift](https://github.com/valkey-io/valkey-swift).
+Jobs Queue driver using [valkey-swift](https://github.com/valkey-io/valkey-swift).
 
 ## Setup
 
