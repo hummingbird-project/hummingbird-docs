@@ -72,3 +72,38 @@ let app = Application(
 ```
 
 If the full request header doesn't appear within this idle time or there is a period of time between each part of the request body greater than the idle time then the connection will be closed.
+
+## Cross-Site Scripting
+
+Cross-site scripting(XSS) is a common attack on websites. The [common weakness enumeration (CWE) site](https://cwe.mitre.org/top25/archive/2025/2025_cwe_top25.html) from Mitre report these as the number one most dangerous software weakness.
+
+XSS comes in many forms, but the fundamental definition is improper neutralization of data from a untrusted source before it is placed in output such as a web page. An example being someone enters a message on a forum which includes reference to a script `<script>doSomethingBad()</script>`. If the contents of the message does not neutralize the `<` and `>` characters everyone who sees this message will run the script `soSomethingBad()`.
+
+Typically a XSS attack will run a malicious script on behalf of the victim. As the script is being run by the vicim it will have access to everything the victim has access to. Some attacks will leak or manipulate request cookies, create requests that are mistaken for valid requests from the victim and compromising confidential data.
+
+Mitigations for this kind of attack include
+
+- Input validation and neutralization. 
+
+You should assume all input is malicious and either reject input with invalid characters or neutralize them. If you are using a templating engine to generate HTML. Make sure it neutralizes the `>`, `<` and `&` special charaters. For instance ``Mustache`` that comes with the Hummingbird framework will do this for you by default.
+
+- Content-security-policy header
+
+You can use the `content-security-policy` response header to control where resources are loaded from, restrict embedding of resouces, upgrade insecure requests. With this you can control where scripts are being run from, thus reducing the chance of a malicious script being run. You cannot rely on this header as your only defence against XSS attacks as they do require the user's browser to support it.
+
+Hummingbird provides a helper object `ContentSecurityPolicy` to create your response header.
+
+```swift
+let csp: ContentSecurityPolicy = [
+    .defaultSrc(.self)
+    .scriptSrc(.nonce("416d1177-4d12-4e3b-b7c9-f6c409789fb8")),
+    .upgradeInsecureRequests
+]
+response.headers[.contentSecurityPolicy] = csp.description
+```
+
+- HTTPOnly Cookies
+
+Unless necessary always mark your session cookies as `HTTPOnly`. This can prevent malicious scripts getting access to the user's session cookie. Although this isn't a complete solution as not all browsers support HTTP only cookies and the set-cookie header is still available when returned by a response.
+
+Hummingbird defaults all cookies to `HTTPOnly`.
