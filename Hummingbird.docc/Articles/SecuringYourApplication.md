@@ -77,17 +77,15 @@ If the full request header doesn't appear within this idle time or there is a pe
 
 Cross-site scripting(XSS) is a common attack on websites. The [common weakness enumeration (CWE) site](https://cwe.mitre.org/top25/archive/2025/2025_cwe_top25.html) from Mitre report these as the number one most dangerous software weakness.
 
-XSS comes in many forms, but the fundamental definition is improper neutralization of data from a untrusted source before it is placed in output such as a web page. An example being someone enters a message on a forum which includes reference to a script `<script>doSomethingBad()</script>`. If the contents of the message does not neutralize the `<` and `>` characters everyone who sees this message will run the script `soSomethingBad()`.
-
-Typically a XSS attack will run a malicious script on behalf of the victim. As the script is being run by the vicim it will have access to everything the victim has access to. Some attacks will leak or manipulate request cookies, create requests that are mistaken for valid requests from the victim and compromising confidential data.
+XSS comes in many forms, but the fundamental definition is improper neutralization of data from a untrusted source before it is placed in output such as a web page. Typically a XSS attack will run a malicious script on behalf of the victim. As the script is being run by the vicim it will have access to everything the victim has access to. Some attacks will leak or manipulate request cookies, create requests that are mistaken for valid requests from the victim and compromising confidential data.
 
 Mitigations for this kind of attack include
 
-- Input validation and neutralization. 
+- **Input validation and neutralization**
 
 You should assume all input is malicious and either reject input with invalid characters or neutralize them. If you are using a templating engine to generate HTML. Make sure it neutralizes the `>`, `<` and `&` special charaters. For instance ``Mustache`` that comes with the Hummingbird framework will do this for you by default.
 
-- Content-security-policy header
+- **Content-security-policy header**
 
 You can use the `content-security-policy` response header to control where resources are loaded from, restrict embedding of resouces, upgrade insecure requests. With this you can control where scripts are being run from, thus reducing the chance of a malicious script being run. You cannot rely on this header as your only defence against XSS attacks as they do require the user's browser to support it.
 
@@ -102,8 +100,31 @@ let csp: ContentSecurityPolicy = [
 response.headers[.contentSecurityPolicy] = csp.description
 ```
 
-- HTTPOnly Cookies
+- **HTTPOnly Cookies**
 
-Unless necessary always mark your session cookies as `HTTPOnly`. This can prevent malicious scripts getting access to the user's session cookie. Although this isn't a complete solution as not all browsers support HTTP only cookies and the set-cookie header is still available when returned by a response.
+Unless necessary always mark your cookies as `HTTPOnly`. This can prevent malicious scripts getting access to the user's session cookie. Although this isn't a complete solution as not all browsers support HTTP only cookies and the set-cookie header is still available when returned by a response, it does reduce the attack surface.
 
-Hummingbird defaults all cookies to `HTTPOnly`.
+Hummingbird defaults all cookies to `HTTPOnly`. To further improve security you can also set cookies to only be available on secure connections and their same site policy to be strict. If you are using the ``/HummingbirdAuth/SessionStorage`` or ``/HummingbirdAuth/SessionMiddleware`` from HummingbirdAuth to setup session cookies you will need to set this up in their configuration.
+
+```swift
+let sessionMiddleware = SessionMiddleware(
+    storage: persist,
+    configuration: .init(
+        sessionCookieParameters: .init(secure: true, sameSite: .strict)
+    )
+)
+```
+
+### Cross-Site Request Forgery
+
+Cross-site request forgery (CSRF) is an attack where the victim is tricked into making an unintentional request to the web server. This is then treated as an authentic request from the client, effectively performing any operation the victim is able to perform. It can lead to exposure of confidential data, unintended code execution. If the user is an administrator or priviledged user the consequences can include gaining full control of the web application, deletion or stealing of data.
+
+Your main defence against CSRF attacks is ensuring your server is free from XSS vulnerabilities. If this is not the case most other defences can be bypassed. But to reduce the attack surface for CSRF style attacks you can also include the following methods
+
+- **Generate a nonce for each form**
+
+Generate a unique nonce or CSRF token and include it as a hidden item in your form and verify the nonce on receipt of the form. Be sure the nonce generation is sufficiently random. You can find out more about this method in the [OWASP cheat sheets](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+
+- **Separate confirmation**
+
+Identify particularly dangerous operations and when the user performs such an operation, send a separate confirmation to ensure the user intended to perform that operation.
