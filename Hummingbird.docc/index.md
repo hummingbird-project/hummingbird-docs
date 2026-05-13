@@ -49,6 +49,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 - <doc:ServiceLifecycle>
 - <doc:Testing>
 - <doc:PersistentData>
+- <doc:SecuringYourApplication>
 - <doc:MigratingToV2>
 
 ### Authentication
