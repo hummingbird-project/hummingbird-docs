@@ -77,7 +77,7 @@ If the full request header doesn't appear within this idle time or there is a pe
 
 Cross-site scripting(XSS) is a common attack on websites. The [common weakness enumeration (CWE) site](https://cwe.mitre.org/top25/archive/2025/2025_cwe_top25.html) from Mitre report these as the number one most dangerous software weakness.
 
-XSS comes in many forms, but the fundamental definition is improper neutralization of data from a untrusted source before it is placed in output such as a web page. Typically a XSS attack will run a malicious script on behalf of the victim. As the script is being run by the vicim it will have access to everything the victim has access to. Some attacks will leak or manipulate request cookies, create requests that are mistaken for valid requests from the victim and compromising confidential data.
+XSS comes in many forms, but the fundamental definition is improper neutralization of data from a untrusted source before it is placed in output such as a web page. Typically a XSS attack will run a malicious script on behalf of the victim. As the script is being run by the victim it will have access to everything the victim has access to. Some attacks will leak or manipulate request cookies, create requests that are mistaken for valid requests from the victim and compromising confidential data.
 
 Mitigations for this kind of attack include
 
