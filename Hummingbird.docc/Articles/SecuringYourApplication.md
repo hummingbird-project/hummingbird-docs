@@ -83,7 +83,7 @@ Mitigations for this kind of attack include
 
 - **Input validation and neutralization**
 
-You should assume all input is malicious and either reject input with invalid characters or neutralize them. If you are using a templating engine to generate HTML. Make sure it neutralizes the `>`, `<` and `&` special charaters. For instance ``Mustache`` that comes with the Hummingbird framework will do this for you by default.
+You should assume all input is malicious and either reject input with invalid characters or neutralize them. If you are using a templating engine to generate HTML. Make sure it neutralizes the `>`, `<` and `&` special characters. For instance ``Mustache`` that comes with the Hummingbird framework will do this for you by default.
 
 - **Content-security-policy header**
 
@@ -117,7 +117,7 @@ let sessionMiddleware = SessionMiddleware(
 
 ### Cross-Site Request Forgery
 
-Cross-site request forgery (CSRF) is an attack where the victim is tricked into making an unintentional request to the web server. This is then treated as an authentic request from the client, effectively performing any operation the victim is able to perform. It can lead to exposure of confidential data, unintended code execution. If the user is an administrator or priviledged user the consequences can include gaining full control of the web application, deletion or stealing of data.
+Cross-site request forgery (CSRF) is an attack where the victim is tricked into making an unintentional request to the web server. This is then treated as an authentic request from the client, effectively performing any operation the victim is able to perform. It can lead to exposure of confidential data, unintended code execution. If the user is an administrator or privileged user the consequences can include gaining full control of the web application, deletion or stealing of data.
 
 Your main defence against CSRF attacks is ensuring your server is free from XSS vulnerabilities. If this is not the case most other defences can be bypassed. But to reduce the attack surface for CSRF style attacks you can also include the following methods
 
