@@ -8,7 +8,8 @@ Role and permission-based authorization for Hummingbird requests.
 
 ## Overview
 
-Authorization determines whether an authenticated identity is permitted to perform a specific action on a resource. It is evaluated *after* authentication — the caller's identity is already resolved in the request context before any authorization policy runs.
+Authorization determines whether an authenticated identity is permitted to perform a specific action.
+It is evaluated *after* authentication — the identity is already resolved in the request context.
 
 ## Getting started
 
@@ -26,157 +27,150 @@ swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbir
 
 ## The middleware chain
 
-Authorization slots in after authentication as a three-step chain:
+Add `.authorized { }` after your authenticator in the route group chain:
 
 ```swift
 router.group()
-    .add(middleware: MyAuthenticator())           // 1. resolve the caller's identity
-    .add(middleware: IsAuthenticatedMiddleware()) // 2. reject unauthenticated (401)
-    .add(middleware: IsAuthorizedMiddleware(...)) // 3. reject unauthorised (403)
-    .get("admin/dashboard") { _, _ in ... }
+    .add(middleware: MyAuthenticator())   // 1. resolve the caller's identity
+    .authorized {                          // 2. check authorization — 403 if denied
+        RolePolicy("admin")
+    }
+    .get("dashboard") { _, _ in ... }
 ```
 
-## Authorization policies
+Unauthenticated requests (no identity) are rejected with `401 Unauthorized`.
+Authenticated requests that fail the policy are rejected with `403 Forbidden`.
 
-An ``AuthorizationPolicy`` answers one question: given this identity and this request, should access be granted? Implement the protocol to create reusable, named rules:
+## Writing policies
+
+An ``AuthorizationPolicy`` answers one question: given this identity and this request, should access be granted?
 
 ```swift
-struct AdminPolicy: AuthorizationPolicy {
+struct OwnerPolicy: AuthorizationPolicy {
     func isAuthorized(identity: User, request: Request) async throws -> Bool {
-        identity.roles.contains("admin")
+        identity.id == request.uri.queryParameters.get("userId")
     }
 }
 ```
 
-For one-off rules, ``ClosureAuthorizationPolicy`` avoids defining a full type:
+For one-off rules, use ``ClosureAuthorizationPolicy`` directly in the block:
 
 ```swift
-IsAuthorizedMiddleware(
+.authorized {
     ClosureAuthorizationPolicy { user, request in
         user.id == request.uri.queryParameters.get("userId")
     }
-)
-```
-
-## Combining policies
-
-Policies compose with ``AllOf``, ``AnyOf``, and ``Not``:
-
-```swift
-// All must pass (short-circuits on first failure)
-AllOf(RolePolicy("editor"), PermissionPolicy("posts:publish"))
-
-// At least one must pass (short-circuits on first success)
-AnyOf(RolePolicy("admin"), RolePolicy("moderator"))
-
-// Inverts a policy
-Not(RolePolicy("banned"))
-```
-
-Combinators nest freely to express complex rules:
-
-```swift
-IsAuthorizedMiddleware(
-    AllOf(
-        AnyOf(RolePolicy("admin"), RolePolicy("editor")),
-        Not(RolePolicy("banned"))
-    )
-)
+}
 ```
 
 ## Role-based authorization
 
-Conform your identity type to ``RoleProviding`` to use ``RolePolicy``. The `Roles` associated type can be any `SetAlgebra` collection — `Set<String>` and typed enums are the most common choices:
+Conform your identity type to ``RoleProviding`` to use ``RolePolicy``:
 
 ```swift
-// String roles
 struct User: RoleProviding {
     var roles: Set<String>
 }
 
-// Typed enum roles (recommended — compile-time exhaustiveness)
-enum Role: String, Hashable, Sendable {
-    case admin, editor, moderator
-}
-
-struct User: RoleProviding {
-    var roles: Set<Role>
-}
+// or with a typed enum
+enum Role: String, Hashable, Sendable { case admin, editor, moderator }
+struct User: RoleProviding { var roles: Set<Role> }
 ```
 
-Use ``RolePolicy`` in your middleware chain:
-
 ```swift
-// Require a single role
-IsAuthorizedMiddleware(RolePolicy("admin"))
-
-// Require any one of several roles
-IsAuthorizedMiddleware(AnyOf(RolePolicy("admin"), RolePolicy("moderator")))
+.authorized { RolePolicy("admin") }
 ```
 
 ## Permission-based authorization
 
-Conform your identity type to ``PermissionProviding`` to use ``PermissionPolicy``. Permissions are typically fine-grained scoped strings or enum cases:
+Conform your identity type to ``PermissionProviding`` to use ``PermissionPolicy``:
 
 ```swift
 enum Permission: String, Hashable, Sendable {
-    case postsRead   = "posts:read"
-    case postsWrite  = "posts:write"
-    case postsDelete = "posts:delete"
+    case postsRead = "posts:read"
+    case postsWrite = "posts:write"
+}
+struct User: PermissionProviding { var permissions: Set<Permission> }
+```
+
+```swift
+.authorized { PermissionPolicy("posts:publish") }
+```
+
+A type can conform to both, allowing roles and permissions to be mixed freely.
+
+## Combining policies
+
+All policies listed directly in `.authorized { }` must pass (AND semantics).
+Use ``anyOf(_:_:)`` or ``allOf(_:_:)`` inside the block for OR / nested AND:
+
+```swift
+// AND — both must pass
+.authorized {
+    RolePolicy("editor")
+    PermissionPolicy("posts:publish")
 }
 
-struct User: PermissionProviding {
-    var permissions: Set<Permission>
+// OR — either satisfies
+.authorized {
+    anyOf(RolePolicy("admin"), PermissionPolicy("posts:delete"))
+}
+
+// NOT
+.authorized {
+    Not(RolePolicy("banned"))
+}
+
+// Nested: (admin OR (editor AND publish permission)) AND NOT banned
+.authorized {
+    anyOf(RolePolicy("admin"),
+          allOf(RolePolicy("editor"), PermissionPolicy("posts:publish")))
+    Not(RolePolicy("banned"))
 }
 ```
 
-An identity type can conform to both ``RoleProviding`` and ``PermissionProviding``, allowing ``RolePolicy`` and ``PermissionPolicy`` to be mixed freely:
+For more than two policies in OR position, use the builder form:
 
 ```swift
-struct User: RoleProviding, PermissionProviding {
-    var roles: Set<String>
-    var permissions: Set<String>
+.authorized {
+    allOf {
+        RolePolicy("editor")
+        PermissionPolicy("posts:publish")
+        if requiresApproval { PermissionPolicy("posts:approved") }
+    }
 }
-
-// Require editor role AND publish permission, OR be an admin
-IsAuthorizedMiddleware(
-    AnyOf(
-        RolePolicy("admin"),
-        AllOf(RolePolicy("editor"), PermissionPolicy("posts:publish"))
-    )
-)
 ```
 
 ## Customising the denial error
 
-By default ``IsAuthorizedMiddleware`` throws `403 Forbidden` when a policy denies the request. Pass any ``HTTPResponseError``-conforming value as `deniedError` to override this. A common reason is returning `404 Not Found` to avoid leaking whether a resource exists to callers who are not permitted to see it:
+By default ``AuthorizationPolicyMiddleware`` throws `403 Forbidden`. Pass `deniedError` to override:
 
 ```swift
-router.group()
-    .add(middleware: MyAuthenticator())
-    .add(middleware: IsAuthorizedMiddleware(
-        RolePolicy("admin"),
-        deniedError: HTTPError(.notFound)
-    ))
-    .get("secret-resource") { _, _ in ... }
+// Return 404 to avoid leaking whether the resource exists
+.authorized(deniedError: HTTPError(.notFound)) {
+    RolePolicy("admin")
+}
 ```
 
-Because `deniedError` accepts any ``HTTPResponseError``, you can supply your own type for full control over the response body and headers:
+`deniedError` accepts any ``HTTPResponseError`` — including custom types that control
+the response body and headers:
 
 ```swift
-struct AuthorizationError: HTTPResponseError {
+struct ForbiddenError: HTTPResponseError {
     var status: HTTPResponse.Status { .forbidden }
     func response(from request: Request, context: some RequestContext) -> Response {
         Response(status: .forbidden, headers: ["X-Reason": "insufficient-role"])
     }
 }
 
-IsAuthorizedMiddleware(RolePolicy("admin"), deniedError: AuthorizationError())
+.authorized(deniedError: ForbiddenError()) {
+    RolePolicy("admin")
+}
 ```
 
 ## See Also
 
-- ``IsAuthorizedMiddleware``
+- ``AuthorizationPolicyMiddleware``
 - ``AuthorizationPolicy``
 - ``RolePolicy``
 - ``PermissionPolicy``

@@ -23,15 +23,15 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ### Authorization
 
-- ``IsAuthorizedMiddleware``
+- ``AuthorizationPolicyMiddleware``
 - ``AuthorizationPolicy``
 - ``ClosureAuthorizationPolicy``
 
 ### Policy Combinators
 
-- ``AllOf``
-- ``AnyOf``
 - ``Not``
+- ``allOf(_:_:)``
+- ``anyOf(_:_:)``
 
 ### Role and Permission Policies
 
