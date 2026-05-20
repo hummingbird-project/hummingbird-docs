@@ -21,6 +21,25 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 - ``ClosureAuthenticator``
 - ``IsAuthenticatedMiddleware``
 
+### Authorization
+
+- ``IsAuthorizedMiddleware``
+- ``AuthorizationPolicy``
+- ``ClosureAuthorizationPolicy``
+
+### Policy Combinators
+
+- ``AllOf``
+- ``AnyOf``
+- ``Not``
+
+### Role and Permission Policies
+
+- ``RoleProviding``
+- ``RolePolicy``
+- ``PermissionProviding``
+- ``PermissionPolicy``
+
 ### Header Authentication
 
 - ``BasicAuthentication``
@@ -45,6 +64,7 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## See Also
 
+- <doc:Authorization>
 - ``HummingbirdBasicAuth``
 - ``HummingbirdBcrypt``
 - ``HummingbirdOTP``
