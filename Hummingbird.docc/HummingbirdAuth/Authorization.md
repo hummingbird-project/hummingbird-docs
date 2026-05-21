@@ -168,10 +168,59 @@ struct ForbiddenError: HTTPResponseError {
 }
 ```
 
+## Authorization scope — filtering collections
+
+``AuthorizationPolicy`` is a *gate*: it answers "can you see this specific resource?" and
+produces a `403` if not. For collection routes (`GET /items`) a gate is the wrong
+abstraction — you want a *filter* that shapes the query before it runs.
+
+``AuthorizationScope`` answers the complementary question: *"given who you are, which
+resources can you see?"* The async work (store lookups, OPA calls, Casbin queries) lives
+in ``AuthorizationScope/filter(for:request:)``; the returned ``QueryFilter`` applies
+synchronously to each resource.
+
+```swift
+struct DocumentScope: AuthorizationScope {
+    typealias Identity = User
+    typealias Filter = ClosureQueryFilter<Document>
+
+    func filter(for identity: User, request: Request) async throws -> ClosureQueryFilter<Document> {
+        // One async call — OPA list, Casbin enforcement, store query
+        let ids = try await policyEngine.list(subject: identity.name, action: "read")
+        let allowed = Set(ids)
+        // Returned filter is sync: O(1) lookup per document
+        return ClosureQueryFilter { document in
+            document.id.map { allowed.contains($0) } ?? false
+        }
+    }
+}
+```
+
+Apply the scope inside a list handler:
+
+```swift
+func list(_ request: Request, context: Context) async throws -> [DocumentResponse] {
+    guard let identity = context.identity else { throw HTTPError(.unauthorized) }
+    let filter = try await scope.filter(for: identity, request: request)
+    return try await Document.query(on: db).all()
+        .asyncFilter { try await filter.matches($0) }
+        .map { DocumentResponse(from: $0) }
+}
+```
+
+The two protocols divide cleanly across route shapes:
+
+| Route | Protocol | Question answered |
+|---|---|---|
+| `GET /documents/:id` | ``AuthorizationPolicy`` | Can you see *this* document? |
+| `GET /documents` | ``AuthorizationScope`` | *Which* documents can you see? |
+
 ## See Also
 
 - ``AuthorizationPolicyMiddleware``
 - ``AuthorizationPolicy``
+- ``AuthorizationScope``
+- ``QueryFilter``
 - ``RolePolicy``
 - ``PermissionPolicy``
 - <doc:AuthenticatorMiddlewareGuide>

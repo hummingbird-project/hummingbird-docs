@@ -40,6 +40,12 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 - ``PermissionProviding``
 - ``PermissionPolicy``
 
+### Authorization Scope
+
+- ``AuthorizationScope``
+- ``QueryFilter``
+- ``ClosureQueryFilter``
+
 ### Header Authentication
 
 - ``BasicAuthentication``
