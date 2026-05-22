@@ -27,14 +27,14 @@ swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbir
 
 ## The middleware chain
 
-Add `.authorized { }` after your authenticator in the route group chain:
+Authorization is another middleware in the chain, added with `.add(middleware:)`:
 
 ```swift
 router.group()
-    .add(middleware: MyAuthenticator())   // 1. resolve the caller's identity
-    .authorized {                          // 2. check authorization — 403 if denied
+    .add(middleware: MyAuthenticator())                    // 1. resolve the caller's identity
+    .add(middleware: AuthorizationPolicyMiddleware(         // 2. check authorization
         RolePolicy("admin")
-    }
+    ))
     .get("dashboard") { _, _ in ... }
 ```
 
@@ -53,14 +53,14 @@ struct OwnerPolicy: AuthorizationPolicy {
 }
 ```
 
-For one-off rules, use ``ClosureAuthorizationPolicy`` directly in the block:
+For one-off rules, pass ``ClosureAuthorizationPolicy`` directly:
 
 ```swift
-.authorized {
+.add(middleware: AuthorizationPolicyMiddleware(
     ClosureAuthorizationPolicy { user, request in
         user.id == request.uri.queryParameters.get("userId")
     }
-}
+))
 ```
 
 ## Role-based authorization
@@ -78,7 +78,7 @@ struct User: RoleProviding { var roles: Set<Role> }
 ```
 
 ```swift
-.authorized { RolePolicy("admin") }
+.add(middleware: AuthorizationPolicyMiddleware(RolePolicy("admin")))
 ```
 
 ## Permission-based authorization
@@ -94,51 +94,50 @@ struct User: PermissionProviding { var permissions: Set<Permission> }
 ```
 
 ```swift
-.authorized { PermissionPolicy("posts:publish") }
+.add(middleware: AuthorizationPolicyMiddleware(PermissionPolicy("posts:publish")))
 ```
 
 A type can conform to both, allowing roles and permissions to be mixed freely.
 
 ## Combining policies
 
-All policies listed directly in `.authorized { }` must pass (AND semantics).
+All policies in `allOf { }` must pass (AND semantics).
 Use ``anyOf(_:_:)`` or ``allOf(_:_:)`` inside the block for OR / nested AND:
 
 ```swift
 // AND — both must pass
-.authorized {
-    RolePolicy("editor")
-    PermissionPolicy("posts:publish")
-}
+.add(middleware: AuthorizationPolicyMiddleware(
+    allOf(RolePolicy("editor"), PermissionPolicy("posts:publish"))
+))
 
 // OR — either satisfies
-.authorized {
+.add(middleware: AuthorizationPolicyMiddleware(
     anyOf(RolePolicy("admin"), PermissionPolicy("posts:delete"))
-}
+))
 
 // NOT
-.authorized {
-    Not(RolePolicy("banned"))
-}
+.add(middleware: AuthorizationPolicyMiddleware(Not(RolePolicy("banned"))))
 
 // Nested: (admin OR (editor AND publish permission)) AND NOT banned
-.authorized {
-    anyOf(RolePolicy("admin"),
-          allOf(RolePolicy("editor"), PermissionPolicy("posts:publish")))
-    Not(RolePolicy("banned"))
-}
+.add(middleware: AuthorizationPolicyMiddleware(
+    allOf {
+        anyOf(RolePolicy("admin"),
+              allOf(RolePolicy("editor"), PermissionPolicy("posts:publish")))
+        Not(RolePolicy("banned"))
+    }
+))
 ```
 
-For more than two policies in OR position, use the builder form:
+For conditional policies use the builder form with `if`:
 
 ```swift
-.authorized {
+.add(middleware: AuthorizationPolicyMiddleware(
     allOf {
         RolePolicy("editor")
         PermissionPolicy("posts:publish")
         if requiresApproval { PermissionPolicy("posts:approved") }
     }
-}
+))
 ```
 
 ## Customising the denial error
@@ -147,9 +146,10 @@ By default ``AuthorizationPolicyMiddleware`` throws `403 Forbidden`. Pass `denie
 
 ```swift
 // Return 404 to avoid leaking whether the resource exists
-.authorized(deniedError: HTTPError(.notFound)) {
-    RolePolicy("admin")
-}
+.add(middleware: AuthorizationPolicyMiddleware(
+    RolePolicy("admin"),
+    deniedError: HTTPError(.notFound)
+))
 ```
 
 `deniedError` accepts any ``HTTPResponseError`` — including custom types that control
@@ -163,9 +163,7 @@ struct ForbiddenError: HTTPResponseError {
     }
 }
 
-.authorized(deniedError: ForbiddenError()) {
-    RolePolicy("admin")
-}
+.add(middleware: AuthorizationPolicyMiddleware(RolePolicy("admin"), deniedError: ForbiddenError()))
 ```
 
 ## Authorization scope — filtering collections
@@ -196,9 +194,15 @@ struct DocumentScope: AuthorizationScope {
 }
 ```
 
-Apply the scope inside a list handler:
+Apply the scope inside a list handler. Single-resource routes use ``AuthorizationPolicyMiddleware``
+as normal; the scope is applied inside the collection handler:
 
 ```swift
+// Single resource — middleware gate
+.add(middleware: AuthorizationPolicyMiddleware(CanPolicy("read", store: store)))
+.get(use: getDocument)
+
+// Collection — scope applied inside the handler
 func list(_ request: Request, context: Context) async throws -> [DocumentResponse] {
     guard let identity = context.identity else { throw HTTPError(.unauthorized) }
     let filter = try await scope.filter(for: identity, request: request)
@@ -210,10 +214,10 @@ func list(_ request: Request, context: Context) async throws -> [DocumentRespons
 
 The two protocols divide cleanly across route shapes:
 
-| Route | Protocol | Question answered |
+| Route | Protocol | Mechanism |
 |---|---|---|
-| `GET /documents/:id` | ``AuthorizationPolicy`` | Can you see *this* document? |
-| `GET /documents` | ``AuthorizationScope`` | *Which* documents can you see? |
+| `GET /documents/:id` | ``AuthorizationPolicy`` | `AuthorizationPolicyMiddleware` in chain |
+| `GET /documents` | ``AuthorizationScope`` | `filter(for:request:)` inside handler |
 
 ## See Also
 
