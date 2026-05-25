@@ -27,14 +27,12 @@ swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbir
 
 ## The middleware chain
 
-Authorization is another middleware in the chain, added with `.add(middleware:)`:
+``AuthorizationPolicyMiddleware`` sits in the route group chain after the authenticator:
 
 ```swift
 router.group()
-    .add(middleware: MyAuthenticator())                    // 1. resolve the caller's identity
-    .add(middleware: AuthorizationPolicyMiddleware(         // 2. check authorization
-        RolePolicy("admin")
-    ))
+    .add(middleware: MyAuthenticator())
+    .add(middleware: AuthorizationPolicyMiddleware(RolePolicy("admin")))
     .get("dashboard") { _, _ in ... }
 ```
 
@@ -43,7 +41,7 @@ Authenticated requests that fail the policy are rejected with `403 Forbidden`.
 
 ## Writing policies
 
-An ``AuthorizationPolicy`` answers one question: given this identity and this request, should access be granted?
+Conform to ``AuthorizationPolicy`` to create reusable rules:
 
 ```swift
 struct OwnerPolicy: AuthorizationPolicy {
@@ -53,7 +51,7 @@ struct OwnerPolicy: AuthorizationPolicy {
 }
 ```
 
-For one-off rules, pass ``ClosureAuthorizationPolicy`` directly:
+For one-off rules use ``ClosureAuthorizationPolicy``:
 
 ```swift
 .add(middleware: AuthorizationPolicyMiddleware(
@@ -65,16 +63,22 @@ For one-off rules, pass ``ClosureAuthorizationPolicy`` directly:
 
 ## Role-based authorization
 
-Conform your identity type to ``RoleProviding`` to use ``RolePolicy``:
+Conform your identity type to ``RoleProviding`` to use ``RolePolicy``.
+The `Roles` associated type accepts any `SetAlgebra` — `Set<Role>`, a typed enum,
+or an `OptionSet` for compact bitmask storage:
 
 ```swift
-struct User: RoleProviding {
-    var roles: Set<String>
-}
-
-// or with a typed enum
+// Set with a typed enum
 enum Role: String, Hashable, Sendable { case admin, editor, moderator }
 struct User: RoleProviding { var roles: Set<Role> }
+
+// OptionSet — single Int32 column, bitwise membership check
+struct Role: OptionSet, Sendable {
+    let rawValue: Int32
+    static let admin  = Role(rawValue: 1 << 0)
+    static let editor = Role(rawValue: 1 << 1)
+}
+struct User: RoleProviding { var roles: Role }
 ```
 
 ```swift
@@ -83,77 +87,77 @@ struct User: RoleProviding { var roles: Set<Role> }
 
 ## Permission-based authorization
 
-Conform your identity type to ``PermissionProviding`` to use ``PermissionPolicy``:
+Conform your identity type to ``PermissionProviding`` to use ``PermissionPolicy``.
+`OptionSet` is a natural fit when permissions map to a fixed bitmask:
 
 ```swift
-enum Permission: String, Hashable, Sendable {
-    case postsRead = "posts:read"
-    case postsWrite = "posts:write"
+struct Permission: OptionSet, Sendable {
+    let rawValue: Int32
+    static let postsRead   = Permission(rawValue: 1 << 0)
+    static let postsWrite  = Permission(rawValue: 1 << 1)
+    static let postsDelete = Permission(rawValue: 1 << 2)
 }
-struct User: PermissionProviding { var permissions: Set<Permission> }
+struct User: PermissionProviding { var permissions: Permission }
 ```
 
 ```swift
-.add(middleware: AuthorizationPolicyMiddleware(PermissionPolicy("posts:publish")))
+.add(middleware: AuthorizationPolicyMiddleware(PermissionPolicy(Permission.postsWrite)))
 ```
 
-A type can conform to both, allowing roles and permissions to be mixed freely.
+A type can conform to both, allowing ``RolePolicy`` and ``PermissionPolicy`` to be mixed freely.
 
 ## Combining policies
 
-All policies in `allOf { }` must pass (AND semantics).
-Use ``anyOf(_:_:)`` or ``allOf(_:_:)`` inside the block for OR / nested AND:
+`allOf { }` requires all policies to pass; `anyOf { }` requires at least one:
 
 ```swift
-// AND — both must pass
-.add(middleware: AuthorizationPolicyMiddleware(
-    allOf(RolePolicy("editor"), PermissionPolicy("posts:publish"))
-))
+// AND
+.add(middleware: AuthorizationPolicyMiddleware(allOf {
+    RolePolicy("editor")
+    PermissionPolicy("posts:publish")
+}))
 
-// OR — either satisfies
-.add(middleware: AuthorizationPolicyMiddleware(
-    anyOf(RolePolicy("admin"), PermissionPolicy("posts:delete"))
-))
+// OR
+.add(middleware: AuthorizationPolicyMiddleware(anyOf {
+    RolePolicy("admin")
+    PermissionPolicy("posts:delete")
+}))
 
 // NOT
 .add(middleware: AuthorizationPolicyMiddleware(Not(RolePolicy("banned"))))
 
-// Nested: (admin OR (editor AND publish permission)) AND NOT banned
-.add(middleware: AuthorizationPolicyMiddleware(
-    allOf {
-        anyOf(RolePolicy("admin"),
-              allOf(RolePolicy("editor"), PermissionPolicy("posts:publish")))
-        Not(RolePolicy("banned"))
+// Nested: (admin OR (editor AND posts:publish)) AND NOT banned
+.add(middleware: AuthorizationPolicyMiddleware(allOf {
+    anyOf {
+        RolePolicy("admin")
+        allOf { RolePolicy("editor"); PermissionPolicy("posts:publish") }
     }
-))
+    Not(RolePolicy("banned"))
+}))
 ```
 
-For conditional policies use the builder form with `if`:
+Use `if` inside a builder block for conditional policies:
 
 ```swift
-.add(middleware: AuthorizationPolicyMiddleware(
-    allOf {
-        RolePolicy("editor")
-        PermissionPolicy("posts:publish")
-        if requiresApproval { PermissionPolicy("posts:approved") }
-    }
-))
+.add(middleware: AuthorizationPolicyMiddleware(allOf {
+    RolePolicy("editor")
+    if requiresApproval { PermissionPolicy("posts:approved") }
+}))
 ```
 
 ## Customising the denial error
 
-By default ``AuthorizationPolicyMiddleware`` throws `403 Forbidden`. Pass `deniedError` to override:
+Pass `deniedError` to override the default `403 Forbidden`:
 
 ```swift
-// Return 404 to avoid leaking whether the resource exists
+// 404 avoids leaking whether the resource exists
 .add(middleware: AuthorizationPolicyMiddleware(
     RolePolicy("admin"),
     deniedError: HTTPError(.notFound)
 ))
 ```
 
-`deniedError` accepts any ``HTTPResponseError`` — including custom types that control
-the response body and headers:
+`deniedError` accepts any `HTTPResponseError`:
 
 ```swift
 struct ForbiddenError: HTTPResponseError {
@@ -168,14 +172,8 @@ struct ForbiddenError: HTTPResponseError {
 
 ## Authorization scope — filtering collections
 
-``AuthorizationPolicy`` is a *gate*: it answers "can you see this specific resource?" and
-produces a `403` if not. For collection routes (`GET /items`) a gate is the wrong
-abstraction — you want a *filter* that shapes the query before it runs.
-
-``AuthorizationScope`` answers the complementary question: *"given who you are, which
-resources can you see?"* The async work (store lookups, OPA calls, Casbin queries) lives
-in ``AuthorizationScope/filter(for:request:)``; the returned ``QueryFilter`` applies
-synchronously to each resource.
+``AuthorizationPolicyMiddleware`` gates a single resource. For collection routes
+(`GET /items`) use ``AuthorizationScope`` to filter the results:
 
 ```swift
 struct DocumentScope: AuthorizationScope {
@@ -183,10 +181,8 @@ struct DocumentScope: AuthorizationScope {
     typealias Filter = ClosureQueryFilter<Document>
 
     func filter(for identity: User, request: Request) async throws -> ClosureQueryFilter<Document> {
-        // One async call — OPA list, Casbin enforcement, store query
-        let ids = try await policyEngine.list(subject: identity.name, action: "read")
-        let allowed = Set(ids)
-        // Returned filter is sync: O(1) lookup per document
+        // store.list returns Set<UUID> — no conversion needed, O(1) contains
+        let allowed = try await store.list(subject: identity.id, action: "read")
         return ClosureQueryFilter { document in
             document.id.map { allowed.contains($0) } ?? false
         }
@@ -194,30 +190,21 @@ struct DocumentScope: AuthorizationScope {
 }
 ```
 
-Apply the scope inside a list handler. Single-resource routes use ``AuthorizationPolicyMiddleware``
-as normal; the scope is applied inside the collection handler:
+Apply it with ``Sequence/filter(scope:identity:request:)``:
 
 ```swift
-// Single resource — middleware gate
-.add(middleware: AuthorizationPolicyMiddleware(CanPolicy("read", store: store)))
-.get(use: getDocument)
-
-// Collection — scope applied inside the handler
 func list(_ request: Request, context: Context) async throws -> [DocumentResponse] {
-    guard let identity = context.identity else { throw HTTPError(.unauthorized) }
-    let filter = try await scope.filter(for: identity, request: request)
+    let identity = try context.requireIdentity()
     return try await Document.query(on: db).all()
-        .asyncFilter { try await filter.matches($0) }
+        .filter(scope: documentScope, identity: identity, request: request)
         .map { DocumentResponse(from: $0) }
 }
 ```
 
-The two protocols divide cleanly across route shapes:
-
-| Route | Protocol | Mechanism |
-|---|---|---|
-| `GET /documents/:id` | ``AuthorizationPolicy`` | `AuthorizationPolicyMiddleware` in chain |
-| `GET /documents` | ``AuthorizationScope`` | `filter(for:request:)` inside handler |
+| Route             | Type                    | Usage                                        |
+|-------------------|-------------------------|----------------------------------------------|
+| `GET /items/:id`  | ``AuthorizationPolicy`` | `AuthorizationPolicyMiddleware` in chain     |
+| `GET /items`      | ``AuthorizationScope``  | `.filter(scope:identity:request:)` on array  |
 
 ## See Also
 
