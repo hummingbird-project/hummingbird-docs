@@ -170,48 +170,10 @@ struct ForbiddenError: HTTPResponseError {
 .add(middleware: AuthorizationPolicyMiddleware(RolePolicy("admin"), deniedError: ForbiddenError()))
 ```
 
-## Authorization scope — filtering collections
-
-``AuthorizationPolicyMiddleware`` gates a single resource. For collection routes
-(`GET /items`) use ``AuthorizationScope`` to filter the results:
-
-```swift
-struct DocumentScope: AuthorizationScope {
-    typealias Identity = User
-    typealias Filter = ClosureQueryFilter<Document>
-
-    func filter(for identity: User, request: Request) async throws -> ClosureQueryFilter<Document> {
-        // store.list returns Set<UUID> — no conversion needed, O(1) contains
-        let allowed = try await store.list(subject: identity.id, action: "read")
-        return ClosureQueryFilter { document in
-            document.id.map { allowed.contains($0) } ?? false
-        }
-    }
-}
-```
-
-Apply it with ``Sequence/filter(scope:identity:request:)``:
-
-```swift
-func list(_ request: Request, context: Context) async throws -> [DocumentResponse] {
-    let identity = try context.requireIdentity()
-    return try await Document.query(on: db).all()
-        .filter(scope: documentScope, identity: identity, request: request)
-        .map { DocumentResponse(from: $0) }
-}
-```
-
-| Route             | Type                    | Usage                                        |
-|-------------------|-------------------------|----------------------------------------------|
-| `GET /items/:id`  | ``AuthorizationPolicy`` | `AuthorizationPolicyMiddleware` in chain     |
-| `GET /items`      | ``AuthorizationScope``  | `.filter(scope:identity:request:)` on array  |
-
 ## See Also
 
 - ``AuthorizationPolicyMiddleware``
 - ``AuthorizationPolicy``
-- ``AuthorizationScope``
-- ``QueryFilter``
 - ``RolePolicy``
 - ``PermissionPolicy``
 - <doc:AuthenticatorMiddlewareGuide>
