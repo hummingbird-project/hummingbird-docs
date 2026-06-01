@@ -10,6 +10,13 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## Topics
 
+### Guides
+
+- <doc:AuthenticatorMiddlewareGuide>
+- <doc:Sessions>
+- <doc:OneTimePasswords>
+- <doc:Authorization>
+
 ### Request Contexts
 
 - ``BasicAuthRequestContext``
@@ -30,8 +37,8 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 ### Policy Combinators
 
 - ``Not``
-- ``allOf(_:_:)``
-- ``anyOf(_:_:)``
+- ``allOf(_:)``
+- ``anyOf(_:)``
 
 ### Role and Permission Policies
 
@@ -64,7 +71,6 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## See Also
 
-- <doc:Authorization>
 - ``HummingbirdBasicAuth``
 - ``HummingbirdBcrypt``
 - ``HummingbirdOTP``

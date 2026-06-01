@@ -9,7 +9,7 @@ Role and permission-based authorization for Hummingbird requests.
 ## Overview
 
 Authorization determines whether an authenticated identity is permitted to perform a specific action.
-It is evaluated *after* authentication — the identity is already resolved in the request context.
+It is evaluated *after* authentication — the identity should already resolved in the request context.
 
 ## Getting started
 
@@ -27,7 +27,7 @@ swift package add-target-dependency HummingbirdAuth <MyApp> --package hummingbir
 
 ## The middleware chain
 
-``AuthorizationPolicyMiddleware`` sits in the route group chain after the authenticator:
+``HummingbirdAuth/AuthorizationPolicyMiddleware`` sits in the route group chain after the authenticator:
 
 ```swift
 router.group()
@@ -41,7 +41,7 @@ Authenticated requests that fail the policy are rejected with `403 Forbidden`.
 
 ## Writing policies
 
-Conform to ``AuthorizationPolicy`` to create reusable rules:
+Conform to ``HummingbirdAuth/AuthorizationPolicy`` to create reusable rules:
 
 ```swift
 struct OwnerPolicy: AuthorizationPolicy {
@@ -51,7 +51,7 @@ struct OwnerPolicy: AuthorizationPolicy {
 }
 ```
 
-For one-off rules use ``ClosureAuthorizationPolicy``:
+For one-off rules use ``HummingbirdAuth/ClosureAuthorizationPolicy``:
 
 ```swift
 .add(middleware: AuthorizationPolicyMiddleware(
@@ -63,7 +63,7 @@ For one-off rules use ``ClosureAuthorizationPolicy``:
 
 ## Role-based authorization
 
-Conform your identity type to ``RoleProviding`` to use ``RolePolicy``.
+Conform your identity type to ``HummingbirdAuth/RoleProviding`` to use ``HummingbirdAuth/RolePolicy``.
 The `Roles` associated type accepts any `SetAlgebra` — `Set<Role>`, a typed enum,
 or an `OptionSet` for compact bitmask storage:
 
@@ -87,7 +87,7 @@ struct User: RoleProviding { var roles: Role }
 
 ## Permission-based authorization
 
-Conform your identity type to ``PermissionProviding`` to use ``PermissionPolicy``.
+Conform your identity type to ``HummingbirdAuth/PermissionProviding`` to use ``HummingbirdAuth/PermissionPolicy``.
 `OptionSet` is a natural fit when permissions map to a fixed bitmask:
 
 ```swift
@@ -104,7 +104,7 @@ struct User: PermissionProviding { var permissions: Permission }
 .add(middleware: AuthorizationPolicyMiddleware(PermissionPolicy(Permission.postsWrite)))
 ```
 
-A type can conform to both, allowing ``RolePolicy`` and ``PermissionPolicy`` to be mixed freely.
+A type can conform to both, allowing ``HummingbirdAuth/RolePolicy`` and ``HummingbirdAuth/PermissionPolicy`` to be mixed freely.
 
 ## Combining policies
 
@@ -172,8 +172,7 @@ struct ForbiddenError: HTTPResponseError {
 
 ## See Also
 
-- ``AuthorizationPolicyMiddleware``
-- ``AuthorizationPolicy``
-- ``RolePolicy``
-- ``PermissionPolicy``
-- <doc:AuthenticatorMiddlewareGuide>
+- ``HummingbirdAuth/AuthorizationPolicyMiddleware``
+- ``HummingbirdAuth/AuthorizationPolicy``
+- ``HummingbirdAuth/RolePolicy``
+- ``HummingbirdAuth/PermissionPolicy``
