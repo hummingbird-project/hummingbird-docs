@@ -10,6 +10,13 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 
 ## Topics
 
+### Guides
+
+- <doc:AuthenticatorMiddlewareGuide>
+- <doc:Sessions>
+- <doc:OneTimePasswords>
+- <doc:Authorization>
+
 ### Request Contexts
 
 - ``BasicAuthRequestContext``
@@ -20,6 +27,25 @@ Includes authenticator middleware setup, bearer and basic authentication extract
 - ``AuthenticatorMiddleware``
 - ``ClosureAuthenticator``
 - ``IsAuthenticatedMiddleware``
+
+### Authorization
+
+- ``AuthorizationPolicyMiddleware``
+- ``AuthorizationPolicy``
+- ``ClosureAuthorizationPolicy``
+
+### Policy Combinators
+
+- ``Not``
+- ``allOf(_:)``
+- ``anyOf(_:)``
+
+### Role and Permission Policies
+
+- ``RoleProviding``
+- ``RolePolicy``
+- ``PermissionProviding``
+- ``PermissionPolicy``
 
 ### Header Authentication
 
