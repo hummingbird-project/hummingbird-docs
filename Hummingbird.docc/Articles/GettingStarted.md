@@ -16,13 +16,13 @@ The Hummingbird project provides multiple entry points for getting started.
 
 ### Using the project template
 
-Clone the starting template to your local machine:
+Download `hb` command line tool from Homebrew
 
-    git clone https://github.com/hummingbird-project/template
+    brew install hummingbird-project/tap/hb
 
-Run the configure script provided to create a new folder and project inside:
+Run `hb` to create a new Hummingbird application.
 
-    ./template/configure.sh MyNewProject
+    hb init MyNewProject
 
 Change into the new project directory:
 
