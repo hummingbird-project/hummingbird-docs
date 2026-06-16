@@ -1,26 +1,26 @@
 @Tutorial(time: 5) {
     @Intro(title: "Create a Hummingbird application.") {
-        Create a simple web application using the Hummingbird template.
+        Create a simple web application using the Hummingbird command line tool `hb`.
         @Image(source: "hummingbird.png", alt: "Hummingbird logo")
     }
     
     @Section(title: "Create your project") {
         @ContentAndMedia() {
-            Clone the Hummingbird template, configure a project and review the contents of the generated project.
+            Download `hb` application, configure a project and review the contents of the generated project.
             @Image(source: "hummingbird.png", alt: "Hummingbird logo")
         }
         
         @Steps {
             @Step {
-                Clone the Hummingbird template GitHub project
-                @Code(name: "Clone template", file: todos-template-01.sh)
+                Download `hb` command line tool using Homebrew
+                @Code(name: "Download `hb`", file: todos-template-01.sh)
             }
             @Step {
-                Create your project, using the template configure script. Press return on each question to use the default value.
-                @Code(name: "Create Swift Package", file: todos-template-02.sh)
+                Create a new project using `hb`. When asked, select "Server", set the executable name to be "App" and press return on remaining questions to use the default values.
+                @Code(name: "Create new project", file: todos-template-02.sh)
             }
             @Step {
-                Now lets review what the template has setup. Open `Package.swift`.
+                Now lets review what has been setup. Open `Package.swift`.
 
                 You can see if has dependencies for Hummingbird and the Apple's Configuration library.
                 @Code(name: "Package.swift", file: todos-template-03.swift)

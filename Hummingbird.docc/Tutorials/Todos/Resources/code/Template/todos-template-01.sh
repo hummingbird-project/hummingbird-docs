@@ -1,1 +1,1 @@
-> git clone https://github.com/hummingbird-project/template
+> brew install hummingbird-project/tap/hb

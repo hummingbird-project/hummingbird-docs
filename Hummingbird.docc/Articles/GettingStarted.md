@@ -10,7 +10,7 @@ Create a new Hummingbird project from the project template.
 
 The Hummingbird project provides multiple entry points for getting started.
 
-1. Create your own project that uses Hummingbird from a [starting template](https://github.com/hummingbird-project/template) to jump right in.
+1. Create your own project that uses Hummingbird from the [starting template](https://github.com/hummingbird-project/template) to jump right in.
 2. For a walk-through, explore and follow along the [Build a Todos Application](https://docs.hummingbird.codes/2.0/tutorials/todos) tutorial.
 3. Take some time to explore the [Hummingbird Examples](https://github.com/hummingbird-project/hummingbird-examples/), individual projects that use common patterns.
 
