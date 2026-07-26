@@ -34,6 +34,7 @@ Below is a list of guides and tutorials to help you get started with building yo
 
 - <doc:GettingStarted>
 - <doc:Todos>
+- <doc:Recommendations>
 
 ### Hummingbird Server
 
