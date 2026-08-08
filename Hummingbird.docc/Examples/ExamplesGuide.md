@@ -10,3 +10,4 @@ The hummingbird project comes with an extensive array of examples in the [hummin
 
 - <doc:TodosAuthExample>
 - <doc:OTPAuthenticationExample>
+- <doc:HelloExample>
