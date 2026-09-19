@@ -50,13 +50,15 @@ try await serviceGroup.run()
 - ``BindAddress``
 - ``AvailableConnectionsChannelHandler``
 - ``AvailableConnectionsDelegate``
-- ``MaximumAvailableConnections`` 
+- ``MaximumAvailableConnections``
+- ``TSTLSOptions``
 
 ### HTTP Server
 
 - ``HTTPServerBuilder``
 - ``HTTPChannelHandler``
 - ``HTTP1Channel``
+- ``HTTPConnectionStateHandler``
 - ``HTTPUserEventHandler``
 
 ### Request
