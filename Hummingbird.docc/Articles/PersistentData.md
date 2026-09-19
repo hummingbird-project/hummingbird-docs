@@ -18,7 +18,7 @@ At setup you need to choose your persist driver. Below we are using the in memor
 let persist = MemoryPersistDriver()
 ```
 
-The persist drivers conform to `Service` from Swift Service Lifecycle and should either to added to the ``Application`` serivce group using ``Application/addServices(_:)`` or added to an external managed `ServiceGroup`.
+The persist drivers conform to `Service` from Swift Service Lifecycle and should either to added to the ``Application`` serivce group using ``Application/addServices(_:)-(Service...)`` or added to an external managed `ServiceGroup`.
 
 ```swift
 var app = Application(router: myRouter)

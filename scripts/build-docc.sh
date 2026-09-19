@@ -52,6 +52,7 @@ if test "$BUILD_SYMBOLS" == 1; then
     # build symbol graphs
     mkdir -p $SG_FOLDER
     swift build \
+        --build-system native \
         -Xswiftc -emit-symbol-graph \
         -Xswiftc -emit-symbol-graph-dir -Xswiftc $SG_FOLDER
     # Copy Hummingbird symbol graph into separate folder
