@@ -23,9 +23,9 @@ fi
 echo "Found docc here ${DOCC}"
 
 HUMMINGBIRD_VERSION=${HUMMINGBIRD_VERSION:-""}
-SG_FOLDER=.build/symbol-graphs
-HB_SG_FOLDER=.build/hummingbird-symbol-graphs
-BASE_OUTPUT_PATH=docs
+SG_FOLDER=$PWD/.build/symbol-graphs
+HB_SG_FOLDER=$PWD/.build/hummingbird-symbol-graphs
+BASE_OUTPUT_PATH=$PWD/docs
 OUTPUT_PATH=$BASE_OUTPUT_PATH/$HUMMINGBIRD_VERSION
 
 BUILD_SYMBOLS=1

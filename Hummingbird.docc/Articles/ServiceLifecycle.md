@@ -48,7 +48,7 @@ let app = Application(router: router)
 try await app.runService()
 ```
 
-All of the types that Hummingbird introduces that require some form of lifecycle management conform to `Service`. ``Application`` holds an internal `ServiceGroup` and any service you want managed can be added to the internal group using ``Application/addServices(_:)``.
+All of the types that Hummingbird introduces that require some form of lifecycle management conform to `Service`. ``Application`` holds an internal `ServiceGroup` and any service you want managed can be added to the internal group using ``Application/addServices(_:)-(Service...)``.
 
 ```swift
 var app = Application(router: router)
