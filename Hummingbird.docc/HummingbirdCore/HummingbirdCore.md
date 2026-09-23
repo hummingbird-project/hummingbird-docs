@@ -51,7 +51,6 @@ try await serviceGroup.run()
 - ``AvailableConnectionsChannelHandler``
 - ``AvailableConnectionsDelegate``
 - ``MaximumAvailableConnections``
-- ``TSTLSOptions``
 
 ### HTTP Server
 

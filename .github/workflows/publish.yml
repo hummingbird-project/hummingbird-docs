@@ -19,7 +19,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: swift:6.3
+      image: swift:latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
